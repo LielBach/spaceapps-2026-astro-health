@@ -11,20 +11,22 @@
 - UI: clickable body map, color status, trends, guided "how / why / when to worry / what to do" cards, 3-minute daily check-in with a reaction-time test.
 
 ## Docs
+`docs/product/` — what we build and why (brief, domain knowledge, directions). `docs/technical/` — data, architecture and technical designs.
+
 | File | What's in it |
 |---|---|
-| [docs/01-challenge-brief.md](docs/01-challenge-brief.md) | The brief decoded; what judges will look for |
-| [docs/02-resources.md](docs/02-resources.md) | Catalog of NASA / ESA / CSA / JAXA / other resources, data access reality |
-| [docs/03-problem-space.md](docs/03-problem-space.md) | Health data categories, hazard→risk→indicator→action map, known monitoring problems P1–P11 |
-| [docs/04-directions.md](docs/04-directions.md) | 5 candidate directions scored, recommendation, MVP, demo story |
-| [docs/05-data-sources.md](docs/05-data-sources.md) | Data inventory by access tier (open now / free sign-up / on request / private), file formats, coverage gaps |
+| [docs/product/01-challenge-brief.md](docs/product/01-challenge-brief.md) | The brief decoded; what judges will look for |
+| [docs/product/02-resources.md](docs/product/02-resources.md) | Catalog of NASA / ESA / CSA / JAXA / other resources, data access reality |
+| [docs/product/03-problem-space.md](docs/product/03-problem-space.md) | Health data categories, hazard→risk→indicator→action map, known monitoring problems P1–P11 |
+| [docs/product/04-directions.md](docs/product/04-directions.md) | 5 candidate directions scored, recommendation, MVP, demo story |
+| [docs/technical/05-data-sources.md](docs/technical/05-data-sources.md) | Data inventory by access tier (open now / free sign-up / on request / private), file formats, coverage gaps |
 
 ## Status
 - [x] Research & direction proposal
 - [x] Repo set up
 - [x] Data source inventory — direction choice postponed until data review is done
 - [ ] Team picks direction & name (options discussed: A+C live camera moment, B+A mind & sleep core, F deep-dive on SANS)
-- [x] Re-check challenge Resources tab: 5 links, no datasets; real datasets they lead to added to 05-data-sources.md
+- [x] Re-check challenge Resources tab: 5 links, no datasets; real datasets they lead to added to docs/technical/05-data-sources.md
 - [ ] Tech stack decision & scaffold
 - [ ] Synthetic crew generator
-- [ ] MVP features (see 04-directions.md)
+- [ ] MVP features (see docs/product/04-directions.md)

@@ -1,6 +1,6 @@
 # 05 — Data source inventory (NASA + other space agencies)
 
-**Data only.** Knowledge sources (risk pages, standards, papers) are in [02-resources.md](02-resources.md).
+**Data only.** Knowledge sources (risk pages, standards, papers) are in [02-resources.md](../product/02-resources.md).
 ✅ = we opened it or called it ourselves · ☑️ = confirmed from the provider's own page or API metadata but not downloaded · ⚠️ = secondary source, verify before relying on it.
 
 ## What the challenge's Resources tab links to
@@ -205,7 +205,7 @@ Portal: <https://data.asc-csa.gc.ca> (searched via its API)
 
 ## Coverage: which data category has real data?
 
-Categories from [03-problem-space.md](03-problem-space.md).
+Categories from [03-problem-space.md](../product/03-problem-space.md).
 
 | Category | Real space data, open | Analog data, open | Gap → plan |
 |---|---|---|---|

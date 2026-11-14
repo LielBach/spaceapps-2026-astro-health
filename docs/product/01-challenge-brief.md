@@ -2,7 +2,7 @@
 
 **Challenge:** [Create Health Monitoring Software for Astronauts on Space Missions](https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/) — NASA Space Apps 2026
 **Difficulty:** Intermediate · **Subjects:** Human Exploration, Software, Space Exploration
-**Resources tab:** 5 links (NASA HRP hazards, risks and ongoing research; 2 CSA articles), no datasets. What they lead to is in [05-data-sources.md](05-data-sources.md).
+**Resources tab:** 5 links (NASA HRP hazards, risks and ongoing research; 2 CSA articles), no datasets. What they lead to is in [05-data-sources.md](../technical/05-data-sources.md).
 
 ## What they literally ask for
 
