@@ -17,6 +17,12 @@ NASA Space Apps 2026 hackathon entry for "Create Health Monitoring Software for 
 - Hackathon scope: the MVP list in `docs/product/04-directions.md` is the contract. Push back on scope creep.
 - Must work offline in principle (Mars has no live link) — any LLM/network feature needs a fallback.
 
+## Git workflow
+- Always work on a feature branch. Never commit directly to `main`.
+- When a piece of work is done, commit it and push the branch without waiting to be asked.
+- Then open a PR against `main` and send the PR link to the user for review.
+- If the push or the PR fails (for example, an auth error), report the exact error and stop. Do not work around it.
+
 ## Key sources (quick links)
 - HRP: https://www.nasa.gov/hrp/ · risks: https://www.nasa.gov/hrp/risks/ · roadmap: https://humanresearchroadmap.nasa.gov/risks/
 - NASA-STD-3001 Vol 1 Rev C: https://standards.nasa.gov/sites/default/files/standards/NASA/C//nasa-std-3001-vol-1-rev-c-signature.pdf
