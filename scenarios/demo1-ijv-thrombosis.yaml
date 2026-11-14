@@ -1,0 +1,105 @@
+# Demo 1 — internal jugular vein thrombosis (docs/product/08-clinical-demos.md).
+# Maya is COMPOSITE (ADR 0009): REAL pre-flight labs of Inspiration4 subject C003 (the lowest
+# mean pre-flight albumin, OSD-575) and REAL ultrasound scans of an ISS crew member
+# (Marshall-Goebel 2019, CC-BY). Everything in the stream is SIMULATED.
+id: demo1-ijv-thrombosis
+title: "Demo 1 — Earlier detection of venous thrombosis"
+seed: 2019
+astronaut:
+  id: i4-C003
+  displayName: Maya
+  anchorSources: [osdr-osd-575, osdr-osd-569]
+  composite:
+    sourceIds: [osdr-osd-575, osdr-osd-569, marshall-goebel-2019]
+    disclosure: "Composite of two real astronauts: pre-flight labs from an Inspiration4 crew member (OSD-575, OSD-569); ultrasound scans from an ISS crew member (Marshall-Goebel 2019, CC-BY). They are not one person's data."
+mission:
+  name: Mars transit
+  lengthDays: 60
+  replayFromDay: 14
+  commDelayMinutes: 20
+stream:
+  sampleEveryHours: 1
+  sleepHours: [22, 6]
+  exercise:
+    standardSessionHour: 10
+    standardWorkloadWatts: 100
+    maxTestEveryDays: 7
+    maxTestBaselineWatts: 180
+  # No open per-astronaut HR exists for Maya: the resting HR is an example value (08 doc).
+  baselines:
+    hr: { value: 70, noiseSd: 2, sourceId: illustrative }
+    hrv: { value: 60, noiseSd: 6, sourceId: illustrative }
+    respiratoryRate: { value: 14, noiseSd: 1, sourceId: illustrative }
+    skinTemp: { value: 33.4, noiseSd: 0.2, sourceId: illustrative }
+    spo2: { value: 98, noiseSd: 0.5, sourceId: illustrative }
+  # Sleeping HR 62 bpm (08 doc example baseline).
+  sleepHrDrop: 8
+  exerciseHrRatio: 1.8
+drifts:
+  # 08 doc: sleeping HR drifts from 62 to 76–88 bpm across several nights (illustrative).
+  - signal: hr
+    context: sleep
+    fromDay: 19
+    toDay: 25
+    delta: 20
+spikes:
+  - signal: hr
+    day: 16.5
+    hours: 2
+    delta: 40
+    context: exercise-free
+    note: "Extra unscheduled workout (benign)"
+record:
+  - id: rec-preflight-us
+    day: -60
+    kind: imaging
+    title: "Pre-flight IJV ultrasound (supine)"
+    text: "Left IJV: flow grade 2 (pulsatile). No thrombus."
+    label: REAL
+    sourceId: marshall-goebel-2019
+    image:
+      file: fig3b.jpg
+      caption: "Figure 3B: left IJV with grade 2 flow, pre-flight, supine. Scan of an ISS crew member (COMPOSITE: not Maya's own scan)."
+      label: REAL
+      sourceId: marshall-goebel-2019
+  - id: rec-inflight-us
+    day: 10
+    kind: imaging
+    title: "Scheduled in-flight IJV ultrasound"
+    text: "Left IJV: flow grade 3 (stagnant). No thrombus seen. Reviewed by the crew medical officer. On ISS flight day 50, 6 of 11 crew had grade 3 or 4 flow (Marshall-Goebel 2019, Figure 3A)."
+    label: SIMULATED
+    sourceId: marshall-goebel-2019
+    finding: f-prior-ijv-flow-abnormal
+labs:
+  timepoint: L-3
+  measures:
+    - albumin
+    - protein-total
+    - hemoglobin
+    - hematocrit
+    - platelet-count
+    - white-blood-cell-count
+    - sodium
+    - potassium
+    - urea-nitrogen-bun
+    - creatinine
+charts: [sleepingHr, restingHr]
+testImages:
+  t-ultrasound-ijv:
+    file: fig3c.jpg
+    caption: "Figure 3C: left IJV thrombus (X) with no Doppler flow signal, ISS flight day 50. Scan of an ISS crew member (COMPOSITE: not Maya's own scan)."
+    label: REAL
+    sourceId: marshall-goebel-2019
+answers:
+  default: "no"
+  byQuestion: {}
+testResults:
+  t-repeat-rest-hr: { hr: 74 }
+  t-bp: { sbp: 116, dbp: 74 }
+  t-spo2: { spo2: 98 }
+  t-temp: { celsius: 36.8 }
+  t-ecg: { rhythm: "sinus rhythm", rate: 76, arrhythmia: false }
+  t-ultrasound-ijv: { flowDetected: false, compressible: false, thrombus: true }
+  t-body-mass: { changeKg: -0.3 }
+  t-urine-color: { scale: 3 }
+  t-istat-chem8: { sodium: 139, bun: 18, creatinine: 0.9, hematocrit: 41 }

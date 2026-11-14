@@ -111,7 +111,7 @@ The decision engine explicitly separates two clinical questions:
 
 - **System:** Provides the approved preparation and acquisition checklist for a trained crew member; integrates with the onboard ultrasound workflow if available.
 - **Test:** Targeted IJV duplex ultrasound evaluating venous patency, flow and compressibility as appropriate for the protocol.
-- **Input to AstroHealth:** the operator enters a **structured finding**: flow grade 1–5 (Marshall-Goebel 2019 scale), compressibility, thrombus seen yes/no. AstroHealth does not interpret images.
+- **Input to AstroHealth:** the operator enters a **structured finding**: Doppler flow detected yes/no, flow grade 1–4 (Marshall-Goebel 2019, Figure 3A: continuous, pulsatile, stagnant, retrograde), compressibility, thrombus seen yes/no. AstroHealth does not interpret images.
 - **Images shown:** real NASA scans, labeled **REAL – ISS crew member, Marshall-Goebel 2019, CC-BY** (COMPOSITE, ADR 0009): Figure 3B (pre-flight, grade 2) as Maya's earlier scan, Figure 3C (ISS flight day 50, thrombus) as today's scan.
 - **Scripted result:** structured finding of no detectable flow and a thrombus in the left internal jugular vein.
 - **Safety:** Automated image interpretation cannot be treated as definitive without an appropriately validated workflow and qualified review.

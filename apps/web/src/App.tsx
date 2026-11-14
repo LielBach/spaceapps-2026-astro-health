@@ -3,6 +3,7 @@ import { Charts } from "./components/Charts.tsx";
 import { CheckIn } from "./components/CheckIn.tsx";
 import { Diagnoses } from "./components/Diagnoses.tsx";
 import { EventLog } from "./components/EventLog.tsx";
+import { MedicalRecord } from "./components/Record.tsx";
 import { ReplayBar } from "./components/ReplayBar.tsx";
 import { Label, SourcesContext, Src } from "./components/Source.tsx";
 
@@ -40,7 +41,10 @@ export function App() {
       {astronaut.composite && <p className="composite-note">{astronaut.composite.disclosure}</p>}
       <ReplayBar view={view} />
       <main className="grid">
-        <Charts view={view} />
+        <div className="main-col">
+          <Charts view={view} />
+          <MedicalRecord view={view} />
+        </div>
         <div className="side">
           <CheckIn view={view} event={event} />
           <Diagnoses view={view} event={event} />

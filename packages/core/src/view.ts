@@ -1,7 +1,7 @@
 // What the server sends the web app over SSE (plan §5.2, §6). Shared so both sides agree.
 import type { MetricId } from "./detection.ts";
 import type { LlmInfo, NextStep, Phase, ShownDiagnosis } from "./investigation.ts";
-import type { Catalog, EventOutcome, LogLine } from "./types.ts";
+import type { Catalog, DataLabel, EventOutcome, LogLine } from "./types.ts";
 
 export interface MissionView {
   name: string;
@@ -37,9 +37,56 @@ export interface ChartPoint {
 
 export interface Marker {
   t: number;
-  kind: "ignored" | "watch" | "open" | "urgent" | "cleared" | "baselineUpdated" | "action";
+  kind:
+    | "ignored"
+    | "watch"
+    | "open"
+    | "surveillance"
+    | "urgent"
+    | "cleared"
+    | "baselineUpdated"
+    | "action";
   text: string;
   metric?: MetricId | undefined;
+}
+
+export interface MediaView {
+  /** URL path of the image (served from data/reference/). */
+  url: string;
+  caption: string;
+  label: DataLabel;
+  sourceId: string;
+}
+
+export interface RecordEntryView {
+  id: string;
+  day: number;
+  kind: "imaging" | "note";
+  title: string;
+  text: string;
+  label: DataLabel;
+  sourceId: string;
+  finding?: string | undefined;
+  image?: MediaView | undefined;
+}
+
+export interface LabView {
+  measure: string;
+  value: number;
+  unit: string;
+  timepoint: string;
+  range?: { min: number; max: number } | undefined;
+  label: DataLabel;
+  sourceId: string;
+}
+
+/** A scheduled reassessment from a surveillance trigger. */
+export interface SurveillanceView {
+  conditionId: string;
+  recordEntry: string;
+  dueDay: number;
+  openedAt: number | undefined;
+  sourceId: string;
 }
 
 export interface EventView {
@@ -82,4 +129,13 @@ export interface SessionView {
   };
   catalog: Catalog;
   sources: SourceView[];
+  /** Imported medical record (Demo 1): entries on file and real lab values. */
+  record: { entries: RecordEntryView[]; labs: LabView[] };
+  surveillance: SurveillanceView[];
+  /** Metric charts to show; all when undefined. */
+  charts: MetricId[] | undefined;
+  /** Source of the resting HR the stream starts from: a REAL anchor or an example value. */
+  hrBaselineSourceId: string | undefined;
+  /** Images for test results, keyed by test ID. */
+  testImages: Record<string, MediaView>;
 }

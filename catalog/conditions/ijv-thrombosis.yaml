@@ -8,14 +8,24 @@ supports:
     f-prior-ijv-flow-abnormal,
     f-ijv-flow-abnormal,
     f-ijv-thrombus,
+    f-ijv-noncompressible,
     f-neck-swelling,
+    f-clotting-history,
     f-sleeping-hr-up,
   ]
 against: [f-ijv-no-thrombus]
-questions: [q-neck, q-dyspnea, q-chest-pain, q-headache-vision, q-meds]
-tests: [t-ultrasound-ijv, t-spo2, t-bp]
+questions: [q-neck, q-dyspnea, q-chest-pain, q-headache-vision, q-meds, q-clotting-history]
+# Step 5 of Demo 1 first (vital signs), then the targeted ultrasound.
+tests: [t-repeat-rest-hr, t-bp, t-spo2, t-ultrasound-ijv]
 actions:
   - id: a-escalate-vte
-    text: "Escalate to the crew medical officer and the ground: suspected VTE. Start the mission-approved thrombosis evaluation pathway. Anticoagulation needs authorized medical oversight."
+    text: "Escalate to the crew medical officer and the ground: suspected IJV thrombosis. Start the mission-approved thrombosis evaluation pathway and schedule a repeat ultrasound. Anticoagulation needs authorized medical oversight."
+    escalates: true
 followUpDays: 30
-sourceIds: [nasa-hrp-risks, catalog-draft]
+# Demo 1 step 1: a prior abnormal IJV flow finding schedules a repeat ultrasound (interval illustrative).
+surveillance:
+  recordFinding: f-prior-ijv-flow-abnormal
+  repeatWithinDays: 30
+  earlyOnWatch: true
+  sourceId: illustrative
+sourceIds: [nasa-hrp-risks, nasa-vte-risk-score, catalog-draft]

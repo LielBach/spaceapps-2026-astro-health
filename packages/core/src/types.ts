@@ -115,10 +115,30 @@ export interface CatalogCondition {
   /** The approved pathway: questions, tests and actions this condition allows. */
   questions: string[];
   tests: string[];
-  actions: { id: string; text: string }[];
+  actions: CatalogAction[];
   /** Days within which follow-up data must return to baseline, or the event escalates. */
   followUpDays: number;
+  /** A record finding that schedules a reassessment under this pathway (plan §5.3 step 6). */
+  surveillance?: SurveillanceRule | undefined;
   sourceIds: SourceId[];
+}
+
+export interface CatalogAction {
+  id: string;
+  text: string;
+  /** Approving this action hands the event to the crew medical officer and the ground. */
+  escalates?: boolean | undefined;
+}
+
+/**
+ * Surveillance trigger: a finding in the medical record schedules a reassessment within
+ * `repeatWithinDays`, with or without a passive-signal change. A silent watch brings it forward.
+ */
+export interface SurveillanceRule {
+  recordFinding: string;
+  repeatWithinDays: number;
+  earlyOnWatch: boolean;
+  sourceId: SourceId;
 }
 
 export interface Question {
@@ -136,12 +156,26 @@ export interface ResultRule {
   finding: string;
 }
 
+/** One field of a structured finding that the operator enters (AstroHealth does not read images). */
+export interface FormField {
+  field: string;
+  label: string;
+  kind: "boolean" | "select";
+  /** For kind select: the allowed values and their labels. */
+  options?: { value: number; label: string }[] | undefined;
+}
+
 export interface TestSpec {
   id: string;
   name: string;
   equipmentId: string;
   consumable: boolean;
   rules: ResultRule[];
+  /** Operator checklist, shown before the test. */
+  checklist?: string[] | undefined;
+  /** Structured finding form; without one, the device records the result. */
+  form?: FormField[] | undefined;
+  sourceIds?: SourceId[] | undefined;
 }
 
 export interface Catalog {
