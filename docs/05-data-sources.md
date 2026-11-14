@@ -36,21 +36,21 @@ A search for `organism = Homo sapiens` returns **121 studies** (most are cell cu
 
 | Study | What's in it | Why it matters to us |
 |---|---|---|
-| **OSD-575** Inspiration4 serum ✅ | **Comprehensive metabolic panel** (glucose, BUN, creatinine, eGFR, sodium, potassium, chloride, CO2, **calcium**, protein, albumin, bilirubin, ALP, AST, ALT) + **cardiovascular** and immune cytokine panels. CSV files | **Actual clinical labs from 4 civilian astronauts**, each with lab reference ranges (`RANGE_MIN`, `RANGE_MAX`) |
-| **OSD-569** Inspiration4 whole blood ✅ | **Complete blood count** (WBC, RBC, hemoglobin, hematocrit, platelets, neutrophils, lymphocytes, etc.) + RNA-seq, genome sequencing | Real CBC trajectories (immune and anemia indicators) |
-| **OSD-656** Inspiration4 urine ✅ | Urine inflammation panel (~200 proteins) | Urine as a non-invasive in-flight sample |
-| OSD-570 / 571 / 572 / 573 / 574 / 630 / 687 | Immune cells (PBMC), plasma omics, microbiome swabs (body and capsule), skin, stool, T-cell epigenetics | Deeper biology; probably too deep for the UI |
-| OSD-903 / 943 | Longitudinal transcriptomic and epigenetic immune response in astronauts (search for "Axiom" returns these) | Immune trend over a mission |
-| OSD-53, OSD-174, OSD-481, OSD-483, OSD-484 | Older astronaut gene expression (incl. JAXA hair-follicle study OSD-174) | Background |
-| OSD-195, 198, 370, 51, 942, 946 | **Bed-rest** muscle gene expression (21–60 days of head-down tilt) | Analog for muscle loss |
-| OSD-140 | **Mars-500** 520-day isolation epigenetics | Isolation analog |
-| OSD-353 | Plasma proteome in real missions + ground analogs | Biomarkers |
-| **OSD-280** ☑️ | Astronaut **salivary microbiome** | Saliva as a non-invasive sample |
-| **ISS Microbial Observatory** OSD-64 / 65 / 66 / 252 / 303 / 361 / 400 ☑️ | Microbes on ISS surfaces and in the air, over several flights. Replaces the dead data.nasa.gov link on the microbes risk page | Cabin contamination indicator |
-| **SANS ex vivo** OSD-815 / 816 / 817 / 818 ☑️ | Human eye-tissue studies modelling spaceflight eye swelling | Background for an eye card |
-| Rodent **bone and muscle** phenotypes: OSD-467 / 471 / 477 / 488 / 489 / 608 / 653 / 654 / 660 / 661 / 662 / 663 / 804 / 980 ☑️ | Bone density, micro-CT, muscle mass and strength from mice flown on ISS or in hindlimb unloading | Real tabular bone/muscle loss numbers, **but in mice** (no open human in-flight bone data) |
+| **[OSD-575](https://osdr.nasa.gov/bio/repo/data/studies/OSD-575)** Inspiration4 serum ✅ | **Comprehensive metabolic panel** (glucose, BUN, creatinine, eGFR, sodium, potassium, chloride, CO2, **calcium**, protein, albumin, bilirubin, ALP, AST, ALT) + **cardiovascular** and immune cytokine panels. CSV files | **Actual clinical labs from 4 civilian astronauts**, each with lab reference ranges (`RANGE_MIN`, `RANGE_MAX`) |
+| **[OSD-569](https://osdr.nasa.gov/bio/repo/data/studies/OSD-569)** Inspiration4 whole blood ✅ | **Complete blood count** (WBC, RBC, hemoglobin, hematocrit, platelets, neutrophils, lymphocytes, etc.) + RNA-seq, genome sequencing | Real CBC trajectories (immune and anemia indicators) |
+| **[OSD-656](https://osdr.nasa.gov/bio/repo/data/studies/OSD-656)** Inspiration4 urine ✅ | Urine inflammation panel (~200 proteins) | Urine as a non-invasive in-flight sample |
+| OSD-[570](https://osdr.nasa.gov/bio/repo/data/studies/OSD-570) / [571](https://osdr.nasa.gov/bio/repo/data/studies/OSD-571) / [572](https://osdr.nasa.gov/bio/repo/data/studies/OSD-572) / [573](https://osdr.nasa.gov/bio/repo/data/studies/OSD-573) / [574](https://osdr.nasa.gov/bio/repo/data/studies/OSD-574) / [630](https://osdr.nasa.gov/bio/repo/data/studies/OSD-630) / [687](https://osdr.nasa.gov/bio/repo/data/studies/OSD-687) | Immune cells (PBMC), plasma omics, microbiome swabs (body and capsule), skin, stool, T-cell epigenetics | Deeper biology; probably too deep for the UI |
+| OSD-[903](https://osdr.nasa.gov/bio/repo/data/studies/OSD-903) / [943](https://osdr.nasa.gov/bio/repo/data/studies/OSD-943) | Longitudinal transcriptomic and epigenetic immune response in astronauts (search for "Axiom" returns these) | Immune trend over a mission |
+| OSD-[53](https://osdr.nasa.gov/bio/repo/data/studies/OSD-53), [174](https://osdr.nasa.gov/bio/repo/data/studies/OSD-174), [481](https://osdr.nasa.gov/bio/repo/data/studies/OSD-481), [483](https://osdr.nasa.gov/bio/repo/data/studies/OSD-483), [484](https://osdr.nasa.gov/bio/repo/data/studies/OSD-484) | Older astronaut gene expression (incl. JAXA hair-follicle study OSD-174) | Background |
+| OSD-[195](https://osdr.nasa.gov/bio/repo/data/studies/OSD-195), [198](https://osdr.nasa.gov/bio/repo/data/studies/OSD-198), [370](https://osdr.nasa.gov/bio/repo/data/studies/OSD-370), [51](https://osdr.nasa.gov/bio/repo/data/studies/OSD-51), [942](https://osdr.nasa.gov/bio/repo/data/studies/OSD-942), [946](https://osdr.nasa.gov/bio/repo/data/studies/OSD-946) | **Bed-rest** muscle gene expression (21–60 days of head-down tilt) | Analog for muscle loss |
+| OSD-[140](https://osdr.nasa.gov/bio/repo/data/studies/OSD-140) | **Mars-500** 520-day isolation epigenetics | Isolation analog |
+| OSD-[353](https://osdr.nasa.gov/bio/repo/data/studies/OSD-353) | Plasma proteome in real missions + ground analogs | Biomarkers |
+| **OSD-[280](https://osdr.nasa.gov/bio/repo/data/studies/OSD-280)** ☑️ | Astronaut **salivary microbiome** | Saliva as a non-invasive sample |
+| **ISS Microbial Observatory** OSD-[64](https://osdr.nasa.gov/bio/repo/data/studies/OSD-64) / [65](https://osdr.nasa.gov/bio/repo/data/studies/OSD-65) / [66](https://osdr.nasa.gov/bio/repo/data/studies/OSD-66) / [252](https://osdr.nasa.gov/bio/repo/data/studies/OSD-252) / [303](https://osdr.nasa.gov/bio/repo/data/studies/OSD-303) / [361](https://osdr.nasa.gov/bio/repo/data/studies/OSD-361) / [400](https://osdr.nasa.gov/bio/repo/data/studies/OSD-400) ☑️ | Microbes on ISS surfaces and in the air, over several flights. Replaces the dead data.nasa.gov link on the microbes risk page | Cabin contamination indicator |
+| **SANS ex vivo** OSD-[815](https://osdr.nasa.gov/bio/repo/data/studies/OSD-815) / [816](https://osdr.nasa.gov/bio/repo/data/studies/OSD-816) / [817](https://osdr.nasa.gov/bio/repo/data/studies/OSD-817) / [818](https://osdr.nasa.gov/bio/repo/data/studies/OSD-818) ☑️ | Human eye-tissue studies modelling spaceflight eye swelling | Background for an eye card |
+| Rodent **bone and muscle** phenotypes: OSD-[467](https://osdr.nasa.gov/bio/repo/data/studies/OSD-467) / [471](https://osdr.nasa.gov/bio/repo/data/studies/OSD-471) / [477](https://osdr.nasa.gov/bio/repo/data/studies/OSD-477) / [488](https://osdr.nasa.gov/bio/repo/data/studies/OSD-488) / [489](https://osdr.nasa.gov/bio/repo/data/studies/OSD-489) / [608](https://osdr.nasa.gov/bio/repo/data/studies/OSD-608) / [653](https://osdr.nasa.gov/bio/repo/data/studies/OSD-653) / [654](https://osdr.nasa.gov/bio/repo/data/studies/OSD-654) / [660](https://osdr.nasa.gov/bio/repo/data/studies/OSD-660) / [661](https://osdr.nasa.gov/bio/repo/data/studies/OSD-661) / [662](https://osdr.nasa.gov/bio/repo/data/studies/OSD-662) / [663](https://osdr.nasa.gov/bio/repo/data/studies/OSD-663) / [804](https://osdr.nasa.gov/bio/repo/data/studies/OSD-804) / [980](https://osdr.nasa.gov/bio/repo/data/studies/OSD-980) ☑️ | Bone density, micro-CT, muscle mass and strength from mice flown on ISS or in hindlimb unloading | Real tabular bone/muscle loss numbers, **but in mice** (no open human in-flight bone data) |
 
-Search used: `https://osdr.nasa.gov/osdr/data/search?term=<word>&type=cgene,alsda` · file lists: `https://osdr.nasa.gov/osdr/data/osd/files/<N>`
+Search used: `https://osdr.nasa.gov/osdr/data/search?term=<word>&type=cgene,alsda` ([example](https://osdr.nasa.gov/osdr/data/search?term=inspiration4&type=cgene)) · file lists: `https://osdr.nasa.gov/osdr/data/osd/files/<N>` ([example](https://osdr.nasa.gov/osdr/data/osd/files/575)) · study page: `https://osdr.nasa.gov/bio/repo/data/studies/OSD-<N>`
 
 **File format we confirmed (OSD-575 CMP):**
 ```
@@ -74,8 +74,8 @@ We pulled all 2,676 experiment records from the NLSP API:
 API (no key):
 - List: `https://nlsp.nasa.gov/api/v1/data/experiments?limit=200&page=N` — the `archive_status` field says public vs on request.
 - One experiment: `https://nlsp.nasa.gov/api/v1/data/experiments/<id>/full` — `related.datasets[].children[]` gives each file's `key`, name and extension.
-- Download a file, **no login** ✅: `https://nlsp.nasa.gov/api/v1/files/<key>/download`. Tested on a Shuttle 178066 xlsx (200 OK, 11.8 KB).
-- Page: `https://nlsp.nasa.gov/explore/data/details/<id>?dataType=EXPERIMENTS`
+- Download a file, **no login** ✅: `https://nlsp.nasa.gov/api/v1/files/<key>/download`. Tested on a Shuttle 178066 xlsx (200 OK, 11.8 KB): [example record](https://nlsp.nasa.gov/api/v1/data/experiments/ff0398fd-0abc-589d-883c-7e55aa73831c/full), [example file](https://nlsp.nasa.gov/api/v1/files/65b45351-268a-5348-9b4f-1ae9fa38850c/download).
+- Page: `https://nlsp.nasa.gov/explore/data/details/<id>?dataType=EXPERIMENTS` ([example](https://nlsp.nasa.gov/explore/data/details/ff0398fd-0abc-589d-883c-7e55aa73831c?dataType=EXPERIMENTS))
 
 **Key public sets with machine-readable files** (we read file lists from the API; we didn't open the files):
 
@@ -102,32 +102,32 @@ API (no key):
 
 Also public: **UTMB bed-rest Campaigns 1, 3 and 11** ("all datasets are publicly available"). Campaign 1 = 3 men, 10 days ambulatory → **60 days of 6° head-down tilt** → 14 days recovery. Measures: hepatic and renal function, vascular function, functional mobility, Actilight (activity/light), WinSCAT cognition, tilt response, posturography. Links: [Campaign 1](https://nlsp.nasa.gov/explore/data/details/6eaf1654-72d4-5d71-a9dd-a02e674c6473?dataType=MISSIONS) · [Campaign 3](https://nlsp.nasa.gov/explore/data/details/593a6726-8650-551a-8d67-0f03468de92f?dataType=MISSIONS) · [Campaign 11](https://nlsp.nasa.gov/explore/data/details/8e583564-d124-58ce-b44a-a16bb5b5d981?dataType=MISSIONS).
 
-**Still on request:** the ISS **Spaceflight Standard Measures** (`SSM_*`, ongoing collection) and ESA :envihab bed-rest Standard Measures (`ESA_BRSM_*`: VaPER, AGBRESA, SANS_CM).
+**Still on request:** the ISS [**Spaceflight Standard Measures**](https://nlsp.nasa.gov/resources/standard-measures) (`SSM_*`, ongoing collection) and ESA :envihab bed-rest Standard Measures (`ESA_BRSM_*`: VaPER, AGBRESA, SANS_CM).
 
 ### Measured radiation dose: ISS, deep space, Mars orbit ✅
 | Source | What | Access |
 |---|---|---|
-| **ISS TEPC** (tissue-equivalent proportional counter) ✅ | ISS crew-cabin dose, **1-minute cadence, 2010–2018**, in µGy/min (absorbed) and µSv/min (dose equivalent), with ISS position. During the 2017-09-10 solar particle event we saw **413.8 µGy and 889.2 µSv for the day, peak 17.58 µGy/min** | CDAWeb HAPI, no key: `https://cdaweb.gsfc.nasa.gov/hapi/data?id=ISS_DOSANL_TEPC&time.min=2017-09-10T00:00Z&time.max=2017-09-11T00:00Z&format=csv` |
-| **BioSentinel** LET spectrometer ☑️ | Dose and LET (radiation quality) **in deep space beyond the Moon, 2022-11 → 2025-11** | CDAWeb HAPI, id `BIOSENTINEL_LET_LETS` |
-| **ExoMars TGO Liulin-MO** (ESA–Roscosmos, part of the FREND instrument) ✅ | Dose rate and particle flux **in Mars orbit**, in 2 perpendicular directions. **Hourly calibrated files, 2016-05 → 2025-12**: columns `utc_time`, flux (particles/cm²/s) and dose rate (µGy/h, in silicon). A month is a ~20 KB zip, **no login needed**. In the file we opened, dose went from ~5.5 to ~19 µGy/h on 2025-12-01 (looks like a solar particle event; we haven't checked that against DONKI) | ESA PSA TAP: `https://psa.esa.int/psa-tap/tap/sync` with `QUERY=SELECT … FROM epn_core WHERE instrument_name='FREND'`. Each row's `access_url` downloads the product. Hourly files are `frd_cal_sc_dh_*` (`dm_*` is a larger file we didn't open). Archive guide (ICD, login needed): `EXM-FR-ICD-IKI-0086` |
+| **ISS TEPC** (tissue-equivalent proportional counter) ✅ | ISS crew-cabin dose, **1-minute cadence, 2010–2018**, in µGy/min (absorbed) and µSv/min (dose equivalent), with ISS position. During the 2017-09-10 solar particle event we saw **413.8 µGy and 889.2 µSv for the day, peak 17.58 µGy/min** | [CDAWeb](https://cdaweb.gsfc.nasa.gov/) HAPI, no key: [dataset info](https://cdaweb.gsfc.nasa.gov/hapi/info?id=ISS_DOSANL_TEPC) · [2017-09-10 storm as CSV](https://cdaweb.gsfc.nasa.gov/hapi/data?id=ISS_DOSANL_TEPC&time.min=2017-09-10T00:00Z&time.max=2017-09-11T00:00Z&format=csv) |
+| **BioSentinel** LET spectrometer ☑️ | Dose and LET (radiation quality) **in deep space beyond the Moon, 2022-11 → 2025-11** | CDAWeb HAPI, id `BIOSENTINEL_LET_LETS`: [dataset info](https://cdaweb.gsfc.nasa.gov/hapi/info?id=BIOSENTINEL_LET_LETS) |
+| **ExoMars TGO Liulin-MO** (ESA–Roscosmos, part of the FREND instrument) ✅ | Dose rate and particle flux **in Mars orbit**, in 2 perpendicular directions. **Hourly calibrated files, 2016-05 → 2025-12**: columns `utc_time`, flux (particles/cm²/s) and dose rate (µGy/h, in silicon). A month is a ~20 KB zip, **no login needed**. In the file we opened, dose went from ~5.5 to ~19 µGy/h on 2025-12-01 (looks like a solar particle event; we haven't checked that against DONKI) | [ESA PSA](https://psa.esa.int) TAP: `https://psa.esa.int/psa-tap/tap/sync` with `QUERY=SELECT … FROM epn_core WHERE instrument_name='FREND'` ([example: 5 hourly files](https://psa.esa.int/psa-tap/tap/sync?REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=SELECT%20TOP%205%20granule_uid,access_url%20FROM%20epn_core%20WHERE%20instrument_name='FREND'%20AND%20granule_uid%20LIKE%20'%25cal_sc_dh%25')). Each row's `access_url` downloads the product. Hourly files are `frd_cal_sc_dh_*` (`dm_*` is a larger file we didn't open). Archive guide (ICD, login needed): `EXM-FR-ICD-IKI-0086` |
 
 These three plus Curiosity RAD (below) give **measured** dose for every mission phase: ISS orbit, deep-space transit, Mars orbit and Mars surface.
 
 ### Space weather — real radiation events ✅
 | Source | Endpoint | What we confirmed |
 |---|---|---|
-| **NASA DONKI** | `https://api.nasa.gov/DONKI/SEP?startDate=…&endDate=…&api_key=DEMO_KEY` (also `/FLR`, `/CME`, `/GST`, `/notifications`) | Returns solar energetic particle events (e.g. the May 2024 storms) with linked flares and alerts. `DEMO_KEY` works but is rate-limited; get a free key (Tier 2) |
-| **NOAA SWPC** | `https://services.swpc.noaa.gov/json/goes/primary/integral-protons-1-day.json` | Live GOES proton flux (≥1, ≥10, ≥100 MeV), 5-min cadence. ≥10 MeV is the standard "radiation storm" channel |
-| NOAA SWPC alerts | `https://services.swpc.noaa.gov/products/alerts.json` | Live text alerts and warnings |
+| **NASA DONKI** | [`https://api.nasa.gov/DONKI/SEP?startDate=…&endDate=…&api_key=DEMO_KEY`](https://api.nasa.gov/DONKI/SEP?startDate=2024-05-01&endDate=2024-05-31&api_key=DEMO_KEY) (also `/FLR`, `/CME`, `/GST`, `/notifications`) | Returns solar energetic particle events (e.g. the May 2024 storms) with linked flares and alerts. `DEMO_KEY` works but is rate-limited; get a free key (Tier 2) |
+| **NOAA SWPC** | <https://services.swpc.noaa.gov/json/goes/primary/integral-protons-1-day.json> | Live GOES proton flux (≥1, ≥10, ≥100 MeV), 5-min cadence. ≥10 MeV is the standard "radiation storm" channel |
+| NOAA SWPC alerts | <https://services.swpc.noaa.gov/products/alerts.json> | Live text alerts and warnings |
 | NASA CCMC iSWA | <https://iswa.gsfc.nasa.gov> ☑️ | Quick-look dashboards incl. Curiosity RAD dose rate (quick-look only, not for analysis) |
 
 ### Mars and deep-space radiation dose ☑️
-- **Curiosity RAD** (Radiation Assessment Detector): calibrated dose rates on Mars' surface. PDS PPI node dataset `MSL-M-RAD-3-RDR-V1.0` ([readme](https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/AAREADME.TXT)) and CDAWeb `MSL_RAD_OBS-L2`. Gives realistic dose-per-day for a Mars-surface profile.
+- **Curiosity RAD** (Radiation Assessment Detector): calibrated dose rates on Mars' surface. PDS PPI node dataset `MSL-M-RAD-3-RDR-V1.0` ([readme](https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/AAREADME.TXT)). Gives realistic dose-per-day for a Mars-surface profile.
 - **Artemis I** (Orion, 2022): MARE phantoms Helga/Zohar (DLR) and Orion crew radiation sensors. Results are in papers; we didn't find an open raw dataset ⚠️. Same sensors flew on Artemis II.
 
 ### Canadian Space Agency open data ☑️
 Portal: <https://data.asc-csa.gc.ca> (searched via its API)
-- **Performance Readiness Evaluation Tool (PRET)** — **CSV**. Neurocognitive test results (processing speed, memory, attention, response control) from a Mars-mission VR simulator. Tested during the **Mars-500** isolation study and in Carleton University lab phases. Files: <https://donnees-data.asc-csa.gc.ca/users/OpenData_DonneesOuvertes/pub/PRET/>. **The only open cognitive-readiness dataset from a space agency we found.**
+- [**Performance Readiness Evaluation Tool (PRET)**](https://data.asc-csa.gc.ca/dataset/c22fa749-b005-4956-bf68-2ac2b9e68d31) — **CSV**. Neurocognitive test results (processing speed, memory, attention, response control) from a Mars-mission VR simulator. Tested during the **Mars-500** isolation study and in Carleton University lab phases. Files: <https://donnees-data.asc-csa.gc.ca/users/OpenData_DonneesOuvertes/pub/PRET/>. **The only open cognitive-readiness dataset from a space agency we found.**
 - *Canadian Healthcare in Deep Space* (PDF report) — expert-group view on autonomous medical care. Knowledge, not data.
 - No open Bio-Monitor/Astroskin data. CSA is funding analysis of Bio-Monitor data from 9 astronauts (sleep, fitness, BP), but it isn't public.
 
@@ -152,7 +152,7 @@ Portal: <https://data.asc-csa.gc.ca> (searched via its API)
 
 **Short version:** ESA has **no open human measurement data** we can use. Its open human-research files are data dictionaries. Its real open tabular data is from cells and from radiation instruments.
 
-**HREDA, queried without login** via TAP/ADQL: `https://hreda.esac.esa.int/hreda-sl-tap/tap/sync?REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=…` (`CASE WHEN` isn't supported; use `GROUP BY`).
+**[HREDA](https://hreda.esac.esa.int), queried without login** via TAP/ADQL: `https://hreda.esac.esa.int/hreda-sl-tap/tap/sync?REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=…` ([example: list tables](https://hreda.esac.esa.int/hreda-sl-tap/tap/sync?REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=SELECT%20TOP%201%20*%20FROM%20tap_schema.tables)) (`CASE WHEN` isn't supported; use `GROUP BY`).
 
 | What | Investigations | What's public |
 |---|---|---|
@@ -160,11 +160,11 @@ Portal: <https://data.asc-csa.gc.ca> (searched via its API)
 | **ISS human studies** | Airway Monitoring (exhaled NO), Flywheel exercise, SpaceTex (clothing / thermal comfort), AstroMentalHealth, Human Gut Microbiota | Blank Book PDFs only. Gut microbiota sequences are embargoed until **2027-04-23** |
 | **ISS cell and tissue studies** | **MicroAge** (CSV, 6.9 GB), **Molecular Muscle** (CSV, 15.7 GB), **PROMETEO** (CSV/XLSX), **T-Cell Act in Aging** (TXT) | Real data files. Muscle ageing and immune biology in cells; too deep for the UI |
 | ESA studies listed in NLSP | Circa (24-h BP/HR), Circadian Rhythms, Dreams (EEG sleep), Space Headaches, ESA Active Dosimeter, Matroshka | Marked "held by another repository" or not archived. **No open data found** |
-| ESA :envihab bed-rest Standard Measures | VaPER, AGBRESA, SANS_CM | On request (via NLSP) |
+| ESA :envihab bed-rest Standard Measures | VaPER, AGBRESA, SANS_CM | On request (via [NLSP](https://nlsp.nasa.gov/resources/standard-measures)) |
 
 **ESA radiation data that is open:**
 - **ExoMars TGO Liulin-MO**, hourly Mars-orbit dose ✅. See the radiation table in Tier 1. **This is ESA's most useful open dataset for us.**
-- **Rosetta SREM** ☑️: electron and proton flux during cruise to the comet, 2004–2016, on PDS ([example](https://pdssbn.astro.umd.edu/holdings/ro-x-srem-5-cr1-v1.0/dataset.html)). Interplanetary environment, not dose. Low priority.
+- **Rosetta SREM** ☑️: electron and proton flux during cruise to the comet, 2004–2016, on PDS ([cruise 1 dataset](https://pdssbn.astro.umd.edu/holdings/ro-x-srem-5-cr1-v1.0/)). Interplanetary environment, not dose. Low priority.
 
 ---
 
@@ -184,7 +184,7 @@ Portal: <https://data.asc-csa.gc.ca> (searched via its API)
 
 | Agency | System | Notes |
 |---|---|---|
-| CNES / ESA | **EveryWear** tablet assistant | Closest product to ours; no data |
+| CNES / ESA | [**EveryWear**](https://cnes.fr/projets/cadmos/everywear) tablet assistant | Closest product to ours; no data |
 | CSA | **Bio-Monitor / Astroskin** shirt | ECG, breathing, SpO2, BP, activity, sleep; no open data |
 | NASA | ISS medical records, Crew Medical Officer Digital Assistant (CMO-DA) | Private / prototype |
 | IBMP (Russia) | Mars-500, SIRIUS | Papers only (plus OSD-140 and PRET above) |
@@ -198,8 +198,8 @@ Portal: <https://data.asc-csa.gc.ca> (searched via its API)
 | Source | Use |
 |---|---|
 | [PhysioNet](https://physionet.org) | Open ECG, PPG, blood pressure and sleep recordings to make vital-sign streams look real |
-| UBFC-rPPG and similar webcam datasets | Testing camera-based heart rate |
-| NHANES (CDC) | Population reference ranges for vitals and labs |
+| [UBFC-rPPG](https://sites.google.com/view/ybenezeth/ubfcrppg) and similar webcam datasets | Testing camera-based heart rate |
+| [NHANES (CDC)](https://www.cdc.gov/nchs/nhanes/) | Population reference ranges for vitals and labs |
 
 ---
 
