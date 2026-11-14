@@ -1,0 +1,25 @@
+id: reduced-fluid-volume
+name: "Reduced circulating fluid volume"
+hazard: gravity
+hrpRisk: "Cardiovascular adaptations (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports:
+  [
+    f-low-fluid-intake,
+    f-sleeping-hr-up,
+    f-body-mass-down,
+    f-urine-dark,
+    f-sodium-high,
+    f-bun-high,
+    f-hematocrit-high,
+    f-bp-low,
+    f-dizziness,
+  ]
+against: [f-hematocrit-low, f-fever]
+questions: [q-fluid-intake, q-dizziness, q-fever]
+tests: [t-bp, t-body-mass, t-urine-color, t-istat-chem8]
+actions:
+  - id: a-oral-rehydration
+    text: "Oral fluid and electrolyte loading per the approved mission protocol; repeat measurements in 48 hours."
+followUpDays: 3
+sourceIds: [nasa-hrp-risks, catalog-draft]

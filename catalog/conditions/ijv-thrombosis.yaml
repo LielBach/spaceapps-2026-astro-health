@@ -1,0 +1,21 @@
+id: ijv-thrombosis
+name: "Internal jugular vein thrombosis (VTE)"
+hazard: gravity
+hrpRisk: "Cardiovascular adaptations (HRP); NASA VTE risk score"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports:
+  [
+    f-prior-ijv-flow-abnormal,
+    f-ijv-flow-abnormal,
+    f-ijv-thrombus,
+    f-neck-swelling,
+    f-sleeping-hr-up,
+  ]
+against: [f-ijv-no-thrombus]
+questions: [q-neck, q-dyspnea, q-chest-pain, q-headache-vision, q-meds]
+tests: [t-ultrasound-ijv, t-spo2, t-bp]
+actions:
+  - id: a-escalate-vte
+    text: "Escalate to the crew medical officer and the ground: suspected VTE. Start the mission-approved thrombosis evaluation pathway. Anticoagulation needs authorized medical oversight."
+followUpDays: 30
+sourceIds: [nasa-hrp-risks, catalog-draft]

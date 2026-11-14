@@ -1,0 +1,14 @@
+id: anemia
+name: "Space anemia"
+hazard: gravity
+hrpRisk: "Hematologic changes in spaceflight (verify HRP page)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports: [f-hematocrit-low, f-fatigue, f-exercise-hr-up, f-max-workload-down]
+against: [f-hematocrit-normal, f-hematocrit-high]
+questions: [q-fatigue, q-dizziness]
+tests: [t-istat-chem8]
+actions:
+  - id: a-escalate-anemia
+    text: "Escalate to the crew medical officer with the hematocrit trend; review nutrition."
+followUpDays: 21
+sourceIds: [nasa-hrp-risks, catalog-draft]

@@ -1,0 +1,14 @@
+id: sleep-loss
+name: "Sleep loss and circadian misalignment"
+hazard: isolation
+hrpRisk: "Sleep loss and circadian desynchronization (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports: [f-poor-sleep, f-cognition-slow, f-fatigue, f-hrv-down]
+against: []
+questions: [q-sleep, q-mood, q-fatigue]
+tests: [t-reaction-time]
+actions:
+  - id: a-sleep-plan
+    text: "Adjust the sleep schedule and light exposure per the approved protocol; repeat the reaction-time test in 3 days."
+followUpDays: 7
+sourceIds: [nasa-hrp-risks, catalog-draft]

@@ -1,0 +1,14 @@
+id: sans
+name: "Spaceflight associated neuro-ocular syndrome (SANS)"
+hazard: gravity
+hrpRisk: "SANS (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports: [f-headache-vision, f-vision-change]
+against: []
+questions: [q-headache-vision]
+tests: [t-vision-check]
+actions:
+  - id: a-escalate-sans
+    text: "Escalate to the crew medical officer for an eye exam per the approved protocol."
+followUpDays: 30
+sourceIds: [nasa-hrp-risks, catalog-draft]
