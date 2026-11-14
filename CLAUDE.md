@@ -1,7 +1,7 @@
 # CLAUDE.md — context for Claude working on this repo
 
 ## Project
-NASA Space Apps 2026 hackathon entry for "Create Health Monitoring Software for Astronauts on Space Missions". Working name **BASELINE** (not final). Direction proposed in `docs/product/04-directions.md` — **not yet confirmed by the team**; check README "Status" before assuming.
+NASA Space Apps 2026 hackathon entry for "Create Health Monitoring Software for Astronauts on Space Missions". Working name **AstroHealth**. Direction: the closed loop in `docs/product/06-astrohealth-concept.md`, which replaces the 04 MVP (`docs/adr/0001`). Design decisions are in `docs/adr/`, domain terms in `GLOSSARY.md`; use the glossary terms.
 
 ## Read first
 - Docs are split: `docs/product/` (brief, domain knowledge, directions) and `docs/technical/` (data, architecture, technical designs). New technical designs go in `docs/technical/`.
@@ -12,9 +12,9 @@ NASA Space Apps 2026 hackathon entry for "Create Health Monitoring Software for 
 
 ## Rules for working here
 - **Every threshold or number shown in the UI must carry a source link** (HRP risk page, NASA-STD-3001, OCHMO brief, or paper). Items marked *(verify)* in docs are not yet confirmed; verify before using in UI or pitch.
-- Present the app as **decision support**, never medical advice.
+- Present the app as **decision support**: it shows ranked *suspected* diagnoses for crew medical officer confirmation, and actions come only from approved pathways (`docs/adr/0005`). It never prescribes medication or doses.
 - Real astronaut medical data is private. Use: synthetic crew data seeded from published effect sizes, real public feeds (NASA DONKI via api.nasa.gov, NOAA SWPC), PhysioNet waveforms, and live in-browser measurements. Be explicit about which is which.
-- Hackathon scope: the MVP list in `docs/product/04-directions.md` is the contract. Push back on scope creep.
+- Hackathon scope: the MVP is the closed loop in `docs/product/06-astrohealth-concept.md` with the demo case being defined in `docs/product/07`–`08`. Push back on scope creep.
 - Must work offline in principle (Mars has no live link) — any LLM/network feature needs a fallback.
 
 ## Git workflow

@@ -1,6 +1,6 @@
 # 06 — AstroHealth: autonomous medical system concept
 
-> **Status:** proposal from the team, **not yet confirmed**. It is an alternative / extension to direction A in [04-directions.md](04-directions.md). All numbers in the clinical example are invented for product design and are not validated thresholds. Claims marked *(verify)* need a source before use in UI or pitch.
+> **Status:** chosen direction. It replaces the MVP in [04-directions.md](04-directions.md) (see [ADR 0001](../adr/0001-astrohealth-replaces-baseline-mvp.md)). All numbers in the clinical example are invented for product design and are not validated thresholds. Claims marked *(verify)* need a source before use in UI or pitch.
 
 What you're describing is essentially an **autonomous Clinical Decision Support System (CDSS)** that continuously monitors astronaut health, detects abnormalities, initiates personalized medical assessments, and maintains a dynamic medical record for each astronaut.
 
