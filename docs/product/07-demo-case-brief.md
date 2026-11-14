@@ -2,7 +2,7 @@
 
 Context for defining the demo case of AstroHealth. This file stands alone: you can paste it into another assistant or give it to a teammate.
 
-Decisions here come from a design interview. They are recorded in [GLOSSARY.md](../../GLOSSARY.md) and [docs/adr/](../adr/). Items marked *(verify)* need a source before they appear in the UI or the pitch.
+The team chose two demos (ADR 0008); their step-by-step workflows are in [08-clinical-demos.md](08-clinical-demos.md). Decisions here come from a design interview. They are recorded in [GLOSSARY.md](../../GLOSSARY.md) and [docs/adr/](../adr/). Items marked *(verify)* need a source before they appear in the UI or the pitch.
 
 ## 1. The product in short
 
@@ -22,7 +22,7 @@ The demo is a **replay**: one astronaut's mission timeline, played back at high 
 4. The system shows a ranked list of **suspected diagnoses** that changes as evidence arrives.
 5. The system recommends **one action** from an approved pathway.
 6. The system **closes the event** when follow-up passive data returns to baseline, or escalates if it does not.
-7. At least one moment uses a **real astronaut value** (a real anchor), and the UI labels it REAL. Everything else is labeled SIMULATED.
+7. At least one moment uses a **real astronaut value** (a real anchor), and the UI labels it REAL. Generated values are labeled SIMULATED, and group data from other real astronauts is labeled REFERENCE.
 
 ## 3. Hard constraints for the demo case
 
@@ -48,7 +48,8 @@ Rules for the demo case:
 - **Distance from Earth** applies to every case on a Mars mission: it is why the crew cannot wait for the ground. It may add drama, but it does not count as the cause of the condition. One of the other four hazards must cause it.
 - The passive signals in the trigger must be ones that this hazard is known to change. Link a source for each signal.
 
-- **Only passive signals start an event.** A passive signal is measured continuously by a worn sensor, with no action from the astronaut.
+- **Only passive signals start an unscheduled event.** A passive signal is measured continuously by a worn sensor, with no action from the astronaut. Records that the exercise device makes during scheduled exercise (workload, duration, heart rate at workload) also count.
+- A **surveillance trigger** can also start an event: an approved pathway schedules a check from the medical record (for example a past abnormal finding plus a risk score), even with no passive-signal change.
 - The available passive signals are those a current wearable such as CSA's Astroskin measures *(verify)*: heart rate, heart-rate variability (HRV), respiratory rate, skin temperature, SpO₂, and activity (accelerometer). Sleep is detected from activity.
 - There is **no continuous blood pressure**, **no continuous body mass**, and **no automatic fluid intake**. These are active tests.
 - **Active tests** need the astronaut to act. They investigate an event but never start one. Examples: answers to questions, BP cuff, body mass (the ISS uses SLAMMD *(verify)*), urine color, temperature, ECG, and a fingerstick blood cartridge such as i-STAT *(verify)*. The cartridge is a limited consumable, so it comes last.
@@ -79,6 +80,9 @@ The numbers in the filters (such as 3 nights) are design parameters, not validat
   - OSD-569: complete blood count (WBC, RBC, hemoglobin, hematocrit, platelets, neutrophils, lymphocytes).
   - Time points: 92, 44 and 3 days before launch, and 1, 45, 82 and 194 days after return. **No in-flight samples.**
 - Shuttle STS-40 (NLSP 178066) gives one averaged pre-flight and in-flight resting value per subject (6 subjects): heart rate, BP, cardiac output, stroke volume.
+- Shuttle DSO 402 (NLSP) gives per-subject supine and standing heart rate and BP before and after flight (22 subjects). Use it only as a REFERENCE band for other astronauts.
+- Marshall-Goebel 2019 (JAMA Network Open, **CC-BY**) has real ISS ultrasound images of the internal jugular vein: Figure 3B (pre-flight, normal flow) and Figure 3C (flight day 50, thrombus). It gives only group counts of flow grades, not per-astronaut values.
+- **Never combine real values from two people in one astronaut.** The one exception is Demo 1's Maya, marked COMPOSITE in the UI with both sources (ADR 0009).
 - Passive signals are a **simulated stream**, seeded from published effect sizes, that fills the time between real anchors. One scripted incident starts the investigation.
 - A good demo case uses a real anchor at a visible step. Example: a cartridge result compared to that astronaut's real pre-flight value.
 
@@ -88,26 +92,17 @@ The numbers in the filters (such as 3 nights) are design parameters, not validat
 - The app is decision support. It gives suspected diagnoses, and actions come only from approved pathways.
 - It must work offline. Milestone 1 uses an online LLM with a fixed-order fallback, and milestone 2 uses a local model on a MacBook (ADR 0004).
 
-## 4. The current candidate case (for comparison)
+## 4. The two chosen demos (for comparison)
 
-**Reduced fluid volume (dehydration) on Mars transit.** The team may replace it.
+Full workflows: [08-clinical-demos.md](08-clinical-demos.md). Both come from the **gravity fields** hazard.
 
-Hazard link: **gravity fields**. In microgravity, fluid shifts toward the head and plasma volume falls *(verify: link the HRP cardiovascular risk page)*, so low fluid intake has a larger effect.
+**Demo 2 (shown first): cardiovascular deconditioning.** Alex = subject 1 of Shuttle study NLSP 178066 (REAL pre-flight and in-flight resting heart rate, BP, cardiac output, stroke volume). Trigger: heart rate at the same exercise workload rises over many sessions, and performance falls (SIMULATED, seeded from the real STS-40 group slope). Check-in question, then tests cheapest first; suspected diagnosis: reduced exercise tolerance consistent with deconditioning. Action: countermeasure review from the approved pathway. Resolve: matched-workload heart rate returns toward baseline. Gravity transition step uses a DSO 402 REFERENCE band.
 
-1. Benign spike: daytime heart rate rises with accelerometer activity (exercise). The system ignores it.
-2. Detect: sleeping heart rate is above the expected in-flight band for 3 nights. The astronaut goes on silent watch.
-3. Second signal: HRV falls below the personal band on the same nights. Skin temperature and respiratory rate stay normal. The app shows a check-in question.
-4. Questions: chest pain, dizziness, fever, fluid intake, exertion. Answers: no red flags, and lower fluid intake than usual.
-5. Active tests (BP, body mass, urine color) stay ambiguous. Suspected diagnoses: reduced fluid volume, early infection, deconditioning.
-6. Fingerstick cartridge: sodium, BUN/creatinine ratio and hematocrit are high against the astronaut's **real** Inspiration4 pre-flight values. The cartridge values themselves are simulated. Normal temperature makes infection less likely.
-7. Suspected diagnosis: reduced fluid volume, high confidence.
-8. Action: oral fluid and electrolyte loading, with a follow-up plan.
-9. Resolve: sleeping heart rate and HRV return to baseline over 2 nights, and the event closes.
+**Demo 1 (second): internal jugular vein thrombosis.** Maya = COMPOSITE: REAL Inspiration4 pre-flight labs (including albumin) and REAL ISS ultrasound images (Marshall-Goebel 2019, CC-BY). Trigger: a surveillance trigger from a past abnormal flow finding; a separate sleeping-heart-rate rise opens a general assessment. The ultrasound result is entered as a structured finding (flow grade 1–5, compressibility, thrombus yes/no); AstroHealth does not read images. Suspected diagnosis: IJV thrombosis, escalated; treatment needs authorized medical oversight.
 
 **Known weak points:**
-- Stress also lowers HRV.
-- Dehydration is a common, low-drama condition.
-- The real anchor appears only at step 6.
+- Demo 2: higher exercise heart rate is nonspecific; the real in-flight value comes from a 9–14-day flight, not a long mission.
+- Demo 1: no wearable signal is known to precede a silent jugular clot, and the composite astronaut must be disclosed on every screen that shows it.
 
 ## 5. Criteria for a better case
 
@@ -127,17 +122,12 @@ Score each candidate 1–5 on:
 
 ## 6. Task for the assistant
 
-Propose **3 candidate demo cases** that satisfy section 3 and score well on section 5. For each case, give:
+Review the two demos in [08-clinical-demos.md](08-clinical-demos.md) against sections 3 and 5. For each demo, give:
 
-1. Name, the RIDGE hazard that causes it and how, and the NASA HRP risk page that supports this.
-2. The benign look-alike that the filters reject, and which filter rejects it.
-3. The trigger: which passive signals deviate, in which direction, and for how long.
-4. The suspected diagnoses at first contact, and the passive signals that already point toward or away from each.
-5. The check-in questions, and the answers in the script.
-6. The active tests in order, cheapest first, with the scripted result of each and how it changes the ranking.
-7. Where a real anchor appears: which dataset, which analyte or measure, and which astronaut.
-8. The final suspected diagnosis, the action, and the follow-up signals that close the event or escalate it.
-9. The sources for each threshold, or *(verify)* where you are not sure.
-10. A score table using section 5.
+1. Every step that breaks a constraint in section 3, with the fix.
+2. A score table using section 5, with one line of reasoning per score.
+3. The weakest step for a 3-minute pitch, and how to make it clearer or more dramatic without breaking a constraint.
+4. Any threshold, device or fact that needs a source, marked *(verify)*, with the best source you know.
+5. Benign look-alikes that the alert filters must reject, and which filter rejects each one.
 
-Each case must come from a different hazard where possible. Do not use body mass, BP or fluid intake as a trigger. Do not invent onboard equipment or medications. Mark any fact you are not sure of with *(verify)*.
+Do not use body mass, BP or fluid intake as a trigger. Do not invent onboard equipment or medications. Mark any fact you are not sure of with *(verify)*.

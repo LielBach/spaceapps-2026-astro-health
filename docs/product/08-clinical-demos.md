@@ -1,6 +1,6 @@
 # 08 — Clinical demo workflows
 
-> **Status:** team draft, written in parallel with the design interview. Some points do not yet match the decisions in [GLOSSARY.md](../../GLOSSARY.md) and [docs/adr/](../adr/); the open alignment questions are listed in the PR. All astronauts, readings and outcomes are fictional.
+> **Status:** aligned with [GLOSSARY.md](../../GLOSSARY.md) and ADRs 0001–0009 in [docs/adr/](../adr/). We build both demos (ADR 0008), Demo 2 first. Every value on screen is labeled **REAL**, **SIMULATED** or **REFERENCE**; Maya in Demo 1 is also marked **COMPOSITE** (ADR 0009).
 
 
 **Project:** Proactive, autonomous clinical decision support for exploration missions  
@@ -8,11 +8,11 @@
 **Version:** 1.0 | November 2026  
 **Status:** Concept demonstration; not validated medical software or an operational NASA protocol
 
-> **Core concept:** AstroHealth turns monitored physiological changes and individual medical risk into proactive assessment: **detect → verify → alert → ask → test → assess → act → monitor → learn**.
+> **Core concept:** AstroHealth turns monitored physiological changes and individual medical risk into proactive assessment through the closed loop **detect → investigate → assess → act → learn**. Investigate holds verify, alert, ask and test; act holds monitor.
 
 ## How to interpret these demos
 
-The health hazards and selected medical findings described below have a scientific foundation, but the astronauts, dates, readings, notifications, diagnostic sequences, and outcomes in the demos are **fictional**. All thresholds, triage triggers, and recommended interventions require review against approved spaceflight medical protocols before clinical use. NASA's publicly reported internal jugular thrombosis case provides historical motivation for Demo 1; neither that astronaut's exact prior physiological data nor the onset of the clot is known from public reporting.
+The health hazards and selected medical findings described below have a scientific foundation. Each demo astronaut is anchored to real open NASA data (ADR 0003): **REAL** values are measured values of that astronaut; **SIMULATED** values fill the long mission; **REFERENCE** values are group data from other real astronauts. Dates, notifications, diagnostic sequences and outcomes are **fictional**. All thresholds, triage triggers, and recommended interventions require review against approved spaceflight medical protocols before clinical use. NASA's publicly reported internal jugular thrombosis case provides historical motivation for Demo 1; neither that astronaut's exact prior physiological data nor the onset of the clot is known from public reporting.
 
 **Sensor feasibility:** An onboard wearable can capture heart rate and, if specifically equipped and worn appropriately, continuous ECG; exercise devices can capture workout performance. Not every astronaut today wears a continuous ECG device 24 hours a day. A wearable cannot directly diagnose jugular vein thrombosis. Duplex ultrasound is the appropriate targeted imaging test when a validated clinical pathway indicates it. Medical data flows and diagnostic devices below are proposed integrations for a Mars spacecraft.
 
@@ -34,10 +34,10 @@ The real case **does not establish** that heart rate, ECG, or other continuously
 
 ## 2. Fictional astronaut and starting conditions
 
-**Astronaut:** Maya, Mars transit day 24.  
+**Astronaut:** Maya, Mars transit day 24. **COMPOSITE** of two real astronauts (ADR 0009): pre-flight labs from one Inspiration4 crew member (OSD-575, OSD-569; the subject with the lowest pre-flight albumin), ultrasound scans from an ISS crew member (Marshall-Goebel 2019, CC-BY). The demo never claims these belong to one person.  
 **Symptoms:** Feels normal; no reported chest pain, shortness of breath, neck swelling, or neurological symptoms.  
-**Existing record:** Earlier scheduled in-flight vascular ultrasound documented reduced flow in the left IJV, without an identified thrombus. Other preflight medical risk factors and medication information are available in a secure personal record.  
-**Wearable trend:** Resting heart rate has drifted from an example baseline of **62 bpm** to **76–88 bpm** across several days.
+**Existing record:** **REAL** pre-flight labs (CMP including albumin, CBC). **SIMULATED:** an earlier scheduled in-flight ultrasound documented reduced flow in the left IJV (flow grade 3, stagnant), without an identified thrombus; seeded from the group counts in Marshall-Goebel 2019 (stagnant flow in 5 of 11 crew on flight day 50).  
+**Wearable trend (SIMULATED, illustrative):** Sleeping heart rate has drifted from an example baseline of **62 bpm** to **76–88 bpm** across several nights.
 
 **Interpretation caution:** Rising heart rate is **nonspecific**. It could reflect sleep disruption, dehydration, illness, exercise adaptation, medications, or other causes; a localized IJV clot may produce no wearable signal at all. The **prior abnormal venous imaging** and medically assessed VTE risk—not the heart-rate change by itself—are what could justify a targeted vascular reassessment.
 
@@ -47,13 +47,13 @@ The real case **does not establish** that heart rate, ECG, or other continuously
 
 - **Inputs:** Preflight risk history, medications, prior ultrasound findings, previous vital-sign baselines, mission day and microgravity exposure.
 - **System:** Normalizes measurements, checks provenance, time stamps and data availability; retains the original images/reports and their interpretation status.
-- **Clinical logic:** An existing abnormal venous flow finding is flagged for a protocol-defined surveillance pathway.
+- **Clinical logic:** An existing abnormal venous flow finding sets a **surveillance trigger**: the approved pathway schedules a vascular reassessment, with or without any passive-signal change.
 - **Demo screen:** `Astronaut profile > Vascular history > Prior IJV flow abnormality`.
 - **Record stored:** Source study, finding, date, clinician review, risk factors, protocol version.
 
 ### Step 2 — Identify a new physiological change
 
-- **Input:** Multi-day rise in resting HR from a wearable, with activity and sleep context.
+- **Input:** Multi-night rise in sleeping heart rate (a passive signal), with activity and sleep context.
 - **System:** Checks signal quality, resting-state validity, wear time, recent exercise and persistence over repeated measurements.
 - **Clinical logic:** Opens a **general physiological assessment** for sustained unexplained change; it does **not** output “clot detected.”
 - **Demo screen:** `Unexpected longitudinal HR trend — assessment suggested`.
@@ -61,7 +61,7 @@ The real case **does not establish** that heart rate, ECG, or other continuously
 
 ### Step 3 — Initiate an astronaut-facing assessment
 
-**Example notification:**
+**Example check-in question** (shown inside the daily check-in, not as a push; only an urgent interrupt pushes):
 
 > “AstroHealth has identified a sustained change from your usual resting heart-rate pattern. Please complete a brief health assessment. Your record also contains a previous vascular-flow finding that may require follow-up under the mission medical protocol.”
 
@@ -101,7 +101,7 @@ The decision engine explicitly separates two clinical questions:
 
 **A. Why has the resting heart rate increased?** Consider nonspecific causes such as sleep deprivation, inadequate hydration, intercurrent illness, exercise adaptation or rhythm problems. Investigate according to validated pathways.
 
-**B. Does the astronaut's prior venous-flow abnormality and overall VTE risk warrant earlier targeted ultrasound?** Apply an approved spaceflight-specific risk and surveillance protocol. The algorithm must be able to schedule the ultrasound **even if the HR trend is absent**, if the historical vascular finding independently warrants it.
+**B. Does the astronaut's prior venous-flow abnormality and overall VTE risk warrant earlier targeted ultrasound?** This is the **surveillance trigger** from step 1. Apply an approved spaceflight-specific risk and surveillance protocol. The algorithm must be able to schedule the ultrasound **even if the HR trend is absent**, if the historical vascular finding independently warrants it.
 
 - **Demo output:** `Risk-adaptive IJV ultrasound assessment indicated for clinician/protocol review`.
 - **Uncertainty:** No clot has yet been diagnosed.
@@ -111,7 +111,9 @@ The decision engine explicitly separates two clinical questions:
 
 - **System:** Provides the approved preparation and acquisition checklist for a trained crew member; integrates with the onboard ultrasound workflow if available.
 - **Test:** Targeted IJV duplex ultrasound evaluating venous patency, flow and compressibility as appropriate for the protocol.
-- **Fictional result:** Imaging demonstrates findings concerning for thrombus in the left internal jugular vein.
+- **Input to AstroHealth:** the operator enters a **structured finding**: flow grade 1–5 (Marshall-Goebel 2019 scale), compressibility, thrombus seen yes/no. AstroHealth does not interpret images.
+- **Images shown:** real NASA scans, labeled **REAL – ISS crew member, Marshall-Goebel 2019, CC-BY** (COMPOSITE, ADR 0009): Figure 3B (pre-flight, grade 2) as Maya's earlier scan, Figure 3C (ISS flight day 50, thrombus) as today's scan.
+- **Scripted result:** structured finding of no detectable flow and a thrombus in the left internal jugular vein.
 - **Safety:** Automated image interpretation cannot be treated as definitive without an appropriately validated workflow and qualified review.
 - **Record stored:** Images, scan protocol, operator, observations, interpretation status.
 
@@ -132,6 +134,8 @@ The decision engine explicitly separates two clinical questions:
 - **Record stored:** Outcome time series, interventions and versioned clinical notes.
 
 ### Step 10 — Research and future prevention
+
+> **Architecture slide only, not in the MVP.** The event log is the future data source for this layer.
 
 - **Research data:** Pseudonymized/appropriately governed longitudinal venous findings, demographics or relevant physiological characteristics, exposures, timing, clinical decisions and outcomes.
 - **Potential research question:** Do particular combinations of preflight characteristics and evolving venous-flow abnormalities identify astronauts who benefit from earlier screening?
@@ -163,11 +167,19 @@ This is well suited to AstroHealth because the relevant patterns may evolve over
 
 ## 2. Fictional astronaut and baseline
 
-**Astronaut:** Alex, Mars transit day 120.  
+**Astronaut:** Alex, Mars transit day 120. Alex is subject 1 of the real Shuttle study NLSP 178066 (STS-40/58, Shykoff 1996; which flight is *(verify)*).  
 **Symptoms:** No major symptoms during routine activity; reports feeling broadly well.  
 **Sensors:** Wearable HR and activity monitoring, exercise-device workload and duration records, and intermittent blood-pressure measurements.  
-**Individual exercise baseline:** HR **125 bpm** during a standardized cycling workload.  
-**New trend:** HR **143 bpm** at the **same workload** across repeated comparable sessions. Standardized exercise performance is down **18%** from the astronaut's prior reference performance.
+**REAL (Alex's measured values):**
+
+| | Heart rate | BP | Cardiac output | Stroke volume |
+|---|---|---|---|---|
+| Before flight, upright | 80 | 112/87 | 5.7 L/min | 73 ml |
+| Before flight, lying down | 69 | 113/82 | 8.4 L/min | 121 ml |
+| During flight (one average, 9–14-day flight) | 66 | 127/74 | 7.8 L/min | 117 ml |
+
+**SIMULATED:** everything after the real in-flight value. **Individual exercise baseline:** HR **125 bpm** during a standardized cycling workload, seeded from Alex's real resting HR and the real STS-40 group slope of HR against workload in flight.  
+**New trend (SIMULATED):** HR **143 bpm** at the **same workload** across repeated comparable sessions. Standardized exercise performance is down **18%** from the astronaut's prior reference performance.
 
 The values are **illustrative only**. They are not a validated diagnostic cutoff; the measurements must be comparable in exercise modality, workload, environmental conditions, sensor quality, medication use and recovery state.
 
@@ -175,7 +187,7 @@ The values are **illustrative only**. They are not a validated diagnostic cutoff
 
 ### Step 1 — Continuously collect routine physiological and performance data
 
-- **Inputs:** HR, activity, resting trends, exercise workloads, exercise duration, perceived exertion (if recorded), sleep and available environmental context.
+- **Inputs:** passive signals: HR, activity, resting trends, and the exercise device's records of workload and duration; plus perceived exertion (if recorded), sleep and available environmental context.
 - **System:** Associates each HR measurement with activity intensity and the relevant exercise session.
 - **Demo screen:** Longitudinal dashboard showing matched-workload HR and performance over time.
 - **Record stored:** Raw observations, comparable exercise protocol, device details and baseline definitions.
@@ -187,13 +199,13 @@ The values are **illustrative only**. They are not a validated diagnostic cutoff
 - **Clinical logic:** Flags `Possible decline in cardiovascular exercise tolerance — requires assessment`.
 - **Interpretation:** Deconditioning is a hypothesis, **not** an automatic diagnosis.
 
-### Step 3 — Proactively alert the astronaut
+### Step 3 — Proactively contact the astronaut
 
-**Example notification:**
+**Example check-in question** (inside the daily check-in, not a push: this is a trend over weeks, not an emergency):
 
 > “Your cardiovascular response to a standard exercise workload has changed over several sessions. You may not notice symptoms yet, but the pattern merits a short medical assessment.”
 
-- **Astronaut:** Receives a prompt on the ship's tablet or wearable.
+- **Astronaut:** Sees the question in the next daily check-in on the ship's tablet.
 - **System:** Prioritizes symptoms or readings that would necessitate urgent escalation.
 - **Record stored:** Alert generation, acknowledgment and context.
 
@@ -261,10 +273,13 @@ Possible explanations include:
 ### Step 9 — Prepare for gravity transition
 
 - **System:** Summarizes the astronaut's cardiovascular response to microgravity and flags unresolved functional or hemodynamic concerns for the mission medical team before Mars landing or other gravitational transition.
+- **REFERENCE band:** post-flight supine and standing HR and BP of 22 real Shuttle astronauts (DSO 402, NLSP), shown as the range that astronauts usually reach after flight, never as Alex's values.
 - **Possible goal:** Better-planned pre-landing countermeasures and targeted evaluation of astronauts who may have impaired functional tolerance.
 - **Caution:** The demo does **not** prove that wearable changes predict individual syncope or orthostatic intolerance; this would require validated longitudinal outcome models.
 
 ### Step 10 — Longitudinal research and preventive learning
+
+> **Architecture slide only, not in the MVP.** The event log is the future data source for this layer.
 
 - **Research data:** Similarities in preflight fitness, changes in matched-workload HR, training exposure, clinical assessments, countermeasure changes and outcomes.
 - **Potential research question:** Which physiological trajectories precede clinically significant loss of performance or poor tolerance to gravitational transitions, and which interventions improve these trajectories?
@@ -312,7 +327,7 @@ Possible explanations include:
 6. **Diagnostic orchestration:** Equipment-aware test recommendations, guided acquisition and result ingestion.
 7. **Evidence-based reasoning:** Differential assessment, uncertainty display and provenance/versioning for each decision.
 8. **Action and follow-up:** Clinician/protocol authorization, monitoring and reassessment.
-9. **Research layer:** Controlled, privacy-preserving longitudinal data extraction with outcome labels, governance and auditability.
+9. **Research layer (architecture slide only):** Controlled, privacy-preserving longitudinal data extraction with outcome labels, governance and auditability.
 10. **Offline operation:** Critical functionality available without real-time communications with Earth; synchronization and remote review when connections permit.
 
 ## Minimum evaluation plan for an AstroHealth prototype
