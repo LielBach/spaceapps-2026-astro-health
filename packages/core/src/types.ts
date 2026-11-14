@@ -124,9 +124,9 @@ export interface CatalogCondition {
 export interface Question {
   id: string;
   text: string;
-  yes?: string[];
-  no?: string[];
-  keywords?: Record<string, string[]>;
+  yes?: string[] | undefined;
+  no?: string[] | undefined;
+  keywords?: Record<string, string[]> | undefined;
 }
 
 export interface ResultRule {
