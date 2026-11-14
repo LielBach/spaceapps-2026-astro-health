@@ -1,0 +1,1469 @@
+{
+  "sourceId": "nlsp-178066",
+  "files": [
+    "nlsp-178066-table2-resting.xlsx",
+    "nlsp-178066-table3-slopes.xlsx"
+  ],
+  "license": "NASA open data (U.S. Government work)",
+  "anchorCount": 162,
+  "anchors": [
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "cardiac-output",
+      "value": 5.7,
+      "unit": "L/min",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "hr",
+      "value": 80,
+      "unit": "bpm",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "sbp",
+      "value": 112,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "dbp",
+      "value": 87,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "map",
+      "value": 95,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "stroke-volume",
+      "value": 73,
+      "unit": "mL",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "frc",
+      "value": 2.9,
+      "unit": "L",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "cardiac-output",
+      "value": 6.9,
+      "unit": "L/min",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "hr",
+      "value": 74,
+      "unit": "bpm",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "sbp",
+      "value": 112,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "dbp",
+      "value": 73,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "map",
+      "value": 86,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "stroke-volume",
+      "value": 94,
+      "unit": "mL",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "frc",
+      "value": 2.7,
+      "unit": "L",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "cardiac-output",
+      "value": 5.3,
+      "unit": "L/min",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "hr",
+      "value": 65,
+      "unit": "bpm",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "sbp",
+      "value": 115,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "dbp",
+      "value": 78,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "map",
+      "value": 90,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "stroke-volume",
+      "value": 82,
+      "unit": "mL",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "frc",
+      "value": 2.7,
+      "unit": "L",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "cardiac-output",
+      "value": 6.7,
+      "unit": "L/min",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "hr",
+      "value": 74,
+      "unit": "bpm",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "sbp",
+      "value": 111,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "dbp",
+      "value": 74,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "map",
+      "value": 87,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "stroke-volume",
+      "value": 91,
+      "unit": "mL",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "frc",
+      "value": 3.3,
+      "unit": "L",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "cardiac-output",
+      "value": 5.6,
+      "unit": "L/min",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "hr",
+      "value": 78,
+      "unit": "bpm",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "sbp",
+      "value": 112,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "dbp",
+      "value": 79,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "map",
+      "value": 90,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "stroke-volume",
+      "value": 73,
+      "unit": "mL",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "frc",
+      "value": 3.2,
+      "unit": "L",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "cardiac-output",
+      "value": 5.5,
+      "unit": "L/min",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "hr",
+      "value": 63,
+      "unit": "bpm",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "sbp",
+      "value": 90,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "dbp",
+      "value": 76,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "map",
+      "value": 81,
+      "unit": "mmHg",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "stroke-volume",
+      "value": 85,
+      "unit": "mL",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "frc",
+      "value": 2,
+      "unit": "L",
+      "condition": "preflight-erect",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "cardiac-output",
+      "value": 7.8,
+      "unit": "L/min",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "hr",
+      "value": 66,
+      "unit": "bpm",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "sbp",
+      "value": 127,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "dbp",
+      "value": 74,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "map",
+      "value": 91,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "stroke-volume",
+      "value": 117,
+      "unit": "mL",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "frc",
+      "value": 3.3,
+      "unit": "L",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "cardiac-output",
+      "value": 8.2,
+      "unit": "L/min",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "hr",
+      "value": 52,
+      "unit": "bpm",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "sbp",
+      "value": 106,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "dbp",
+      "value": 56,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "map",
+      "value": 73,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "stroke-volume",
+      "value": 154,
+      "unit": "mL",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "frc",
+      "value": 2.8,
+      "unit": "L",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "cardiac-output",
+      "value": 7.7,
+      "unit": "L/min",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "hr",
+      "value": 58,
+      "unit": "bpm",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "sbp",
+      "value": 112,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "dbp",
+      "value": 61,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "map",
+      "value": 78,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "stroke-volume",
+      "value": 135,
+      "unit": "mL",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "frc",
+      "value": 2.8,
+      "unit": "L",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "cardiac-output",
+      "value": 7.1,
+      "unit": "L/min",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "hr",
+      "value": 57,
+      "unit": "bpm",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "sbp",
+      "value": 117,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "dbp",
+      "value": 74,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "map",
+      "value": 88,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "stroke-volume",
+      "value": 124,
+      "unit": "mL",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "frc",
+      "value": 3.1,
+      "unit": "L",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "cardiac-output",
+      "value": 7.7,
+      "unit": "L/min",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "hr",
+      "value": 54,
+      "unit": "bpm",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "sbp",
+      "value": 108,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "dbp",
+      "value": 72,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "map",
+      "value": 81,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "stroke-volume",
+      "value": 142,
+      "unit": "mL",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "frc",
+      "value": 3.4,
+      "unit": "L",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "cardiac-output",
+      "value": 5.9,
+      "unit": "L/min",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "hr",
+      "value": 59,
+      "unit": "bpm",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "sbp",
+      "value": 108,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "dbp",
+      "value": 66,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "map",
+      "value": 80,
+      "unit": "mmHg",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "stroke-volume",
+      "value": 101,
+      "unit": "mL",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "frc",
+      "value": 2.1,
+      "unit": "L",
+      "condition": "inflight",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "cardiac-output",
+      "value": 8.4,
+      "unit": "L/min",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "hr",
+      "value": 69,
+      "unit": "bpm",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "sbp",
+      "value": 113,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "dbp",
+      "value": 82,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "map",
+      "value": 92,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "stroke-volume",
+      "value": 121,
+      "unit": "mL",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s1",
+      "measure": "frc",
+      "value": 2.1,
+      "unit": "L",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "cardiac-output",
+      "value": 8.3,
+      "unit": "L/min",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "hr",
+      "value": 62,
+      "unit": "bpm",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "sbp",
+      "value": 120,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "dbp",
+      "value": 72,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "map",
+      "value": 80,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "stroke-volume",
+      "value": 134,
+      "unit": "mL",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s2",
+      "measure": "frc",
+      "value": 2.4,
+      "unit": "L",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "cardiac-output",
+      "value": 6.6,
+      "unit": "L/min",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "hr",
+      "value": 58,
+      "unit": "bpm",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "sbp",
+      "value": 105,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "dbp",
+      "value": 78,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "map",
+      "value": 87,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "stroke-volume",
+      "value": 115,
+      "unit": "mL",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s3",
+      "measure": "frc",
+      "value": 2.1,
+      "unit": "L",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "cardiac-output",
+      "value": 7.2,
+      "unit": "L/min",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "hr",
+      "value": 69,
+      "unit": "bpm",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "sbp",
+      "value": 118,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "dbp",
+      "value": 75,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "map",
+      "value": 89,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "stroke-volume",
+      "value": 105,
+      "unit": "mL",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s4",
+      "measure": "frc",
+      "value": 2.1,
+      "unit": "L",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "cardiac-output",
+      "value": 8,
+      "unit": "L/min",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "hr",
+      "value": 63,
+      "unit": "bpm",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "sbp",
+      "value": 112,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "dbp",
+      "value": 62,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "map",
+      "value": 82,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "stroke-volume",
+      "value": 128,
+      "unit": "mL",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s5",
+      "measure": "frc",
+      "value": 2.2,
+      "unit": "L",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "cardiac-output",
+      "value": 5.9,
+      "unit": "L/min",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "hr",
+      "value": 57,
+      "unit": "bpm",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "sbp",
+      "value": 99,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "dbp",
+      "value": 60,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "map",
+      "value": 73,
+      "unit": "mmHg",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "stroke-volume",
+      "value": 104,
+      "unit": "mL",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-s6",
+      "measure": "frc",
+      "value": 1.5,
+      "unit": "L",
+      "condition": "preflight-supine",
+      "label": "REAL",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "q-slope-normalized",
+      "value": 0.92,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "q-slope-normalized-se",
+      "value": 0.07,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "q-slope-normalized",
+      "value": 0.68,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "q-slope-normalized-se",
+      "value": 0.06,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "q-slope-normalized",
+      "value": 1,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "q-slope-normalized-se",
+      "value": 0.1,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "map-slope-normalized",
+      "value": 0.12,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "map-slope-normalized-se",
+      "value": 0.01,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "map-slope-normalized",
+      "value": 0.14,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "map-slope-normalized-se",
+      "value": 0.04,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "map-slope-normalized",
+      "value": 0.15,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "map-slope-normalized-se",
+      "value": 0.02,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "rq-slope-normalized",
+      "value": 0.17,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "rq-slope-normalized-se",
+      "value": 0.02,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "rq-slope-normalized",
+      "value": 0.17,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "rq-slope-normalized-se",
+      "value": 0.02,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "rq-slope-normalized",
+      "value": 0.19,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "rq-slope-normalized-se",
+      "value": 0.02,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "hr-slope-normalized",
+      "value": 1.9,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "hr-slope-normalized-se",
+      "value": 0.1,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "hr-slope-normalized",
+      "value": 2.1,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "hr-slope-normalized-se",
+      "value": 0.3,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "hr-slope-normalized",
+      "value": 1.9,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "hr-slope-normalized-se",
+      "value": 0.2,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "ve-slope-normalized",
+      "value": 2.8,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "ve-slope-normalized-se",
+      "value": 0.3,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "ve-slope-normalized",
+      "value": 3.4,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "ve-slope-normalized-se",
+      "value": 0.4,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "ve-slope-normalized",
+      "value": 3.3,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "ve-slope-normalized-se",
+      "value": 0.4,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "vt-slope-normalized",
+      "value": 1.01,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "vt-slope-normalized-se",
+      "value": 0.07,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-erect",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "vt-slope-normalized",
+      "value": 0.95,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "vt-slope-normalized-se",
+      "value": 0.07,
+      "unit": "1/workload (normalized)",
+      "condition": "inflight",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "vt-slope-normalized",
+      "value": 1.01,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    },
+    {
+      "astronautId": "nlsp178066-group",
+      "measure": "vt-slope-normalized-se",
+      "value": 0.1,
+      "unit": "1/workload (normalized)",
+      "condition": "preflight-supine",
+      "label": "REFERENCE",
+      "sourceId": "nlsp-178066"
+    }
+  ]
+}

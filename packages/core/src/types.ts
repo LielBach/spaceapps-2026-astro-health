@@ -41,6 +41,8 @@ export interface Anchor {
   /** For example "preflight-erect", "preflight-supine", "inflight". */
   condition: string;
   label: Extract<DataLabel, "REAL" | "REFERENCE">;
+  /** Lab reference range, when the source gives one. */
+  range?: { min: number; max: number };
   sourceId: SourceId;
 }
 

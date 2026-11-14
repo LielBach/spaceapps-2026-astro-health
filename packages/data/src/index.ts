@@ -1,2 +1,1 @@
-// Anchor loaders, stream generator and scenario loader (M1a).
-export {};
+export * from "./anchors/index.ts";
