@@ -6,3 +6,5 @@ CLAUDE.md
 .claude/
 runs/
 data/reference/
+data/anchors/
+data/raw/
