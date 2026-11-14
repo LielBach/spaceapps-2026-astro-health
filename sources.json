@@ -1,0 +1,60 @@
+{
+  "sources": [
+    {
+      "id": "nasa-hrp-hazards",
+      "title": "NASA Human Research Program — Human Spaceflight Hazards",
+      "url": "https://www.nasa.gov/hrp/hazards/",
+      "verify": false
+    },
+    {
+      "id": "nasa-std-3001-vol1-revc",
+      "title": "NASA-STD-3001 Volume 1 Rev C",
+      "url": "https://standards.nasa.gov/sites/default/files/standards/NASA/C//nasa-std-3001-vol-1-rev-c-signature.pdf",
+      "verify": false
+    },
+    {
+      "id": "nlsp-178066",
+      "title": "NLSP 178066 — Inflight Study of Cardiovascular Deconditioning (STS-40/58), Shykoff et al. 1996",
+      "url": "https://nlsp.nasa.gov/explore/data/details/ff0398fd-0abc-589d-883c-7e55aa73831c?dataType=EXPERIMENTS",
+      "verify": true,
+      "note": "Which flight subject 1 flew (STS-40 or STS-58) is not confirmed."
+    },
+    {
+      "id": "nlsp-dso-402",
+      "title": "NLSP DSO 402 — Cardiovascular Deconditioning Countermeasure Assessment (Shuttle)",
+      "url": "https://nlsp.nasa.gov/explore/data/details/73d10bb4-b805-5bd5-bc52-149d8f9d1bd8?dataType=EXPERIMENTS",
+      "verify": false
+    },
+    {
+      "id": "osdr-osd-575",
+      "title": "OSDR OSD-575 — Inspiration4 serum: comprehensive metabolic panel",
+      "url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-575",
+      "verify": false
+    },
+    {
+      "id": "osdr-osd-569",
+      "title": "OSDR OSD-569 — Inspiration4 whole blood: complete blood count",
+      "url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-569",
+      "verify": false
+    },
+    {
+      "id": "marshall-goebel-2019",
+      "title": "Marshall-Goebel K, et al. Assessment of Jugular Venous Blood Flow Stasis and Thrombosis During Spaceflight. JAMA Netw Open. 2019 (CC-BY)",
+      "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2755307",
+      "verify": false
+    },
+    {
+      "id": "nasa-vte-risk-score",
+      "title": "NASA OCHMO — Establishing a VTE Risk Score for Astronauts Algorithm",
+      "url": "https://www.nasa.gov/organizations/ochmo/establishing-a-vte-risk-score-for-astronauts-algorithm/",
+      "verify": true
+    },
+    {
+      "id": "illustrative",
+      "title": "Illustrative design parameter, not a validated value",
+      "url": null,
+      "verify": true,
+      "note": "Use for alert-filter numbers (for example persistence in nights) until a source is found."
+    }
+  ]
+}

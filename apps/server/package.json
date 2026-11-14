@@ -1,0 +1,16 @@
+{
+  "name": "@astrohealth/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "typecheck": "tsc -p .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@astrohealth/core": "workspace:*",
+    "@astrohealth/data": "workspace:*",
+    "fastify": "5.4.0"
+  }
+}

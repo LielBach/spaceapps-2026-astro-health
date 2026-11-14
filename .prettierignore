@@ -1,0 +1,8 @@
+pnpm-lock.yaml
+docs/
+GLOSSARY.md
+README.md
+CLAUDE.md
+.claude/
+runs/
+data/reference/
