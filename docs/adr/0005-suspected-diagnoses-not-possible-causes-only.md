@@ -1,0 +1,3 @@
+# The system shows suspected diagnoses
+
+The system shows a ranked list of suspected diagnoses, each with a confidence, the evidence for and against, and the test that would confirm it. The list is labeled "Suspected – for crew medical officer confirmation", and it appears only after a minimum-evidence rule passes (one abnormal reading is never enough). We first chose to show only unranked possible causes, which is safer to present, but the team reversed this: a visible diagnosis is the core of the demo. The project rule "decision support, never medical advice" therefore becomes "decision support: suspected diagnoses, and actions only from approved pathways".

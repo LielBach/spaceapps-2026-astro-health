@@ -20,6 +20,8 @@
 | [docs/product/03-problem-space.md](docs/product/03-problem-space.md) | Health data categories, hazard→risk→indicator→action map, known monitoring problems P1–P11 |
 | [docs/product/04-directions.md](docs/product/04-directions.md) | 5 candidate directions scored, recommendation, MVP, demo story |
 | [docs/product/06-astrohealth-concept.md](docs/product/06-astrohealth-concept.md) | AstroHealth proposal: autonomous CDSS closed loop (detect → investigate → assess → act → learn), architecture, MVP scenarios — not yet confirmed |
+| [docs/product/07-demo-case-brief.md](docs/product/07-demo-case-brief.md) | Context and constraints for defining the demo case; standalone, ready to paste into another assistant |
+| [GLOSSARY.md](GLOSSARY.md) · [docs/adr/](docs/adr/) | Domain terms and design decisions from the design interview |
 | [docs/technical/05-data-sources.md](docs/technical/05-data-sources.md) | Data inventory by access tier (open now / free sign-up / on request / private), file formats, coverage gaps |
 
 ## Status
