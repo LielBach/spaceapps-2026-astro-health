@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build output
+dist/
+build/
+.next/
+out/
+coverage/
+
+# Env & secrets (NASA API keys etc.)
+.env
+.env.*
+!.env.example
+
+# Generated synthetic data (regenerate with the generator script)
+data/generated/
+
+# Editors & OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# Local Claude settings
+.claude/settings.local.json
