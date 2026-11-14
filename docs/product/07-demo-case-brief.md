@@ -26,7 +26,27 @@ The demo is a **replay**: one astronaut's mission timeline, played back at high 
 
 ## 3. Hard constraints for the demo case
 
-### Signals
+### Hazard
+
+The condition in the demo must come from **one of the five spaceflight hazards** that the challenge names. The challenge's Resources tab links to the [NASA HRP hazards page](https://www.nasa.gov/hrp/hazards/), and the brief asks "How do spaceflight hazards affect each indicator?". A case with no hazard link does not answer the challenge.
+
+The five hazards (NASA HRP, "RIDGE"):
+
+| Hazard | Examples of what it does to the body |
+|---|---|
+| **R**adiation | Acute radiation effects after a solar particle event; long-term cancer and tissue risk |
+| **I**solation and confinement | Sleep loss, mood and cognitive changes, crew conflict |
+| **D**istance from Earth | Long comm delay, no evacuation, limited supplies: the crew must act alone |
+| **G**ravity fields | Fluid shift, lower plasma volume, cardiovascular deconditioning, bone and muscle loss, eye changes (SANS) |
+| hostile/closed **E**nvironments | High cabin CO₂, closed air and water systems, microbes, immune changes |
+
+The brief also names immune changes, bone loss, cardiovascular events, inadequate nutrition and behavioral health.
+
+Rules for the demo case:
+
+- The demo must say which hazard causes the condition, and how, with a link to the NASA HRP risk page.
+- **Distance from Earth** applies to every case on a Mars mission: it is why the crew cannot wait for the ground. It may add drama, but it does not count as the cause of the condition. One of the other four hazards must cause it.
+- The passive signals in the trigger must be ones that this hazard is known to change. Link a source for each signal.
 
 - **Only passive signals start an event.** A passive signal is measured continuously by a worn sensor, with no action from the astronaut.
 - The available passive signals are those a current wearable such as CSA's Astroskin measures *(verify)*: heart rate, heart-rate variability (HRV), respiratory rate, skin temperature, SpO₂, and activity (accelerometer). Sleep is detected from activity.
@@ -72,6 +92,8 @@ The numbers in the filters (such as 3 nights) are design parameters, not validat
 
 **Reduced fluid volume (dehydration) on Mars transit.** The team may replace it.
 
+Hazard link: **gravity fields**. In microgravity, fluid shifts toward the head and plasma volume falls *(verify: link the HRP cardiovascular risk page)*, so low fluid intake has a larger effect.
+
 1. Benign spike: daytime heart rate rises with accelerometer activity (exercise). The system ignores it.
 2. Detect: sleeping heart rate is above the expected in-flight band for 3 nights. The astronaut goes on silent watch.
 3. Second signal: HRV falls below the personal band on the same nights. Skin temperature and respiratory rate stay normal. The app shows a check-in question.
@@ -99,7 +121,7 @@ Score each candidate 1–5 on:
 | Cheap-first tests | Does an active test from the list separate them, cheapest first? |
 | Real anchor | Can a real Inspiration4 or STS-40 value appear at a visible step? |
 | Realistic action | Is the action possible with spacecraft equipment, and would follow-up passive data show recovery? |
-| Space relevance | Is it a known spaceflight risk on the NASA HRP risk list? |
+| Hazard link | Does one of the RIDGE hazards (not only distance) clearly cause it, with an HRP risk page as the source? |
 | Drama | Does it show why a 20-minute delay to Earth matters? |
 | Sources | Can each threshold link to a NASA or peer-reviewed source? |
 
@@ -107,7 +129,7 @@ Score each candidate 1–5 on:
 
 Propose **3 candidate demo cases** that satisfy section 3 and score well on section 5. For each case, give:
 
-1. Name and the spaceflight risk it relates to (NASA HRP risk page).
+1. Name, the RIDGE hazard that causes it and how, and the NASA HRP risk page that supports this.
 2. The benign look-alike that the filters reject, and which filter rejects it.
 3. The trigger: which passive signals deviate, in which direction, and for how long.
 4. The suspected diagnoses at first contact, and the passive signals that already point toward or away from each.
@@ -118,4 +140,4 @@ Propose **3 candidate demo cases** that satisfy section 3 and score well on sect
 9. The sources for each threshold, or *(verify)* where you are not sure.
 10. A score table using section 5.
 
-Do not use body mass, BP or fluid intake as a trigger. Do not invent onboard equipment or medications. Mark any fact you are not sure of with *(verify)*.
+Each case must come from a different hazard where possible. Do not use body mass, BP or fluid intake as a trigger. Do not invent onboard equipment or medications. Mark any fact you are not sure of with *(verify)*.
