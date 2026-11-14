@@ -36,9 +36,21 @@ _Avoid_: Diagnosis (without "suspected" in UI text), result
 An event that the system closes because follow-up measurements returned to the personal baseline after the recommended action. If they do not return, the system escalates to the crew medical officer instead.
 _Avoid_: Fixed, solved, cleared
 
+**Condition catalog**:
+The reviewed list of spaceflight conditions the system knows, each with its findings, confirming and ruling-out tests, actions and source (ADR 0010).
+_Avoid_: Knowledge base, database, ontology
+
 **Approved pathway**:
-A clinician-reviewed set of questions, tests and actions for one kind of deviation. The system may only use steps from an approved pathway.
+The questions, tests and actions that one condition catalog entry allows. The system may only recommend an action from an approved pathway.
 _Avoid_: Protocol (unless it is a NASA protocol), flow, script
+
+**Equipment list**:
+The tests and devices that the spacecraft carries. The system may only request a test on this list.
+_Avoid_: Inventory, kit
+
+**Uncatalogued diagnosis**:
+A suspected diagnosis outside the condition catalog, allowed only when no catalog condition explains the evidence. It may lead only to more questions, tests on the equipment list and escalation, never to a treatment.
+_Avoid_: Unknown condition, free diagnosis
 
 ## Signals
 

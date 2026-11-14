@@ -25,6 +25,7 @@
 | [docs/product/08-clinical-demos.md](docs/product/08-clinical-demos.md) | Team draft of two demo workflows: venous thrombosis and cardiovascular deconditioning |
 | [GLOSSARY.md](GLOSSARY.md) · [docs/adr/](docs/adr/) | Domain terms and design decisions from the design interview |
 | [docs/technical/05-data-sources.md](docs/technical/05-data-sources.md) | Data inventory by access tier (open now / free sign-up / on request / private), file formats, coverage gaps |
+| [docs/technical/09-implementation-plan.md](docs/technical/09-implementation-plan.md) | MVP build plan: architecture, repo layout, engines, milestones M0–M2, tests, open items |
 
 ## Status
 - [x] Research & direction proposal

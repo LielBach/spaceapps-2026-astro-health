@@ -11,5 +11,6 @@ Milestone 2 succeeds when, on the scripted cases:
 2. It picks the same next step and reaches the same suspected diagnosis as milestone 1 in at least a set share of runs.
 3. Each step answers in under a set time on the MacBook.
 4. The full loop runs with the network off.
+5. It reaches the same top suspected diagnosis as milestone 1 (ADR 0010), and its uncatalogued outputs pass the same guardrails.
 
 We set the thresholds for criteria 2 and 3 after the first test run.
