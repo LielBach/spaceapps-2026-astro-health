@@ -82,6 +82,10 @@ _Avoid_: Medical record, EHR, history
 A measured value from a real astronaut in an open dataset, such as an Inspiration4 lab result. It sets a personal baseline or appears as a lab draw in the replay.
 _Avoid_: Ground truth, real data (without saying which values)
 
+**Composite astronaut**:
+A demo astronaut whose real values come from two different real people. Only Demo 1 has one (ADR 0009), and the UI marks it COMPOSITE with both sources.
+_Avoid_: Real astronaut, synthetic astronaut
+
 **Reference band**:
 A range taken from group data of other real astronauts, shown next to one astronaut's values for comparison. It is never shown as that astronaut's own value.
 _Avoid_: Normal range, population range

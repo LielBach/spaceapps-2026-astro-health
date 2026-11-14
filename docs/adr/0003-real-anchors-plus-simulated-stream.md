@@ -10,3 +10,5 @@ Never combine real values from two different people into one astronaut: that wou
 - **Demo 1, venous thrombosis:** the astronaut is one Inspiration4 subject (OSD-575, OSD-569). Real: pre-flight labs in the imported record, including albumin. Simulated: all in-flight vein findings, seeded from the group counts in Marshall-Goebel 2019 and labeled so.
 
 The UI uses three labels: REAL, SIMULATED, REFERENCE.
+
+Exception: Demo 1 combines two real astronauts under the conditions in ADR 0009.
