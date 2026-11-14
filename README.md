@@ -19,6 +19,7 @@
 | [docs/product/02-resources.md](docs/product/02-resources.md) | Catalog of NASA / ESA / CSA / JAXA / other resources, data access reality |
 | [docs/product/03-problem-space.md](docs/product/03-problem-space.md) | Health data categories, hazard→risk→indicator→action map, known monitoring problems P1–P11 |
 | [docs/product/04-directions.md](docs/product/04-directions.md) | 5 candidate directions scored, recommendation, MVP, demo story |
+| [docs/product/06-astrohealth-concept.md](docs/product/06-astrohealth-concept.md) | AstroHealth proposal: autonomous CDSS closed loop (detect → investigate → assess → act → learn), architecture, MVP scenarios — not yet confirmed |
 | [docs/technical/05-data-sources.md](docs/technical/05-data-sources.md) | Data inventory by access tier (open now / free sign-up / on request / private), file formats, coverage gaps |
 
 ## Status
