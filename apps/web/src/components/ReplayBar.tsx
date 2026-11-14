@@ -69,7 +69,8 @@ export function ReplayBar({ view }: { view: SessionView }) {
         Autopilot
       </label>
       <span className="provider">
-        Reasoner: {view.provider === "none" ? "no-LLM fallback" : view.provider}
+        Reasoner:{" "}
+        {view.provider === "none" ? "no-LLM fallback" : `${view.provider} ${view.model ?? ""}`}
       </span>
     </div>
   );

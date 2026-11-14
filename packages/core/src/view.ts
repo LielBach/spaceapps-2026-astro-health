@@ -66,6 +66,10 @@ export interface SessionView {
   blackout: boolean;
   autopilot: boolean;
   waiting: boolean;
+  /** The clinical reasoner is working on the next step. */
+  reasoning: boolean;
+  /** Model name when an LLM reasoner is set up. */
+  model: string | undefined;
   provider: LlmInfo["provider"];
   points: ChartPoint[];
   hr: { t: number; value: number; context: string }[];

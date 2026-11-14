@@ -33,6 +33,11 @@ export type Reasoner = (
   ctx: { retryReasons?: string[] },
 ) => Promise<{ proposal: Proposal; llm: LlmInfo } | undefined>;
 
+export interface ReasonerSetup {
+  reasoner: Reasoner;
+  info: LlmInfo;
+}
+
 export interface SessionPaths {
   scenario: string;
   anchors: string;
@@ -68,7 +73,7 @@ export class ReplaySession {
 
   constructor(
     paths: SessionPaths,
-    private readonly reasoner: Reasoner | undefined = undefined,
+    private readonly llm: ReasonerSetup | undefined = undefined,
     private readonly now: () => Date = () => new Date(),
   ) {
     this.scenario = loadScenario(paths.scenario);
@@ -105,7 +110,7 @@ export class ReplaySession {
   }
 
   get provider(): LlmInfo["provider"] {
-    return this.blackout || !this.reasoner ? "none" : "anthropic";
+    return this.blackout || !this.llm ? "none" : this.llm.info.provider;
   }
 
   /** The replay waits for the astronaut or the crew medical officer. */
@@ -231,6 +236,8 @@ export class ReplaySession {
       blackout: this.blackout,
       autopilot: this.autopilot,
       waiting: this.waiting,
+      reasoning: this.busy,
+      model: this.blackout ? undefined : this.llm?.info.model,
       provider: this.provider,
       points: this.points,
       hr: this.hr,
@@ -356,11 +363,16 @@ export class ReplaySession {
     try {
       if (inv.phase === "investigating") {
         let reasons: string[] = [];
-        for (let attempt = 0; attempt < 2 && !this.blackout && this.reasoner; attempt++) {
-          const result = await this.reasoner(
-            inv,
-            attempt > 0 ? { retryReasons: reasons } : {},
-          ).catch(() => undefined);
+        // Plan §5.4: one retry after a guardrail rejection, then the no-LLM fallback.
+        for (let attempt = 0; attempt < 2 && !this.blackout && this.llm; attempt++) {
+          const { reasoner, info } = this.llm;
+          const result = await reasoner(inv, attempt > 0 ? { retryReasons: reasons } : {}).catch(
+            (error: unknown) => {
+              const message = error instanceof Error ? error.message : String(error);
+              inv.reject([`reasoner error: ${message}`], info);
+              return undefined;
+            },
+          );
           if (!result) break;
           reasons = inv.apply(result.proposal, result.llm);
           if (reasons.length === 0) break;

@@ -1,14 +1,15 @@
 import { readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyInstance } from "fastify";
-import { ReplaySession, type Reasoner, type SessionPaths } from "./session.ts";
+import { ReplaySession, type ReasonerSetup, type SessionPaths } from "./session.ts";
 
 const repo = (path: string) => fileURLToPath(new URL(`../../../${path}`, import.meta.url));
 
 export interface AppOptions {
   /** Run the real-time replay clock. Off in tests, which drive the session directly. */
   clock?: boolean;
-  reasoner?: Reasoner | undefined;
+  /** The clinical reasoner (M1d). Without one, every step uses the no-LLM fallback. */
+  llm?: ReasonerSetup | undefined;
   runsDir?: string;
 }
 
@@ -39,7 +40,7 @@ export function buildApp(
   const scenarios = listScenarios();
   let session = new ReplaySession(
     scenarioPaths(scenarios.at(-1) ?? "demo2-deconditioning", options.runsDir),
-    options.reasoner,
+    options.llm,
   );
   const clients = new Set<(data: string) => void>();
   let unsubscribe = session.onChange(() => broadcast());
@@ -63,7 +64,7 @@ export function buildApp(
 
   function load(scenarioId: string): void {
     unsubscribe();
-    session = new ReplaySession(scenarioPaths(scenarioId, options.runsDir), options.reasoner);
+    session = new ReplaySession(scenarioPaths(scenarioId, options.runsDir), options.llm);
     unsubscribe = session.onChange(() => broadcast());
     broadcast();
   }

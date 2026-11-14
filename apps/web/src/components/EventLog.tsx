@@ -63,7 +63,9 @@ export function EventLog({ view }: { view: SessionView }) {
                 </td>
                 <td className="muted small">
                   {l.conditionId ?? ""}{" "}
-                  {l.llm ? `· ${l.llm.provider === "none" ? "no LLM" : l.llm.provider}` : ""}
+                  {l.llm
+                    ? `· ${l.llm.provider === "none" ? "no LLM" : `${l.llm.provider} ${l.llm.model ?? ""}`}`
+                    : ""}
                 </td>
               </tr>
             ))}
