@@ -1,6 +1,6 @@
 // Clinical reasoner through the AI SDK (plan §5.5, ADR 0006, ADR 0010).
 // The LLM proposes; the Investigation engine validates every proposal against the guardrails.
-import { createAnthropic, type AnthropicLanguageModelOptions } from "@ai-sdk/anthropic";
+import { createAzure, type OpenAILanguageModelResponsesOptions } from "@ai-sdk/azure";
 import {
   generateText,
   Output,
@@ -12,38 +12,54 @@ import { z } from "zod";
 import type { Catalog, Investigation, LlmInfo, NextStep, Proposal } from "@astrohealth/core";
 import type { Reasoner, ReasonerSetup } from "./session.ts";
 
+export type ReasoningEffort = NonNullable<OpenAILanguageModelResponsesOptions["reasoningEffort"]>;
+
 export interface LlmConfig {
   provider: LlmInfo["provider"];
-  model: string;
-  effort: NonNullable<AnthropicLanguageModelOptions["effort"]>;
+  /** For Azure: the deployment name in the Azure OpenAI resource. */
+  model: string | undefined;
+  /** For Azure: the model behind the deployment (for example gpt-5), used to detect reasoning support. */
+  modelId: string | undefined;
+  /** Reasoning effort, for reasoning models only. */
+  effort: ReasoningEffort | undefined;
 }
 
-/** LLM_PROVIDER=anthropic|ollama|none. Without a provider setting, use Claude only when a key exists. */
+const PROVIDERS: LlmInfo["provider"][] = ["azure", "ollama", "none"];
+
+/**
+ * LLM_PROVIDER=azure|ollama|none. Without it, use Azure OpenAI when AZURE_API_KEY is set.
+ * The Azure provider reads AZURE_RESOURCE_NAME and AZURE_API_KEY itself.
+ */
 export function configFromEnv(env: NodeJS.ProcessEnv = process.env): LlmConfig {
-  const provider = (env.LLM_PROVIDER ??
-    (env.ANTHROPIC_API_KEY ? "anthropic" : "none")) as LlmInfo["provider"];
-  if (!["anthropic", "ollama", "none"].includes(provider))
-    throw new Error(`unknown LLM_PROVIDER ${provider}`);
+  const provider = (env.LLM_PROVIDER ||
+    (env.AZURE_API_KEY ? "azure" : "none")) as LlmInfo["provider"];
+  if (!PROVIDERS.includes(provider)) throw new Error(`unknown LLM_PROVIDER ${provider}`);
+  const model = env.LLM_MODEL || undefined;
+  if (provider === "azure" && !model) {
+    throw new Error("LLM_PROVIDER=azure needs LLM_MODEL: the Azure OpenAI deployment name");
+  }
   return {
     provider,
-    model: env.LLM_MODEL ?? "claude-opus-5-5",
-    effort: (env.LLM_EFFORT as LlmConfig["effort"] | undefined) ?? "medium",
+    model,
+    modelId: env.AZURE_MODEL_ID || undefined,
+    effort: (env.LLM_EFFORT || undefined) as ReasoningEffort | undefined,
   };
 }
 
 /** Builds the reasoner for a config. `none` returns undefined: the session uses the no-LLM fallback. */
 export function reasonerFromConfig(config: LlmConfig): ReasonerSetup | undefined {
   // Milestone 2 adds the Ollama provider (ADR 0004). Until then, `ollama` means no LLM.
-  if (config.provider !== "anthropic") return undefined;
-  const info: LlmInfo = { provider: "anthropic", model: config.model };
-  const anthropic = createAnthropic();
-  const reasoner = createLlmReasoner(anthropic(config.model), info, {
-    // Refusal fallbacks: the API reroutes a classifier-blocked turn to a recommended model.
-    anthropic: {
-      effort: config.effort,
-      fallbacks: "default",
-    } satisfies AnthropicLanguageModelOptions,
-  });
+  if (config.provider !== "azure" || !config.model) return undefined;
+  const info: LlmInfo = { provider: "azure", model: config.modelId ?? config.model };
+  const azure = createAzure();
+  const model = azure(config.model, config.modelId ? { modelId: config.modelId } : {});
+  const reasoner = createLlmReasoner(
+    model,
+    info,
+    config.effort
+      ? { openai: { reasoningEffort: config.effort } satisfies OpenAILanguageModelResponsesOptions }
+      : {},
+  );
   return { reasoner, info };
 }
 
@@ -180,11 +196,11 @@ export function buildPrompt(
     .filter(Boolean)
     .join("\n\n");
   return {
-    // Rules and catalog are stable for the whole run: cache them (prefix match).
+    // Rules and catalog come first and stay the same for the whole run, so the
+    // provider's automatic prompt caching can reuse them (prefix match).
     instructions: {
       role: "system",
       content: `${RULES}\n\nCONDITION CATALOG:\n${catalogText(inv.catalog)}`,
-      providerOptions: { anthropic: { cacheControl: { type: "ephemeral" } } },
     },
     messages: [{ role: "user", content: user }],
   };

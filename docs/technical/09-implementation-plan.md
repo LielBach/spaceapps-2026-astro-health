@@ -10,7 +10,7 @@ How we build the AstroHealth MVP: the two demo replays in [08-clinical-demos.md]
 - The closed loop for both: detect → investigate → assess → act → learn.
 - Replay controls, comm blackout switch, event log, REAL / SIMULATED / REFERENCE / COMPOSITE labels, a source link on every number.
 - A reviewed **condition catalog** of 10–15 spaceflight conditions and an **equipment list** (ADR 0010).
-- Online LLM (Claude through the AI SDK) that reasons over the whole catalog inside code guardrails; uncatalogued fallback; no-LLM fallback.
+- Online LLM (Azure OpenAI through the AI SDK) that reasons over the whole catalog inside code guardrails; uncatalogued fallback; no-LLM fallback.
 - A **live branch** in the demo: the presenter changes an answer, and the ranking and next tests change.
 
 **Milestone 2:** the same app with an open-weights model on the MacBook through Ollama, plus the evaluation that proves it (ADR 0004).
@@ -133,7 +133,7 @@ In order (Q16, ADR 0007):
 - AI SDK `generateObject` with a schema: ranked diagnoses (catalog ID or uncatalogued name, confidence, cited log line IDs), the next step, the astronaut-facing wording.
 - The prompt holds the event log so far, the full catalog, the equipment list and the rules.
 - **Uncatalogued mode:** allowed only when the reasoner reports that no catalog condition explains the evidence, or all catalog confidences stay below a set level. The UI labels it **UNCATALOGUED – not from an approved pathway** (ADR 0010).
-- Provider from config: `LLM_PROVIDER=anthropic | ollama | none`. The comm blackout switch forces `none` in milestone 1 and `ollama` in milestone 2.
+- Provider from config: `LLM_PROVIDER=azure | ollama | none`. The comm blackout switch forces `none` in milestone 1 and `ollama` in milestone 2.
 - **`none`:** catalog findings that match give an unranked list of possible causes; tests run in each condition's fixed order; no match → escalate.
 
 ### 5.6 Event log (`apps/server`)
@@ -177,7 +177,7 @@ Each task ends with tests passing and a PR (CLAUDE.md git workflow).
 10. UI: replay bar, timeline charts with labels and bands, check-in panel, suspected diagnoses, event log view.
 
 ### M1d — Online clinical reasoner
-11. AI SDK gateway with Anthropic; structured output; guardrail validation with one retry; uncatalogued mode; blackout switch; answer override for the live branch.
+11. AI SDK gateway with Azure OpenAI; structured output; guardrail validation with one retry; uncatalogued mode; blackout switch; answer override for the live branch.
 
 ### M1e — Demo 1
 12. `scenarios/demo1.yaml`, surveillance trigger from the record (VTE catalog entry).

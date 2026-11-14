@@ -9,7 +9,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "4.0.94",
+    "@ai-sdk/azure": "4.0.114",
     "@astrohealth/core": "workspace:*",
     "@astrohealth/data": "workspace:*",
     "ai": "7.0.159",
