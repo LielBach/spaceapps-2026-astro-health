@@ -1,3 +1,5 @@
 # Replay real astronaut anchors with a simulated stream between them
 
 No open dataset has a continuous stream of real astronaut vitals. Inspiration4 (OSD-575, OSD-569) has real labs for 4 astronauts, but only before launch and after return. Shuttle STS-40 (NLSP 178066) has one averaged in-flight value per subject. So the replay uses real values as anchors (personal baselines and lab draws) and a simulated stream, seeded from published effect sizes, between them. One scripted incident starts the investigation. Every value on screen is labeled REAL or SIMULATED. We rejected a replay of analog-crew data (NEEMO, bed rest), because those subjects are not astronauts.
+
+Never combine real values from two different people into one astronaut: that would be a fabricated record.

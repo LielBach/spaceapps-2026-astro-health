@@ -2,6 +2,12 @@
 
 Decision-support software that watches an astronaut's health data, starts an investigation when it finds a deviation, and guides the astronaut to the next action.
 
+## Loop
+
+**Closed loop**:
+The five stages of every event: detect → investigate → assess → act → learn. Investigate holds verify, alert, ask and test. Act holds monitor.
+_Avoid_: Detect → verify → alert → ask → test → assess → act → monitor → learn (as the loop name), pipeline, workflow
+
 ## People
 
 **Astronaut**:
@@ -37,7 +43,7 @@ _Avoid_: Protocol (unless it is a NASA protocol), flow, script
 ## Signals
 
 **Passive signal**:
-A value that a worn sensor measures continuously with no action from the astronaut, such as heart rate, heart-rate variability, respiratory rate, skin temperature, SpO2 or activity. Only passive signals can start an event.
+A value that a worn sensor measures continuously with no action from the astronaut, such as heart rate, heart-rate variability, respiratory rate, skin temperature, SpO2 or activity. Records that the exercise device makes during scheduled exercise (workload, duration, heart rate at workload) also count. Only passive signals can start an event.
 _Avoid_: Vital (for active tests too), reading
 
 **Active test**:
