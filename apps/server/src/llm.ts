@@ -196,13 +196,22 @@ export function createLlmReasoner(
   providerOptions: Record<string, Record<string, unknown>> = {},
 ): Reasoner {
   return async (inv, ctx) => {
-    const { output } = await generateText({
+    const started = Date.now();
+    const { output, usage } = await generateText({
       model,
       ...buildPrompt(inv, ctx.retryReasons),
       output: Output.object({ schema: ProposalSchema }),
       providerOptions: providerOptions as never,
       maxOutputTokens: 16000,
     });
+    // One line per call, for latency and cost checks in the server log.
+    console.log(
+      `[reasoner] ${inv.eventId} ${Date.now() - started} ms · in ${usage.inputTokens ?? "?"}` +
+        ` (cache read ${usage.inputTokenDetails.cacheReadTokens ?? 0},` +
+        ` write ${usage.inputTokenDetails.cacheWriteTokens ?? 0}) · out ${usage.outputTokens ?? "?"}` +
+        ` (reasoning ${usage.outputTokenDetails.reasoningTokens ?? 0}) · next ${output.next.kind}` +
+        ` ${output.next.id ?? output.next.actionId ?? output.next.reason ?? ""}`,
+    );
     return { proposal: toProposal(output), llm: info };
   };
 }

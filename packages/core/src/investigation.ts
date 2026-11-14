@@ -205,7 +205,8 @@ export class Investigation {
     if (!allowed.some((s) => same(s, proposal.next))) {
       reasons.push(`next step ${JSON.stringify(proposal.next)} is not allowed now`);
     }
-    const logIds = new Set(this.findings.map((f) => f.logId));
+    // Any line of this event log may be cited, including answers that produced no finding.
+    const logIds = new Set(this.log.map((l) => l.id));
     const uncataloguedAllowed =
       proposal.noCatalogMatch === true || this.bestScore() < UNCATALOGUED_THRESHOLD;
     for (const d of proposal.diagnoses) {

@@ -134,6 +134,21 @@ describe("guardrails", () => {
     expect(reasons.join("\n")).toMatch(/t-mri is not on the equipment list/);
   });
 
+  it("accepts a citation of an answer that produced no finding", () => {
+    const inv = demo2();
+    inv.answer("q-chest-pain", "no");
+    const noAnswer = inv.log.at(-1)!.id;
+    const d = {
+      ref: { conditionId: "cv-deconditioning" },
+      confidence: 0.5,
+      evidenceFor: [],
+      evidenceAgainst: [noAnswer],
+    };
+    expect(
+      inv.validate(base({ diagnoses: [d], next: { kind: "question", id: "q-syncope" } })),
+    ).toEqual([]);
+  });
+
   it("rejects an uncatalogued diagnosis while a catalog condition fits", () => {
     const inv = demo2();
     const d = {
