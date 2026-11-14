@@ -8,7 +8,7 @@ import { scenarioPaths } from "./app.ts";
 import { configFromEnv, createLlmReasoner, type ProposalOutput } from "./llm.ts";
 import { ReplaySession, type Reasoner, type ReasonerSetup } from "./session.ts";
 
-const INFO = { provider: "azure", model: "mock" } as const;
+const INFO = { provider: "anthropic", model: "mock" } as const;
 
 /** A mock model that answers each call with the next output from `outputs` (the last one repeats). */
 function mockModel(outputs: (ProposalOutput | Error | ((prompt: string) => ProposalOutput))[]) {
@@ -201,23 +201,11 @@ describe("LLM reasoner", () => {
 });
 
 describe("configFromEnv", () => {
-  it("uses Azure OpenAI only when a key is set, unless LLM_PROVIDER says otherwise", () => {
+  it("uses Claude only when a key is set, unless LLM_PROVIDER says otherwise", () => {
     expect(configFromEnv({}).provider).toBe("none");
-    const azure = configFromEnv({ AZURE_API_KEY: "x", LLM_MODEL: "my-deployment" });
-    expect(azure).toEqual({
-      provider: "azure",
-      model: "my-deployment",
-      modelId: undefined,
-      effort: undefined,
-    });
-    expect(configFromEnv({ AZURE_API_KEY: "x", LLM_PROVIDER: "none" }).provider).toBe("none");
-    expect(configFromEnv({ LLM_PROVIDER: "azure", LLM_MODEL: "d", LLM_EFFORT: "low" }).effort).toBe(
-      "low",
-    );
-  });
-
-  it("rejects an unknown provider and Azure without a deployment name", () => {
-    expect(() => configFromEnv({ LLM_PROVIDER: "gpt" })).toThrow(/unknown LLM_PROVIDER/);
-    expect(() => configFromEnv({ AZURE_API_KEY: "x" })).toThrow(/deployment name/);
+    expect(configFromEnv({ ANTHROPIC_API_KEY: "x" }).provider).toBe("anthropic");
+    expect(configFromEnv({ ANTHROPIC_API_KEY: "x", LLM_PROVIDER: "none" }).provider).toBe("none");
+    expect(configFromEnv({}).model).toBe("claude-opus-5-5");
+    expect(() => configFromEnv({ LLM_PROVIDER: "gpt" })).toThrow();
   });
 });

@@ -11,8 +11,8 @@ const config = configFromEnv();
 const llm = reasonerFromConfig(config);
 console.log(
   llm
-    ? `Clinical reasoner: ${config.provider} deployment ${config.model}${config.effort ? ` (reasoning effort ${config.effort})` : ""}`
-    : "Clinical reasoner: none (no-LLM fallback). Set AZURE_API_KEY, AZURE_RESOURCE_NAME and LLM_MODEL in .env to use Azure OpenAI.",
+    ? `Clinical reasoner: ${config.provider} ${config.model} (effort ${config.effort})`
+    : "Clinical reasoner: none (no-LLM fallback). Set ANTHROPIC_API_KEY in .env to use Claude.",
 );
 
 const port = Number(process.env.PORT ?? 3001);

@@ -50,9 +50,9 @@ importers:
 
   apps/server:
     dependencies:
-      '@ai-sdk/azure':
-        specifier: 4.0.114
-        version: 4.0.114(zod@3.25.76)
+      '@ai-sdk/anthropic':
+        specifier: 4.0.94
+        version: 4.0.94(zod@3.25.76)
       '@astrohealth/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -113,26 +113,14 @@ importers:
 
 packages:
 
-  '@ai-sdk/azure@4.0.114':
-    resolution: {integrity: sha512-HDHLsQXY0V8vJx169gwqP82zLMxPmsk/4RSYcrnc339mpiDR6PqCvcloAvGqtLhaeqpc43Vb660PcBDINuFgcg==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/deepseek@3.0.77':
-    resolution: {integrity: sha512-2+YBeWe98pDCiUdBwmcJBGZLnkHtM+XEe8Fd9juaN5shxcyQUj/z5SDDfBsDCLdpnk/gocXzb4Zoj636ATgRKA==}
+  '@ai-sdk/anthropic@4.0.94':
+    resolution: {integrity: sha512-gD0KmsUZTRuhiYleM2SdMrY0c7m+VeRckLX2VVPnEAlQmaKqSw8+noHiK5ED+SHy4tuDf9VQqcHxlGeObzMNyw==}
     engines: {node: '>=22'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
   '@ai-sdk/gateway@4.0.132':
     resolution: {integrity: sha512-ppStDEz96g+JEuxGiVTP29OKBjPyYZXRxs38wnq3427U2QbZtxe6TukrgSAAq0n4yaHvSvVAWJY9kBlW8XudYg==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/openai@4.0.106':
-    resolution: {integrity: sha512-xBhSJCrgeTMZ4kCKABX8BJFtp5ZIJSS2qxvGMALA34TMyR6OVMe93cpU0mGWPFaVwPsWy2DWKb5+x7gkJ9SJ8w==}
     engines: {node: '>=22'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -1758,15 +1746,7 @@ packages:
 
 snapshots:
 
-  '@ai-sdk/azure@4.0.114(zod@3.25.76)':
-    dependencies:
-      '@ai-sdk/deepseek': 3.0.77(zod@3.25.76)
-      '@ai-sdk/openai': 4.0.106(zod@3.25.76)
-      '@ai-sdk/provider': 4.0.35
-      '@ai-sdk/provider-utils': 5.0.72(zod@3.25.76)
-      zod: 3.25.76
-
-  '@ai-sdk/deepseek@3.0.77(zod@3.25.76)':
+  '@ai-sdk/anthropic@4.0.94(zod@3.25.76)':
     dependencies:
       '@ai-sdk/provider': 4.0.35
       '@ai-sdk/provider-utils': 5.0.72(zod@3.25.76)
@@ -1777,12 +1757,6 @@ snapshots:
       '@ai-sdk/provider': 4.0.35
       '@ai-sdk/provider-utils': 5.0.72(zod@3.25.76)
       '@vercel/oidc': 3.2.0
-      zod: 3.25.76
-
-  '@ai-sdk/openai@4.0.106(zod@3.25.76)':
-    dependencies:
-      '@ai-sdk/provider': 4.0.35
-      '@ai-sdk/provider-utils': 5.0.72(zod@3.25.76)
       zod: 3.25.76
 
   '@ai-sdk/provider-utils@5.0.72(zod@3.25.76)':

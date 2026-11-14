@@ -37,7 +37,7 @@ pnpm dev:server   # http://127.0.0.1:3001/health
 pnpm dev:web      # http://localhost:5173
 ```
 
-For Azure OpenAI as the clinical reasoner, copy `.env.example` to `.env` and set `AZURE_API_KEY`, `AZURE_RESOURCE_NAME` and `LLM_MODEL` (the deployment name). Without a key, the server uses the no-LLM fallback (fixed order, unranked list).
+For Claude as the clinical reasoner, copy `.env.example` to `.env` and set `ANTHROPIC_API_KEY`. Without a key, the server uses the no-LLM fallback (fixed order, unranked list).
 
 Open http://localhost:5173, pick a demo, and press Play. **Autopilot** gives the scripted answers, test results and approval by itself (for recordings). **Comm blackout** forces the no-LLM fallback. Type a different answer in the check-in to run a live branch. Each run writes its event log to `runs/<run-id>.jsonl`.
 

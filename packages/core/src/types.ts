@@ -174,7 +174,7 @@ export interface LogLine {
   label: DataLabel;
   conditionId?: string | "uncatalogued";
   stepId?: string;
-  llm?: { provider: "azure" | "ollama" | "none"; model?: string };
+  llm?: { provider: "anthropic" | "ollama" | "none"; model?: string };
   ruleVersion: string;
   sourceId?: SourceId;
   data: Record<string, unknown>;
