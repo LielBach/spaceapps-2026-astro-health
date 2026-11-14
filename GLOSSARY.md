@@ -46,6 +46,10 @@ _Avoid_: Protocol (unless it is a NASA protocol), flow, script
 A value that a worn sensor measures continuously with no action from the astronaut, such as heart rate, heart-rate variability, respiratory rate, skin temperature, SpO2 or activity. Records that the exercise device makes during scheduled exercise (workload, duration, heart rate at workload) also count. Only passive signals can start an event.
 _Avoid_: Vital (for active tests too), reading
 
+**Surveillance trigger**:
+A scheduled check that an approved pathway sets from the medical record, such as a past abnormal finding plus a risk score. It can start an event with no passive-signal change. Passive signals stay the only trigger for unscheduled events.
+_Avoid_: Screening (unless it is a NASA screening protocol), reminder
+
 **Active test**:
 A measurement or answer that the astronaut must do on request, such as BP, body mass, a fluid intake answer or a fingerstick cartridge. Active tests investigate an event but never start one.
 _Avoid_: Check, exam
@@ -77,6 +81,10 @@ _Avoid_: Medical record, EHR, history
 **Real anchor**:
 A measured value from a real astronaut in an open dataset, such as an Inspiration4 lab result. It sets a personal baseline or appears as a lab draw in the replay.
 _Avoid_: Ground truth, real data (without saying which values)
+
+**Reference band**:
+A range taken from group data of other real astronauts, shown next to one astronaut's values for comparison. It is never shown as that astronaut's own value.
+_Avoid_: Normal range, population range
 
 **Simulated stream**:
 Generated vitals that fill the time between real anchors, seeded from published effect sizes.
