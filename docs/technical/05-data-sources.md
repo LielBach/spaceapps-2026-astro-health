@@ -84,7 +84,11 @@ API (no key):
 | **96-E096** Crew and crew-ground interactions | ISS | Mood, fatigue, team questionnaires | 11 xlsx, 2 xls | [10.83263/y1m7-r036](https://doi.org/10.83263/y1m7-r036) |
 | **96-E044** EVA and pulmonary function | ISS | Lung function before/after spacewalks | 9 xls | [10.83263/7nhp-yt75](https://doi.org/10.83263/7nhp-yt75) |
 | **96-E094** Dosimetric mapping | ISS | Radiation dose around the station | 9 xls, 17 tif | [10.83263/vys1-6526](https://doi.org/10.83263/vys1-6526) |
-| **178066** In-flight cardiovascular deconditioning | Shuttle | In-flight cardiovascular data | 2 xlsx, 7 tif | [10.83263/d8e9-0785](https://doi.org/10.83263/d8e9-0785) |
+| **178066** In-flight cardiovascular deconditioning | Shuttle | ✅ Opened: per-subject (6) average resting HR, BP, cardiac output, stroke volume, preflight erect/supine and **in flight**; group HR-vs-workload slopes in flight (Shykoff 1996, STS-40/58) | 2 xlsx, 7 tif | [10.83263/d8e9-0785](https://doi.org/10.83263/d8e9-0785) |
+| **DSO 402** Cardiovascular deconditioning countermeasure assessment ([record](https://nlsp.nasa.gov/explore/data/details/73d10bb4-b805-5bd5-bc52-149d8f9d1bd8?dataType=EXPERIMENTS)) | Shuttle | ✅ Opened: per-subject (22) supine and standing HR, SBP, DBP before and after flight, flight hours, saline countermeasure y/n, deconditioning index | 16 xls | — |
+| **AP012** Exercise response | Apollo 7–17 | ✅ Opened: group means only — sitting HR and O2 uptake at fixed HR, preflight vs recovery day | 9 xls | — |
+| **AP005** Apollo flight crew cardiovascular evaluations | Apollo 7–17 | ✅ Opened: group means — HR, BP, stroke volume during LBNP and stand tests, pre vs post flight | 10 xls | — |
+| **DSO 476** Inflight aerobic exercise | Shuttle | ✅ Opened: group means — exercise volume before and during flight by modality | 2 xls | — |
 | **DSO 484** Circadian shifting by bright light | Shuttle | Circadian / sleep | 1 xls, 4 tif | [10.83263/dqtx-da40](https://doi.org/10.83263/dqtx-da40) |
 | **9307570** COIS | Shuttle | Vestibular / sensorimotor | 1 xls | [10.83263/j9pa-hq45](https://doi.org/10.83263/j9pa-hq45) |
 | **3.1.2** Orthostatic intolerance, ambulatory monitoring | Mir | 24-h blood pressure and ECG | 1 xlsx | [10.83263/y1ag-4x65](https://doi.org/10.83263/y1ag-4x65) |
