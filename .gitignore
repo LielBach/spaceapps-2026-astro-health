@@ -33,3 +33,6 @@ Thumbs.db
 
 # Replay event logs (one JSONL per run)
 runs/
+
+# Demo recordings (pnpm record:demos)
+recordings/

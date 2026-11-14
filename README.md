@@ -41,6 +41,8 @@ For Claude as the clinical reasoner, copy `.env.example` to `.env` and set `ANTH
 
 Open http://localhost:5173, pick a demo, and press Play. **Autopilot** gives the scripted answers, test results and approval by itself (for recordings). **Comm blackout** forces the no-LLM fallback. Type a different answer in the check-in to run a live branch. Each run writes its event log to `runs/<run-id>.jsonl`.
 
+To record the demos as videos, run the server and the web app, then `pnpm record:demos` (add `--blackout` for the no-LLM fallback). It drives the installed Google Chrome on autopilot and saves `.webm` files to `recordings/` (git-ignored). The first time, run `npx playwright-core install ffmpeg`.
+
 Layout and plan: [docs/technical/09-implementation-plan.md](docs/technical/09-implementation-plan.md). Every number shown in the UI needs an entry in `sources.json`; `pnpm check:sources` fails on unknown IDs.
 
 ## Status
