@@ -31,7 +31,16 @@ export interface Sample {
   quality: number;
   label: DataLabel;
   sourceId: SourceId;
+  /** What the astronaut was doing: used by the context filter. */
+  context?: SampleContext;
 }
+
+export type SampleContext =
+  | "sleep"
+  | "rest"
+  | "exercise-standard"
+  | "exercise-max"
+  | "exercise-free";
 
 export interface Anchor {
   astronautId: string;
