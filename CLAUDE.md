@@ -1,19 +1,20 @@
 # CLAUDE.md — context for Claude working on this repo
 
 ## Project
-NASA Space Apps 2026 hackathon entry for "Create Health Monitoring Software for Astronauts on Space Missions". Working name **BASELINE** (not final). Direction proposed in `docs/04-directions.md` — **not yet confirmed by the team**; check README "Status" before assuming.
+NASA Space Apps 2026 hackathon entry for "Create Health Monitoring Software for Astronauts on Space Missions". Working name **BASELINE** (not final). Direction proposed in `docs/product/04-directions.md` — **not yet confirmed by the team**; check README "Status" before assuming.
 
 ## Read first
-- `docs/01-challenge-brief.md` — the brief; the five questions every indicator must answer (how measured / why / hazard effect / when crew vs ground / action).
-- `docs/03-problem-space.md` — the hazard→risk→indicator→action table is the domain model. Problems P1–P11 are referenced by ID in other docs.
-- `docs/02-resources.md` — where every fact comes from (knowledge sources).
-- `docs/05-data-sources.md` — datasets by access tier, with download URLs and confirmed file formats. Real open human data = Inspiration4 labs on OSDR (OSD-575, OSD-569, OSD-656) and ~94 public NLSP sets (old ISS/Shuttle/Mir flight data, bed rest, NEEMO). Measured radiation dose: ISS TEPC + BioSentinel (CDAWeb HAPI), ExoMars TGO Liulin-MO (ESA PSA TAP), Curiosity RAD. ESA has no open human measurements (HREDA gives data dictionaries only).
+- Docs are split: `docs/product/` (brief, domain knowledge, directions) and `docs/technical/` (data, architecture, technical designs). New technical designs go in `docs/technical/`.
+- `docs/product/01-challenge-brief.md` — the brief; the five questions every indicator must answer (how measured / why / hazard effect / when crew vs ground / action).
+- `docs/product/03-problem-space.md` — the hazard→risk→indicator→action table is the domain model. Problems P1–P11 are referenced by ID in other docs.
+- `docs/product/02-resources.md` — where every fact comes from (knowledge sources).
+- `docs/technical/05-data-sources.md` — datasets by access tier, with download URLs and confirmed file formats. Real open human data = Inspiration4 labs on OSDR (OSD-575, OSD-569, OSD-656) and ~94 public NLSP sets (old ISS/Shuttle/Mir flight data, bed rest, NEEMO). Measured radiation dose: ISS TEPC + BioSentinel (CDAWeb HAPI), ExoMars TGO Liulin-MO (ESA PSA TAP), Curiosity RAD. ESA has no open human measurements (HREDA gives data dictionaries only).
 
 ## Rules for working here
 - **Every threshold or number shown in the UI must carry a source link** (HRP risk page, NASA-STD-3001, OCHMO brief, or paper). Items marked *(verify)* in docs are not yet confirmed; verify before using in UI or pitch.
 - Present the app as **decision support**, never medical advice.
 - Real astronaut medical data is private. Use: synthetic crew data seeded from published effect sizes, real public feeds (NASA DONKI via api.nasa.gov, NOAA SWPC), PhysioNet waveforms, and live in-browser measurements. Be explicit about which is which.
-- Hackathon scope: the MVP list in `docs/04-directions.md` is the contract. Push back on scope creep.
+- Hackathon scope: the MVP list in `docs/product/04-directions.md` is the contract. Push back on scope creep.
 - Must work offline in principle (Mars has no live link) — any LLM/network feature needs a fallback.
 
 ## Key sources (quick links)

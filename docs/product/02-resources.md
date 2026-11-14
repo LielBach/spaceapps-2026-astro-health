@@ -2,7 +2,7 @@
 
 Legend — **Use:** 🧠 knowledge (what/why/thresholds) · 📊 data we can actually download · 🔌 live API/feed · 🧪 prior art to learn from / cite · 🔒 request-only or private
 Items marked *(verify)* came from memory or secondary sources — confirm before citing in the submission.
-**For datasets, access tiers and file formats, see [05-data-sources.md](05-data-sources.md)** (it supersedes the data notes below where they differ).
+**For datasets, access tiers and file formats, see [05-data-sources.md](../technical/05-data-sources.md)** (it supersedes the data notes below where they differ).
 
 > **Key reality check:** individual astronaut medical data is private. Almost nothing at the level of "this astronaut's daily BP" is public. Plan on **synthetic data seeded from published effect sizes**, plus **real public feeds** for environment/space weather, plus **live measurements in the demo** (camera, reaction-time tests). Being explicit about this is a strength, not a weakness.
 
@@ -13,7 +13,7 @@ Items marked *(verify)* came from memory or secondary sources — confirm before
 | Resource | Use | Notes |
 |---|---|---|
 | [Challenge page](https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/) | 🧠 | Brief + objectives |
-| Challenge Resources tab (`?tab=resources`) | 🧠📊 | 5 NASA HRP / CSA links, no datasets — see [05-data-sources.md](05-data-sources.md) |
+| Challenge Resources tab (`?tab=resources`) | 🧠📊 | 5 NASA HRP / CSA links, no datasets — see [05-data-sources.md](../technical/05-data-sources.md) |
 | [2026 Space Agency Partners](https://www.spaceappschallenge.org/2026/space-agency-partners/) | 🧠 | 17 partners: Angola, Argentina (CONAE), Bahrain, Brazil (AEB), **CSA**, **ESA**, ISRO, ASI, **JAXA**, KASA, Nigeria, Paraguay, Senegal, Spain (AEE), Turkey (TUA), **UAE (MBRSC)**, UK Space Agency |
 | [Space Apps Connect](https://github.com/nasa/spaceapps) / [Participant FAQs](https://www.spaceappschallenge.org/resources/participant-faqs/) | — | Rules, submission format |
 
