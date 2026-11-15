@@ -183,7 +183,9 @@ equipment:
           id: t-cabin-co2,
           name: "Cabin CO2 reading",
           returns: [cabin-ppco2],
-          rules: [{ field: cabin-ppco2, op: gt, value: 4, finding: f-co2-high }],
+          sourceIds: [nasa-std-3001-vol2-revf],
+          # NASA-STD-3001 Vol. 2 Rev F [V2 6004]: one-hour average ppCO2 no more than 3 mmHg.
+          rules: [{ field: cabin-ppco2, op: gt, value: 3, finding: f-co2-high }],
         }
       - {
           id: t-dosimeter,

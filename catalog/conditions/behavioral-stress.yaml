@@ -5,7 +5,13 @@ hrpRisk: "Adverse cognitive or behavioral conditions (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
 # Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
 codes:
-  - { system: snomed, equivalence: unmatched, note: "No concept was checked yet (verify)." }
+  - {
+      system: snomed,
+      code: "73595000",
+      display: "Stress",
+      equivalence: inexact,
+      note: "The catalog entry is a broader behavioral strain: low mood and poor sleep under isolation, not only stress.",
+    }
   - { system: icd10cm, code: "F43.0", display: Acute stress reaction, equivalence: inexact }
 supports: [f-low-mood, f-poor-sleep, f-hrv-down, f-cognition-slow]
 against: []

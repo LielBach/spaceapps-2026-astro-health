@@ -5,8 +5,20 @@ hrpRisk: "Sleep loss and circadian desynchronization (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
 # Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
 codes:
-  - { system: snomed, equivalence: unmatched, note: "No concept was checked yet (verify)." }
-  - { system: icd10cm, code: "Z72.820", display: Sleep deprivation, equivalence: equivalent }
+  - {
+      system: snomed,
+      code: "130989002",
+      display: "Sleep deprivation",
+      equivalence: narrower,
+      note: "The catalog entry also covers circadian misalignment.",
+    }
+  - {
+      system: icd10cm,
+      code: "Z72.820",
+      display: Sleep deprivation,
+      equivalence: narrower,
+      note: "The catalog entry also covers circadian misalignment.",
+    }
 supports: [f-poor-sleep, f-cognition-slow, f-fatigue, f-hrv-down]
 against: []
 questions: [q-sleep, q-mood, q-fatigue]

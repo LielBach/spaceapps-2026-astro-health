@@ -129,6 +129,41 @@
       "url": "https://standards.ieee.org/ieee/11073-10101/10343/",
       "verify": false,
       "note": "MDC codes checked with $lookup on tx.fhir.org, 2026-11-15."
+    },
+    {
+      "id": "nasa-std-3001-vol2-revf",
+      "title": "NASA-STD-3001 Volume 2 Rev F — Human Factors, Habitability, and Environmental Health (approved 2026-07-14)",
+      "url": "https://standards.nasa.gov/system/files/tmp/NASA-STD-3001%20Vol%202%20Rev%20F.pdf",
+      "verify": false,
+      "note": "[V2 6004] Nominal Vehicle/Habitat Carbon Dioxide Levels: one-hour average ppCO2 no more than 3 mmHg (p. 51). Supersedes Rev E (2025-05-01). The standards.nasa.gov listing still showed Rev E on 2026-11-15."
+    },
+    {
+      "id": "abbott-istat-loinc",
+      "title": "Abbott Point of Care — i-STAT Analytes: LOINC Code Index (APOC-25002407-1, 03/25)",
+      "url": "https://www.globalpointofcare.abbott/content/dam/ardx/globalpointofcare/apoc/products/i-stat/en/compliance-resource-section/LOINC%20Code.pdf",
+      "verify": false,
+      "note": "Whole-blood (Bld) codes: sodium 2947-0, BUN 6299-2, creatinine 38483-4, hematocrit 20570-8. Checked with $lookup on tx.fhir.org (LOINC 2.83), 2026-11-15."
+    },
+    {
+      "id": "otsuka-2019-hrv",
+      "title": "Otsuka K et al. Anti-aging effects of long-term space missions, estimated by heart rate variability. Sci Rep 2019;9:8995",
+      "url": "https://doi.org/10.1038/s41598-019-45387-6",
+      "verify": false,
+      "note": "Table 2: SDNNIDX (mean of 5-min SDNN over 24 h, Holter) on the ISS, quiet days: 62.9 ± 18.2 ms (ISS01, n = 7) and 63.0 ± 22.7 ms (ISS02, n = 7). In-flight values, not pre-flight."
+    },
+    {
+      "id": "fda-cds-2026",
+      "title": "FDA — Clinical Decision Support Software: Guidance for Industry and FDA Staff (final, January 2026; docket FDA-2017-D-6569)",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/clinical-decision-support-software",
+      "verify": false,
+      "note": "Four Non-Device CDS criteria of FD&C Act 520(o)(1)(E). Criterion 1 excludes software that analyzes a pattern or signal from a signal acquisition system, including continuous or streaming measurement. Criteria text checked in FDA's webinar slides of 2026-03-11 (https://www.fda.gov/media/191561/download)."
+    },
+    {
+      "id": "snomed-gps",
+      "title": "SNOMED International — Global Patient Set implementation guide: technical application",
+      "url": "https://docs.snomed.org/implementation-guides/gps-implementation-guide/technical-application",
+      "verify": false,
+      "note": "Storing, exchanging, displaying and validating SNOMED CT identifiers with their terms is permitted in all jurisdictions, including non-Member countries. Uses that depend on concept semantics (hierarchies, subsumption, terminology-driven decision support) need licensed access."
     }
   ]
 }

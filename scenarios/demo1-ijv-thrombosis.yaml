@@ -30,7 +30,9 @@ stream:
   # No open per-astronaut HR exists for Maya: the resting HR is an example value (08 doc).
   baselines:
     hr: { value: 70, noiseSd: 2, sourceId: illustrative }
-    hrv: { value: 60, noiseSd: 6, sourceId: illustrative }
+    # HRV: the published in-flight group mean of 5-minute SDNN (SDNNIDX, Otsuka 2019, Table 2),
+    # not this astronaut's own value. The noise is illustrative.
+    hrv: { value: 63, noiseSd: 6, sourceId: otsuka-2019-hrv }
     respiratoryRate: { value: 14, noiseSd: 1, sourceId: illustrative }
     skinTemp: { value: 33.4, noiseSd: 0.2, sourceId: illustrative }
     spo2: { value: 98, noiseSd: 0.5, sourceId: illustrative }

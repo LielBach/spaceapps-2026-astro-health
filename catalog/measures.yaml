@@ -357,7 +357,7 @@ measures:
         code: "20570-8"
         display: "Hematocrit [Volume Fraction] of Blood by calculation"
         equivalence: inexact
-        note: "The handheld analyzer measures hematocrit by conductometry, not by calculation (verify the method code)."
+        note: "The manufacturer's LOINC index assigns this code (Abbott APOC-25002407-1, 03/25), but the analyzer measures hematocrit by conductometry, not by calculation. LOINC has no conductometry code."
   - id: kidney-hydronephrosis
     display: Hydronephrosis seen
     category: imaging
@@ -428,6 +428,7 @@ measures:
     category: environment
     valueType: quantity
     unit: "mm[Hg]"
+    definition: "One-hour average ppCO2 in the habitable volume: the quantity that NASA-STD-3001 Vol. 2 [V2 6004] limits."
     mappings:
       - system: loinc
         equivalence: unmatched
