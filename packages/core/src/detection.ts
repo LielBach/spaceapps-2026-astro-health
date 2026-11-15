@@ -118,6 +118,8 @@ export const DEFAULT_DETECTION: Omit<DetectionConfig, "baselineDays"> = {
 
 export type DetectionOutput =
   | { kind: "baselineFrozen"; t: number; baselines: Partial<Record<MetricId, number>> }
+  /** A metric value inside the baseline window, before the baseline is frozen. */
+  | { kind: "baselineWindow"; t: number; metric: MetricId; value: number }
   | { kind: "ignored"; t: number; signal: PassiveSignal; value: number; reason: string }
   | {
       kind: "deviation";
@@ -129,7 +131,7 @@ export type DetectionOutput =
       limit: number;
       streak: number;
     }
-  | { kind: "inBand"; t: number; metric: MetricId; value: number; baseline: number }
+  | { kind: "inBand"; t: number; metric: MetricId; value: number; baseline: number; limit: number }
   | { kind: "watch"; t: number; finding: string; metric: MetricId }
   | { kind: "open"; t: number; findings: string[]; context: string[] }
   | { kind: "cleared"; t: number; finding: string; metric: MetricId }
@@ -300,8 +302,10 @@ export class Detector {
   private window(spec: MetricSpec, value: number, t: number): DetectionOutput[] {
     const [from, to] = this.config.baselineDays;
     if (!this.frozen) {
-      if (t >= from && t <= to)
+      if (t >= from && t <= to) {
         this.baselineValues.set(spec.id, [...(this.baselineValues.get(spec.id) ?? []), value]);
+        return [{ kind: "baselineWindow", t, metric: spec.id, value }];
+      }
       return [];
     }
     const base = this.baselines.get(spec.id);
@@ -343,7 +347,14 @@ export class Detector {
       }
     } else {
       this.streaks.set(spec.id, 0);
-      out.push({ kind: "inBand", t, metric: spec.id, value, baseline: base });
+      out.push({
+        kind: "inBand",
+        t,
+        metric: spec.id,
+        value,
+        baseline: base,
+        limit: round1(limitFor(spec, base)),
+      });
       if (this.persistent.has(spec.finding)) {
         const clear = (this.clearStreaks.get(spec.id) ?? 0) + 1;
         this.clearStreaks.set(spec.id, clear);

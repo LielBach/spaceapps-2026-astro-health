@@ -14,8 +14,9 @@ import {
 export function ruleBasedProposal(inv: Investigation): Proposal {
   const present = inv.present();
   const inPlay = inv.inPlay();
-  const evidence = (ids: string[]) =>
-    inv.findings.filter((f) => ids.includes(f.id)).map((f) => f.logId);
+  const evidence = (ids: string[]) => [
+    ...new Set(inv.findings.filter((f) => ids.includes(f.id)).map((f) => f.logId)),
+  ];
   const diagnoses = inPlay.map((c) => ({
     ref: { conditionId: c.id },
     confidence: Math.round(scoreCondition(c, present) * 100) / 100,

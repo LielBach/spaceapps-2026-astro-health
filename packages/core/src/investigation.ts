@@ -102,6 +102,7 @@ export class Investigation {
   readonly triggerFindings: string[];
   private t: number;
   private seq = 0;
+  private lastShown = "";
   private readonly opts: InvestigationOptions;
 
   constructor(catalog: Catalog, opts: InvestigationOptions) {
@@ -246,7 +247,14 @@ export class Investigation {
           : d.evidenceFor.length >= 2;
       return { ...d, catalogued, name, visible };
     });
-    if (this.diagnoses.some((d) => d.visible)) {
+    const shown = JSON.stringify(
+      this.diagnoses
+        .filter((d) => d.visible)
+        .map((d) => [d.name, d.confidence, d.evidenceFor.length]),
+    );
+    // Log the assessment only when it changes, so the event log stays readable.
+    if (this.diagnoses.some((d) => d.visible) && shown !== this.lastShown) {
+      this.lastShown = shown;
       this.write(
         "diagnosis",
         {
