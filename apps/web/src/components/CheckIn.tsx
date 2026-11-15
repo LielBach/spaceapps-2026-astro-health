@@ -6,7 +6,7 @@ import {
   type MeasuredValue,
   type SessionView,
   type TestSpec,
-} from "@astrohealth/core";
+} from "@orbivit/core";
 import { day, post } from "../api.ts";
 import { Scan } from "./Record.tsx";
 import { Src } from "./Source.tsx";
@@ -40,7 +40,7 @@ function TriggerSummary({ event }: { event: EventView }) {
   );
 }
 
-/** Operator checklist and structured finding (Demo 1 step 7). AstroHealth does not read images. */
+/** Operator checklist and structured finding (Demo 1 step 7). ORBIVIT does not read images. */
 function StructuredFinding({
   event,
   spec,
@@ -262,7 +262,7 @@ export function CheckIn({ view, event }: { view: SessionView; event: EventView |
           <p>{escalation.data.text}</p>
           <p className="muted small">
             Suspected, not confirmed. The crew medical officer decides; ground review when the link
-            allows ({view.scenario.mission.commDelayMinutes} min one way). AstroHealth does not
+            allows ({view.scenario.mission.commDelayMinutes} min one way). ORBIVIT does not
             prescribe.
           </p>
         </div>

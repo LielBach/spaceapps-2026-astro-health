@@ -1,9 +1,9 @@
-import { displayUnit, measureDef, type MediaView, type SessionView } from "@astrohealth/core";
+import { displayUnit, measureDef, type MediaView, type SessionView } from "@orbivit/core";
 import { day } from "../api.ts";
 import { MeasureCodes } from "./Codes.tsx";
 import { Label, Src } from "./Source.tsx";
 
-/** A scan with its own label and credit (ADR 0009). AstroHealth does not read images. */
+/** A scan with its own label and credit (ADR 0009). ORBIVIT does not read images. */
 export function Scan({ media, title }: { media: MediaView; title: string }) {
   return (
     <figure className="scan">

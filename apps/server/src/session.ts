@@ -18,7 +18,7 @@ import {
   type ChartPoint,
   type Marker,
   type SessionView,
-} from "@astrohealth/core";
+} from "@orbivit/core";
 import {
   createStream,
   loadAnchors,
@@ -30,7 +30,7 @@ import {
   type Scenario,
   type ScenarioMedia,
   type Stream,
-} from "@astrohealth/data";
+} from "@orbivit/data";
 
 export const RULE_VERSION = "m1g-0.1";
 

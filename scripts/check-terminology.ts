@@ -2,14 +2,14 @@
 // incomplete or inconsistent with the catalog, the scenarios or the anchor files (docs/technical/10).
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { SYSTEM_SOURCES } from "@astrohealth/core";
+import { SYSTEM_SOURCES } from "@orbivit/core";
 import {
   loadAnchors,
   loadCatalog,
   loadScenario,
   normalizeAnchors,
   scenarioProblems,
-} from "@astrohealth/data";
+} from "@orbivit/data";
 
 const root = process.cwd();
 const errors: string[] = [];

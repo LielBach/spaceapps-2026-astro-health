@@ -1,13 +1,13 @@
 # 07 — Demo case brief
 
-Context for defining the demo case of AstroHealth. This file stands alone: you can paste it into another assistant or give it to a teammate.
+Context for defining the demo case of ORBIVIT. This file stands alone: you can paste it into another assistant or give it to a teammate.
 
 The team chose two demos (ADR 0008); their step-by-step workflows are in [08-clinical-demos.md](08-clinical-demos.md). Decisions here come from a design interview. They are recorded in [GLOSSARY.md](../../GLOSSARY.md) and [docs/adr/](../adr/). Items marked *(verify)* need a source before they appear in the UI or the pitch.
 
 ## 1. The product in short
 
 - **Event:** NASA Space Apps 2026, challenge "Create Health Monitoring Software for Astronauts on Space Missions". The brief asks for software that astronauts use to **assess themselves**.
-- **Product:** AstroHealth, a proactive decision-support system. It watches passive sensor data, starts an investigation without a prompt when it finds a deviation, and guides the astronaut to a resolution.
+- **Product:** ORBIVIT, a proactive decision-support system. It watches passive sensor data, starts an investigation without a prompt when it finds a deviation, and guides the astronaut to a resolution.
 - **Loop:** detect → investigate → assess → act → learn.
 - **Primary user:** the astronaut. The crew medical officer and the ground only receive escalations.
 - **Setting:** a long mission, such as Mars transit. The link to Earth has a long delay or is down, so the system must work without it.
@@ -98,7 +98,7 @@ Full workflows: [08-clinical-demos.md](08-clinical-demos.md). Both come from the
 
 **Demo 2 (shown first): cardiovascular deconditioning.** Alex = subject 1 of Shuttle study NLSP 178066 (REAL pre-flight and in-flight resting heart rate, BP, cardiac output, stroke volume). Trigger: heart rate at the same exercise workload rises over many sessions, and performance falls (SIMULATED, seeded from the real STS-40 group slope). Check-in question, then tests cheapest first; suspected diagnosis: reduced exercise tolerance consistent with deconditioning. Action: countermeasure review from the approved pathway. Resolve: matched-workload heart rate returns toward baseline. Gravity transition step uses a DSO 402 REFERENCE band.
 
-**Demo 1 (second): internal jugular vein thrombosis.** Maya = COMPOSITE: REAL Inspiration4 pre-flight labs (including albumin) and REAL ISS ultrasound images (Marshall-Goebel 2019, CC-BY). Trigger: a surveillance trigger from a past abnormal flow finding schedules a repeat ultrasound; a sleeping-heart-rate rise brings it forward. One event holds both the general assessment of the heart-rate change and the surveillance question. The ultrasound result is entered as a structured finding (flow detected yes/no, flow grade 1–4, compressibility, thrombus yes/no); AstroHealth does not read images. Suspected diagnosis: IJV thrombosis, escalated; treatment needs authorized medical oversight.
+**Demo 1 (second): internal jugular vein thrombosis.** Maya = COMPOSITE: REAL Inspiration4 pre-flight labs (including albumin) and REAL ISS ultrasound images (Marshall-Goebel 2019, CC-BY). Trigger: a surveillance trigger from a past abnormal flow finding schedules a repeat ultrasound; a sleeping-heart-rate rise brings it forward. One event holds both the general assessment of the heart-rate change and the surveillance question. The ultrasound result is entered as a structured finding (flow detected yes/no, flow grade 1–4, compressibility, thrombus yes/no); ORBIVIT does not read images. Suspected diagnosis: IJV thrombosis, escalated; treatment needs authorized medical oversight.
 
 **Known weak points:**
 - Demo 2: higher exercise heart rate is nonspecific; the real in-flight value comes from a 9–14-day flight, not a long mission.

@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { displayUnit, type MetricId, type SessionView } from "@astrohealth/core";
+import { displayUnit, type MetricId, type SessionView } from "@orbivit/core";
 import { MeasureCodes } from "./Codes.tsx";
 import { Label, Src } from "./Source.tsx";
 

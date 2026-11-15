@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { parse } from "yaml";
 import { z } from "zod";
-import { PASSIVE_SIGNALS, measureDef, resultProblems, type Catalog } from "@astrohealth/core";
+import { PASSIVE_SIGNALS, measureDef, resultProblems, type Catalog } from "@orbivit/core";
 
 const Signal = z.enum(PASSIVE_SIGNALS);
 

@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { Investigation, ruleBasedProposal, type Proposal } from "@astrohealth/core";
+import { Investigation, ruleBasedProposal, type Proposal } from "@orbivit/core";
 import { loadCatalog, loadScenario } from "../index.ts";
 
 const repo = (path: string) => fileURLToPath(new URL(`../../../../${path}`, import.meta.url));

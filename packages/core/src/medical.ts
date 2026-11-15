@@ -8,9 +8,9 @@ export const CODE_SYSTEMS = {
   icd10cm: "http://hl7.org/fhir/sid/icd-10-cm",
   mdc: "urn:iso:std:iso:11073:10101",
   ucum: "http://unitsofmeasure.org",
-  measure: "urn:astrohealth:measure",
-  finding: "urn:astrohealth:finding",
-  condition: "urn:astrohealth:condition",
+  measure: "urn:orbivit:measure",
+  finding: "urn:orbivit:finding",
+  condition: "urn:orbivit:condition",
 } as const;
 
 export type CodeSystemKey = keyof typeof CODE_SYSTEMS;

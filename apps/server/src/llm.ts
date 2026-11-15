@@ -9,7 +9,7 @@ import {
   type SystemModelMessage,
 } from "ai";
 import { z } from "zod";
-import type { Catalog, Investigation, LlmInfo, NextStep, Proposal } from "@astrohealth/core";
+import type { Catalog, Investigation, LlmInfo, NextStep, Proposal } from "@orbivit/core";
 import type { Reasoner, ReasonerSetup } from "./session.ts";
 
 export interface LlmConfig {
@@ -119,7 +119,7 @@ export function toProposal(out: ProposalOutput): Proposal {
 
 // ---------- Prompt ----------
 
-const RULES = `You are the clinical reasoner of AstroHealth, a decision-support system for astronauts on a long mission with no fast link to Earth.
+const RULES = `You are the clinical reasoner of ORBIVIT, a decision-support system for astronauts on a long mission with no fast link to Earth.
 A passive monitoring event is open. You choose the next step of the investigation and rank suspected diagnoses for the crew medical officer.
 
 Rules:

@@ -1,4 +1,4 @@
-import type { Anchor } from "@astrohealth/core";
+import type { Anchor } from "@orbivit/core";
 import { num, readRows } from "./sheet.ts";
 
 // NLSP DSO 402 (Shuttle): individual stand-test results before and after flight. REFERENCE band only.

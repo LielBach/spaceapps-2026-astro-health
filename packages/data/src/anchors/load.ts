@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { toMeasureId, toUcum, type Anchor, type Terminology } from "@astrohealth/core";
+import { toMeasureId, toUcum, type Anchor, type Terminology } from "@orbivit/core";
 
 /** Reads data/anchors/<sourceId>.json files built by scripts/build-anchors.ts. */
 export function loadAnchors(anchorsDir: string, sourceIds: string[]): Anchor[] {
