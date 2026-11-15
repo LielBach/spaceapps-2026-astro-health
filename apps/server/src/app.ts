@@ -1,6 +1,8 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyInstance } from "fastify";
+import { resultProblems } from "@astrohealth/core";
+import { toFhirBundle } from "./fhir.ts";
 import { ReplaySession, type ReasonerSetup, type SessionPaths } from "./session.ts";
 
 const repo = (path: string) => fileURLToPath(new URL(`../../../${path}`, import.meta.url));
@@ -101,6 +103,19 @@ export function buildApp(
   app.get("/api/scenarios", async () => ({ scenarios, current: session.scenario.id }));
   app.get("/api/state", async () => session.view());
 
+  // FHIR R4 Bundle of the current run (docs/technical/10 §4.8): a file to send in one transfer.
+  app.get("/api/fhir/export", async (_request, reply) => {
+    const view = session.view();
+    if (!view.scenario.mission.epoch)
+      return reply.code(400).send({
+        error: `scenario ${view.scenario.id} has no mission epoch; the FHIR export needs one`,
+      });
+    return reply
+      .type("application/fhir+json")
+      .header("content-disposition", `attachment; filename="${view.runId}.fhir.json"`)
+      .send(JSON.stringify(toFhirBundle(view), null, 2));
+  });
+
   app.get("/api/stream", (request, reply) => {
     reply.raw.writeHead(200, {
       "content-type": "text/event-stream",
@@ -144,8 +159,13 @@ export function buildApp(
 
   app.post<{
     Body: { eventId: string; testId: string; values?: Record<string, number | string | boolean> };
-  }>("/api/test", async (request) => {
+  }>("/api/test", async (request, reply) => {
     const { eventId, testId, values } = request.body;
+    // Values are keyed by measure ID (catalog/measures.yaml) and must match the measure's type.
+    const spec = session.catalog.tests.find((t) => t.id === testId);
+    if (!spec) return reply.code(404).send({ error: `unknown test ${testId}` });
+    const problems = values ? resultProblems(session.catalog, testId, spec.returns, values) : [];
+    if (problems.length > 0) return reply.code(400).send({ error: problems.join("; ") });
     await session.runTest(eventId, testId, values);
     return { ok: true };
   });

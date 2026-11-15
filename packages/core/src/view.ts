@@ -8,6 +8,8 @@ export interface MissionView {
   lengthDays: number;
   replayFromDay: number;
   commDelayMinutes: number;
+  /** Launch time (ISO 8601 UTC). A demo epoch is fictional (SIMULATED). */
+  epoch?: string | undefined;
 }
 
 export interface AstronautView {

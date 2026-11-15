@@ -3,6 +3,16 @@ name: "Internal jugular vein thrombosis (VTE)"
 hazard: gravity
 hrpRisk: "Cardiovascular adaptations (HRP); NASA VTE risk score"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - { system: snomed, code: "128053003", display: Deep venous thrombosis, equivalence: wider }
+  - {
+      system: icd10cm,
+      code: "I82.C1",
+      display: "Acute embolism and thrombosis of internal jugular vein",
+      equivalence: narrower,
+      note: "Acute only. Laterality is coded at confirmation, for example I82.C12 (left).",
+    }
 supports:
   [
     f-prior-ijv-flow-abnormal,

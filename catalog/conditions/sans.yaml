@@ -3,6 +3,22 @@ name: "Spaceflight associated neuro-ocular syndrome (SANS)"
 hazard: gravity
 hrpRisk: "SANS (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - {
+      system: snomed,
+      code: "423341008",
+      display: Optic disc edema,
+      equivalence: narrower,
+      note: "One sign of SANS. The HRP risk is the primary reference.",
+    }
+  - {
+      system: icd10cm,
+      code: "H47.10",
+      display: Unspecified papilledema,
+      equivalence: inexact,
+      note: "SANS is not papilledema from raised intracranial pressure.",
+    }
 supports: [f-headache-vision, f-vision-change]
 against: []
 questions: [q-headache-vision]

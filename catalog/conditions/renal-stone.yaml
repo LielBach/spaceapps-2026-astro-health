@@ -3,6 +3,10 @@ name: "Renal stone"
 hazard: gravity
 hrpRisk: "Renal stone formation (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - { system: snomed, code: "95570007", display: Kidney stone, equivalence: equivalent }
+  - { system: icd10cm, code: "N20.0", display: Calculus of kidney, equivalence: equivalent }
 supports: [f-hydronephrosis, f-flank-pain, f-nausea, f-low-fluid-intake, f-urine-dark]
 against: []
 questions: [q-flank-pain, q-nausea, q-fluid-intake]

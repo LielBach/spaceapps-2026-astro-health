@@ -100,137 +100,173 @@ Every medical datum that crosses a boundary (data loader → engines → server 
 2. **Mapped explicitly.** Each local code lists its nearest standard code and the FHIR R4 ConceptMap equivalence (`equivalent`, `wider`, `narrower`, `inexact`, `unmatched`). `unmatched` needs a one-line reason. A mapping never claims more than it is.
 3. **UCUM units.** A quantity stores its UCUM code (`/min`, `mm[Hg]`, `10*3/uL`). The UI shows a display unit from the unit registry (`/min` → "bpm"). Unit text from a source file is converted when the data is loaded and never shown raw.
 4. **Provenance on the datum.** A datum carries its data label (REAL, SIMULATED, REFERENCE), its `sourceId`, and its origin: stream, anchor, device, operator, astronaut answer, or reasoner. COMPOSITE stays a property of the astronaut (ADR 0009).
-5. **Two clocks.** Mission day stays the working time. When a mission epoch is set, the export adds an ISO 8601 UTC instant. A demo epoch is fictional and labeled SIMULATED.
+5. **Two clocks.** Mission day stays the working time. The export needs a mission epoch and adds an ISO 8601 UTC instant (epoch + mission day). A demo epoch is fictional and labeled SIMULATED.
 6. **Typed ranges.** A range has one of four types, and the UI names the type:
    - `lab-reference`: the lab's own range from the source file (FHIR `normal`);
    - `personal-baseline`: the frozen baseline plus its band (ADR 0007);
    - `reference-band`: group data from other astronauts (glossary);
    - `alert-limit`: a design parameter (`illustrative`) until a source exists.
 7. **Status is not provenance.** FHIR `status` (`final`, `preliminary`, `amended`, `entered-in-error`) describes the result's life cycle. The data label describes where the value comes from. The two are never merged.
-8. **Suspected, never confirmed by the app.** The app writes `Condition.verificationStatus` only as `differential` (any ranked candidate) or `provisional` (the top candidate after the minimum-evidence rule). Only a crew medical officer action can set `confirmed` or `refuted`.
+8. **Suspected, never confirmed by the app.** The app writes `Condition.verificationStatus` only as `provisional` (the leading catalogued candidate of a ranked list, after the minimum-evidence rule) or `differential` (every other candidate, and every candidate of an unranked list). Only a crew medical officer action can set `confirmed` or `refuted`.
 
 ## 4. The interface
+
+This section describes what M1g built. Where the build differs from the first plan, the text says so.
 
 ### 4.1 Core types (`packages/core/src/medical.ts`)
 
 These are a small subset of FHIR R4 in TypeScript. They are not a FHIR server and not a full FHIR library.
 
 ```ts
-type CodeSystemUri =
-  | "http://loinc.org" | "http://snomed.info/sct" | "http://hl7.org/fhir/sid/icd-10-cm"
-  | "urn:iso:std:iso:11073:10101" | "http://unitsofmeasure.org"
-  | "urn:astrohealth:measure" | "urn:astrohealth:finding" | "urn:astrohealth:condition";
+const CODE_SYSTEMS = {
+  loinc: "http://loinc.org", snomed: "http://snomed.info/sct",
+  icd10cm: "http://hl7.org/fhir/sid/icd-10-cm", mdc: "urn:iso:std:iso:11073:10101",
+  ucum: "http://unitsofmeasure.org",
+  measure: "urn:astrohealth:measure", finding: "urn:astrohealth:finding",
+  condition: "urn:astrohealth:condition",
+};
 
-interface Coding { system: CodeSystemUri; code: string; display: string }
-
-/** The first coding is the primary one. Local codes come first; standard mappings follow. */
-interface Concept { coding: Coding[]; text: string }
-
+/** One standard code for a local code, and how close it is (FHIR R4 ConceptMap equivalence). */
 interface Mapping {
-  target: Coding;
+  system: "loinc" | "snomed" | "icd10cm" | "mdc";
+  code?: string; display?: string;            // required unless unmatched
   equivalence: "equivalent" | "wider" | "narrower" | "inexact" | "unmatched";
-  note?: string;
+  note?: string;                              // required for unmatched
 }
 
-interface Quantity { value: number; unit: UcumCode } // UcumCode: a key of the unit registry
+interface MeasureDef {
+  id: string; display: string;
+  category: "vital-signs" | "laboratory" | "activity" | "exam" | "survey" | "imaging"
+          | "procedure" | "environment";
+  valueType: "quantity" | "boolean" | "string" | "panel";
+  unit?: string;                              // UCUM code from units.yaml
+  components?: string[];                      // a panel's measures, for example blood pressure
+  signal?: string; metric?: string;           // link to a stream signal or a detection metric
+  mappings: Mapping[];
+}
 
-type Origin = "stream" | "anchor" | "device" | "operator" | "astronaut" | "reasoner";
-
-interface Provenance { label: DataLabel; sourceId: SourceId; origin: Origin; deviceId?: string }
+/** A logged test value: always a registry measure with its UCUM unit. */
+interface ResultValue { measure: string; value: number | boolean | string; unit?: string }
 
 interface Range {
   type: "lab-reference" | "personal-baseline" | "reference-band" | "alert-limit";
-  low?: Quantity; high?: Quantity;
-  sourceId: SourceId;
+  low?: number; high?: number; sourceId: SourceId;
 }
 
-type ObservationCategory = "vital-signs" | "laboratory" | "activity" | "exam" | "survey" | "imaging";
-
-/** One measurement: the single shape for anchors, stream samples, metric values and test results. */
+/** The single shape of a measurement, for anchors, stream samples, metric values and results. */
 interface Measurement {
-  id: string;
-  subject: string;                 // astronaut ID
-  measure: MeasureId;              // key of the measure registry → code, category, unit
-  value: Quantity | boolean | Coding | string;
-  missionDay: MissionDay;
-  context?: SampleContext;         // sleep, rest, exercise-standard, …
+  id: string; subject: string; measure: string;
+  value: number | boolean | string; unit?: string;
+  missionDay: MissionDay; context?: SampleContext;
   status: "final" | "preliminary" | "amended" | "entered-in-error";
   ranges?: Range[];
-  quality?: number;                // 0–1, stream only
-  provenance: Provenance;
+  label: DataLabel; sourceId: SourceId;
+  origin: "stream" | "anchor" | "device" | "operator" | "astronaut" | "reasoner";
+  deviceId?: string;
 }
 ```
 
-`Sample`, `Anchor` and `LabView` become projections of `Measurement`. The detection engine keeps its fast internal arrays, but everything it emits uses the registry codes.
+Helpers: `toUcum` (source spelling → UCUM code), `toMeasureId` (alias → measure ID), `displayUnit`, `formatValue`, `codeUrl` (public code page), `mappingProblems`.
+
+The stream signals and detection metrics keep their internal IDs (`hr`, `restingHr`, …). They are not renamed: each one links to its measure through `signal` or `metric` in the registry, and the check requires every link to exist exactly once. This keeps the detection engine and the demo replays unchanged.
 
 ### 4.2 Registries (`catalog/`, checked by a script)
 
-Three new YAML files hold every code. Code elsewhere refers to them by ID.
+Three YAML files hold every code. Code elsewhere refers to them by ID.
 
-- **`catalog/units.yaml`**: the UCUM allowlist. Each entry has a UCUM code, a display unit, and the source spellings it replaces (`bpm` → `/min`; `Thousand/uL` → `10*3/uL`; `(calc)` → `1`). The list is fixed and checked once against tx.fhir.org, so the app needs no network (offline rule).
-- **`catalog/measures.yaml`**: one entry per measure. It has a local ID, display, category, UCUM unit, value type, its LOINC and IEEE 11073 mappings with equivalence, and a definition for derived measures (window, context, aggregation). Test result fields and stream signals refer to these IDs.
-- **`catalog/findings.yaml`**: one entry per `f-*` finding. It has a display, the SNOMED CT concept with equivalence, and a polarity (`present` / `absent`, coded as SNOMED 52101004 / 2667000).
+- **`catalog/units.yaml`**: the UCUM allowlist (27 codes). Each entry has a UCUM code, a display unit, and the source spellings it replaces (`bpm` → `/min`; `Thousand/uL` → `10*3/uL`; `(calc)` → `1`). Each code was checked once against tx.fhir.org, so the app needs no network (offline rule).
+- **`catalog/measures.yaml`**: 52 measures. Each has an ID, display, category, value type, UCUM unit, aliases, and its LOINC and IEEE 11073 mappings with equivalence.
+- **`catalog/findings.yaml`**: 54 findings. Each has a display, the SNOMED CT concept with equivalence, and a polarity. An `absent` finding (for example `f-no-fever`) is coded as the concept with the value SNOMED CT 2667000 Absent.
 
-Condition files get a `codes:` block with SNOMED CT and ICD-10-CM mappings and their equivalence.
+Each condition file has a `codes:` block with one SNOMED CT and one ICD-10-CM mapping.
 
-`scripts/check-terminology.ts` runs next to `check-sources` in CI. It checks that:
-- every measure, finding and unit referenced in the catalog, scenarios, detection config or code exists in a registry;
-- every unit is in the UCUM allowlist;
-- every standard code has a system and a display;
-- every local code has a mapping, or `unmatched` with a reason;
-- every mapping has a `sourceId` (new sources: `loinc`, `snomed-ct`, `icd-10-cm`, `ucum`, `ieee-11073-10101`, `hl7-fhir-r4`).
+Anchor units and measure names are converted at load (`normalizeAnchors`). An unknown unit stops the load.
+
+`scripts/check-terminology.ts` (`pnpm check:terminology`, also in CI) runs the catalog check and checks that:
+- every unit and alias is unique, and every quantity measure has a unit on the allowlist;
+- only a panel lists components, and every component exists;
+- every stream signal and detection metric has exactly one measure;
+- every test returns registry measures, and its rule and form fields are measures it returns;
+- every finding in use is in `findings.yaml`, and no listed finding is unused;
+- every coded mapping has a code and a display, and every `unmatched` mapping has a note;
+- every condition has a SNOMED CT and an ICD-10-CM mapping;
+- every scenario test result, lab and record finding uses registry IDs;
+- every code system has a source in `sources.json` (`loinc`, `snomed-ct`, `icd-10-cm`, `ucum`, `ieee-11073-10101`, `hl7-fhir-r4`).
 
 ### 4.3 Active tests bound to measures
 
-`ResultRule.field` and `FormField.field` become measure IDs. A test result is a set of `Measurement`s with `origin: "device"` or `"operator"` and `status: "final"`. An operator-entered structured finding stays `preliminary` until the crew medical officer reviews it. For example, `t-bp` returns `systolic-bp` and `diastolic-bp` in `mm[Hg]`, not `{ sbp, dbp }`. `/api/test` keeps its body shape but is validated against the test's measures, with the unit taken from the registry.
+Each test in `equipment.yaml` lists the measures it `returns`. `ResultRule.field` and `FormField.field` are measure IDs. A form select takes its options from the measure. For example, `t-bp` returns `systolic-bp` and `diastolic-bp` in `mm[Hg]`, not `{ sbp, dbp }`.
+
+`/api/test` keeps its body shape (`{ testId, values }`). It returns 404 for an unknown test and 400 for a value of a measure the test does not return, a value of the wrong type, or a panel given as one value. The log stores each value as a `ResultValue` with the unit taken from the registry. An operator-entered structured finding is exported as `preliminary` until the crew medical officer reviews it.
 
 ### 4.4 Check-in questions
 
-The catalog questions become a FHIR-shaped `Questionnaire`. Each item points to the finding it asks about, and through it to a SNOMED CT concept. An answer is stored as a `QuestionnaireResponse` item with the astronaut's own text, plus the derived findings as `Measurement`s with `category: "survey"` and a present or absent value.
+The catalog questions are exported as one `Questionnaire`. An item carries the SNOMED CT code of the finding it asks about, when that mapping is `equivalent`. An answer is exported as a `QuestionnaireResponse` item with the astronaut's own text, plus each derived finding as an `Observation` (category `survey`) with the value Present or Absent.
 
 ### 4.5 Suspected diagnoses and actions
 
 | App concept | FHIR R4 shape | Fixed rule |
 |---|---|---|
-| Suspected diagnosis | `Condition`: `code` = catalog condition with its SNOMED CT and ICD-10-CM mappings; `verificationStatus` = `differential` or `provisional`; `evidence.detail` = event log line IDs | The app never writes `confirmed` (rule 8). An uncatalogued diagnosis has only `text`, no code, and the UNCATALOGUED tag. |
-| Confidence | Extension `urn:astrohealth:confidence` on the `Condition` | Shown only after the minimum-evidence rule (ADR 0005). |
-| Approved pathway | `PlanDefinition` (one per catalog condition): its questions, tests and actions | The reasoner chooses only among its actions (ADR 0002). |
-| Requested test | `Task` with `basedOn` the pathway action and `focus` the test | The test must be on the equipment list. |
-| Recommended action | `Task` with `status: "requested"` until approved, then `"accepted"` | The action text comes from the catalog only. |
+| Suspected diagnosis | `Condition`: `code` = the catalog condition plus its `equivalent` and `wider` standard codes; `verificationStatus` = `differential` or `provisional`; `evidence.detail` = event log line IDs | The app never writes `confirmed` or `refuted` (rule 8). Only the leading catalogued diagnosis of a ranked list is `provisional`. The no-LLM fallback does not rank, so all its diagnoses are `differential`. An uncatalogued diagnosis has only `text` and the UNCATALOGUED tag. |
+| Confidence | `RiskAssessment` per `Condition`: `prediction.outcome` = the condition concept, `probabilityDecimal` = the confidence | Only for a ranked list. The unranked fallback has no confidence to report. |
+| Requested test | `Task`, `intent: proposal`, `status: requested` until a result exists, then `completed` | The test must be on the equipment list. |
+| Recommended action | `Task`, `intent: proposal`, `instantiatesUri` = `urn:astrohealth:pathway:<condition>#<action>`; `status: requested` until approved, then `accepted` | The action text comes from the catalog only (ADR 0002, ADR 0005). |
 | Escalation | `Communication` to the crew medical officer and the ground | — |
+
+The first plan had a `PlanDefinition` per pathway and a confidence extension. The build uses `instantiatesUri` and `RiskAssessment` instead: they are standard elements, and the export needs no custom extension.
 
 ### 4.6 Alerts
 
 | App level (glossary) | IEC 60601-1-8 priority | FHIR shape |
 |---|---|---|
-| Silent watch | none (no alert to the astronaut) | `Flag`, `status: active`, not shown to the astronaut |
-| Check-in question | low | `Flag` plus a check-in `Questionnaire` |
-| Surveillance trigger | low | `Flag` with a due day |
-| Urgent interrupt | high | `Flag` plus a push |
+| Silent watch | none (no alert to the astronaut) | not exported (no event) |
+| Check-in question | low | `Flag`, `category` "alarm priority low (IEC 60601-1-8)" |
+| Surveillance trigger | low | `Flag`, `category` "alarm priority low (IEC 60601-1-8)" |
+| Urgent interrupt | high | `Flag`, `category` "alarm priority high (IEC 60601-1-8)" |
 
 No AstroHealth level uses the medium priority today. This is explicit, not an omission.
 
 ### 4.7 Event log
 
-The JSONL file stays the source of truth. `LogLine.data` becomes a discriminated union with one typed shape per `stepType` (for example, `result` → `{ testId; measurements: Measurement[]; findings: FindingId[] }`). Each line keeps `label`, `sourceId`, `ruleVersion` and `llm`. Together these are a provenance record. The export writes a FHIR `Provenance` for each reasoner step: the agent is the model or "rules", and the entity is the log line.
+The JSONL file stays the source of truth. `LogLine` is a discriminated union on `stepType` (`LogData` in `types.ts`), with one typed `data` shape per step. For example, `result` → `{ id; values: ResultValue[]; findings }`, and `diagnosis` entries carry `conditionId` and `verificationStatus`. `isStep(line, "result")` narrows a line, and `dataOf(line, "result")` returns its data or nothing. Each line keeps `label`, `sourceId`, `ruleVersion` and `llm`. `RULE_VERSION` is `m1g-0.1`. The export writes a FHIR `Provenance` for each reasoner step: the agent is the model or the rule-based fallback, and the target is the log line.
 
 ### 4.8 Export
 
-`GET /api/fhir/export` returns one FHIR R4 `Bundle` (`type: collection`) for the current run. It contains:
+`GET /api/fhir/export` returns one FHIR R4 `Bundle` (`type: collection`, `urn:uuid` full URLs) for the current run, as a file download. It contains:
 - a `Patient` (the astronaut, tagged COMPOSITE where it applies);
+- an `Encounter` for the mission (class `FLD`, field), which starts at the mission epoch;
 - the `Device`s from the equipment list;
-- every `Measurement` as an `Observation`;
-- the `QuestionnaireResponse`s;
-- the `Condition`s, `Task`s, `Flag`s and `Provenance`s.
+- the imported labs, the detection metric values and the test results as `Observation`s, each with `effectiveDateTime`;
+- the findings as `Observation`s with the value Present or Absent;
+- the `Questionnaire`, the `QuestionnaireResponse`s, the `Condition`s, the `RiskAssessment`s, the `Task`s, the `Communication`s, the `Flag`s and the `Provenance`s;
+- one `ConceptMap` per local code system and standard target (5 today). These hold every mapping with its equivalence and note, including `unmatched`.
 
-Data labels go in `meta.tag` (system `urn:astrohealth:data-label`). The bundle is a file: it can be saved during a comm blackout and sent later in one transfer.
+Rules of the export:
+- **No custom extensions.** The equivalence is in the ConceptMaps. An Observation or Condition `code` holds the local code plus only its `equivalent` and `wider` standard codes. A `narrower` or `inexact` code appears only in the ConceptMap, so the bundle never claims more than the mapping is.
+- **Vital signs profiles.** Heart rate measures carry 8867-4, SpO2 carries 2708-6 (as `wider` mappings), and blood pressure is one `Observation` with the panel code 85354-9 and systolic and diastolic `component`s. The `blood-pressure` measure is a `panel`: its `components` drive this grouping.
+- **Two clocks (rule 5).** Each scenario has a fictional `mission.epoch` (2035-01-01T00:00:00Z, SIMULATED). `effectiveDateTime` = epoch + mission day. Without an epoch, the route returns 400.
+- **Data labels** go in `meta.tag` (system `urn:astrohealth:data-label`).
+- **Ranges.** A lab reference range has `type` normal. An alert limit has a local range type, and the text says that it is an illustrative design parameter.
+
+Not exported: the hourly stream samples. The detection metric values carry the same information at the resolution the reasoner uses.
+
+The bundle is a file: it can be saved during a comm blackout and sent later in one transfer.
+
+**Validation (2026-11-15).** The Demo 1 bundle (no-LLM fallback, day 75, 520 KB, 488 resources) was checked with the HL7 validator (validator.fhir.org, FHIR 4.0.1). Result: **0 errors**, 1641 warnings, 1006 information messages. The first run had 550 errors (custom extensions, vital signs profiles, empty arrays). The warnings that remain:
+- 446: an Observation has no `performer`. A wearable or device value has no FHIR R4 performer that fits (`Device` is not allowed).
+- 978: the local code systems (`urn:astrohealth:*`) have no published `CodeSystem`, so the validator cannot check those codes or the ConceptMap sources. The standard codes in the same concept are checked.
+- 212: a resource has no narrative (`dom-6`, best practice).
+- 2: `spo2` maps to 59408-5 (equivalent) and to 2708-6 (wider), but LOINC does not make 2708-6 a parent of 59408-5. The same applies to `resting-hr` with 40443-4 and 8867-4. The vital signs profiles require the wider codes, so they stay.
+- The rest: the validator has no full content for ICD-10-CM and IEEE 11073, and cannot resolve the local Questionnaire URL.
 
 ### 4.9 UI
 
-- Every value shows its display name and its display unit. A small code chip (for example "LOINC 40443-4") links to the public code page. A local code shows "AstroHealth code" and its mapping.
-- A range shows its type in words: "lab reference", "your pre-flight baseline", "other astronauts", "alert limit (illustrative)".
-- A suspected diagnosis shows "differential" or "provisional – for crew medical officer confirmation", plus its SNOMED CT and ICD-10-CM codes with equivalence. A `wider` mapping says "nearest code".
-- A dose reading names its quantity: "absorbed dose, mGy". It never shows a value in mSv that the app has not computed from a sourced method.
+- Every value shows its registry display name and display unit. A code chip (for example "LOINC 40443-4") links to the public code page. A code that is not `equivalent` shows "≈" and says in its tooltip how it differs ("nearest code (broader)"). An `unmatched` mapping shows "no LOINC code", with the reason in the tooltip.
+- A range shows its type in words: "lab reference", "personal baseline", "alert limit (illustrative)".
+- A suspected diagnosis shows "provisional – for crew medical officer confirmation" or "differential", plus its SNOMED CT and ICD-10-CM codes.
+- The event log summarizes each typed line with formatted values and units.
+- The replay bar has an "Export FHIR" link to the bundle.
+- A dose reading must name its quantity: "absorbed dose, mGy". It never shows a value in mSv that the app has not computed from a sourced method. The current demos show no dose reading.
 
 ## 5. Mapping tables (verified 2026-11-15)
 
@@ -239,16 +275,16 @@ Data labels go in `meta.tag` (system `urn:astrohealth:data-label`). The bundle i
 | Local measure | Display | UCUM | LOINC (equivalence) | IEEE 11073 MDC |
 |---|---|---|---|---|
 | `heart-rate` | Heart rate | `/min` | 8867-4 Heart rate (equivalent) | 147842 MDC_ECG_HEART_RATE; 149530 MDC_PULS_OXIM_PULS_RATE (the one that matches the sensor) |
-| `resting-hr` (daily mean, rest windows) | Resting heart rate | `/min` | 40443-4 Heart rate --resting (equivalent) | — |
+| `resting-hr` (daily mean, rest windows) | Resting heart rate | `/min` | 40443-4 Heart rate --resting (equivalent); 8867-4 Heart rate (wider, for the vital signs profile) | — |
 | `sleeping-hr` (nightly mean, sleep confirmed by activity) | Sleeping heart rate | `/min` | 8867-4 Heart rate (wider). No pre-coordinated sleeping HR code was found. | — |
 | `standard-exercise-hr` | HR at the standard workload | `/min` | 8867-4 (wider) | — |
 | `max-workload` | Max workload test | `W` | unmatched: no LOINC code was found for peak ergometer workload | — |
 | `hrv-sdnn` | HRV (SDNN) | `ms` | 80404-7 R-R interval.standard deviation (Heart rate variability) (equivalent) | — |
 | `respiratory-rate` | Respiratory rate | `/min` | 9279-1 (equivalent) | 151562 MDC_RESP_RATE |
-| `spo2` | SpO2 | `%` | 59408-5 Oxygen saturation in Arterial blood by Pulse oximetry (equivalent) | 150456 MDC_PULS_OXIM_SAT_O2 |
+| `spo2` | SpO2 | `%` | 59408-5 Oxygen saturation in Arterial blood by Pulse oximetry (equivalent); 2708-6 Oxygen saturation in Arterial blood (wider, for the vital signs profile) | 150456 MDC_PULS_OXIM_SAT_O2 |
 | `body-temperature` | Body temperature | `Cel` | 8310-5 (equivalent) | 150364 MDC_TEMP_BODY |
 | `skin-temperature` | Skin temperature | `Cel` | 39106-0 Temperature of Skin (equivalent) | — |
-| `bp-panel` | Blood pressure | — | 85354-9 Blood pressure panel (equivalent) | — |
+| `blood-pressure` (panel: `systolic-bp`, `diastolic-bp`) | Blood pressure | — | 85354-9 Blood pressure panel with all children optional (equivalent) | — |
 | `systolic-bp` | Systolic BP | `mm[Hg]` | 8480-6 (equivalent) | 150021 MDC_PRESS_BLD_NONINV_SYS |
 | `diastolic-bp` | Diastolic BP | `mm[Hg]` | 8462-4 (equivalent) | 150022 MDC_PRESS_BLD_NONINV_DIA |
 | `mean-bp` | Mean arterial pressure | `mm[Hg]` | 8478-0 (equivalent) | 150023 MDC_PRESS_BLD_NONINV_MEAN |
@@ -281,7 +317,7 @@ Data labels go in `meta.tag` (system `urn:astrohealth:data-label`). The bundle i
 
 The i-STAT test (`t-istat-chem8`) measures whole blood. Its BUN uses 6299-2 Urea nitrogen [Mass/volume] in Blood, not 3094-0. The other i-STAT codes need the same check *(verify)*. The other analytes in the two source files are not shown. They keep their source names until the app uses them.
 
-### 5.3 Findings (sample; the registry covers all 52)
+### 5.3 Findings (sample; the registry covers all 54)
 
 | Finding | SNOMED CT (equivalence) |
 |---|---|
@@ -292,7 +328,7 @@ The i-STAT test (`t-istat-chem8`) measures whole blood. Its BUN uses 6299-2 Urea
 | `f-dizziness` | 404640003 Dizziness (equivalent) |
 | `f-fever` / `f-no-fever` | 386661006 Fever, with Present / Absent |
 | `f-fatigue` | 84229001 Fatigue (equivalent) |
-| `f-headache-vision` | 25064002 Headache (wider: the finding also covers vision change) |
+| `f-headache-vision` | 25064002 Headache (inexact: the finding also covers a vision change) |
 | `f-resting-hr-high`, `f-exercise-hr-up`, … | unmatched: a deviation from the personal baseline. Its definition is the measure plus the detection rule. |
 
 ### 5.4 Conditions
@@ -306,11 +342,11 @@ The i-STAT test (`t-istat-chem8`) measures whole blood. Its BUN uses 6299-2 Urea
 | Arrhythmia | 698247007 Cardiac arrhythmia (equivalent) | I49.9 Cardiac arrhythmia, unspecified (equivalent) |
 | Renal stone | 95570007 Kidney stone (equivalent) | N20.0 Calculus of kidney (equivalent) |
 | SANS | 423341008 Optic disc edema (narrower: one sign of SANS) | H47.10 Unspecified papilledema (inexact: SANS is not papilledema) |
-| Acute radiation | *(verify: 74221003 was not found)* | T66 Radiation sickness, unspecified (equivalent) |
-| CO2 exposure | *(verify)* | T59.7X1 Toxic effect of carbon dioxide, accidental (inexact) |
-| Sleep loss | *(verify)* | Z72.820 Sleep deprivation (equivalent) |
-| Behavioral stress | *(verify)* | F43.0 Acute stress reaction (inexact) |
-| Infection | — (too broad: the catalog entry needs a site) | — |
+| Acute radiation | unmatched: no concept checked yet *(verify; 74221003 was not found)* | T66 Radiation sickness, unspecified (equivalent) |
+| CO2 exposure | unmatched: no concept checked yet *(verify)* | T59.7X1 Toxic effect of carbon dioxide, accidental (inexact) |
+| Sleep loss | unmatched: no concept checked yet *(verify)* | Z72.820 Sleep deprivation (equivalent) |
+| Behavioral stress | unmatched: no concept checked yet *(verify)* | F43.0 Acute stress reaction (inexact) |
+| Infection | unmatched: too broad, the catalog entry needs a site | unmatched: same reason |
 
 `unmatched` is an honest result. A spaceflight-specific condition such as deconditioning or SANS has no exact clinical code. The UI shows the HRP risk as the primary reference for it.
 
@@ -323,21 +359,19 @@ This is the minimum that makes the interface standard and explicit. It does not 
 **Out:**
 - A FHIR server or a FHIR client library.
 - Full SNOMED CT or LOINC releases in the repo.
-- The HL7 Java validator in CI. One manual validation of the export is enough *(verify that it passes)*.
+- The HL7 Java validator in CI. One manual validation of the export is enough: it passed with 0 errors (§4.8).
 - DICOM, IEEE 11073 device protocols and ICD-11.
 
 ## 7. Tasks (milestone M1g)
 
-Each task keeps both demo replays and every existing test green.
+All six tasks are done. Both demo replays and every existing test stay green.
 
-1. **Registries and check.** Add `units.yaml`, `measures.yaml`, `findings.yaml` and condition `codes:` blocks with the §5 tables. Add `check-terminology` to CI and the six new sources to `sources.json`.
-2. **Core types.** Add `medical.ts`. Convert anchor units at load (`bpm` → `/min`, `Thousand/uL` → `10*3/uL`). Rename stream signals and metrics to registry measure IDs. `hrv` becomes `hrv-sdnn`: the stream's HRV values are illustrative today (`sourceId: illustrative`), so this choice also sets which published values must replace them.
-3. **Active tests.** Bind `ResultRule.field` and `FormField.field` to measures, and validate `/api/test` against them.
-4. **Typed event log.** Make `LogLine.data` a discriminated union, and bump `RULE_VERSION`.
-5. **UI.** Add code chips, display units, range-type words, verification status and codes on suspected diagnoses, and the dose quantity name.
-6. **Export.** Add `GET /api/fhir/export` and an export button. Add a golden-file test of one Demo 1 bundle.
-
-Tasks 1–2 come first. Tasks 3–5 can then run in parallel. Task 6 comes last.
+1. **Registries and check.** Done: `units.yaml`, `measures.yaml`, `findings.yaml`, condition `codes:` blocks, `check:terminology` in CI, six new sources.
+2. **Core types.** Done: `medical.ts`, unit conversion at load. Changed from the plan: stream signals and metrics keep their IDs and link to measures (§4.1). `hrv-sdnn` is the measure of the `hrv` signal; its values are still illustrative.
+3. **Active tests.** Done: `returns`, rule and form fields bound to measures, `/api/test` validation.
+4. **Typed event log.** Done: `LogData` union, `isStep`, `dataOf`, `RULE_VERSION` `m1g-0.1`.
+5. **UI.** Done: code chips, display units, range-type words, verification status and codes on suspected diagnoses.
+6. **Export.** Done: `GET /api/fhir/export`, the "Export FHIR" link, tests of the Demo 1 bundle (`apps/server/src/fhir.test.ts`), and one HL7 validator run (§4.8).
 
 ## 8. Open items
 

@@ -3,6 +3,10 @@ name: "Infection"
 hazard: environment
 hrpRisk: "Immune and microbial risks (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - { system: snomed, equivalence: unmatched, note: "Too broad: the catalog entry needs a site." }
+  - { system: icd10cm, equivalence: unmatched, note: "Too broad: the catalog entry needs a site." }
 supports: [f-fever, f-skin-temp-up, f-rr-up, f-sleeping-hr-up, f-respiratory-symptoms, f-fatigue]
 against: [f-no-fever]
 questions: [q-fever, q-respiratory, q-fatigue]

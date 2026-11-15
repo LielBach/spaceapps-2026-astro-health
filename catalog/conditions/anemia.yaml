@@ -3,6 +3,10 @@ name: "Space anemia"
 hazard: gravity
 hrpRisk: "Space anemia (NASA MARROW study)"
 hrpRiskUrl: "https://www.nasa.gov/missions/station/scientists-find-increased-red-blood-cell-destruction-during-spaceflight/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - { system: snomed, code: "271737000", display: Anemia, equivalence: equivalent }
+  - { system: icd10cm, code: "D64.9", display: "Anemia, unspecified", equivalence: equivalent }
 supports: [f-hematocrit-low, f-fatigue, f-exercise-hr-up, f-max-workload-down]
 against: [f-hematocrit-normal, f-hematocrit-high]
 questions: [q-fatigue, q-dizziness]

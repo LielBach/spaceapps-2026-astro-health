@@ -3,6 +3,15 @@ name: "Acute radiation exposure effects"
 hazard: radiation
 hrpRisk: "Space radiation exposure (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - { system: snomed, equivalence: unmatched, note: "No concept was checked yet (verify)." }
+  - {
+      system: icd10cm,
+      code: "T66",
+      display: "Radiation sickness, unspecified",
+      equivalence: equivalent,
+    }
 supports: [f-radiation-dose-high, f-nausea, f-fatigue]
 against: []
 questions: [q-nausea, q-fatigue]

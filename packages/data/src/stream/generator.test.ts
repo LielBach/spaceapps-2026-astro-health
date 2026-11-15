@@ -1,10 +1,19 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { createStream, loadAnchors, loadScenario } from "../index.ts";
+import {
+  createStream,
+  loadAnchors,
+  loadScenario,
+  loadTerminology,
+  normalizeAnchors,
+} from "../index.ts";
 
 const repo = (path: string) => fileURLToPath(new URL(`../../../../${path}`, import.meta.url));
 const scenario = loadScenario(repo("scenarios/demo2-deconditioning.yaml"));
-const anchors = loadAnchors(repo("data/anchors"), scenario.astronaut.anchorSources);
+const anchors = normalizeAnchors(
+  loadAnchors(repo("data/anchors"), scenario.astronaut.anchorSources),
+  loadTerminology(repo("catalog")),
+);
 const stream = createStream(scenario, anchors);
 
 const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;

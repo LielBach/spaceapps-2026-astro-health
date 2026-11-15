@@ -2,6 +2,7 @@ import { mkdtempSync, readFileSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { dataOf } from "@astrohealth/core";
 import { scenarioPaths } from "./app.ts";
 import { ReplaySession } from "./session.ts";
 
@@ -50,6 +51,6 @@ describe("Demo 2 replay with the no-LLM fallback", async () => {
     await play(live, 125);
     const e = live.view().events[0]!;
     expect(e.outcome).toBe("escalated");
-    expect(e.log.at(-1)?.data.reason).toMatch(/red flag/);
+    expect(dataOf(e.log.at(-1), "escalate")?.reason).toMatch(/red flag/);
   });
 });

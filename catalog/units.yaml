@@ -1,0 +1,36 @@
+# UCUM allowlist (docs/technical/10 rule 3). Every code was checked with $validate-code on
+# tx.fhir.org (FHIR R4) on 2026-11-15. aliases: unit spellings in source files that mean this unit.
+# The list is fixed, so the app needs no network to check units.
+units:
+  - { code: "/min", display: "/min", aliases: [bpm] }
+  - { code: "mm[Hg]", display: "mmHg", aliases: [mmHg] }
+  - { code: "%", display: "%" }
+  - { code: "Cel", display: "°C" }
+  - { code: "kg", display: "kg" }
+  - { code: "W", display: "W" }
+  - { code: "ms", display: "ms" }
+  - { code: "h", display: "h" }
+  - { code: "mGy", display: "mGy" }
+  - { code: "L", display: "L" }
+  - { code: "mL", display: "mL" }
+  - { code: "L/min", display: "L/min" }
+  - { code: "g/dL", display: "g/dL" }
+  - { code: "mg/dL", display: "mg/dL" }
+  - { code: "mmol/L", display: "mmol/L" }
+  - { code: "U/L", display: "U/L" }
+  - { code: "pg", display: "pg" }
+  - { code: "fL", display: "fL" }
+  - { code: "10*3/uL", display: "×10³/µL", aliases: ["Thousand/uL"] }
+  - { code: "10*6/uL", display: "×10⁶/µL", aliases: ["Million/uL"] }
+  - { code: "/uL", display: "/µL", aliases: ["cells/uL"] }
+  - { code: "mL/min/{1.73_m2}", display: "mL/min/1.73 m²", aliases: ["mL/min/1.73m2"] }
+  # Dimensionless values. UCUM annotations in braces name what is counted or scored.
+  - { code: "1", display: "", aliases: ["(calc)"] }
+  - {
+      code: "{normalized_slope}",
+      display: "(normalized slope)",
+      aliases: ["1/workload (normalized)"],
+    }
+  - { code: "{score}", display: "" }
+  - { code: "{grade}", display: "" }
+  - { code: "{steps}", display: "steps" }

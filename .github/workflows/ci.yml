@@ -21,3 +21,4 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm check:sources
+      - run: pnpm check:terminology

@@ -1,13 +1,22 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { DEFAULT_DETECTION, Detector, type DetectionOutput } from "@astrohealth/core";
-import { createStream, loadAnchors, loadScenario } from "../index.ts";
+import {
+  createStream,
+  loadAnchors,
+  loadScenario,
+  loadTerminology,
+  normalizeAnchors,
+} from "../index.ts";
 
 const repo = (path: string) => fileURLToPath(new URL(`../../../../${path}`, import.meta.url));
 const scenario = loadScenario(repo("scenarios/demo2-deconditioning.yaml"));
 const stream = createStream(
   scenario,
-  loadAnchors(repo("data/anchors"), scenario.astronaut.anchorSources),
+  normalizeAnchors(
+    loadAnchors(repo("data/anchors"), scenario.astronaut.anchorSources),
+    loadTerminology(repo("catalog")),
+  ),
 );
 
 function run(from: number, to: number): DetectionOutput[] {

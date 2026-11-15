@@ -1,4 +1,5 @@
 export * from "./types.ts";
+export * from "./medical.ts";
 export * from "./detection.ts";
 export * from "./investigation.ts";
 export * from "./reasoner.ts";

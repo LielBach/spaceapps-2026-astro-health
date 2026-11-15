@@ -2,6 +2,7 @@ import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { dataOf } from "@astrohealth/core";
 import { scenarioPaths } from "./app.ts";
 import { ReplaySession } from "./session.ts";
 
@@ -34,8 +35,11 @@ describe("Demo 1 replay with the no-LLM fallback", async () => {
     expect(event.trigger).toBe("surveillance");
     expect(event.openedAt).toBeGreaterThan(40);
     expect(event.openedAt).toBeLessThan(47);
-    expect(trigger.data.findings).toEqual(["f-prior-ijv-flow-abnormal", "f-sleeping-hr-up"]);
-    expect(trigger.data.surveillance).toMatchObject({ dueDay: 60, early: true });
+    expect(dataOf(trigger, "trigger")?.findings).toEqual([
+      "f-prior-ijv-flow-abnormal",
+      "f-sleeping-hr-up",
+    ]);
+    expect(dataOf(trigger, "trigger")?.surveillance).toMatchObject({ dueDay: 60, early: true });
     expect(view.markers.some((m) => m.kind === "surveillance")).toBe(true);
   });
 
@@ -55,7 +59,7 @@ describe("Demo 1 replay with the no-LLM fallback", async () => {
     expect(event.outcome).toBe("escalated");
     const last = event.log.at(-1)!;
     expect(last.stepType).toBe("escalate");
-    expect(last.data.action).toBe("a-escalate-vte");
+    expect(dataOf(last, "escalate")?.action).toBe("a-escalate-vte");
   });
 
   it("shows Maya's real labs, the record and the scan images", () => {
@@ -78,7 +82,7 @@ describe("Demo 1 branches", () => {
     const event = session.view().events[0]!;
     expect(event.trigger).toBe("surveillance");
     expect(event.openedAt).toBe(60);
-    expect(event.log[0]!.data.findings).toEqual(["f-prior-ijv-flow-abnormal"]);
+    expect(dataOf(event.log[0], "trigger")?.findings).toEqual(["f-prior-ijv-flow-abnormal"]);
   });
 
   it("escalates at once when the astronaut reports new shortness of breath", async () => {
@@ -87,7 +91,7 @@ describe("Demo 1 branches", () => {
     await play(session, 50);
     const event = session.view().events[0]!;
     expect(event.outcome).toBe("escalated");
-    expect(event.log.at(-1)?.data.reason).toMatch(/red flag/);
+    expect(dataOf(event.log.at(-1), "escalate")?.reason).toMatch(/red flag/);
   });
 
   it("records a structured finding entered by the operator", async () => {
@@ -99,14 +103,36 @@ describe("Demo 1 branches", () => {
       else await session.advance(1);
     }
     await session.runTest("evt-001", "t-ultrasound-ijv", {
-      flowDetected: true,
-      flowGrade: 2,
-      compressible: true,
-      thrombus: false,
+      "ijv-flow-detected": true,
+      "ijv-flow-grade": 2,
+      "ijv-compressible": true,
+      "ijv-thrombus": false,
     });
     const result = session
       .view()
       .events[0]!.log.find((l) => l.stepType === "result" && l.stepId === "t-ultrasound-ijv");
-    expect(result?.data.findings).toEqual(["f-ijv-no-thrombus"]);
+    expect(result?.stepType === "result" && result.data.findings).toEqual(["f-ijv-no-thrombus"]);
+    // The log stores coded values: measure IDs, and UCUM units for quantities.
+    expect(result?.stepType === "result" && result.data.values).toContainEqual({
+      measure: "ijv-flow-grade",
+      value: 2,
+      unit: "{grade}",
+    });
+  });
+
+  it("rejects a test value for a measure the test does not return", async () => {
+    const session = new ReplaySession(scenarioPaths("demo1-ijv-thrombosis", runs));
+    for (let guard = 0; guard < 500; guard++) {
+      const e = session.view().events[0];
+      if (e?.pending?.kind === "test" && e.pending.id === "t-ultrasound-ijv") break;
+      if (session.waiting) await session.autoStep();
+      else await session.advance(1);
+    }
+    await expect(
+      session.runTest("evt-001", "t-ultrasound-ijv", { thrombus: true }),
+    ).rejects.toThrow(/does not return thrombus/);
+    await expect(
+      session.runTest("evt-001", "t-ultrasound-ijv", { "ijv-thrombus": "yes" }),
+    ).rejects.toThrow(/must be a boolean/);
   });
 });

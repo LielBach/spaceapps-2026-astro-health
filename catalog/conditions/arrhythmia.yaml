@@ -3,6 +3,15 @@ name: "Cardiac arrhythmia"
 hazard: gravity
 hrpRisk: "Cardiovascular adaptations (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - { system: snomed, code: "698247007", display: Cardiac arrhythmia, equivalence: equivalent }
+  - {
+      system: icd10cm,
+      code: "I49.9",
+      display: "Cardiac arrhythmia, unspecified",
+      equivalence: equivalent,
+    }
 supports: [f-palpitations, f-ecg-arrhythmia, f-dizziness, f-sleeping-hr-up]
 against: [f-ecg-normal]
 questions: [q-palpitations, q-dizziness, q-syncope, q-chest-pain]
