@@ -45,8 +45,10 @@ export function App() {
           <Charts view={view} />
           <MedicalRecord view={view} />
         </div>
-        <div className="side">
+        <div className="area-check">
           <CheckIn view={view} event={event} />
+        </div>
+        <div className="area-dx">
           <Diagnoses view={view} event={event} />
         </div>
         <EventLog view={view} />

@@ -13,9 +13,11 @@ const Source = z
     url: z.string().url().nullable(),
     verify: z.boolean(),
     note: z.string().optional(),
+    /** A value chosen for the demo, labeled as such in the UI; it needs no url. */
+    designParameter: z.boolean().optional(),
   })
-  .refine((s) => s.url !== null || s.verify, {
-    message: "a source with no url must have verify: true",
+  .refine((s) => s.url !== null || s.verify || s.designParameter === true, {
+    message: "a source with no url must have verify: true or designParameter: true",
   });
 
 const Registry = z.object({ sources: z.array(Source) });

@@ -2,7 +2,7 @@
   "sources": [
     {
       "id": "nasa-hrp-hazards",
-      "title": "NASA Human Research Program \u2014 Human Spaceflight Hazards",
+      "title": "NASA Human Research Program — Human Spaceflight Hazards",
       "url": "https://www.nasa.gov/hrp/hazards/",
       "verify": false
     },
@@ -14,26 +14,26 @@
     },
     {
       "id": "nlsp-178066",
-      "title": "NLSP 178066 \u2014 Inflight Study of Cardiovascular Deconditioning (STS-40/58), Shykoff et al. 1996",
+      "title": "NLSP 178066 — Inflight Study of Cardiovascular Deconditioning (STS-40/58), Shykoff et al. 1996",
       "url": "https://nlsp.nasa.gov/explore/data/details/ff0398fd-0abc-589d-883c-7e55aa73831c?dataType=EXPERIMENTS",
-      "verify": true,
-      "note": "Which flight subject 1 flew (STS-40 or STS-58) is not confirmed."
+      "verify": false,
+      "note": "Subject 1 of 6. Three subjects flew STS-40 (SLS-1, 9 days) and three flew STS-58 (SLS-2, 15 days); the open data does not say which flight subject 1 flew."
     },
     {
       "id": "nlsp-dso-402",
-      "title": "NLSP DSO 402 \u2014 Cardiovascular Deconditioning Countermeasure Assessment (Shuttle)",
+      "title": "NLSP DSO 402 — Cardiovascular Deconditioning Countermeasure Assessment (Shuttle)",
       "url": "https://nlsp.nasa.gov/explore/data/details/73d10bb4-b805-5bd5-bc52-149d8f9d1bd8?dataType=EXPERIMENTS",
       "verify": false
     },
     {
       "id": "osdr-osd-575",
-      "title": "OSDR OSD-575 \u2014 Inspiration4 serum: comprehensive metabolic panel",
+      "title": "OSDR OSD-575 — Inspiration4 serum: comprehensive metabolic panel",
       "url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-575",
       "verify": false
     },
     {
       "id": "osdr-osd-569",
-      "title": "OSDR OSD-569 \u2014 Inspiration4 whole blood: complete blood count",
+      "title": "OSDR OSD-569 — Inspiration4 whole blood: complete blood count",
       "url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-569",
       "verify": false
     },
@@ -45,21 +45,42 @@
     },
     {
       "id": "nasa-vte-risk-score",
-      "title": "NASA OCHMO \u2014 Establishing a VTE Risk Score for Astronauts Algorithm",
+      "title": "NASA OCHMO — Establishing a VTE Risk Score for Astronauts Algorithm (Taoufik, Lowe)",
       "url": "https://www.nasa.gov/organizations/ochmo/establishing-a-vte-risk-score-for-astronauts-algorithm/",
-      "verify": true
+      "verify": false
     },
     {
       "id": "illustrative",
       "title": "Illustrative design parameter, not a validated value",
       "url": null,
-      "verify": true,
-      "note": "Use for alert-filter numbers (for example persistence in nights) until a source is found."
+      "verify": false,
+      "note": "A design parameter chosen for the demo (for example an alert band or persistence in nights). It is not a validated clinical threshold.",
+      "designParameter": true
     },
     {
       "id": "nasa-hrp-risks",
-      "title": "NASA Human Research Program \u2014 Risks",
+      "title": "NASA Human Research Program — Risks",
       "url": "https://www.nasa.gov/hrp/risks/",
+      "verify": false
+    },
+    {
+      "id": "nasa-vte-sp-2025",
+      "title": "Bostick LL, et al. Assessment of Risk of Venous Thromboembolism during Spaceflight. NASA/SP-20250001074/REV1, OCHMO, March 2025",
+      "url": "https://ntrs.nasa.gov/citations/20250001074",
+      "verify": false,
+      "note": "In-flight screening of IJV flow at L+30 and L+60 days; the ISS vascular contingency kit has a point-of-care blood analyzer (iStat)."
+    },
+    {
+      "id": "nasa-iss-slammd",
+      "title": "NASA ISS Daily Summary Report 07/16/14 — SLAMMD body mass measurement",
+      "url": "https://www.nasa.gov/blogs/stationreport/2014/07/16/iss-daily-summary-report-07-16-14/",
+      "verify": false,
+      "note": "SLAMMD measures crew body mass; accurate to 0.5 lb over 90–240 lb."
+    },
+    {
+      "id": "nasa-space-anemia",
+      "title": "NASA — Scientists Find Increased Red Blood Cell Destruction During Spaceflight (MARROW)",
+      "url": "https://www.nasa.gov/missions/station/scientists-find-increased-red-blood-cell-destruction-during-spaceflight/",
       "verify": false
     },
     {

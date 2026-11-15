@@ -14,8 +14,8 @@ astronaut:
     disclosure: "Composite of two real astronauts: pre-flight labs from an Inspiration4 crew member (OSD-575, OSD-569); ultrasound scans from an ISS crew member (Marshall-Goebel 2019, CC-BY). They are not one person's data."
 mission:
   name: Mars transit
-  lengthDays: 60
-  replayFromDay: 14
+  lengthDays: 75
+  replayFromDay: 33
   commDelayMinutes: 20
 stream:
   sampleEveryHours: 1
@@ -39,12 +39,12 @@ drifts:
   # 08 doc: sleeping HR drifts from 62 to 76–88 bpm across several nights (illustrative).
   - signal: hr
     context: sleep
-    fromDay: 19
-    toDay: 25
+    fromDay: 38
+    toDay: 44
     delta: 20
 spikes:
   - signal: hr
-    day: 16.5
+    day: 35.5
     hours: 2
     delta: 40
     context: exercise-free
@@ -63,12 +63,12 @@ record:
       label: REAL
       sourceId: marshall-goebel-2019
   - id: rec-inflight-us
-    day: 10
+    day: 30
     kind: imaging
-    title: "Scheduled in-flight IJV ultrasound"
+    title: "Scheduled in-flight IJV ultrasound (L+30 screening)"
     text: "Left IJV: flow grade 3 (stagnant). No thrombus seen. Reviewed by the crew medical officer. On ISS flight day 50, 6 of 11 crew had grade 3 or 4 flow (Marshall-Goebel 2019, Figure 3A)."
     label: SIMULATED
-    sourceId: marshall-goebel-2019
+    sourceId: nasa-vte-sp-2025
     finding: f-prior-ijv-flow-abnormal
 labs:
   timepoint: L-3

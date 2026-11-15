@@ -151,11 +151,44 @@ button:hover {
   color: var(--muted);
 }
 
+/* Two columns; three on a wide screen (1920 px recordings), so the check-in, the suspected
+   diagnoses and the event log stay on screen during the whole replay. */
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(360px, 1fr);
+  grid-template-areas:
+    "main check"
+    "main dx"
+    "log log";
+  align-items: start;
   gap: 14px;
   padding: 14px 20px;
+}
+.main-col {
+  grid-area: main;
+}
+.area-check {
+  grid-area: check;
+  min-width: 0;
+}
+.area-dx {
+  grid-area: dx;
+  min-width: 0;
+}
+@media (min-width: 1700px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "main check dx"
+      "main check log";
+    grid-template-rows: auto 1fr;
+  }
+  .log-lines {
+    max-height: 560px;
+  }
+  .checkin .scan img {
+    max-width: 300px;
+  }
 }
 .charts {
   display: grid;
@@ -198,11 +231,6 @@ button:hover {
   color: var(--warn);
 }
 
-.side {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
 .panel {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -298,7 +326,8 @@ button:hover {
 }
 
 .log {
-  grid-column: 1 / -1;
+  grid-area: log;
+  min-width: 0;
 }
 .log-lines {
   max-height: 260px;
@@ -313,6 +342,12 @@ button:hover {
   padding: 3px 6px;
   border-bottom: 1px solid var(--grid);
   vertical-align: top;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.record .scan img {
+  max-width: 280px;
 }
 .step {
   font-family: ui-monospace, monospace;
@@ -475,6 +510,7 @@ footer {
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "main" "check" "dx" "log";
     padding: 14px 16px;
   }
 }

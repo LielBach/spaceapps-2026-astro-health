@@ -47,14 +47,20 @@ function EventLines({ view }: { view: SessionView }) {
     <>
       {view.markers
         .filter((m) => ["open", "surveillance", "action", "urgent"].includes(m.kind))
-        .map((m) => (
+        .map((m, _i, all) => (
           <ReferenceLine
             key={`${m.kind}-${m.t}`}
             x={m.t}
             stroke={m.kind === "action" ? "var(--good)" : "var(--bad)"}
             strokeDasharray="4 3"
             label={{
-              value: m.kind === "action" ? "action" : "event",
+              // An event and its action on the same day: label only the action.
+              value:
+                m.kind === "action"
+                  ? "action"
+                  : all.some((a) => a.kind === "action" && Math.abs(a.t - m.t) < 1)
+                    ? ""
+                    : "event",
               fill: "var(--muted)",
               fontSize: 10,
               position: "insideTopLeft",

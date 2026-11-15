@@ -34,9 +34,9 @@ The real case **does not establish** that heart rate, ECG, or other continuously
 
 ## 2. Fictional astronaut and starting conditions
 
-**Astronaut:** Maya, Mars transit day 24. **COMPOSITE** of two real astronauts (ADR 0009): pre-flight labs from one Inspiration4 crew member (OSD-575, OSD-569; the subject with the lowest pre-flight albumin), ultrasound scans from an ISS crew member (Marshall-Goebel 2019, CC-BY). The demo never claims these belong to one person.  
+**Astronaut:** Maya, Mars transit day 43. **COMPOSITE** of two real astronauts (ADR 0009): pre-flight labs from one Inspiration4 crew member (OSD-575, OSD-569; the subject with the lowest pre-flight albumin), ultrasound scans from an ISS crew member (Marshall-Goebel 2019, CC-BY). The demo never claims these belong to one person.  
 **Symptoms:** Feels normal; no reported chest pain, shortness of breath, neck swelling, or neurological symptoms.  
-**Existing record:** **REAL** pre-flight labs (CMP including albumin, CBC). **SIMULATED:** an earlier scheduled in-flight ultrasound documented reduced flow in the left IJV (flow grade 3, stagnant), without an identified thrombus; seeded from the group counts in Marshall-Goebel 2019 (stagnant flow in 5 of 11 crew on flight day 50).  
+**Existing record:** **REAL** pre-flight labs (CMP including albumin, CBC). **SIMULATED:** the scheduled in-flight ultrasound at L+30 days (NASA screens IJV flow at L+30 and L+60 days, NASA/SP-20250001074) documented reduced flow in the left IJV (flow grade 3, stagnant), without an identified thrombus; seeded from the group counts in Marshall-Goebel 2019 (stagnant flow in 5 of 11 crew on flight day 50).  
 **Wearable trend (SIMULATED, illustrative):** Sleeping heart rate has drifted from an example baseline of **62 bpm** to **76–88 bpm** across several nights.
 
 **Interpretation caution:** Rising heart rate is **nonspecific**. It could reflect sleep disruption, dehydration, illness, exercise adaptation, medications, or other causes; a localized IJV clot may produce no wearable signal at all. The **prior abnormal venous imaging** and medically assessed VTE risk—not the heart-rate change by itself—are what could justify a targeted vascular reassessment.
