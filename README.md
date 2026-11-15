@@ -22,7 +22,7 @@
 | [docs/product/04-directions.md](docs/product/04-directions.md) | 5 candidate directions scored, recommendation, MVP, demo story (superseded by ADR 0001) |
 | [docs/product/06-orbivit-concept.md](docs/product/06-orbivit-concept.md) | ORBIVIT proposal: autonomous CDSS closed loop (detect → investigate → assess → act → learn), architecture, MVP scenarios — chosen direction (ADR 0001) |
 | [docs/product/07-demo-case-brief.md](docs/product/07-demo-case-brief.md) | Context and constraints for defining the demo case; standalone, ready to paste into another assistant |
-| [docs/product/08-clinical-demos.md](docs/product/08-clinical-demos.md) | Team draft of two demo workflows: venous thrombosis and cardiovascular deconditioning |
+| [docs/product/08-clinical-demos.md](docs/product/08-clinical-demos.md) | Demo workflows: main demo cardiovascular deconditioning (ADR 0012); secondary demo venous thrombosis |
 | [GLOSSARY.md](GLOSSARY.md) · [docs/adr/](docs/adr/) | Domain terms and design decisions from the design interview |
 | [docs/technical/05-data-sources.md](docs/technical/05-data-sources.md) | Data inventory by access tier (open now / free sign-up / on request / private), file formats, coverage gaps |
 | [docs/technical/09-implementation-plan.md](docs/technical/09-implementation-plan.md) | MVP build plan: architecture, repo layout, engines, milestones M0–M2, tests, open items |

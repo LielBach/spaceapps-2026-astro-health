@@ -1,7 +1,8 @@
-# Demo 2 — cardiovascular deconditioning (docs/product/08-clinical-demos.md).
+# Main demo — cardiovascular deconditioning (docs/product/08-clinical-demos.md, ADR 0012).
+# The id keeps the old name demo2 so tests and recorded runs do not change.
 # Alex = subject 1 of NLSP 178066 (REAL resting values). Everything in the stream is SIMULATED.
 id: demo2-deconditioning
-title: "Demo 2 — Early intervention for cardiovascular deconditioning"
+title: "Main demo — Early detection of cardiovascular deconditioning before Mars landing"
 seed: 2026
 astronaut:
   id: nlsp178066-s1
