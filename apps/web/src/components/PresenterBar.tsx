@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { SessionView } from "@orbivit/core";
 import { post } from "../api.ts";
+import { startStory } from "./StoryBar.tsx";
 
 const SPEEDS = [1, 2, 5, 10, 20, 30];
 
@@ -82,6 +83,15 @@ export function PresenterBar({ view }: { view: SessionView }) {
   return (
     <div className="presenter-bar">
       <span className="presenter-tag">Presenter</span>
+      {view.story.beats.length > 0 && (
+        <button
+          className="present"
+          onClick={() => void startStory()}
+          title="Step through the demo story with Next; the days in between are skipped"
+        >
+          ▶ Present
+        </button>
+      )}
       <select
         value={view.scenario.id}
         onChange={(e) => void post("control", { scenario: e.target.value })}
