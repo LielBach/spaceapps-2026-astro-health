@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { SessionView } from "@astrohealth/core";
+import type { SessionView } from "@orbivit/core";
 
 /** Live session view from the server (SSE). */
 export function useSession(): { view: SessionView | undefined; connected: boolean } {

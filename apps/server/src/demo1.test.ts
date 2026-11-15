@@ -2,11 +2,11 @@ import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { dataOf } from "@astrohealth/core";
+import { dataOf } from "@orbivit/core";
 import { scenarioPaths } from "./app.ts";
 import { ReplaySession } from "./session.ts";
 
-const runs = mkdtempSync(join(tmpdir(), "astrohealth-demo1-"));
+const runs = mkdtempSync(join(tmpdir(), "orbivit-demo1-"));
 
 async function play(session: ReplaySession, untilDay: number): Promise<void> {
   for (let guard = 0; guard < 2000 && session.day < untilDay; guard++) {

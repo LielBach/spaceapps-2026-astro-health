@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { MockLanguageModelV4 } from "ai/test";
 import { describe, expect, it } from "vitest";
-import { Investigation, ruleBasedProposal } from "@astrohealth/core";
+import { Investigation, ruleBasedProposal } from "@orbivit/core";
 import { scenarioPaths } from "./app.ts";
 import { configFromEnv, createLlmReasoner, type ProposalOutput } from "./llm.ts";
 import { ReplaySession, type Reasoner, type ReasonerSetup } from "./session.ts";
@@ -72,7 +72,7 @@ function followFallback(inv: () => Investigation) {
 
 function session(llm: ReasonerSetup | undefined) {
   return new ReplaySession(
-    scenarioPaths("demo2-deconditioning", mkdtempSync(join(tmpdir(), "astrohealth-llm-"))),
+    scenarioPaths("demo2-deconditioning", mkdtempSync(join(tmpdir(), "orbivit-llm-"))),
     llm,
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { EventView, SessionView, TestSpec } from "@astrohealth/core";
+import type { EventView, SessionView, TestSpec } from "@orbivit/core";
 import { post } from "../../api.ts";
 import { PHASES, rationaleOf, testInstruction, wizardProgress } from "../../flow.ts";
 import { Src } from "../Source.tsx";

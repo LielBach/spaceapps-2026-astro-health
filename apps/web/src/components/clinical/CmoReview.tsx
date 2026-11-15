@@ -1,4 +1,4 @@
-import type { EventView, SessionView } from "@astrohealth/core";
+import type { EventView, SessionView } from "@orbivit/core";
 import { day, post } from "../../api.ts";
 import { cmoAlert, confidenceWord, findingsOf, plainList, rationaleOf } from "../../flow.ts";
 import { AlertBanner } from "../AlertBanner.tsx";

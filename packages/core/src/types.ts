@@ -1,4 +1,4 @@
-// Domain types for AstroHealth. Terms follow GLOSSARY.md; see docs/technical/09-implementation-plan.md §4.
+// Domain types for ORBIVIT. Terms follow GLOSSARY.md; see docs/technical/09-implementation-plan.md §4.
 // Medical data follows the coded interface in medical.ts (docs/technical/10, ADR 0011).
 import type { Mapping, ResultValue, Terminology } from "./medical.ts";
 
@@ -176,7 +176,7 @@ export interface ResultRule {
   finding: string;
 }
 
-/** One field of a structured finding that the operator enters (AstroHealth does not read images). */
+/** One field of a structured finding that the operator enters (ORBIVIT does not read images). */
 export interface FormField {
   /** A measure the test returns. */
   field: string;

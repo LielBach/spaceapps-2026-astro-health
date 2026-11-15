@@ -1,4 +1,4 @@
-# AstroHealth
+# ORBIVIT
 
 Decision-support software that watches an astronaut's health data, starts an investigation when it finds a deviation, and guides the astronaut to the next action.
 
@@ -111,7 +111,7 @@ One value of a measure for one astronaut at one mission time, with its unit, sou
 _Avoid_: Reading, vital, data point
 
 **Local code**:
-An AstroHealth code for a measure, finding or condition that has no exact standard code. It always states the nearest standard code and how close that code is.
+An ORBIVIT code for a measure, finding or condition that has no exact standard code. It always states the nearest standard code and how close that code is.
 _Avoid_: Custom code, internal ID
 
 **Composite astronaut**:

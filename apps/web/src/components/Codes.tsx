@@ -4,7 +4,7 @@ import {
   type Equivalence,
   type Mapping,
   type MeasureDef,
-} from "@astrohealth/core";
+} from "@orbivit/core";
 
 const EQUIVALENCE_WORDS: Record<Exclude<Equivalence, "equivalent" | "unmatched">, string> = {
   wider: "nearest code (broader)",
@@ -55,7 +55,7 @@ export function Codes({ mappings, compact = false }: { mappings: Mapping[]; comp
   );
 }
 
-/** The measure's codes, or "AstroHealth code" when the registry has no entry. */
+/** The measure's codes, or "ORBIVIT code" when the registry has no entry. */
 export function MeasureCodes({
   measure,
   compact = false,

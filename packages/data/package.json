@@ -1,5 +1,5 @@
 {
-  "name": "@astrohealth/data",
+  "name": "@orbivit/data",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@astrohealth/core": "workspace:*",
+    "@orbivit/core": "workspace:*",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }
 }

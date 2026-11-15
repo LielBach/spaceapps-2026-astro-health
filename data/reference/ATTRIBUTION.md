@@ -12,4 +12,4 @@
 
 **Changes:** panels B and C are cropped from the full figure. Nothing else is changed.
 
-**Use in AstroHealth (ADR 0009):** Demo 1 shows panel B as Maya's earlier scan and panel C as today's scan. Maya is a **COMPOSITE** astronaut: these scans come from an ISS crew member, and her labs come from an Inspiration4 crew member. The UI shows this credit with each scan and never claims that the scans and the labs belong to one person.
+**Use in ORBIVIT (ADR 0009):** Demo 1 shows panel B as Maya's earlier scan and panel C as today's scan. Maya is a **COMPOSITE** astronaut: these scans come from an ISS crew member, and her labs come from an Inspiration4 crew member. The UI shows this credit with each scan and never claims that the scans and the labs belong to one person.

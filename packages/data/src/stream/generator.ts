@@ -1,4 +1,4 @@
-import type { Anchor, PassiveSignal, Sample, SampleContext } from "@astrohealth/core";
+import type { Anchor, PassiveSignal, Sample, SampleContext } from "@orbivit/core";
 import { gaussian } from "./noise.ts";
 import type { Scenario } from "./scenario.ts";
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { formatValue, type Catalog, type LogLine, type SessionView } from "@astrohealth/core";
+import { formatValue, type Catalog, type LogLine, type SessionView } from "@orbivit/core";
 import { Label } from "./Source.tsx";
 
 function summary(line: LogLine, catalog: Catalog): string {

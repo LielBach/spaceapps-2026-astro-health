@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { DEFAULT_DETECTION, Detector, type DetectionOutput } from "@astrohealth/core";
+import { DEFAULT_DETECTION, Detector, type DetectionOutput } from "@orbivit/core";
 import {
   createStream,
   loadAnchors,

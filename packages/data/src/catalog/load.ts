@@ -11,7 +11,7 @@ import {
   measureDef,
   type Catalog,
   type Terminology,
-} from "@astrohealth/core";
+} from "@orbivit/core";
 
 const MappingSchema = z.object({
   system: z.enum(STANDARD_SYSTEMS),

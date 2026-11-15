@@ -1,14 +1,14 @@
 // Parses data/raw into data/anchors/<sourceId>.json. Values are copied, never changed.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import type { Anchor } from "@astrohealth/core";
+import type { Anchor } from "@orbivit/core";
 import {
   lowestPreflightAlbumin,
   parseLabCsv,
   parseRestingTable,
   parseSlopeTable,
   parseStandTest,
-} from "@astrohealth/data";
+} from "@orbivit/data";
 
 const raw = (file: string) => readFileSync(join(process.cwd(), "data/raw", file));
 const out = join(process.cwd(), "data/anchors");

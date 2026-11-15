@@ -6,7 +6,7 @@ import {
   type EventView,
   type LogLine,
   type SessionView,
-} from "@astrohealth/core";
+} from "@orbivit/core";
 
 /** The findings an answer, result or trigger line carries; none for other step types. */
 export function findingsOf(line: LogLine | undefined): string[] {
@@ -104,7 +104,7 @@ export function crewAlert(screen: CrewScreen, event: EventView | undefined): Ale
         level: "info",
         word: "Follow-up",
         title: "Nothing to do now",
-        body: "AstroHealth checks your data until",
+        body: "ORBIVIT checks your data until",
         day: event?.followUpUntil,
       };
     case "urgent":

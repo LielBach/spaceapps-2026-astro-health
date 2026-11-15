@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { EventView, LogLine, SessionView } from "@astrohealth/core";
+import type { EventView, LogLine, SessionView } from "@orbivit/core";
 import {
   cmoAlert,
   confidenceWord,

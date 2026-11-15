@@ -2,12 +2,12 @@ import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { CODE_SYSTEMS } from "@astrohealth/core";
+import { CODE_SYSTEMS } from "@orbivit/core";
 import { buildApp, scenarioPaths } from "./app.ts";
 import { toFhirBundle } from "./fhir.ts";
 import { ReplaySession } from "./session.ts";
 
-const runs = mkdtempSync(join(tmpdir(), "astrohealth-fhir-"));
+const runs = mkdtempSync(join(tmpdir(), "orbivit-fhir-"));
 
 type Entry = { fullUrl: string; resource: Record<string, unknown> & { resourceType: string } };
 type Coding = { system: string; code: string; display?: string };
@@ -51,7 +51,7 @@ describe("FHIR R4 export of Demo 1 (no-LLM fallback)", async () => {
   it("tags the composite astronaut", () => {
     const patient = of("Patient")[0] as unknown as { meta: { tag: Coding[] } };
     expect(patient.meta.tag).toContainEqual({
-      system: "urn:astrohealth:data-label",
+      system: "urn:orbivit:data-label",
       code: "COMPOSITE",
     });
   });
@@ -66,14 +66,14 @@ describe("FHIR R4 export of Demo 1 (no-LLM fallback)", async () => {
         expect(o.valueQuantity.system).toBe(CODE_SYSTEMS.ucum);
         expect(units.has(o.valueQuantity.code ?? "")).toBe(true);
       }
-      expect(o.meta.tag[0]?.system).toBe("urn:astrohealth:data-label");
+      expect(o.meta.tag[0]?.system).toBe("urn:orbivit:data-label");
       expect(o.effectiveDateTime).toMatch(/^\d{4}-\d\d-\d\dT/);
     }
   });
 
   it("exports Maya's real albumin with its LOINC code and the lab reference range", () => {
     const albumin = observations.find((o) => o.code.coding.some((c) => c.code === "1751-7"))!;
-    expect(albumin.meta.tag).toContainEqual({ system: "urn:astrohealth:data-label", code: "REAL" });
+    expect(albumin.meta.tag).toContainEqual({ system: "urn:orbivit:data-label", code: "REAL" });
     expect(albumin.valueQuantity).toMatchObject({ system: CODE_SYSTEMS.ucum, code: "g/dL" });
     expect(albumin.referenceRange?.[0]?.type?.coding[0]?.code).toBe("normal");
   });

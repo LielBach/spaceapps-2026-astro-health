@@ -1,6 +1,6 @@
 # 10 — Medical data standards and the measurement interface
 
-This doc lists the standards that apply to the medical data of a spaceflight health monitor, says which of them AstroHealth adopts, and specifies one standard interface for every medical datum in the app. The decision is ADR 0011. Terms follow [GLOSSARY.md](../../GLOSSARY.md).
+This doc lists the standards that apply to the medical data of a spaceflight health monitor, says which of them ORBIVIT adopts, and specifies one standard interface for every medical datum in the app. The decision is ADR 0011. Terms follow [GLOSSARY.md](../../GLOSSARY.md).
 
 **Status:** plan. Nothing in §4–§6 is built yet. §7 lists the tasks.
 
@@ -24,7 +24,7 @@ The result: a value cannot be read without the app's source code, and nothing ca
 
 ## 2. Standards register
 
-"Use" says what AstroHealth does with each standard:
+"Use" says what ORBIVIT does with each standard:
 - **Adopt**: the app's data follows it.
 - **Map**: local data carries its codes next to local codes.
 - **Reference**: cited for content, such as limits or vocabulary. The data does not follow its format.
@@ -37,7 +37,7 @@ The result: a value cannot be read without the app's source code, and nothing ca
 | **HL7 FHIR R4 (4.0.1)**, https://hl7.org/fhir/R4/ | Resource model for health data: `Observation`, `Condition`, `Questionnaire`, `Device`, `Provenance`, `Flag`, `Task`, `PlanDefinition` | **Adopt** the resource shapes as internal types; export as a FHIR `Bundle` | The most widely used exchange model. Its `Condition.verificationStatus` has the values `differential` and `provisional`, which match a suspected diagnosis exactly (ADR 0005). |
 | FHIR Vital Signs profile, https://hl7.org/fhir/R4/observation-vitalsigns.html | Required LOINC codes and UCUM units for core vital signs | **Adopt** for HR, RR, SpO2, temperature, BP and body weight | Makes these values readable by any FHIR system. |
 | openEHR / ISO 13606 | Archetype-based EHR model | Out of scope | ESA-side programs may use it *(verify)*. FHIR has wider tooling. |
-| HL7 v2, IHE PCD-01 | Device-to-EHR messages in hospitals | Out of scope | AstroHealth does not connect to a hospital system. |
+| HL7 v2, IHE PCD-01 | Device-to-EHR messages in hospitals | Out of scope | ORBIVIT does not connect to a hospital system. |
 
 ### 2.2 Terminologies (what a value means)
 
@@ -49,7 +49,7 @@ The result: a value cannot be read without the app's source code, and nothing ca
 | ICD-11 (WHO) | Current WHO classification | Reference | Better for an international crew. No ICD-11 codes are checked yet *(verify)*. |
 | **UCUM**, https://ucum.org | Machine-readable units | **Adopt** for every quantity | Free. |
 | **ISO/IEEE 11073-10101** | Device nomenclature (MDC codes) for monitors and wearables | **Map** device-measured vitals | The standard is paid. The codes are listed openly on tx.fhir.org and in the NIST RTMMS. |
-| RxNorm, ATC | Medications | Out of scope | AstroHealth never prescribes medication (ADR 0005). |
+| RxNorm, ATC | Medications | Out of scope | ORBIVIT never prescribes medication (ADR 0005). |
 
 ### 2.3 Devices, wearables and imaging
 
@@ -72,7 +72,7 @@ The result: a value cannot be read without the app's source code, and nothing ca
 
 These set what to measure and the limits. They do not define a data format.
 
-| Standard | What AstroHealth takes from it |
+| Standard | What ORBIVIT takes from it |
 |---|---|
 | NASA-STD-3001 Vol. 1 Rev. C (crew health) — already `nasa-std-3001-vol1-revc` | Medical care levels, fitness-for-duty and permissible exposure limits. Every limit shown needs its clause *(verify each clause before use)*. |
 | NASA-STD-3001 Vol. 2 Rev. F (human factors, habitability, environment), approved 2026-07-14 — `nasa-std-3001-vol2-revf` | Environmental limits. [V2 6004]: the one-hour average ppCO2 in the habitable volume is no more than 3 mmHg. The cabin CO2 rule (`t-cabin-co2`) uses this limit. Rev F supersedes Rev E (2025-05-01). |
@@ -84,19 +84,19 @@ These set what to measure and the limits. They do not define a data format.
 
 ### 2.6 Software, safety and regulation (reference only)
 
-AstroHealth is a hackathon demo. It claims compliance with none of these. The design follows their main rules where this costs little.
+ORBIVIT is a hackathon demo. It claims compliance with none of these. The design follows their main rules where this costs little.
 
 | Standard | Rule the design follows |
 |---|---|
 | IEC 60601-1-8 (alarm systems) | Alarm priorities: low, medium, high. §4.6 maps the silent watch, the check-in question and the urgent interrupt to these levels. |
 | IEC 62304 (software life cycle), ISO 14971 (risk management), IEC 62366-1 (usability) | Traceability: every rule and threshold carries a source and a rule version (already in the event log). |
-| FDA guidance on clinical decision support software (final, January 2026) — `fda-cds-2026` | The exclusion from the device definition needs all four criteria of FD&C Act 520(o)(1)(E). **AstroHealth does not meet Criterion 1:** it analyzes a pattern from a signal acquisition system (the continuous wearable stream). It also alerts the astronaut, not only a health care professional. So a marketed version would be device software. The pitch must not say "non-device CDS" or "FDA-exempt". It may say that the design follows Criterion 4: the crew medical officer can review the basis of each suggestion and decides (ADR 0005). |
+| FDA guidance on clinical decision support software (final, January 2026) — `fda-cds-2026` | The exclusion from the device definition needs all four criteria of FD&C Act 520(o)(1)(E). **ORBIVIT does not meet Criterion 1:** it analyzes a pattern from a signal acquisition system (the continuous wearable stream). It also alerts the astronaut, not only a health care professional. So a marketed version would be device software. The pitch must not say "non-device CDS" or "FDA-exempt". It may say that the design follows Criterion 4: the crew medical officer can review the basis of each suggestion and decides (ADR 0005). |
 
 ## 3. Design rules
 
 Every medical datum that crosses a boundary (data loader → engines → server → UI, event log or export) follows these rules.
 
-1. **Coded.** A datum has a code from a named code system, plus a display text. When no standard code fits, it has a **local code** in an AstroHealth code system (`urn:astrohealth:measure`, `urn:astrohealth:finding`, `urn:astrohealth:condition`).
+1. **Coded.** A datum has a code from a named code system, plus a display text. When no standard code fits, it has a **local code** in an ORBIVIT code system (`urn:orbivit:measure`, `urn:orbivit:finding`, `urn:orbivit:condition`).
 2. **Mapped explicitly.** Each local code lists its nearest standard code and the FHIR R4 ConceptMap equivalence (`equivalent`, `wider`, `narrower`, `inexact`, `unmatched`). `unmatched` needs a one-line reason. A mapping never claims more than it is.
 3. **UCUM units.** A quantity stores its UCUM code (`/min`, `mm[Hg]`, `10*3/uL`). The UI shows a display unit from the unit registry (`/min` → "bpm"). Unit text from a source file is converted when the data is loaded and never shown raw.
 4. **Provenance on the datum.** A datum carries its data label (REAL, SIMULATED, REFERENCE), its `sourceId`, and its origin: stream, anchor, device, operator, astronaut answer, or reasoner. COMPOSITE stays a property of the astronaut (ADR 0009).
@@ -122,8 +122,8 @@ const CODE_SYSTEMS = {
   loinc: "http://loinc.org", snomed: "http://snomed.info/sct",
   icd10cm: "http://hl7.org/fhir/sid/icd-10-cm", mdc: "urn:iso:std:iso:11073:10101",
   ucum: "http://unitsofmeasure.org",
-  measure: "urn:astrohealth:measure", finding: "urn:astrohealth:finding",
-  condition: "urn:astrohealth:condition",
+  measure: "urn:orbivit:measure", finding: "urn:orbivit:finding",
+  condition: "urn:orbivit:condition",
 };
 
 /** One standard code for a local code, and how close it is (FHIR R4 ConceptMap equivalence). */
@@ -210,7 +210,7 @@ The catalog questions are exported as one `Questionnaire`. An item carries the S
 | Suspected diagnosis | `Condition`: `code` = the catalog condition plus its `equivalent` and `wider` standard codes; `verificationStatus` = `differential` or `provisional`; `evidence.detail` = event log line IDs | The app never writes `confirmed` or `refuted` (rule 8). Only the leading catalogued diagnosis of a ranked list is `provisional`. The no-LLM fallback does not rank, so all its diagnoses are `differential`. An uncatalogued diagnosis has only `text` and the UNCATALOGUED tag. |
 | Confidence | `RiskAssessment` per `Condition`: `prediction.outcome` = the condition concept, `probabilityDecimal` = the confidence | Only for a ranked list. The unranked fallback has no confidence to report. |
 | Requested test | `Task`, `intent: proposal`, `status: requested` until a result exists, then `completed` | The test must be on the equipment list. |
-| Recommended action | `Task`, `intent: proposal`, `instantiatesUri` = `urn:astrohealth:pathway:<condition>#<action>`; `status: requested` until approved, then `accepted` | The action text comes from the catalog only (ADR 0002, ADR 0005). |
+| Recommended action | `Task`, `intent: proposal`, `instantiatesUri` = `urn:orbivit:pathway:<condition>#<action>`; `status: requested` until approved, then `accepted` | The action text comes from the catalog only (ADR 0002, ADR 0005). |
 | Escalation | `Communication` to the crew medical officer and the ground | — |
 
 The first plan had a `PlanDefinition` per pathway and a confidence extension. The build uses `instantiatesUri` and `RiskAssessment` instead: they are standard elements, and the export needs no custom extension.
@@ -224,7 +224,7 @@ The first plan had a `PlanDefinition` per pathway and a confidence extension. Th
 | Surveillance trigger | low | `Flag`, `category` "alarm priority low (IEC 60601-1-8)" |
 | Urgent interrupt | high | `Flag`, `category` "alarm priority high (IEC 60601-1-8)" |
 
-No AstroHealth level uses the medium priority today. This is explicit, not an omission.
+No ORBIVIT level uses the medium priority today. This is explicit, not an omission.
 
 ### 4.7 Event log
 
@@ -245,7 +245,7 @@ Rules of the export:
 - **No custom extensions.** The equivalence is in the ConceptMaps. An Observation or Condition `code` holds the local code plus only its `equivalent` and `wider` standard codes. A `narrower` or `inexact` code appears only in the ConceptMap, so the bundle never claims more than the mapping is.
 - **Vital signs profiles.** Heart rate measures carry 8867-4, SpO2 carries 2708-6 (as `wider` mappings), and blood pressure is one `Observation` with the panel code 85354-9 and systolic and diastolic `component`s. The `blood-pressure` measure is a `panel`: its `components` drive this grouping.
 - **Two clocks (rule 5).** Each scenario has a fictional `mission.epoch` (2035-01-01T00:00:00Z, SIMULATED). `effectiveDateTime` = epoch + mission day. Without an epoch, the route returns 400.
-- **Data labels** go in `meta.tag` (system `urn:astrohealth:data-label`).
+- **Data labels** go in `meta.tag` (system `urn:orbivit:data-label`).
 - **Ranges.** A lab reference range has `type` normal. An alert limit has a local range type, and the text says that it is an illustrative design parameter.
 
 Not exported: the hourly stream samples. The detection metric values carry the same information at the resolution the reasoner uses.
@@ -254,7 +254,7 @@ The bundle is a file: it can be saved during a comm blackout and sent later in o
 
 **Validation (2026-11-15).** The Demo 1 bundle (no-LLM fallback, day 75, 520 KB, 488 resources) was checked with the HL7 validator (validator.fhir.org, FHIR 4.0.1). Result: **0 errors**, 1641 warnings, 1006 information messages. The first run had 550 errors (custom extensions, vital signs profiles, empty arrays). The warnings that remain:
 - 446: an Observation has no `performer`. A wearable or device value has no FHIR R4 performer that fits (`Device` is not allowed).
-- 978: the local code systems (`urn:astrohealth:*`) have no published `CodeSystem`, so the validator cannot check those codes or the ConceptMap sources. The standard codes in the same concept are checked.
+- 978: the local code systems (`urn:orbivit:*`) have no published `CodeSystem`, so the validator cannot check those codes or the ConceptMap sources. The standard codes in the same concept are checked.
 - 212: a resource has no narrative (`dom-6`, best practice).
 - 2: `spo2` maps to 59408-5 (equivalent) and to 2708-6 (wider), but LOINC does not make 2708-6 a parent of 59408-5. The same applies to `resting-hr` with 40443-4 and 8867-4. The vital signs profiles require the wider codes, so they stay.
 - The rest: the validator has no full content for ICD-10-CM and IEEE 11073, and cannot resolve the local Questionnaire URL.
@@ -352,7 +352,7 @@ The i-STAT test (`t-istat-chem8`) measures whole blood. Its codes come from the 
 
 ## 6. Scope
 
-This is the minimum that makes the interface standard and explicit. It does not turn AstroHealth into an EHR.
+This is the minimum that makes the interface standard and explicit. It does not turn ORBIVIT into an EHR.
 
 **In:** registries and their check; `Measurement` and the coded types; unit conversion at load; typed test results and log lines; codes, units and range types in the UI; the FHIR `Bundle` export.
 

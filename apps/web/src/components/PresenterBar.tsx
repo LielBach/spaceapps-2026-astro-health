@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { SessionView } from "@astrohealth/core";
+import type { SessionView } from "@orbivit/core";
 import { post } from "../api.ts";
 
 const SPEEDS = [1, 2, 5, 10, 20, 30];

@@ -1,15 +1,15 @@
-# AstroHealth (working name) — NASA Space Apps 2026
+# ORBIVIT — NASA Space Apps 2026
 
 **Challenge:** [Create Health Monitoring Software for Astronauts on Space Missions](https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/)
 
-> *On Mars, your flight surgeon is 20 minutes away. AstroHealth notices when something is wrong before the astronaut does, investigates it with them, and follows it until it is resolved.*
+> *On Mars, your flight surgeon is 20 minutes away. ORBIVIT notices when something is wrong before the astronaut does, investigates it with them, and follows it until it is resolved.*
 
 ## The idea in 30 seconds
 - Astronauts must increasingly assess their own health (NASA's **Earth-Independent Medical Operations** goal).
-- AstroHealth runs a closed loop: **detect → investigate → assess → act → learn**. Passive sensor data starts an event; the system asks questions, requests tests cheapest first, shows ranked suspected diagnoses, recommends an action from an approved pathway, and closes the event only when follow-up data returns to baseline.
+- ORBIVIT runs a closed loop: **detect → investigate → assess → act → learn**. Passive sensor data starts an event; the system asks questions, requests tests cheapest first, shows ranked suspected diagnoses, recommends an action from an approved pathway, and closes the event only when follow-up data returns to baseline.
 - Deviations are judged against the **astronaut's frozen pre-flight baseline + the expected in-flight band for this mission day**, not Earth ranges.
 - It works offline: milestone 1 uses an online LLM with a fixed-order fallback; milestone 2 runs a local model on a MacBook.
-- Concept: [06-astrohealth-concept.md](docs/product/06-astrohealth-concept.md) · decisions: [docs/adr/](docs/adr/) · terms: [GLOSSARY.md](GLOSSARY.md).
+- Concept: [06-orbivit-concept.md](docs/product/06-orbivit-concept.md) · decisions: [docs/adr/](docs/adr/) · terms: [GLOSSARY.md](GLOSSARY.md).
 
 ## Docs
 `docs/product/` — what we build and why (brief, domain knowledge, directions). `docs/technical/` — data, architecture and technical designs.
@@ -20,7 +20,7 @@
 | [docs/product/02-resources.md](docs/product/02-resources.md) | Catalog of NASA / ESA / CSA / JAXA / other resources, data access reality |
 | [docs/product/03-problem-space.md](docs/product/03-problem-space.md) | Health data categories, hazard→risk→indicator→action map, known monitoring problems P1–P11 |
 | [docs/product/04-directions.md](docs/product/04-directions.md) | 5 candidate directions scored, recommendation, MVP, demo story (superseded by ADR 0001) |
-| [docs/product/06-astrohealth-concept.md](docs/product/06-astrohealth-concept.md) | AstroHealth proposal: autonomous CDSS closed loop (detect → investigate → assess → act → learn), architecture, MVP scenarios — chosen direction (ADR 0001) |
+| [docs/product/06-orbivit-concept.md](docs/product/06-orbivit-concept.md) | ORBIVIT proposal: autonomous CDSS closed loop (detect → investigate → assess → act → learn), architecture, MVP scenarios — chosen direction (ADR 0001) |
 | [docs/product/07-demo-case-brief.md](docs/product/07-demo-case-brief.md) | Context and constraints for defining the demo case; standalone, ready to paste into another assistant |
 | [docs/product/08-clinical-demos.md](docs/product/08-clinical-demos.md) | Team draft of two demo workflows: venous thrombosis and cardiovascular deconditioning |
 | [GLOSSARY.md](GLOSSARY.md) · [docs/adr/](docs/adr/) | Domain terms and design decisions from the design interview |
@@ -49,7 +49,7 @@ Layout and plan: [docs/technical/09-implementation-plan.md](docs/technical/09-im
 - [x] Research & direction proposal
 - [x] Repo set up
 - [x] Data source inventory — direction choice postponed until data review is done
-- [x] Team picks direction & name: AstroHealth closed loop (ADR 0001)
+- [x] Team picks direction & name: ORBIVIT closed loop (ADR 0001)
 - [ ] Demo case (docs/product/07, 08)
 - [x] Re-check challenge Resources tab: 5 links, no datasets; real datasets they lead to added to docs/technical/05-data-sources.md
 - [x] Tech stack decision (ADR 0006)

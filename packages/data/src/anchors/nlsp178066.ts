@@ -1,4 +1,4 @@
-import type { Anchor } from "@astrohealth/core";
+import type { Anchor } from "@orbivit/core";
 import { bp, num, readRows } from "./sheet.ts";
 
 // NLSP 178066, Shykoff et al. 1996 (STS-40/58). Table 2: average resting data by subject.

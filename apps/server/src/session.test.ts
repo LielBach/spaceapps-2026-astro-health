@@ -2,7 +2,7 @@ import { mkdtempSync, readFileSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { dataOf } from "@astrohealth/core";
+import { dataOf } from "@orbivit/core";
 import { scenarioPaths } from "./app.ts";
 import { ReplaySession } from "./session.ts";
 
@@ -15,7 +15,7 @@ async function play(session: ReplaySession, untilDay: number): Promise<void> {
 }
 
 describe("Demo 2 replay with the no-LLM fallback", async () => {
-  const runs = mkdtempSync(join(tmpdir(), "astrohealth-runs-"));
+  const runs = mkdtempSync(join(tmpdir(), "orbivit-runs-"));
   const session = new ReplaySession(scenarioPaths("demo2-deconditioning", runs));
   await play(session, 150);
   const view = session.view();

@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { SourceView } from "@astrohealth/core";
+import type { SourceView } from "@orbivit/core";
 
 export const SourcesContext = createContext<SourceView[]>([]);
 

@@ -1,4 +1,4 @@
-import type { Anchor } from "@astrohealth/core";
+import type { Anchor } from "@orbivit/core";
 
 // Inspiration4 labs on OSDR: OSD-575 (CMP) and OSD-569 (CBC). Columns:
 // ANALYTE,VALUE,RANGE_MIN,RANGE_MAX,UNITS,TEST_TYPE,SUBJECT_ID,SEX,timepoint|TEST_DATE

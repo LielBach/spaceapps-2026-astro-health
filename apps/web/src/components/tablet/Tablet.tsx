@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { EventView, SessionView } from "@astrohealth/core";
+import type { EventView, SessionView } from "@orbivit/core";
 import { day } from "../../api.ts";
 import {
   crewAlert,
@@ -85,7 +85,7 @@ function Screen({
         <Centered
           icon="♥"
           title="You don't need to do anything"
-          text="AstroHealth watches your wearable data in the background."
+          text="ORBIVIT watches your wearable data in the background."
         />
       );
     case "checkInReady": {
@@ -140,7 +140,7 @@ function Screen({
           <Centered
             icon="✓"
             title="Your crew medical officer approved a plan"
-            text="Follow it as agreed. AstroHealth checks your wearable data. You don't need to do anything else."
+            text="Follow it as agreed. ORBIVIT checks your wearable data. You don't need to do anything else."
           />
           <YourAnswers view={view} event={event!} />
         </div>
@@ -153,7 +153,7 @@ function Screen({
           <p className="urgent-text">{plainEscalation(event!)}</p>
           <p className="urgent-text small">
             Ground is {view.scenario.mission.commDelayMinutes} min away one way. Your crew medical
-            officer decides. AstroHealth does not prescribe.
+            officer decides. ORBIVIT does not prescribe.
           </p>
           {acknowledged ? (
             <p className="urgent-ack">Acknowledged. Your crew medical officer has the details.</p>
@@ -169,7 +169,7 @@ function Screen({
         <Centered
           icon="✓"
           title="Resolved"
-          text="Your data is back to your normal. AstroHealth keeps watching in the background."
+          text="Your data is back to your normal. ORBIVIT keeps watching in the background."
         />
       );
   }

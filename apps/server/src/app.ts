@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyInstance } from "fastify";
-import { resultProblems } from "@astrohealth/core";
+import { resultProblems } from "@orbivit/core";
 import { toFhirBundle } from "./fhir.ts";
 import { ReplaySession, type ReasonerSetup, type SessionPaths } from "./session.ts";
 

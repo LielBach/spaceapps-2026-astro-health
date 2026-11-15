@@ -34,7 +34,7 @@ actions:
 followUpDays: 30
 # Demo 1 step 1: an abnormal IJV flow finding at the L+30 screening keeps the L+60 screening on
 # schedule (NASA/SP-20250001074: in-flight screening at L+30 and L+60 days). Bringing it forward
-# on a silent watch is AstroHealth's design (earlyOnWatch).
+# on a silent watch is ORBIVIT's design (earlyOnWatch).
 surveillance:
   recordFinding: f-prior-ijv-flow-abnormal
   repeatWithinDays: 30
