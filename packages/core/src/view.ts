@@ -105,6 +105,22 @@ export interface EventView {
   log: LogLine[];
 }
 
+/** One beat of the guided story (presenter mode). */
+export interface StoryBeatView {
+  title: string;
+  /** Talking points for the presenter. */
+  say: string[];
+  /** Parts of the screen the beat is about: tablet, review, charts, log. */
+  focus: string[];
+}
+
+/** Presenter mode: the beats and where the presenter is. */
+export interface StoryView {
+  beats: StoryBeatView[];
+  /** Index of the beat on screen; undefined when presenter mode is off. */
+  current: number | undefined;
+}
+
 export interface SessionView {
   runId: string;
   scenario: { id: string; title: string; mission: MissionView };
@@ -140,4 +156,5 @@ export interface SessionView {
   hrBaselineSourceId: string | undefined;
   /** Images for test results, keyed by test ID. */
   testImages: Record<string, MediaView>;
+  story: StoryView;
 }

@@ -54,6 +54,32 @@ const RecordEntry = z.object({
   image: Media.optional(),
 });
 
+/**
+ * One move of the guided story (presenter mode). Each beat runs its moves in order:
+ * advance the mission clock, run the scripted steps of the open event, or approve its action.
+ */
+const StoryMove = z.union([
+  /** Advance the clock to this mission day; stops early when the event waits for the crew. */
+  z.object({ advanceTo: z.number() }).strict(),
+  /** Advance until an event waits for the crew ("event") or the open event closes ("closed"). */
+  z.object({ advanceUntil: z.enum(["event", "closed"]) }).strict(),
+  /** Run scripted answers and results until the event asks for this kind of step. */
+  z.object({ stepUntil: z.enum(["test", "action"]) }).strict(),
+  /** The crew medical officer approves the recommended action. */
+  z.object({ approve: z.literal(true) }).strict(),
+]);
+
+/** Which part of the screen a beat is about. The UI highlights it. */
+export const STORY_FOCUS = ["tablet", "review", "charts", "log"] as const;
+
+const StoryBeat = z.object({
+  title: z.string(),
+  /** Talking points for the presenter, one per line. */
+  say: z.array(z.string()).min(1),
+  focus: z.array(z.enum(STORY_FOCUS)).default([]),
+  do: z.array(StoryMove).default([]),
+});
+
 export const ScenarioSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -107,11 +133,15 @@ export const ScenarioSchema = z.object({
     z.string(),
     z.record(z.string(), z.union([z.number(), z.string(), z.boolean()])),
   ),
+  /** Guided story for presenter mode: beats the presenter steps through with Next. */
+  story: z.array(StoryBeat).default([]),
 });
 
 export type Scenario = z.infer<typeof ScenarioSchema>;
 export type ScenarioRecordEntry = z.infer<typeof RecordEntry>;
 export type ScenarioMedia = z.infer<typeof Media>;
+export type StoryMoveSpec = z.infer<typeof StoryMove>;
+export type StoryBeatSpec = z.infer<typeof StoryBeat>;
 
 export function loadScenario(path: string): Scenario {
   return ScenarioSchema.parse(parse(readFileSync(path, "utf8")));

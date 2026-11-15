@@ -192,6 +192,31 @@ export function buildApp(
     return { ok: true };
   });
 
+  // Presenter mode. { beat } jumps to that beat (going back replays from a fresh session);
+  // { exit: true } leaves presenter mode with a fresh session.
+  let storyBusy = false;
+  app.post<{ Body: { beat?: number; exit?: boolean } }>("/api/story", async (request, reply) => {
+    const { beat, exit } = request.body ?? {};
+    // A second click while a beat still runs is ignored, not queued.
+    if (storyBusy) return reply.code(409).send({ error: "the previous beat is still running" });
+    if (exit) {
+      load(session.scenario.id);
+      return { ok: true };
+    }
+    if (typeof beat !== "number" || !Number.isInteger(beat) || beat < 0)
+      return reply.code(400).send({ error: "beat must be a whole number from 0" });
+    if (session.scenario.story.length === 0)
+      return reply.code(404).send({ error: `scenario ${session.scenario.id} has no story` });
+    storyBusy = true;
+    try {
+      if (session.storyBeat !== undefined && beat < session.storyBeat) load(session.scenario.id);
+      await session.goToBeat(beat);
+    } finally {
+      storyBusy = false;
+    }
+    return { ok: true, beat: session.storyBeat, day: session.day };
+  });
+
   app.post<{ Body: { days: number } }>("/api/advance", async (request) => {
     await session.advance(request.body.days);
     return { day: session.day, waiting: session.waiting };
