@@ -153,7 +153,11 @@ describe("plain language", () => {
   it("words the surveillance trigger with its due day", () => {
     const e = event({
       trigger: "surveillance",
-      log: [line("trigger", { surveillance: { dueDay: 60, early: true, sourceId: "nasa-vte-sp-2025" } })],
+      log: [
+        line("trigger", {
+          surveillance: { dueDay: 60, early: true, sourceId: "nasa-vte-sp-2025" },
+        }),
+      ],
     });
     expect(triggerText(e)).toMatchObject({ dueDay: 60, sourceId: "nasa-vte-sp-2025" });
   });
