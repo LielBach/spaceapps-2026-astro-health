@@ -107,7 +107,7 @@ An ORBIVIT code for a measure, finding or condition that has no exact standard c
 _Avoid_: Custom code, internal ID
 
 **Composite astronaut**:
-A demo astronaut whose real values come from two different real people. Only Demo 1 has one (ADR 0009), and the UI marks it COMPOSITE with both sources.
+A demo astronaut whose real values come from two different real people. Only the secondary (thrombosis) demo has one (ADR 0009), and the UI marks it COMPOSITE with both sources.
 _Avoid_: Real astronaut, synthetic astronaut
 
 **Reference band**:

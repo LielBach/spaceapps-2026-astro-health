@@ -1,12 +1,13 @@
 # 09 — Implementation plan
 
-How we build the ORBIVIT MVP: the two demo replays in [08-clinical-demos.md](../product/08-clinical-demos.md), milestone 1 (online LLM), then milestone 2 (offline model). Every design choice here traces to an ADR in [docs/adr/](../adr/). Terms follow [GLOSSARY.md](../../GLOSSARY.md).
+How we build the ORBIVIT MVP: the main demo replay and the secondary demo replay in [08-clinical-demos.md](../product/08-clinical-demos.md), milestone 1 (online LLM), then milestone 2 (offline model). Every design choice here traces to an ADR in [docs/adr/](../adr/). Terms follow [GLOSSARY.md](../../GLOSSARY.md).
 
 ## 1. Scope
 
 **In the MVP (milestone 1):**
-- Demo 2 (cardiovascular deconditioning) as a full replay, shown first.
-- Demo 1 (internal jugular vein thrombosis) as a full replay (ADR 0008).
+- Main demo (cardiovascular deconditioning, scenario `demo2-deconditioning`) as a full replay: the pitch demo (ADR 0012).
+- Secondary demo (internal jugular vein thrombosis, scenario `demo1-ijv-thrombosis`) as a full replay, shown only if time allows (ADR 0008, ADR 0012).
+- Platform extension in the pitch, not a demo: the arrhythmia catalog entry shows how the same loop handles urgent events.
 - The closed loop for both: detect → investigate → assess → act → learn.
 - Replay controls, comm blackout switch, event log, REAL / SIMULATED / REFERENCE / COMPOSITE labels, a source link on every number.
 - A reviewed **condition catalog** of 10–15 spaceflight conditions and an **equipment list** (ADR 0010).
@@ -152,7 +153,7 @@ In order (Q16, ADR 0007):
 | Answer override | During the replay, the presenter can change any scripted answer (the live branch) |
 | Every number | Hover → source link from `sources.json`, or *(verify)* |
 
-Demo 1 adds: an imported-record view (real Inspiration4 labs), the ultrasound checklist, the structured-finding form, and the CC-BY scans with their credit.
+The secondary demo (Demo 1 in code) adds: an imported-record view (real Inspiration4 labs), the ultrasound checklist, the structured-finding form, and the CC-BY scans with their credit.
 
 ## 7. Milestones and tasks
 
@@ -185,7 +186,7 @@ Each task ends with tests passing and a PR (CLAUDE.md git workflow).
 
 ### M1f — Pitch hardening
 14. Resolve every *(verify)* item shown in the UI (list in section 9).
-15. Full rehearsal of both demos in 3 minutes, with and without blackout, including one live branch.
+15. Full rehearsal of the main demo in 3 minutes, with and without blackout, including one live branch.
 
 ### M1g — Standard medical data interface
 Coded measurements, UCUM units, terminology registries and a FHIR R4 export: [10-medical-data-standards.md](10-medical-data-standards.md) §7, ADR 0011.
@@ -197,7 +198,7 @@ Coded measurements, UCUM units, terminology registries and a FHIR R4 export: [10
 
 **Order and parallel work:** M0 first. Then M1a (data) and the UI shell of M1c can run in parallel with M1b, because they meet at the types in `packages/core`. Catalog drafting (task 6) can start on day one. M1d needs M1b. M1e needs M1b and M1c. M2 can start its harness as soon as M1d works.
 
-**Cut line if time runs short:** keep Demo 2 complete; reduce Demo 1 to the surveillance trigger, the ultrasound step and the escalation screen.
+**Cut line if time runs short:** keep the main demo complete; reduce the secondary demo to the surveillance trigger, the ultrasound step and the escalation screen.
 
 ## 8. Testing
 

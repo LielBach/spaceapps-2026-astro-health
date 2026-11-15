@@ -1,9 +1,9 @@
-# Demo 1 — internal jugular vein thrombosis (docs/product/08-clinical-demos.md).
+# Secondary demo — internal jugular vein thrombosis (docs/product/08-clinical-demos.md, ADR 0012).
 # Maya is COMPOSITE (ADR 0009): REAL pre-flight labs of Inspiration4 subject C003 (the lowest
 # mean pre-flight albumin, OSD-575) and REAL ultrasound scans of an ISS crew member
 # (Marshall-Goebel 2019, CC-BY). Everything in the stream is SIMULATED.
 id: demo1-ijv-thrombosis
-title: "Demo 1 — Earlier detection of venous thrombosis"
+title: "Secondary demo — Earlier detection of venous thrombosis"
 seed: 2019
 astronaut:
   id: i4-C003

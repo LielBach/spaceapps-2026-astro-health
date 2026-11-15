@@ -2,7 +2,7 @@
 
 Context for defining the demo case of ORBIVIT. This file stands alone: you can paste it into another assistant or give it to a teammate.
 
-The team chose two demos (ADR 0008); their step-by-step workflows are in [08-clinical-demos.md](08-clinical-demos.md). Decisions here come from a design interview. They are recorded in [GLOSSARY.md](../../GLOSSARY.md) and [docs/adr/](../adr/). Items marked *(verify)* need a source before they appear in the UI or the pitch.
+The team chose one main demo, cardiovascular deconditioning, and keeps venous thrombosis as a secondary demo (ADR 0008, ADR 0012). Their step-by-step workflows are in [08-clinical-demos.md](08-clinical-demos.md). Decisions here come from a design interview. They are recorded in [GLOSSARY.md](../../GLOSSARY.md) and [docs/adr/](../adr/). Items marked *(verify)* need a source before they appear in the UI or the pitch.
 
 ## 1. The product in short
 
@@ -82,7 +82,7 @@ The numbers in the filters (such as 3 nights) are design parameters, not validat
 - Shuttle STS-40 (NLSP 178066) gives one averaged pre-flight and in-flight resting value per subject (6 subjects): heart rate, BP, cardiac output, stroke volume.
 - Shuttle DSO 402 (NLSP) gives per-subject supine and standing heart rate and BP before and after flight (26 subjects). Use it only as a REFERENCE band for other astronauts.
 - Marshall-Goebel 2019 (JAMA Network Open, **CC-BY**) has real ISS ultrasound images of the internal jugular vein: Figure 3B (pre-flight, normal flow) and Figure 3C (flight day 50, thrombus). It gives only group counts of flow grades, not per-astronaut values.
-- **Never combine real values from two people in one astronaut.** The one exception is Demo 1's Maya, marked COMPOSITE in the UI with both sources (ADR 0009).
+- **Never combine real values from two people in one astronaut.** The one exception is Maya in the secondary (thrombosis) demo, marked COMPOSITE in the UI with both sources (ADR 0009).
 - Passive signals are a **simulated stream**, seeded from published effect sizes, that fills the time between real anchors. One scripted incident starts the investigation.
 - A good demo case uses a real anchor at a visible step. Example: a cartridge result compared to that astronaut's real pre-flight value.
 
@@ -92,17 +92,17 @@ The numbers in the filters (such as 3 nights) are design parameters, not validat
 - The app is decision support. It gives suspected diagnoses, and actions come only from approved pathways.
 - It must work offline. Milestone 1 uses an online LLM with a fixed-order fallback, and milestone 2 uses a local model on a MacBook (ADR 0004).
 
-## 4. The two chosen demos (for comparison)
+## 4. The main demo and the secondary demo
 
 Full workflows: [08-clinical-demos.md](08-clinical-demos.md). Both come from the **gravity fields** hazard.
 
-**Demo 2 (shown first): cardiovascular deconditioning.** Alex = subject 1 of Shuttle study NLSP 178066 (REAL pre-flight and in-flight resting heart rate, BP, cardiac output, stroke volume). Trigger: heart rate at the same exercise workload rises over many sessions, and performance falls (SIMULATED, seeded from the real STS-40 group slope). Check-in question, then tests cheapest first; suspected diagnosis: reduced exercise tolerance consistent with deconditioning. Action: countermeasure review from the approved pathway. Resolve: matched-workload heart rate returns toward baseline. Gravity transition step uses a DSO 402 REFERENCE band.
+**Main demo: cardiovascular deconditioning** (scenario `demo2-deconditioning`). Storyline: Alex feels healthy; heart rate at a standardized exercise workload rises while performance falls; ORBIVIT finds a meaningful deviation from Alex's personal baseline, asks targeted questions, requests cardiovascular and functional tests, ranks suspected deconditioning against alternative causes, recommends a countermeasure review, and tracks the response toward readiness for Mars landing. Alex = subject 1 of Shuttle study NLSP 178066 (REAL pre-flight and in-flight resting heart rate, BP, cardiac output, stroke volume). Trigger: heart rate at the same exercise workload rises over many sessions, and performance falls (SIMULATED, seeded from the real STS-40 group slope). Check-in question, then tests cheapest first; suspected diagnosis: reduced exercise tolerance consistent with deconditioning. Action: countermeasure review from the approved pathway. Resolve: matched-workload heart rate returns toward baseline. Gravity transition step uses a DSO 402 REFERENCE band.
 
-**Demo 1 (second): internal jugular vein thrombosis.** Maya = COMPOSITE: REAL Inspiration4 pre-flight labs (including albumin) and REAL ISS ultrasound images (Marshall-Goebel 2019, CC-BY). Trigger: a surveillance trigger from a past abnormal flow finding schedules a repeat ultrasound; a sleeping-heart-rate rise brings it forward. One event holds both the general assessment of the heart-rate change and the surveillance question. The ultrasound result is entered as a structured finding (flow detected yes/no, flow grade 1–4, compressibility, thrombus yes/no); ORBIVIT does not read images. Suspected diagnosis: IJV thrombosis, escalated; treatment needs authorized medical oversight.
+**Secondary demo, if time allows: internal jugular vein thrombosis** (scenario `demo1-ijv-thrombosis`). Maya = COMPOSITE: REAL Inspiration4 pre-flight labs (including albumin) and REAL ISS ultrasound images (Marshall-Goebel 2019, CC-BY). Trigger: a surveillance trigger from a past abnormal flow finding schedules a repeat ultrasound; a sleeping-heart-rate rise brings it forward. One event holds both the general assessment of the heart-rate change and the surveillance question. The ultrasound result is entered as a structured finding (flow detected yes/no, flow grade 1–4, compressibility, thrombus yes/no); ORBIVIT does not read images. Suspected diagnosis: IJV thrombosis, escalated; treatment needs authorized medical oversight.
 
 **Known weak points:**
-- Demo 2: higher exercise heart rate is nonspecific; the real in-flight value comes from a 9–14-day flight, not a long mission.
-- Demo 1: no wearable signal is known to precede a silent jugular clot, and the composite astronaut must be disclosed on every screen that shows it.
+- Main demo: higher exercise heart rate is nonspecific; the real in-flight value comes from a 9–14-day flight, not a long mission.
+- Secondary demo: no wearable signal is known to precede a silent jugular clot, and the composite astronaut must be disclosed on every screen that shows it.
 
 ## 5. Criteria for a better case
 
@@ -122,7 +122,7 @@ Score each candidate 1–5 on:
 
 ## 6. Task for the assistant
 
-Review the two demos in [08-clinical-demos.md](08-clinical-demos.md) against sections 3 and 5. For each demo, give:
+Review the main demo and the secondary demo in [08-clinical-demos.md](08-clinical-demos.md) against sections 3 and 5. For each demo, give:
 
 1. Every step that breaks a constraint in section 3, with the fix.
 2. A score table using section 5, with one line of reasoning per score.

@@ -1,10 +1,12 @@
 # 08 — Clinical demo workflows
 
-> **Status:** aligned with [GLOSSARY.md](../../GLOSSARY.md) and ADRs 0001–0009 in [docs/adr/](../adr/). We build both demos (ADR 0008), Demo 2 first. Every value on screen is labeled **REAL**, **SIMULATED** or **REFERENCE**; Maya in Demo 1 is also marked **COMPOSITE** (ADR 0009).
+> **Status:** aligned with [GLOSSARY.md](../../GLOSSARY.md) and ADRs 0001–0012 in [docs/adr/](../adr/). One **main demo**, cardiovascular deconditioning, carries the pitch (ADR 0012). The thrombosis case stays as a short **secondary demo** of a high-consequence risk. Every value on screen is labeled **REAL**, **SIMULATED** or **REFERENCE**; Maya in the secondary demo is also marked **COMPOSITE** (ADR 0009).
+>
+> **Naming in code:** the main demo is scenario `demo2-deconditioning`, the secondary demo is scenario `demo1-ijv-thrombosis`. Code comments and tests still say "Demo 2" and "Demo 1" for them.
 
 
 **Project:** Proactive, autonomous clinical decision support for exploration missions  
-**Document purpose:** English-language, step-by-step narrative and implementation specification for two project demos  
+**Document purpose:** English-language, step-by-step narrative and implementation specification for the main demo and one secondary demo  
 **Version:** 1.0 | November 2026  
 **Status:** Concept demonstration; not validated medical software or an operational NASA protocol
 
@@ -12,7 +14,7 @@
 
 ## How to interpret these demos
 
-The health hazards and selected medical findings described below have a scientific foundation. Each demo astronaut is anchored to real open NASA data (ADR 0003): **REAL** values are measured values of that astronaut; **SIMULATED** values fill the long mission; **REFERENCE** values are group data from other real astronauts. Dates, notifications, diagnostic sequences and outcomes are **fictional**. All thresholds, triage triggers, and recommended interventions require review against approved spaceflight medical protocols before clinical use. NASA's publicly reported internal jugular thrombosis case provides historical motivation for Demo 1; neither that astronaut's exact prior physiological data nor the onset of the clot is known from public reporting.
+The health hazards and selected medical findings described below have a scientific foundation. Each demo astronaut is anchored to real open NASA data (ADR 0003): **REAL** values are measured values of that astronaut; **SIMULATED** values fill the long mission; **REFERENCE** values are group data from other real astronauts. Dates, notifications, diagnostic sequences and outcomes are **fictional**. All thresholds, triage triggers, and recommended interventions require review against approved spaceflight medical protocols before clinical use. NASA's publicly reported internal jugular thrombosis case provides historical motivation for the secondary demo; neither that astronaut's exact prior physiological data nor the onset of the clot is known from public reporting.
 
 **Sensor feasibility:** An onboard wearable can capture heart rate and, if specifically equipped and worn appropriately, continuous ECG; exercise devices can capture workout performance. Not every astronaut today wears a continuous ECG device 24 hours a day. A wearable cannot directly diagnose jugular vein thrombosis. Duplex ultrasound is the appropriate targeted imaging test when a validated clinical pathway indicates it. Medical data flows and diagnostic devices below are proposed integrations for a Mars spacecraft.
 
@@ -20,144 +22,26 @@ The health hazards and selected medical findings described below have a scientif
 
 ---
 
-# Demo 1 — Earlier Detection of Potentially Dangerous Venous Thrombosis
-
-**NASA human-spaceflight hazard:** Altered Gravity Fields  
-**Clinical issue:** Internal jugular vein (IJV) flow stasis and venous thromboembolism (VTE)  
-**Demo focus:** Longitudinal risk-aware surveillance and earlier diagnostic imaging, **not** direct clot detection by a wearable.
-
-## 1. Why this case matters
-
-An astronaut on the International Space Station was found to have an **asymptomatic internal jugular vein thrombosis** during a research ultrasound roughly 50 days into the flight. It became a widely discussed example of a previously underappreciated spaceflight medical risk. Changes in venous flow during microgravity can include stasis or abnormal flow patterns. Because there may be few or no symptoms, reliance on symptom-triggered care alone is inadequate.
-
-The real case **does not establish** that heart rate, ECG, or other continuously wearable signals were abnormal before the clot formed. A later publication discussed low albumin and hormonal contraceptive exposure, but the available public information does not establish that these findings predicted the timing of thrombosis. NASA has subsequently developed spaceflight venous screening and risk-assessment guidance. The demonstration therefore models a **prospective, risk-adaptive workflow**, not a reconstruction of what ORBIVIT would definitely have found in 2019.
-
-## 2. Fictional astronaut and starting conditions
-
-**Astronaut:** Maya, Mars transit day 43. **COMPOSITE** of two real astronauts (ADR 0009): pre-flight labs from one Inspiration4 crew member (OSD-575, OSD-569; the subject with the lowest pre-flight albumin), ultrasound scans from an ISS crew member (Marshall-Goebel 2019, CC-BY). The demo never claims these belong to one person.  
-**Symptoms:** Feels normal; no reported chest pain, shortness of breath, neck swelling, or neurological symptoms.  
-**Existing record:** **REAL** pre-flight labs (CMP including albumin, CBC). **SIMULATED:** the scheduled in-flight ultrasound at L+30 days (NASA screens IJV flow at L+30 and L+60 days, NASA/SP-20250001074) documented reduced flow in the left IJV (flow grade 3, stagnant), without an identified thrombus; seeded from the group counts in Marshall-Goebel 2019 (stagnant flow in 5 of 11 crew on flight day 50).  
-**Wearable trend (SIMULATED, illustrative):** Sleeping heart rate has drifted from an example baseline of **62 bpm** to **76–88 bpm** across several nights.
-
-**Interpretation caution:** Rising heart rate is **nonspecific**. It could reflect sleep disruption, dehydration, illness, exercise adaptation, medications, or other causes; a localized IJV clot may produce no wearable signal at all. The **prior abnormal venous imaging** and medically assessed VTE risk—not the heart-rate change by itself—are what could justify a targeted vascular reassessment.
-
-## 3. Full workflow, step by step
-
-### Step 1 — Import and preserve the longitudinal health record
-
-- **Inputs:** Preflight risk history, medications, prior ultrasound findings, previous vital-sign baselines, mission day and microgravity exposure.
-- **System:** Normalizes measurements, checks provenance, time stamps and data availability; retains the original images/reports and their interpretation status.
-- **Clinical logic:** An existing abnormal venous flow finding sets a **surveillance trigger**: the approved pathway schedules a vascular reassessment, with or without any passive-signal change.
-- **Demo screen:** `Astronaut profile > Vascular history > Prior IJV flow abnormality`.
-- **Record stored:** Source study, finding, date, clinician review, risk factors, protocol version.
-
-### Step 2 — Identify a new physiological change
-
-- **Input:** Multi-night rise in sleeping heart rate (a passive signal), with activity and sleep context.
-- **System:** Checks signal quality, resting-state validity, wear time, recent exercise and persistence over repeated measurements.
-- **Clinical logic:** Opens a **general physiological assessment** for sustained unexplained change; it does **not** output “clot detected.”
-- **Demo screen:** `Unexpected longitudinal HR trend — assessment suggested`.
-- **Record stored:** Signal summary, quality flags, baseline method, time window and alert rationale.
-
-### Step 3 — Initiate an astronaut-facing assessment
-
-**Example check-in question** (shown inside the daily check-in, not as a push; only an urgent interrupt pushes):
-
-> “ORBIVIT has identified a sustained change from your usual resting heart-rate pattern. Please complete a brief health assessment. Your record also contains a previous vascular-flow finding that may require follow-up under the mission medical protocol.”
-
-- **System:** Provides an accessible acknowledgment mechanism and prioritizes symptoms indicating emergencies.
-- **Astronaut:** Opens the tablet or wearable interface.
-- **Record stored:** Alert delivery, response time and acknowledgment.
-
-### Step 4 — Ask adaptive symptom and risk questions
-
-**First questions (urgent red flags):**
-
-1. Are you experiencing new or sudden shortness of breath?
-2. Do you have chest pain, fainting, or severe dizziness?
-3. Have you noticed new severe headache, visual symptoms, facial/neck swelling, or neck discomfort?
-
-**Contextual follow-up if stable:**
-
-4. Recent fever, respiratory symptoms, decreased fluid intake or unusual workload?
-5. Any medication changes or new risk exposures?
-6. Any similar previous episodes or known clotting disorders?
-
-- **System:** Selects from an approved question set, remembers answers already supplied and records unanswered items.
-- **Fictional result:** All key symptom questions negative; the astronaut remains stable.
-- **Safety:** Acute chest pain, unexplained breathlessness, syncope or instability bypasses routine follow-up and triggers emergency evaluation for causes including pulmonary embolism.
-
-### Step 5 — Request readily available additional measurements
-
-- **Requested:** Repeat resting HR, blood pressure, temperature and SpO₂; ECG if the findings support it.
-- **Purpose:** Investigate the new physiological change and identify immediate instability or alternative causes.
-- **System:** Imports readings automatically where supported or records a verified manual entry.
-- **Important limitation:** **Normal BP, SpO₂ or ECG does not rule out IJV thrombosis.**
-- **Record stored:** Raw values, device metadata, time stamps, quality, and any user-entered values.
-
-### Step 6 — Perform risk-adaptive clinical reasoning
-
-The decision engine explicitly separates two clinical questions:
-
-**A. Why has the resting heart rate increased?** Consider nonspecific causes such as sleep deprivation, inadequate hydration, intercurrent illness, exercise adaptation or rhythm problems. Investigate according to validated pathways.
-
-**B. Does the astronaut's prior venous-flow abnormality and overall VTE risk warrant earlier targeted ultrasound?** This is the **surveillance trigger** from step 1. Apply an approved spaceflight-specific risk and surveillance protocol. The algorithm must be able to schedule the ultrasound **even if the HR trend is absent**, if the historical vascular finding independently warrants it.
-
-- **Demo output:** `Risk-adaptive IJV ultrasound assessment indicated for clinician/protocol review`.
-- **Uncertainty:** No clot has yet been diagnosed.
-- **Record stored:** Rule that fired, inputs, alternatives considered, oversight required.
-
-### Step 7 — Guide targeted vascular imaging
-
-- **System:** Provides the approved preparation and acquisition checklist for a trained crew member; integrates with the onboard ultrasound workflow if available.
-- **Test:** Targeted IJV duplex ultrasound evaluating venous patency, flow and compressibility as appropriate for the protocol.
-- **Input to ORBIVIT:** the operator enters a **structured finding**: Doppler flow detected yes/no, flow grade 1–4 (Marshall-Goebel 2019, Figure 3A: continuous, pulsatile, stagnant, retrograde), compressibility, thrombus seen yes/no. ORBIVIT does not interpret images.
-- **Images shown:** real NASA scans, labeled **REAL – ISS crew member, Marshall-Goebel 2019, CC-BY** (COMPOSITE, ADR 0009): Figure 3B (pre-flight, grade 2) as Maya's earlier scan, Figure 3C (ISS flight day 50, thrombus) as today's scan.
-- **Scripted result:** structured finding of no detectable flow and a thrombus in the left internal jugular vein.
-- **Safety:** Automated image interpretation cannot be treated as definitive without an appropriately validated workflow and qualified review.
-- **Record stored:** Images, scan protocol, operator, observations, interpretation status.
-
-### Step 8 — Issue a clinically bounded assessment and escalation
-
-**Example ORBIVIT report:**
-
-> **Urgent vascular finding — suspected IJV thrombosis.** Targeted ultrasound suggests thrombus in the left internal jugular vein. The astronaut currently reports no symptoms. Initiate the mission-approved thrombosis evaluation pathway and obtain qualified review or use preauthorized autonomous procedures when Earth communication is unavailable.
-
-- **System:** Highlights whether the diagnosis is *suspected* or *confirmed*, what evidence is missing, and what complications require immediate attention.
-- **Treatment:** Anticoagulation decisions require authorized medical oversight and assessment of clot characteristics, bleeding risk and available medications; the chatbot does not independently prescribe.
-- **Record stored:** Differential, urgency, review and action status.
-
-### Step 9 — Longitudinal follow-up
-
-- **System:** Tracks scheduled repeat ultrasound, symptoms, clinical stability, treatment decisions and changes in imaging findings.
-- **Action:** Escalates missed follow-ups, new emergency symptoms or concerning trends under approved rules.
-- **Record stored:** Outcome time series, interventions and versioned clinical notes.
-
-### Step 10 — Research and future prevention
-
-> **Architecture slide only, not in the MVP.** The event log is the future data source for this layer.
-
-- **Research data:** Pseudonymized/appropriately governed longitudinal venous findings, demographics or relevant physiological characteristics, exposures, timing, clinical decisions and outcomes.
-- **Potential research question:** Do particular combinations of preflight characteristics and evolving venous-flow abnormalities identify astronauts who benefit from earlier screening?
-- **Limitations:** Small astronaut cohorts, selection bias, time-varying risk and incomplete labels mean that predictive performance must be tested prospectively. An observed association is not proof that an intervention prevents thrombosis.
-
-## 4. What the demo proves—and what it does not
-
-**Demonstrates:** Integration of historical data, a new wearable trend, targeted questioning, additional clinical tests, protocol-guided ultrasound, escalation, and documented follow-up.
-
-**Does not prove:** That wearable HR detects silent IJV clots, that a low albumin value independently predicts VTE, that this system would have prevented the real 2019 event, or that earlier ultrasound always improves outcomes.
-
-**Suggested pitch line:**
-
-> “When symptoms are absent, risk-aware monitoring can still prompt the right medical investigation—before the next routine examination.”
-
----
-
-# Demo 2 — Early Intervention for Cardiovascular Deconditioning
+# Main demo — Early Detection of Cardiovascular Deconditioning Before Mars Landing
 
 **NASA human-spaceflight hazard:** Altered Gravity Fields  
 **Clinical issue:** Progressive cardiovascular deconditioning with potential orthostatic intolerance on gravitational transition  
-**Demo focus:** A **more common, longitudinal, measurable and actionable** spaceflight problem, using data already obtainable from wearables and exercise equipment.
+**Demo focus:** A **common, longitudinal, measurable and actionable** spaceflight problem, using data already obtainable from wearables and exercise equipment. It is not a rare medical emergency.
+**Goal:** find the deterioration early enough to support physical readiness for Mars landing.
+
+## Storyline (pitch view)
+
+The seven beats below are what the audience sees. The detailed workflow in section 3 implements them.
+
+| # | Beat | Workflow steps | Data label |
+|---|---|---|---|
+| 1 | Alex feels healthy during the journey. ORBIVIT ignores a benign extra workout. | 1 | REAL resting anchor, SIMULATED stream |
+| 2 | Heart rate during standardized exercise rises session by session, and exercise performance falls. | 1–2 | SIMULATED, seeded from the REAL STS-40 slope |
+| 3 | ORBIVIT finds a clinically meaningful deviation from Alex's personalized baseline (in-flight band, persistence, two signals). | 2 | Baseline from Alex's REAL in-flight HR |
+| 4 | ORBIVIT asks targeted questions and requests additional cardiovascular and functional assessments, cheapest first. | 3–5 | Answers and tests SIMULATED |
+| 5 | From the combined findings, ORBIVIT ranks suspected deconditioning, weighs alternative causes from the catalog (in the no-LLM replay: space anemia second, then sleep loss, infection and others below the visible cut), and recommends review of the exercise countermeasure program. | 6–7 | Suspected – for crew medical officer confirmation |
+| 6 | Alex follows a medically approved, personalized intervention plan. | 7 | Action from the approved pathway |
+| 7 | ORBIVIT monitors the response over time and summarizes readiness for Mars landing. | 8–9 | SIMULATED follow-up; DSO 402 REFERENCE band |
 
 ## 1. Why this case matters
 
@@ -297,27 +181,162 @@ Possible explanations include:
 
 ---
 
+# Secondary demo — Earlier Detection of Potentially Dangerous Venous Thrombosis
+
+**NASA human-spaceflight hazard:** Altered Gravity Fields  
+**Clinical issue:** Internal jugular vein (IJV) flow stasis and venous thromboembolism (VTE)  
+**Demo focus:** Longitudinal risk-aware surveillance and earlier diagnostic imaging, **not** direct clot detection by a wearable.
+
+## 1. Why this case matters
+
+An astronaut on the International Space Station was found to have an **asymptomatic internal jugular vein thrombosis** during a research ultrasound roughly 50 days into the flight. It became a widely discussed example of a previously underappreciated spaceflight medical risk. Changes in venous flow during microgravity can include stasis or abnormal flow patterns. Because there may be few or no symptoms, reliance on symptom-triggered care alone is inadequate.
+
+The real case **does not establish** that heart rate, ECG, or other continuously wearable signals were abnormal before the clot formed. A later publication discussed low albumin and hormonal contraceptive exposure, but the available public information does not establish that these findings predicted the timing of thrombosis. NASA has subsequently developed spaceflight venous screening and risk-assessment guidance. The demonstration therefore models a **prospective, risk-adaptive workflow**, not a reconstruction of what ORBIVIT would definitely have found in 2019.
+
+## 2. Fictional astronaut and starting conditions
+
+**Astronaut:** Maya, Mars transit day 43. **COMPOSITE** of two real astronauts (ADR 0009): pre-flight labs from one Inspiration4 crew member (OSD-575, OSD-569; the subject with the lowest pre-flight albumin), ultrasound scans from an ISS crew member (Marshall-Goebel 2019, CC-BY). The demo never claims these belong to one person.  
+**Symptoms:** Feels normal; no reported chest pain, shortness of breath, neck swelling, or neurological symptoms.  
+**Existing record:** **REAL** pre-flight labs (CMP including albumin, CBC). **SIMULATED:** the scheduled in-flight ultrasound at L+30 days (NASA screens IJV flow at L+30 and L+60 days, NASA/SP-20250001074) documented reduced flow in the left IJV (flow grade 3, stagnant), without an identified thrombus; seeded from the group counts in Marshall-Goebel 2019 (stagnant flow in 5 of 11 crew on flight day 50).  
+**Wearable trend (SIMULATED, illustrative):** Sleeping heart rate has drifted from an example baseline of **62 bpm** to **76–88 bpm** across several nights.
+
+**Interpretation caution:** Rising heart rate is **nonspecific**. It could reflect sleep disruption, dehydration, illness, exercise adaptation, medications, or other causes; a localized IJV clot may produce no wearable signal at all. The **prior abnormal venous imaging** and medically assessed VTE risk—not the heart-rate change by itself—are what could justify a targeted vascular reassessment.
+
+## 3. Full workflow, step by step
+
+### Step 1 — Import and preserve the longitudinal health record
+
+- **Inputs:** Preflight risk history, medications, prior ultrasound findings, previous vital-sign baselines, mission day and microgravity exposure.
+- **System:** Normalizes measurements, checks provenance, time stamps and data availability; retains the original images/reports and their interpretation status.
+- **Clinical logic:** An existing abnormal venous flow finding sets a **surveillance trigger**: the approved pathway schedules a vascular reassessment, with or without any passive-signal change.
+- **Demo screen:** `Astronaut profile > Vascular history > Prior IJV flow abnormality`.
+- **Record stored:** Source study, finding, date, clinician review, risk factors, protocol version.
+
+### Step 2 — Identify a new physiological change
+
+- **Input:** Multi-night rise in sleeping heart rate (a passive signal), with activity and sleep context.
+- **System:** Checks signal quality, resting-state validity, wear time, recent exercise and persistence over repeated measurements.
+- **Clinical logic:** Opens a **general physiological assessment** for sustained unexplained change; it does **not** output “clot detected.”
+- **Demo screen:** `Unexpected longitudinal HR trend — assessment suggested`.
+- **Record stored:** Signal summary, quality flags, baseline method, time window and alert rationale.
+
+### Step 3 — Initiate an astronaut-facing assessment
+
+**Example check-in question** (shown inside the daily check-in, not as a push; only an urgent interrupt pushes):
+
+> “ORBIVIT has identified a sustained change from your usual resting heart-rate pattern. Please complete a brief health assessment. Your record also contains a previous vascular-flow finding that may require follow-up under the mission medical protocol.”
+
+- **System:** Provides an accessible acknowledgment mechanism and prioritizes symptoms indicating emergencies.
+- **Astronaut:** Opens the tablet or wearable interface.
+- **Record stored:** Alert delivery, response time and acknowledgment.
+
+### Step 4 — Ask adaptive symptom and risk questions
+
+**First questions (urgent red flags):**
+
+1. Are you experiencing new or sudden shortness of breath?
+2. Do you have chest pain, fainting, or severe dizziness?
+3. Have you noticed new severe headache, visual symptoms, facial/neck swelling, or neck discomfort?
+
+**Contextual follow-up if stable:**
+
+4. Recent fever, respiratory symptoms, decreased fluid intake or unusual workload?
+5. Any medication changes or new risk exposures?
+6. Any similar previous episodes or known clotting disorders?
+
+- **System:** Selects from an approved question set, remembers answers already supplied and records unanswered items.
+- **Fictional result:** All key symptom questions negative; the astronaut remains stable.
+- **Safety:** Acute chest pain, unexplained breathlessness, syncope or instability bypasses routine follow-up and triggers emergency evaluation for causes including pulmonary embolism.
+
+### Step 5 — Request readily available additional measurements
+
+- **Requested:** Repeat resting HR, blood pressure, temperature and SpO₂; ECG if the findings support it.
+- **Purpose:** Investigate the new physiological change and identify immediate instability or alternative causes.
+- **System:** Imports readings automatically where supported or records a verified manual entry.
+- **Important limitation:** **Normal BP, SpO₂ or ECG does not rule out IJV thrombosis.**
+- **Record stored:** Raw values, device metadata, time stamps, quality, and any user-entered values.
+
+### Step 6 — Perform risk-adaptive clinical reasoning
+
+The decision engine explicitly separates two clinical questions:
+
+**A. Why has the resting heart rate increased?** Consider nonspecific causes such as sleep deprivation, inadequate hydration, intercurrent illness, exercise adaptation or rhythm problems. Investigate according to validated pathways.
+
+**B. Does the astronaut's prior venous-flow abnormality and overall VTE risk warrant earlier targeted ultrasound?** This is the **surveillance trigger** from step 1. Apply an approved spaceflight-specific risk and surveillance protocol. The algorithm must be able to schedule the ultrasound **even if the HR trend is absent**, if the historical vascular finding independently warrants it.
+
+- **Demo output:** `Risk-adaptive IJV ultrasound assessment indicated for clinician/protocol review`.
+- **Uncertainty:** No clot has yet been diagnosed.
+- **Record stored:** Rule that fired, inputs, alternatives considered, oversight required.
+
+### Step 7 — Guide targeted vascular imaging
+
+- **System:** Provides the approved preparation and acquisition checklist for a trained crew member; integrates with the onboard ultrasound workflow if available.
+- **Test:** Targeted IJV duplex ultrasound evaluating venous patency, flow and compressibility as appropriate for the protocol.
+- **Input to ORBIVIT:** the operator enters a **structured finding**: Doppler flow detected yes/no, flow grade 1–4 (Marshall-Goebel 2019, Figure 3A: continuous, pulsatile, stagnant, retrograde), compressibility, thrombus seen yes/no. ORBIVIT does not interpret images.
+- **Images shown:** real NASA scans, labeled **REAL – ISS crew member, Marshall-Goebel 2019, CC-BY** (COMPOSITE, ADR 0009): Figure 3B (pre-flight, grade 2) as Maya's earlier scan, Figure 3C (ISS flight day 50, thrombus) as today's scan.
+- **Scripted result:** structured finding of no detectable flow and a thrombus in the left internal jugular vein.
+- **Safety:** Automated image interpretation cannot be treated as definitive without an appropriately validated workflow and qualified review.
+- **Record stored:** Images, scan protocol, operator, observations, interpretation status.
+
+### Step 8 — Issue a clinically bounded assessment and escalation
+
+**Example ORBIVIT report:**
+
+> **Urgent vascular finding — suspected IJV thrombosis.** Targeted ultrasound suggests thrombus in the left internal jugular vein. The astronaut currently reports no symptoms. Initiate the mission-approved thrombosis evaluation pathway and obtain qualified review or use preauthorized autonomous procedures when Earth communication is unavailable.
+
+- **System:** Highlights whether the diagnosis is *suspected* or *confirmed*, what evidence is missing, and what complications require immediate attention.
+- **Treatment:** Anticoagulation decisions require authorized medical oversight and assessment of clot characteristics, bleeding risk and available medications; the chatbot does not independently prescribe.
+- **Record stored:** Differential, urgency, review and action status.
+
+### Step 9 — Longitudinal follow-up
+
+- **System:** Tracks scheduled repeat ultrasound, symptoms, clinical stability, treatment decisions and changes in imaging findings.
+- **Action:** Escalates missed follow-ups, new emergency symptoms or concerning trends under approved rules.
+- **Record stored:** Outcome time series, interventions and versioned clinical notes.
+
+### Step 10 — Research and future prevention
+
+> **Architecture slide only, not in the MVP.** The event log is the future data source for this layer.
+
+- **Research data:** Pseudonymized/appropriately governed longitudinal venous findings, demographics or relevant physiological characteristics, exposures, timing, clinical decisions and outcomes.
+- **Potential research question:** Do particular combinations of preflight characteristics and evolving venous-flow abnormalities identify astronauts who benefit from earlier screening?
+- **Limitations:** Small astronaut cohorts, selection bias, time-varying risk and incomplete labels mean that predictive performance must be tested prospectively. An observed association is not proof that an intervention prevents thrombosis.
+
+## 4. What the demo proves—and what it does not
+
+**Demonstrates:** Integration of historical data, a new wearable trend, targeted questioning, additional clinical tests, protocol-guided ultrasound, escalation, and documented follow-up.
+
+**Does not prove:** That wearable HR detects silent IJV clots, that a low albumin value independently predicts VTE, that this system would have prevented the real 2019 event, or that earlier ultrasound always improves outcomes.
+
+**Suggested pitch line:**
+
+> “When symptoms are absent, risk-aware monitoring can still prompt the right medical investigation—before the next routine examination.”
+
+---
+
 # Comparison and Presentation Guidance
 
-| Attribute | Demo 1: Thrombosis | Demo 2: Cardiovascular Deconditioning |
+| Attribute | Main demo: Cardiovascular Deconditioning | Secondary demo: Thrombosis |
 |---|---|---|
-| Spaceflight hazard | Altered gravity / venous stasis | Altered gravity / cardiovascular adaptation |
-| Main trigger | Prior abnormal venous flow and validated risk-based surveillance; HR trend may initiate a separate general assessment | Repeated abnormal heart-rate response to matched workload plus performance decline |
-| Direct detection by wearable? | **No** — cannot diagnose a jugular clot | Detects physiological performance changes, not the diagnosis itself |
-| Key additional examination | Targeted IJV duplex ultrasound | Standardized exercise and cardiovascular testing; BP, ECG/labs when indicated |
-| Potential medical impact | Earlier evaluation of a potentially serious, silent condition | Earlier response to a relatively common, clinically actionable deterioration |
-| Longitudinal value | Individualized vascular surveillance and future VTE research | Individualized countermeasures and tracking response to intervention |
-| Main limitation | No validated wearable precursor to silent IJV thrombosis | Nonspecific sensor signals and uncertain individual outcome prediction |
-| Best placement in pitch | High-stakes example of clinical reasoning and personalized risk | Primary demo of proactive, routine longitudinal monitoring |
+| Spaceflight hazard | Altered gravity / cardiovascular adaptation | Altered gravity / venous stasis |
+| Main trigger | Repeated abnormal heart-rate response to matched workload plus performance decline | Prior abnormal venous flow and validated risk-based surveillance; HR trend may initiate a separate general assessment |
+| Direct detection by wearable? | Detects physiological performance changes, not the diagnosis itself | **No** — cannot diagnose a jugular clot |
+| Key additional examination | Standardized exercise and cardiovascular testing; BP, ECG/labs when indicated | Targeted IJV duplex ultrasound |
+| Potential medical impact | Earlier response to a common, clinically actionable deterioration | Earlier evaluation of a potentially serious, silent condition |
+| Longitudinal value | Individualized countermeasures and tracking response to intervention | Individualized vascular surveillance and future VTE research |
+| Main limitation | Nonspecific sensor signals and uncertain individual outcome prediction | No validated wearable precursor to silent IJV thrombosis |
+| Real NASA data | Alex = subject 1 of NLSP 178066 (STS-40/58 resting HR, BP, cardiac output, stroke volume); STS-40 HR–workload slope; DSO 402 REFERENCE band | Inspiration4 labs (OSD-575, OSD-569); ISS IJV scans (Marshall-Goebel 2019, CC-BY); COMPOSITE |
+| Placement in pitch | **The demo**: full replay, about 3 minutes | Short example after the main demo, if time allows |
 
 ## Recommended pitch narrative
 
 1. **Show the problem:** Spacecraft can generate physiological, environmental and medical information, but meaningful interpretation and follow-up can remain fragmented and clinically resource-intensive.
-2. **Show Demo 2 first:** Routine wearable data reveal an emerging, actionable change before clear symptoms. The system asks targeted questions, requests relevant tests, and supports preventive intervention.
-3. **Show Demo 1 second:** A rare, high-stakes risk illustrates why the system also needs prior imaging, clinical history, risk-specific protocols and targeted diagnostics. It should not imply clot detection from heart rate.
-4. **Close with the value proposition:** **“ORBIVIT transforms passive monitoring into proactive, longitudinal clinical action—and builds the evidence needed for more personalized preventive medicine in future missions.”**
+2. **Show the main demo:** Alex feels healthy, but routine exercise data reveal an emerging, actionable decline before clear symptoms. ORBIVIT asks targeted questions, requests relevant tests, recommends a countermeasure review from the approved pathway, and tracks recovery toward Mars landing.
+3. **Show that the same platform handles urgent cases:** the same loop (passive trigger, red-flag questions, ECG, escalation) covers potentially life-threatening events such as arrhythmias. This is one slide, not a second demo: the arrhythmia condition, the palpitation and syncope questions, the ECG test and the escalation action are already in the catalog (`catalog/conditions/arrhythmia.yaml`).
+4. **Optional, if time allows: the secondary demo.** A rare, high-stakes risk shows why the system also needs prior imaging, clinical history, risk-specific protocols and targeted diagnostics. It must not imply clot detection from heart rate.
+5. **Close with the value proposition:** **“ORBIVIT is both an everyday healthcare system and a platform for urgent medical decision support: it transforms passive monitoring into proactive, longitudinal clinical action.”**
 
-## Reusable software components demonstrated by both cases
+## Reusable software components demonstrated by both demos
 
 1. **Device ingestion:** Time-stamped source data, calibration, quality and unit normalization.
 2. **Longitudinal patient record:** Preflight baseline, in-flight adaptation, medications, allergies, prior diagnoses, imaging and interventions.
