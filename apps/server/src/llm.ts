@@ -12,7 +12,6 @@ import {
 } from "ai";
 import { z } from "zod";
 import {
-  SYSTEM_NAMES,
   type Catalog,
   type Investigation,
   type LlmInfo,
@@ -329,39 +328,6 @@ export function catalogText(catalog: Catalog): string {
   });
 }
 
-/**
- * The standard meaning of every finding and measure the model reads (ADR 0011, doc 10). The model
- * answers with catalog IDs only; fhir.ts maps them to standard codes, so it never writes a code.
- */
-export function terminologyText(catalog: Catalog): string {
-  const used = new Set([
-    ...catalog.conditions.flatMap((c) => [...c.supports, ...c.against]),
-    ...catalog.questions.flatMap((q) => [...(q.yes ?? []), ...(q.no ?? [])]),
-    ...catalog.tests.flatMap((t) => t.rules.map((r) => r.finding)),
-    ...catalog.redFlags.map((r) => r.finding),
-  ]);
-  const standard = (mappings: Catalog["findings"][number]["mappings"]) => {
-    const m = mappings.find((x) => x.code);
-    return m ? `${SYSTEM_NAMES[m.system]} ${m.code}, ${m.equivalence}` : "no standard code";
-  };
-  const findings = catalog.findings
-    .filter((f) => used.has(f.id))
-    .map(
-      (f) =>
-        `${f.id}: ${f.display}${f.polarity === "absent" ? " (absent)" : ""} [${standard(f.mappings)}]`,
-    );
-  const returned = new Set(catalog.tests.flatMap((t) => t.returns));
-  const unit = (code: string | undefined) =>
-    catalog.units.find((u) => u.code === code)?.display ?? code;
-  const measures = catalog.measures
-    .filter((m) => returned.has(m.id))
-    .map(
-      (m) =>
-        `${m.id}: ${m.display}${m.unit ? ` in ${unit(m.unit)} (UCUM ${m.unit})` : ""} [${standard(m.mappings)}]`,
-    );
-  return `FINDINGS:\n${findings.join("\n")}\n\nMEASURES (test results use these units):\n${measures.join("\n")}`;
-}
-
 export function buildPrompt(
   inv: Investigation,
   retryReasons: string[] = [],
@@ -392,7 +358,7 @@ export function buildPrompt(
     // Rules and catalog are stable for the whole run: cache them (prefix match).
     instructions: {
       role: "system",
-      content: `${RULES}\n\nCONDITION CATALOG:\n${catalogText(inv.catalog)}\n\nTERMINOLOGY (standard meaning of each ID):\n${terminologyText(inv.catalog)}`,
+      content: `${RULES}\n\nCONDITION CATALOG:\n${catalogText(inv.catalog)}`,
       providerOptions: { anthropic: { cacheControl: { type: "ephemeral" } } },
     },
     messages: [{ role: "user", content: user }],

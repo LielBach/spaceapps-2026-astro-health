@@ -30,12 +30,10 @@ The guardrails do not change. The model still only proposes; the investigation e
 
 The model reads the same coded data that the FHIR export writes:
 
-- **TERMINOLOGY block** in the system prompt, built from the registries in `catalog/`:
-  - each finding that the catalog uses, with its display name, its polarity and its nearest standard code, for example `f-fever: Fever [SNOMED CT 386661006, equivalent]`;
-  - each measure that a test returns, with its display name and UCUM unit, for example `systolic-bp: … (UCUM mm[Hg])`.
+- The **CONDITION CATALOG** in the system prompt (PR #19) lists each finding with its nearest SNOMED CT code and equivalence, and each measure with its UCUM unit and its LOINC or IEEE 11073 code. M2 first added a separate TERMINOLOGY block with the same data; after the merge with PR #19 that block was removed, so the prompt holds each code once.
 - Test results in the event log already carry the measure ID, the value and the UCUM unit.
 - The model answers only with **catalog IDs** (local codes). `fhir.ts` maps them to SNOMED CT, LOINC and ICD-10-CM. The model never writes a standard code, so it cannot invent one.
-- The prompt change applies to Claude too, so the Claude reference in §6 was run after it.
+- The §6 runs used the M2 prompt (rules + catalog + TERMINOLOGY block), before the merge with PR #19. The merged prompt has longer rules and a larger catalog; §6 notes the check run on it.
 
 ## 4. Evaluation harness
 
@@ -80,6 +78,7 @@ Notes on the reference rows (2026-11-15):
 - **MedGemma 4B, main-base:** every run ranked `cv-deconditioning` first (provisional), did the exercise test and the ECG, took the countermeasure review, and the event resolved. It also asks for tests the demo does not need (for example the dosimeter), so an event takes about 24 calls.
 - **MedGemma 4B, main-fever:** the failed run asked about fever but took the action before the temperature test. It did the same as Claude's failed run: safe, but not the demo outcome.
 - **Network:** no request left the machine in any MedGemma run (network guard).
+- **Merged prompt (after PR #19):** one main-base run with MedGemma 4B: PASS, 24 calls, median 8.1 s, p90 9.7 s, 40/40 model steps, 0 rejected.
 - Because of the pitch deadline, the reference uses 3 + 2 runs, not the 10 + 5 of the gate.
 
 ## 7. Limits

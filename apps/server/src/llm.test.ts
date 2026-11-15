@@ -210,9 +210,9 @@ describe("LLM reasoner", () => {
     const { model, prompts } = mockModel([ask("q-chest-pain")]);
     const s = session({ reasoner: createLlmReasoner(model, INFO), info: INFO });
     await untilEvent(s);
-    expect(prompts[0]).toContain("TERMINOLOGY");
-    expect(prompts[0]).toContain("f-fever: Fever [SNOMED CT 386661006, equivalent]");
-    expect(prompts[0]).toMatch(/systolic-bp: [^\n]*UCUM mm\[Hg\]/);
+    // The catalog JSON carries the SNOMED CT code of f-fever and the UCUM unit of systolic BP.
+    expect(prompts[0]).toContain("386661006");
+    expect(prompts[0]).toContain("mm[Hg]");
   });
 
   it("maps a cited finding ID to the log line that recorded it", async () => {
