@@ -5,13 +5,20 @@ import { MockLanguageModelV4 } from "ai/test";
 import { describe, expect, it } from "vitest";
 import { Investigation, ruleBasedProposal } from "@orbivit/core";
 import { scenarioPaths } from "./app.ts";
-import { configFromEnv, createLlmReasoner, type ProposalOutput } from "./llm.ts";
-import { ReplaySession, type Reasoner, type ReasonerSetup } from "./session.ts";
+import {
+  configFromEnv,
+  createLlmReasoner,
+  reasonerFromConfig,
+  type ProposalOutput,
+} from "./llm.ts";
+import { ReplaySession, type Reasoner, type Reasoners, type ReasonerSetup } from "./session.ts";
 
 const INFO = { provider: "anthropic", model: "mock" } as const;
 
 /** A mock model that answers each call with the next output from `outputs` (the last one repeats). */
-function mockModel(outputs: (ProposalOutput | Error | ((prompt: string) => ProposalOutput))[]) {
+function mockModel(
+  outputs: (ProposalOutput | Error | string | ((prompt: string) => ProposalOutput))[],
+) {
   const prompts: string[] = [];
   const model = new MockLanguageModelV4({
     doGenerate: async (options) => {
@@ -21,7 +28,7 @@ function mockModel(outputs: (ProposalOutput | Error | ((prompt: string) => Propo
       if (next instanceof Error) throw next;
       const out = typeof next === "function" ? next(prompt) : next;
       return {
-        content: [{ type: "text", text: JSON.stringify(out) }],
+        content: [{ type: "text", text: typeof out === "string" ? out : JSON.stringify(out) }],
         finishReason: { unified: "stop", raw: undefined },
         usage: {
           inputTokens: { total: 10, noCache: 10, cacheRead: undefined, cacheWrite: undefined },
@@ -70,7 +77,7 @@ function followFallback(inv: () => Investigation) {
   };
 }
 
-function session(llm: ReasonerSetup | undefined) {
+function session(llm: Reasoners | ReasonerSetup | undefined) {
   return new ReplaySession(
     scenarioPaths("demo2-deconditioning", mkdtempSync(join(tmpdir(), "orbivit-llm-"))),
     llm,
@@ -143,6 +150,46 @@ describe("LLM reasoner", () => {
     expect(s.view().provider).toBe("none");
   });
 
+  it("retries once when the output does not match the schema", async () => {
+    const { model, prompts } = mockModel(["not json at all", ask("q-chest-pain")]);
+    const s = session({ reasoner: createLlmReasoner(model, INFO), info: INFO });
+    await untilEvent(s);
+    const event = s.view().events[0]!;
+    const rejected = event.log.filter((l) => l.stepType === "rejected");
+    expect(rejected).toHaveLength(1);
+    expect(JSON.stringify(rejected[0]?.data)).toContain("did not match the schema");
+    expect(prompts[1]).toContain("rejected by the guardrails");
+    expect(event.pending).toEqual({ kind: "question", id: "q-chest-pain" });
+  });
+
+  it("switches to the offline model during a comm blackout", async () => {
+    const online = mockModel([ask("q-chest-pain")]);
+    const offline = mockModel([ask("q-chest-pain", "Chest pain now?")]);
+    const OFFLINE = { provider: "ollama", model: "medgemma:27b" } as const;
+    const s = session({
+      primary: { reasoner: createLlmReasoner(online.model, INFO), info: INFO },
+      offline: { reasoner: createLlmReasoner(offline.model, OFFLINE), info: OFFLINE },
+    });
+    s.set({ blackout: true });
+    expect(s.view()).toMatchObject({ provider: "ollama", model: "medgemma:27b" });
+    await untilEvent(s);
+    expect(online.prompts).toHaveLength(0);
+    expect(offline.prompts).toHaveLength(1);
+    const question = s.view().events[0]!.log.find((l) => l.stepType === "question");
+    expect(question?.llm).toEqual(OFFLINE);
+    s.set({ blackout: false });
+    expect(s.view().provider).toBe("anthropic");
+  });
+
+  it("gives the model the standard meaning of findings and measures (ADR 0011)", async () => {
+    const { model, prompts } = mockModel([ask("q-chest-pain")]);
+    const s = session({ reasoner: createLlmReasoner(model, INFO), info: INFO });
+    await untilEvent(s);
+    expect(prompts[0]).toContain("TERMINOLOGY");
+    expect(prompts[0]).toContain("f-fever: Fever [SNOMED CT 386661006, equivalent]");
+    expect(prompts[0]).toMatch(/systolic-bp: [^\n]*UCUM mm\[Hg\]/);
+  });
+
   it("runs Demo 2 to a resolved event with ranked diagnoses", async () => {
     // The mock sees the investigation through the reasoner call, like the real prompt does.
     const reasoner: Reasoner = (inv, ctx) =>
@@ -207,5 +254,19 @@ describe("configFromEnv", () => {
     expect(configFromEnv({ ANTHROPIC_API_KEY: "x", LLM_PROVIDER: "none" }).provider).toBe("none");
     expect(configFromEnv({}).model).toBe("claude-opus-5-5");
     expect(() => configFromEnv({ LLM_PROVIDER: "gpt" })).toThrow();
+  });
+
+  it("adds the offline model, or makes it the only reasoner with LLM_PROVIDER=ollama", () => {
+    const both = reasonerFromConfig(
+      configFromEnv({ ANTHROPIC_API_KEY: "x", OFFLINE_LLM_MODEL: "medgemma:27b" }),
+    );
+    expect(both.primary?.info).toEqual({ provider: "anthropic", model: "claude-opus-5-5" });
+    expect(both.offline?.info).toEqual({ provider: "ollama", model: "medgemma:27b" });
+    const local = reasonerFromConfig(
+      configFromEnv({ LLM_PROVIDER: "ollama", OFFLINE_LLM_MODEL: "gpt-oss:20b" }),
+    );
+    expect(local.primary?.info).toEqual({ provider: "ollama", model: "gpt-oss:20b" });
+    expect(reasonerFromConfig(configFromEnv({})).primary).toBeUndefined();
+    expect(() => configFromEnv({ LLM_PROVIDER: "ollama" })).toThrow(/OFFLINE_LLM_MODEL/);
   });
 });

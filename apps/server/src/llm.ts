@@ -1,50 +1,124 @@
 // Clinical reasoner through the AI SDK (plan §5.5, ADR 0006, ADR 0010).
 // The LLM proposes; the Investigation engine validates every proposal against the guardrails.
 import { createAnthropic, type AnthropicLanguageModelOptions } from "@ai-sdk/anthropic";
+import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import {
   generateText,
+  NoObjectGeneratedError,
   Output,
   type LanguageModel,
   type ModelMessage,
   type SystemModelMessage,
 } from "ai";
 import { z } from "zod";
-import type { Catalog, Investigation, LlmInfo, NextStep, Proposal } from "@orbivit/core";
-import type { Reasoner, ReasonerSetup } from "./session.ts";
+import {
+  SYSTEM_NAMES,
+  type Catalog,
+  type Investigation,
+  type LlmInfo,
+  type NextStep,
+  type Proposal,
+} from "@orbivit/core";
+import { ReasonerOutputError, type Reasoner, type Reasoners } from "./session.ts";
 
 export interface LlmConfig {
+  /** The reasoner when the link to Earth is up. */
   provider: LlmInfo["provider"];
   model: string;
   effort: NonNullable<AnthropicLanguageModelOptions["effort"]>;
+  /** The offline model (ADR 0004): used during a comm blackout, or always with LLM_PROVIDER=ollama. */
+  offlineModel: string | undefined;
+  /** gpt-oss reasoning effort (low|medium|high); other models ignore it. */
+  offlineReasoning: string | undefined;
+  ollamaBaseUrl: string;
+  /** The context length Ollama runs with (OLLAMA_CONTEXT_LENGTH); the reasoner warns near it. */
+  contextTokens: number;
+  timeoutMs: number;
 }
 
-/** LLM_PROVIDER=anthropic|ollama|none. Without a provider setting, use Claude only when a key exists. */
+/**
+ * LLM_PROVIDER=anthropic|ollama|none. Without a provider setting, use Claude only when a key exists.
+ * OFFLINE_LLM_MODEL adds the offline model for blackouts; LLM_PROVIDER=ollama makes it the only one.
+ */
 export function configFromEnv(env: NodeJS.ProcessEnv = process.env): LlmConfig {
-  const provider = (env.LLM_PROVIDER ??
+  const provider = (env.LLM_PROVIDER ||
     (env.ANTHROPIC_API_KEY ? "anthropic" : "none")) as LlmInfo["provider"];
   if (!["anthropic", "ollama", "none"].includes(provider))
     throw new Error(`unknown LLM_PROVIDER ${provider}`);
+  const offlineModel = env.OFFLINE_LLM_MODEL || (provider === "ollama" ? env.LLM_MODEL : undefined);
+  if (provider === "ollama" && !offlineModel)
+    throw new Error("LLM_PROVIDER=ollama needs OFFLINE_LLM_MODEL (for example medgemma:27b)");
   return {
     provider,
-    model: env.LLM_MODEL ?? "claude-opus-5-5",
-    effort: (env.LLM_EFFORT as LlmConfig["effort"] | undefined) ?? "medium",
+    model: provider === "ollama" ? (offlineModel ?? "") : env.LLM_MODEL || "claude-opus-5-5",
+    effort: (env.LLM_EFFORT as LlmConfig["effort"] | undefined) || "medium",
+    offlineModel,
+    offlineReasoning: env.OFFLINE_LLM_REASONING || undefined,
+    ollamaBaseUrl: env.OLLAMA_BASE_URL || "http://127.0.0.1:11434/v1",
+    contextTokens: Number(env.OLLAMA_CONTEXT_LENGTH || 32768),
+    timeoutMs: Number(env.REASONER_TIMEOUT_MS || 90_000),
   };
 }
 
-/** Builds the reasoner for a config. `none` returns undefined: the session uses the no-LLM fallback. */
-export function reasonerFromConfig(config: LlmConfig): ReasonerSetup | undefined {
-  // Milestone 2 adds the Ollama provider (ADR 0004). Until then, `ollama` means no LLM.
-  if (config.provider !== "anthropic") return undefined;
+/** The offline model through Ollama's OpenAI-compatible endpoint, with JSON-schema output. */
+export function offlineReasoner(config: LlmConfig, onCall?: ReasonerOptions["onCall"]) {
+  if (!config.offlineModel) return undefined;
+  const info: LlmInfo = { provider: "ollama", model: config.offlineModel };
+  const ollama = createOpenAICompatible({
+    name: "ollama",
+    baseURL: config.ollamaBaseUrl,
+    supportsStructuredOutputs: true,
+  });
+  const reasoner = createLlmReasoner(ollama(config.offlineModel), info, {
+    providerOptions: config.offlineReasoning
+      ? { ollama: { reasoningEffort: config.offlineReasoning } }
+      : {},
+    timeoutMs: config.timeoutMs,
+    contextTokens: config.contextTokens,
+    onCall,
+  });
+  return { reasoner, info };
+}
+
+/** Startup check: is Ollama running, and does it have the offline model? Returns a log line. */
+export async function checkOllama(config: LlmConfig): Promise<string> {
+  const root = config.ollamaBaseUrl.replace(/\/v1\/?$/, "");
+  try {
+    const response = await fetch(`${root}/api/tags`, { signal: AbortSignal.timeout(3000) });
+    const { models } = (await response.json()) as { models: { name: string }[] };
+    const names = models.map((m) => m.name);
+    const want = config.offlineModel ?? "";
+    const found = names.includes(want) || names.includes(`${want}:latest`);
+    return found
+      ? `Offline model ready: ${want}`
+      : `WARNING: Ollama has no model ${want}. Run: ollama pull ${want}. Installed: ${names.join(", ") || "none"}`;
+  } catch {
+    return `WARNING: Ollama is not reachable at ${root}. Start it with: OLLAMA_CONTEXT_LENGTH=${config.contextTokens} ollama serve`;
+  }
+}
+
+/** Builds the reasoners for a config. With none, the session uses the no-LLM fallback. */
+export function reasonerFromConfig(
+  config: LlmConfig,
+  onCall?: ReasonerOptions["onCall"],
+): Reasoners {
+  const offline = offlineReasoner(config, onCall);
+  if (config.provider === "ollama") return { primary: offline, offline };
+  if (config.provider !== "anthropic") return { offline };
   const info: LlmInfo = { provider: "anthropic", model: config.model };
   const anthropic = createAnthropic();
   const reasoner = createLlmReasoner(anthropic(config.model), info, {
-    // Refusal fallbacks: the API reroutes a classifier-blocked turn to a recommended model.
-    anthropic: {
-      effort: config.effort,
-      fallbacks: "default",
-    } satisfies AnthropicLanguageModelOptions,
+    providerOptions: {
+      // Refusal fallbacks: the API reroutes a classifier-blocked turn to a recommended model.
+      anthropic: {
+        effort: config.effort,
+        fallbacks: "default",
+      } satisfies AnthropicLanguageModelOptions,
+    },
+    timeoutMs: config.timeoutMs,
+    onCall,
   });
-  return { reasoner, info };
+  return { primary: { reasoner, info }, offline };
 }
 
 // ---------- Structured output ----------
@@ -163,6 +237,39 @@ function catalogText(catalog: Catalog): string {
   });
 }
 
+/**
+ * The standard meaning of every finding and measure the model reads (ADR 0011, doc 10). The model
+ * answers with catalog IDs only; fhir.ts maps them to standard codes, so it never writes a code.
+ */
+export function terminologyText(catalog: Catalog): string {
+  const used = new Set([
+    ...catalog.conditions.flatMap((c) => [...c.supports, ...c.against]),
+    ...catalog.questions.flatMap((q) => [...(q.yes ?? []), ...(q.no ?? [])]),
+    ...catalog.tests.flatMap((t) => t.rules.map((r) => r.finding)),
+    ...catalog.redFlags.map((r) => r.finding),
+  ]);
+  const standard = (mappings: Catalog["findings"][number]["mappings"]) => {
+    const m = mappings.find((x) => x.code);
+    return m ? `${SYSTEM_NAMES[m.system]} ${m.code}, ${m.equivalence}` : "no standard code";
+  };
+  const findings = catalog.findings
+    .filter((f) => used.has(f.id))
+    .map(
+      (f) =>
+        `${f.id}: ${f.display}${f.polarity === "absent" ? " (absent)" : ""} [${standard(f.mappings)}]`,
+    );
+  const returned = new Set(catalog.tests.flatMap((t) => t.returns));
+  const unit = (code: string | undefined) =>
+    catalog.units.find((u) => u.code === code)?.display ?? code;
+  const measures = catalog.measures
+    .filter((m) => returned.has(m.id))
+    .map(
+      (m) =>
+        `${m.id}: ${m.display}${m.unit ? ` in ${unit(m.unit)} (UCUM ${m.unit})` : ""} [${standard(m.mappings)}]`,
+    );
+  return `FINDINGS:\n${findings.join("\n")}\n\nMEASURES (test results use these units):\n${measures.join("\n")}`;
+}
+
 export function buildPrompt(
   inv: Investigation,
   retryReasons: string[] = [],
@@ -191,35 +298,75 @@ export function buildPrompt(
     // Rules and catalog are stable for the whole run: cache them (prefix match).
     instructions: {
       role: "system",
-      content: `${RULES}\n\nCONDITION CATALOG:\n${catalogText(inv.catalog)}`,
+      content: `${RULES}\n\nCONDITION CATALOG:\n${catalogText(inv.catalog)}\n\nTERMINOLOGY (standard meaning of each ID):\n${terminologyText(inv.catalog)}`,
       providerOptions: { anthropic: { cacheControl: { type: "ephemeral" } } },
     },
     messages: [{ role: "user", content: user }],
   };
 }
 
+/** One reasoner call, for the latency checks of the M2 evaluation (ADR 0004 criterion 3). */
+export interface CallStats {
+  eventId: string;
+  ms: number;
+  inputTokens: number | undefined;
+  outputTokens: number | undefined;
+  ok: boolean;
+}
+
+export interface ReasonerOptions {
+  providerOptions?: Record<string, Record<string, unknown>> | undefined;
+  /** Abort a call after this long, so a stuck local model cannot stop the replay. */
+  timeoutMs?: number | undefined;
+  /** The model's context length: warn when a prompt comes near it (Ollama truncates silently). */
+  contextTokens?: number | undefined;
+  onCall?: ((stats: CallStats) => void) | undefined;
+}
+
 export function createLlmReasoner(
   model: LanguageModel,
   info: LlmInfo,
-  providerOptions: Record<string, Record<string, unknown>> = {},
+  options: ReasonerOptions = {},
 ): Reasoner {
   return async (inv, ctx) => {
     const started = Date.now();
-    const { output, usage } = await generateText({
-      model,
-      ...buildPrompt(inv, ctx.retryReasons),
-      output: Output.object({ schema: ProposalSchema }),
-      providerOptions: providerOptions as never,
-      maxOutputTokens: 16000,
-    });
-    // One line per call, for latency and cost checks in the server log.
-    console.log(
-      `[reasoner] ${inv.eventId} ${Date.now() - started} ms · in ${usage.inputTokens ?? "?"}` +
-        ` (cache read ${usage.inputTokenDetails.cacheReadTokens ?? 0},` +
-        ` write ${usage.inputTokenDetails.cacheWriteTokens ?? 0}) · out ${usage.outputTokens ?? "?"}` +
-        ` (reasoning ${usage.outputTokenDetails.reasoningTokens ?? 0}) · next ${output.next.kind}` +
-        ` ${output.next.id ?? output.next.actionId ?? output.next.reason ?? ""}`,
-    );
-    return { proposal: toProposal(output), llm: info };
+    const call = (ok: boolean, inputTokens?: number, outputTokens?: number) =>
+      options.onCall?.({
+        eventId: inv.eventId,
+        ms: Date.now() - started,
+        inputTokens,
+        outputTokens,
+        ok,
+      });
+    try {
+      const { output, usage } = await generateText({
+        model,
+        ...buildPrompt(inv, ctx.retryReasons),
+        output: Output.object({ schema: ProposalSchema }),
+        providerOptions: (options.providerOptions ?? {}) as never,
+        maxOutputTokens: 16000,
+        ...(options.timeoutMs ? { abortSignal: AbortSignal.timeout(options.timeoutMs) } : {}),
+      });
+      call(true, usage.inputTokens, usage.outputTokens);
+      // One line per call, for latency and cost checks in the server log.
+      console.log(
+        `[reasoner] ${info.provider} ${info.model ?? ""} ${inv.eventId} ${Date.now() - started} ms` +
+          ` · in ${usage.inputTokens ?? "?"} (cache read ${usage.inputTokenDetails.cacheReadTokens ?? 0},` +
+          ` write ${usage.inputTokenDetails.cacheWriteTokens ?? 0}) · out ${usage.outputTokens ?? "?"}` +
+          ` (reasoning ${usage.outputTokenDetails.reasoningTokens ?? 0}) · next ${output.next.kind}` +
+          ` ${output.next.id ?? output.next.actionId ?? output.next.reason ?? ""}`,
+      );
+      if (options.contextTokens && (usage.inputTokens ?? 0) > 0.8 * options.contextTokens)
+        console.warn(
+          `[reasoner] prompt uses ${usage.inputTokens} of ${options.contextTokens} context tokens`,
+        );
+      return { proposal: toProposal(output), llm: info };
+    } catch (error) {
+      call(false);
+      // Output that does not parse or fit the schema gets the guardrail retry (session.ts).
+      if (NoObjectGeneratedError.isInstance(error))
+        throw new ReasonerOutputError(`output did not match the schema: ${error.message}`);
+      throw error;
+    }
   };
 }

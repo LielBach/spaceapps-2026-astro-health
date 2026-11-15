@@ -214,9 +214,10 @@ Coded measurements, UCUM units, terminology registries and a FHIR R4 export: [10
 
 ### M2 — Offline model
 Background on how NASA and tech companies run medical AI offline, and candidate models: [11-offline-medical-ai-landscape.md](11-offline-medical-ai-landscape.md).
-16. Install Ollama on the MacBook; pull candidates (gpt-oss-20b, Qwen3 14B, MedGemma 27B; check the library for newer ones).
-17. Evaluation harness: run each scripted case and its live branches N times per model; measure the five criteria in ADR 0004 (zero guardrail failures that reach the UI, agreement with milestone 1 on next step and top diagnosis, latency per step, works with the network off).
-18. Choose the model, set `LLM_PROVIDER=ollama` as the blackout behavior, add an "offline model" badge in the UI.
+Design, evaluation cases and results: [12-offline-model.md](12-offline-model.md).
+16. Install Ollama on the MacBook; pull candidates (gpt-oss-20b, Qwen3 14B, MedGemma 27B, Gemma 4 26B). Done.
+17. Evaluation harness `pnpm eval:offline`: runs the main demo cases and live branches N times per model, scores each run from its FHIR Bundle, and checks the five ADR 0004 criteria. Done.
+18. Choose the model from the results; `OFFLINE_LLM_MODEL` takes over during a comm blackout; "OFFLINE MODEL" badge in the presenter bar. Switch and badge done; model choice in doc 12.
 
 **Order and parallel work:** M0 first. Then M1a (data) and the UI shell of M1c can run in parallel with M1b, because they meet at the types in `packages/core`. Catalog drafting (task 6) can start on day one. M1d needs M1b. M1e needs M1b and M1c. M2 can start its harness as soon as M1d works.
 

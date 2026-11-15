@@ -11,6 +11,8 @@ export const CODE_SYSTEMS = {
   measure: "urn:orbivit:measure",
   finding: "urn:orbivit:finding",
   condition: "urn:orbivit:condition",
+  /** Tests on the equipment list (catalog/equipment.yaml), coded so a FHIR Task names its test. */
+  test: "urn:orbivit:test",
 } as const;
 
 export type CodeSystemKey = keyof typeof CODE_SYSTEMS;

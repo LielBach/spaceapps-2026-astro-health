@@ -154,6 +154,18 @@ describe("FHIR R4 export of Demo 1 (no-LLM fallback)", async () => {
     expect(of("QuestionnaireResponse").length).toBe(1);
   });
 
+  it("codes every requested test with its equipment-list ID", () => {
+    const testIds = new Set(session.catalog.tests.map((t) => t.id));
+    const tests = (of("Task") as unknown as { code?: { coding: Coding[] } }[]).filter(
+      (t) => t.code,
+    );
+    expect(tests.length).toBeGreaterThan(0);
+    for (const t of tests) {
+      const coding = t.code!.coding.find((c) => c.system === CODE_SYSTEMS.test);
+      expect(testIds.has(coding?.code ?? "")).toBe(true);
+    }
+  });
+
   it("serves the bundle at /api/fhir/export", async () => {
     const app = buildApp({ runsDir: runs });
     const response = await app.inject({ method: "GET", url: "/api/fhir/export" });

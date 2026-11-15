@@ -19,6 +19,7 @@
     "data:fetch": "tsx scripts/fetch-raw.ts",
     "data:build": "tsx scripts/build-anchors.ts",
     "record:demos": "tsx scripts/record-demos.ts",
+    "eval:offline": "pnpm --filter @orbivit/server eval",
     "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test && pnpm check:sources && pnpm check:terminology",
     "check:terminology": "tsx scripts/check-terminology.ts"
   },

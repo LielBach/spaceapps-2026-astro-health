@@ -32,7 +32,7 @@ import {
   type Stream,
 } from "@orbivit/data";
 
-export const RULE_VERSION = "m1g-0.1";
+export const RULE_VERSION = "m2-0.1";
 
 const round1 = (x: number) => Math.round(x * 10) / 10;
 
@@ -46,6 +46,18 @@ export interface ReasonerSetup {
   reasoner: Reasoner;
   info: LlmInfo;
 }
+
+/**
+ * The online reasoner (Claude) and the offline model (ADR 0004). A comm blackout switches to the
+ * offline model; without one, the session uses the no-LLM fallback.
+ */
+export interface Reasoners {
+  primary?: ReasonerSetup | undefined;
+  offline?: ReasonerSetup | undefined;
+}
+
+/** The model answered, but its output did not parse: the session retries like a rejection. */
+export class ReasonerOutputError extends Error {}
 
 /** A reassessment that a record finding schedules (plan §5.3 step 6). */
 interface Surveillance {
@@ -93,12 +105,14 @@ export class ReplaySession {
   private written = new Map<string, number>();
   private busy = false;
   private readonly listeners = new Set<() => void>();
+  private readonly reasoners: Reasoners;
 
   constructor(
     paths: SessionPaths,
-    private readonly llm: ReasonerSetup | undefined = undefined,
+    llm: Reasoners | ReasonerSetup | undefined = undefined,
     private readonly now: () => Date = () => new Date(),
   ) {
+    this.reasoners = llm && "reasoner" in llm ? { primary: llm } : (llm ?? {});
     this.scenario = loadScenario(paths.scenario);
     this.catalog = loadCatalog(paths.catalog);
     this.sources = (
@@ -150,8 +164,15 @@ export class ReplaySession {
     this.runFile = join(paths.runs, `${this.runId}.jsonl`);
   }
 
+  /** The reasoner in use now: the offline model during a blackout, else the online one. */
+  get llm(): ReasonerSetup | undefined {
+    return this.blackout
+      ? this.reasoners.offline
+      : (this.reasoners.primary ?? this.reasoners.offline);
+  }
+
   get provider(): LlmInfo["provider"] {
-    return this.blackout || !this.llm ? "none" : this.llm.info.provider;
+    return this.llm?.info.provider ?? "none";
   }
 
   /** The replay waits for the astronaut or the crew medical officer. */
@@ -288,7 +309,7 @@ export class ReplaySession {
       autopilot: this.autopilot,
       waiting: this.waiting,
       reasoning: this.busy,
-      model: this.blackout ? undefined : this.llm?.info.model,
+      model: this.llm?.info.model,
       provider: this.provider,
       points: this.points,
       hr: this.hr,
@@ -502,15 +523,23 @@ export class ReplaySession {
       if (inv.phase === "investigating") {
         let reasons: string[] = [];
         // Plan §5.4: one retry after a guardrail rejection, then the no-LLM fallback.
-        for (let attempt = 0; attempt < 2 && !this.blackout && this.llm; attempt++) {
-          const { reasoner, info } = this.llm;
+        const llm = this.llm;
+        for (let attempt = 0; attempt < 2 && llm; attempt++) {
+          const { reasoner, info } = llm;
           const result = await reasoner(inv, attempt > 0 ? { retryReasons: reasons } : {}).catch(
             (error: unknown) => {
               const message = error instanceof Error ? error.message : String(error);
+              // Unparseable output gets the retry; any other error goes to the fallback.
+              if (error instanceof ReasonerOutputError) {
+                reasons = [message];
+                inv.reject(reasons, info);
+                return "retry" as const;
+              }
               inv.reject([`reasoner error: ${message}`], info);
               return undefined;
             },
           );
+          if (result === "retry") continue;
           if (!result) break;
           reasons = inv.apply(result.proposal, result.llm);
           if (reasons.length === 0) break;

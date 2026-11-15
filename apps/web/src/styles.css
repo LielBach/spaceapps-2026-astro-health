@@ -167,6 +167,21 @@ button.link {
   margin-left: auto;
   color: var(--muted);
 }
+.provider .badge {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid currentColor;
+}
+.provider .badge.offline {
+  color: var(--good);
+}
+.provider .badge.online {
+  color: var(--muted);
+}
 .live-branch {
   position: relative;
 }
