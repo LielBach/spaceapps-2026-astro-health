@@ -39,7 +39,7 @@ pnpm dev:web      # http://localhost:5173
 
 For Claude as the clinical reasoner, copy `.env.example` to `.env` and set `ANTHROPIC_API_KEY`. Without a key, the server uses the no-LLM fallback (fixed order, unranked list).
 
-Open http://localhost:5173, pick a demo, and press Play. **Autopilot** gives the scripted answers, test results and approval by itself (for recordings). **Comm blackout** forces the no-LLM fallback. Type a different answer in the check-in to run a live branch. Each run writes its event log to `runs/<run-id>.jsonl`.
+Open http://localhost:5173, pick a demo, and press Play. **Autopilot** gives the scripted answers, test results and approval by itself (for recordings). **Comm blackout** forces the no-LLM fallback. The left side is the astronaut's tablet; the right side is the crew medical officer's panel, where actions are approved. To run a live branch, set a different answer under **Live branch** in the presenter bar. To run a second checkout next to the first, set `PORT=3002` for the server and `API_PORT=3002 WEB_PORT=5174` for the web app (the `server-alt` and `web-alt` launch configs). Each run writes its event log to `runs/<run-id>.jsonl`.
 
 To record the demos as videos, run the server and the web app, then `pnpm record:demos` (add `--blackout` for the no-LLM fallback). It drives the installed Google Chrome on autopilot and saves `.webm` files to `recordings/` (git-ignored). The first time, run `npx playwright-core install ffmpeg`.
 

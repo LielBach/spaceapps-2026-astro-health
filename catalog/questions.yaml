@@ -1,4 +1,6 @@
-# Each answer maps to findings. "yes"/"no" answers; free text maps by keyword in the engine.
+# Each answer maps to findings. kind yesNo (default): "yes"/"no". kind choice: the chosen option's
+# findings. kind text: an open answer in the astronaut's own words. Free text maps by keyword in the
+# engine; a keyword right after "no", "not" or "without" does not count.
 questions:
   - { id: q-chest-pain, text: "Any chest pain or pressure?", yes: [f-chest-pain] }
   - { id: q-syncope, text: "Have you fainted or nearly fainted?", yes: [f-syncope] }
@@ -19,17 +21,23 @@ questions:
       yes: [f-fever],
       no: [f-no-fever],
     }
-  - {
-      id: q-fatigue,
-      text: "More fatigue than usual, or trouble finishing workouts?",
-      yes: [f-fatigue],
-    }
-  - {
-      id: q-fluid-intake,
-      text: "Has your fluid intake been lower than usual?",
-      yes: [f-low-fluid-intake],
-      keywords: { lower: [f-low-fluid-intake] },
-    }
+  - id: q-fatigue
+    kind: text
+    text: "How do your workouts feel compared with last week? Describe it in your own words."
+    keywords:
+      fatigue: [f-fatigue]
+      tired: [f-fatigue]
+      harder: [f-fatigue]
+      exhausted: [f-fatigue]
+      "can't finish": [f-fatigue]
+  - id: q-fluid-intake
+    kind: choice
+    text: "How much have you been drinking in the last few days?"
+    options:
+      - { label: "More than usual" }
+      - { label: "About the same" }
+      - { label: "Less than usual", findings: [f-low-fluid-intake] }
+    keywords: { lower: [f-low-fluid-intake], less: [f-low-fluid-intake] }
   - { id: q-sleep, text: "Have you slept poorly or less than usual?", yes: [f-poor-sleep] }
   - {
       id: q-adherence,

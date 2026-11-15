@@ -19,6 +19,17 @@ export interface Finding {
   origin: FindingOrigin;
 }
 
+/** True when free text contains the keyword, not right after "no", "not" or "without". */
+export function mentions(text: string, keyword: string): boolean {
+  let at = text.indexOf(keyword);
+  while (at >= 0) {
+    const before = text.slice(0, at).trim().split(/\s+/).slice(-2);
+    if (!before.some((w) => ["no", "not", "without", "never"].includes(w))) return true;
+    at = text.indexOf(keyword, at + keyword.length);
+  }
+  return false;
+}
+
 export type NextStep =
   | { kind: "question"; id: string }
   | { kind: "test"; id: string }
@@ -325,10 +336,13 @@ export class Investigation {
     if (!q) throw new Error(`unknown question ${questionId}`);
     const lower = text.trim().toLowerCase();
     const found = new Set<string>();
-    if (lower.startsWith("yes")) for (const f of q.yes ?? []) found.add(f);
-    if (lower.startsWith("no")) for (const f of q.no ?? []) found.add(f);
+    const kind = q.kind ?? "yesNo";
+    if (kind === "yesNo" && lower.startsWith("yes")) for (const f of q.yes ?? []) found.add(f);
+    if (kind === "yesNo" && lower.startsWith("no")) for (const f of q.no ?? []) found.add(f);
+    const option = q.options?.find((o) => o.label.toLowerCase() === lower);
+    for (const f of option?.findings ?? []) found.add(f);
     for (const [keyword, fs] of Object.entries(q.keywords ?? {}))
-      if (lower.includes(keyword)) fs.forEach((f) => found.add(f));
+      if (mentions(lower, keyword)) fs.forEach((f) => found.add(f));
     this.asked.push(questionId);
     const line = this.write(
       "answer",

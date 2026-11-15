@@ -16,8 +16,12 @@ const Questions = z.object({
     z.object({
       id: z.string(),
       text: z.string(),
+      kind: z.enum(["yesNo", "choice", "text"]).optional(),
       yes: z.array(z.string()).optional(),
       no: z.array(z.string()).optional(),
+      options: z
+        .array(z.object({ label: z.string(), findings: z.array(z.string()).optional() }))
+        .optional(),
       keywords: z.record(z.string(), z.array(z.string())).optional(),
     }),
   ),
@@ -116,13 +120,23 @@ export function loadCatalog(dir: string): Catalog {
 export function validateCatalog(catalog: Catalog): string[] {
   const findings = new Set<string>(SIGNAL_FINDINGS);
   for (const q of catalog.questions) {
-    for (const f of [...(q.yes ?? []), ...(q.no ?? []), ...Object.values(q.keywords ?? {}).flat()])
+    for (const f of [
+      ...(q.yes ?? []),
+      ...(q.no ?? []),
+      ...(q.options ?? []).flatMap((o) => o.findings ?? []),
+      ...Object.values(q.keywords ?? {}).flat(),
+    ])
       findings.add(f);
   }
   for (const t of catalog.tests) for (const r of t.rules) findings.add(r.finding);
   const questionIds = new Set(catalog.questions.map((q) => q.id));
   const testIds = new Set(catalog.tests.map((t) => t.id));
   const problems: string[] = [];
+  for (const q of catalog.questions) {
+    if (q.kind === "choice" && (q.options?.length ?? 0) < 2)
+      problems.push(`${q.id}: a choice question needs at least 2 options`);
+    if (q.kind !== "choice" && q.options) problems.push(`${q.id}: options need kind choice`);
+  }
   const ids = new Set<string>();
   for (const c of catalog.conditions) {
     if (ids.has(c.id)) problems.push(`duplicate condition ${c.id}`);

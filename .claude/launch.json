@@ -4,15 +4,49 @@
     {
       "name": "server",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@astrohealth/server", "dev"],
+      "runtimeArgs": [
+        "--filter",
+        "@astrohealth/server",
+        "dev"
+      ],
       "port": 3001,
       "url": "http://127.0.0.1:3001"
     },
     {
       "name": "web",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@astrohealth/web", "dev"],
+      "runtimeArgs": [
+        "--filter",
+        "@astrohealth/web",
+        "dev"
+      ],
       "port": 5173
+    },
+    {
+      "name": "server-alt",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PORT=3002",
+        "pnpm",
+        "--filter",
+        "@astrohealth/server",
+        "dev"
+      ],
+      "port": 3002,
+      "url": "http://127.0.0.1:3002"
+    },
+    {
+      "name": "web-alt",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "API_PORT=3002",
+        "WEB_PORT=5174",
+        "pnpm",
+        "--filter",
+        "@astrohealth/web",
+        "dev"
+      ],
+      "port": 5174
     }
   ]
 }

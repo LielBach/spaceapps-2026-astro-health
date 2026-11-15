@@ -84,6 +84,14 @@ _Avoid_: Alert, notification
 An immediate push to the astronaut. Only a critical threshold triggers it, and it skips the other filters.
 _Avoid_: Alarm, emergency (unless an emergency pathway starts)
 
+**Alert level**:
+How serious what the tablet or the clinical panel shows is: critical (escalation), warning (an action waits for the crew medical officer), caution (check-in ready or in progress), info (follow-up, or a silent watch on the clinical panel), none (all clear). The level is always written in words, not shown by color only.
+_Avoid_: Severity, priority
+
+**Question kind**:
+How the astronaut answers a check-in question: yesNo (two buttons), choice (one of the listed options, each with its findings) or text (in their own words; keywords in the answer record findings).
+_Avoid_: Question type, input type
+
 **Event log**:
 The append-only record of every step of every event, one JSON Lines file per replay run.
 _Avoid_: Medical record, EHR, history
