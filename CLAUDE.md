@@ -8,6 +8,7 @@ NASA Space Apps 2026 hackathon entry for "Create Health Monitoring Software for 
 - `docs/product/01-challenge-brief.md` — the brief; the five questions every indicator must answer (how measured / why / hazard effect / when crew vs ground / action).
 - `docs/product/03-problem-space.md` — the hazard→risk→indicator→action table is the domain model. Problems P1–P11 are referenced by ID in other docs.
 - `docs/product/02-resources.md` — where every fact comes from (knowledge sources).
+- `docs/technical/10-medical-data-standards.md` — the standards that apply (FHIR R4, LOINC, SNOMED CT, ICD-10-CM, UCUM, IEEE 11073, NASA-STD-3001) and the coded measurement interface (ADR 0011). New medical data uses registry codes and UCUM units; never invent a code — use a local code with an explicit mapping.
 - `docs/technical/05-data-sources.md` — datasets by access tier, with download URLs and confirmed file formats. Real open human data = Inspiration4 labs on OSDR (OSD-575, OSD-569, OSD-656) and ~94 public NLSP sets (old ISS/Shuttle/Mir flight data, bed rest, NEEMO). Measured radiation dose: ISS TEPC + BioSentinel (CDAWeb HAPI), ExoMars TGO Liulin-MO (ESA PSA TAP), Curiosity RAD. ESA has no open human measurements (HREDA gives data dictionaries only).
 
 ## Rules for working here
