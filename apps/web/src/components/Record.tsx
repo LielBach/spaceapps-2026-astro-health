@@ -1,5 +1,6 @@
-import type { MediaView, SessionView } from "@astrohealth/core";
+import { displayUnit, measureDef, type MediaView, type SessionView } from "@astrohealth/core";
 import { day } from "../api.ts";
+import { MeasureCodes } from "./Codes.tsx";
 import { Label, Src } from "./Source.tsx";
 
 /** A scan with its own label and credit (ADR 0009). AstroHealth does not read images. */
@@ -18,19 +19,6 @@ export function Scan({ media, title }: { media: MediaView; title: string }) {
     </figure>
   );
 }
-
-const LAB_NAMES: Record<string, string> = {
-  albumin: "Albumin",
-  "protein-total": "Total protein",
-  hemoglobin: "Hemoglobin",
-  hematocrit: "Hematocrit",
-  "platelet-count": "Platelets",
-  "white-blood-cell-count": "White blood cells",
-  sodium: "Sodium",
-  potassium: "Potassium",
-  "urea-nitrogen-bun": "Urea nitrogen (BUN)",
-  creatinine: "Creatinine",
-};
 
 /** The imported longitudinal record (Demo 1 step 1): prior scans, real labs, surveillance rules. */
 export function MedicalRecord({ view }: { view: SessionView }) {
@@ -82,14 +70,18 @@ export function MedicalRecord({ view }: { view: SessionView }) {
             <tbody>
               {labs.map((l) => {
                 const out = l.range && (l.value < l.range.min || l.value > l.range.max);
+                const measure = measureDef(view.catalog, l.measure);
                 return (
                   <tr key={l.measure} className={out ? "out" : undefined}>
-                    <td>{LAB_NAMES[l.measure] ?? l.measure}</td>
+                    <td>
+                      {measure?.display ?? l.measure} <MeasureCodes measure={measure} compact />
+                    </td>
                     <td className="num">
-                      {l.value} <span className="muted">{l.unit}</span>
+                      {l.value}{" "}
+                      <span className="muted">{displayUnit(view.catalog, measure, l.unit)}</span>
                     </td>
                     <td className="muted small">
-                      {l.range ? `ref. ${l.range.min}–${l.range.max}` : ""}
+                      {l.range ? `lab reference ${l.range.min}–${l.range.max}` : ""}
                       {out ? " · outside range" : ""}
                     </td>
                   </tr>
@@ -98,8 +90,8 @@ export function MedicalRecord({ view }: { view: SessionView }) {
             </tbody>
           </table>
           <p className="muted small">
-            Reference ranges are the lab&apos;s own, from the source file. The demo does not claim
-            that any lab value predicts a clot.
+            Lab reference ranges are the lab&apos;s own, from the source file. Units are UCUM; codes
+            are LOINC. The demo does not claim that any lab value predicts a clot.
           </p>
         </>
       )}

@@ -88,6 +88,47 @@
       "title": "LLM-drafted condition catalog entry (ADR 0010), needs clinical review",
       "url": null,
       "verify": true
+    },
+    {
+      "id": "hl7-fhir-r4",
+      "title": "HL7 FHIR Release 4 (4.0.1)",
+      "url": "https://hl7.org/fhir/R4/",
+      "verify": false
+    },
+    {
+      "id": "loinc",
+      "title": "LOINC — Logical Observation Identifiers Names and Codes (Regenstrief Institute)",
+      "url": "https://loinc.org",
+      "verify": false,
+      "note": "Codes checked with CodeSystem/$lookup on tx.fhir.org (FHIR R4), 2026-11-15."
+    },
+    {
+      "id": "snomed-ct",
+      "title": "SNOMED CT, international edition (SNOMED International)",
+      "url": "https://www.snomed.org",
+      "verify": false,
+      "note": "Codes checked with CodeSystem/$lookup on tx.fhir.org, 2026-11-15. License terms for codes stored in a public repo: verify (docs/technical/10 §8)."
+    },
+    {
+      "id": "icd-10-cm",
+      "title": "ICD-10-CM (CDC National Center for Health Statistics)",
+      "url": "https://www.cdc.gov/nchs/icd/icd-10-cm/",
+      "verify": false,
+      "note": "Codes checked with the NLM Clinical Tables API, 2026-11-15."
+    },
+    {
+      "id": "ucum",
+      "title": "UCUM — The Unified Code for Units of Measure",
+      "url": "https://ucum.org",
+      "verify": false,
+      "note": "Unit codes checked with CodeSystem/$validate-code on tx.fhir.org, 2026-11-15."
+    },
+    {
+      "id": "ieee-11073-10101",
+      "title": "IEEE/ISO 11073-10101-2020 — Health informatics, device interoperability: nomenclature",
+      "url": "https://standards.ieee.org/ieee/11073-10101/10343/",
+      "verify": false,
+      "note": "MDC codes checked with $lookup on tx.fhir.org, 2026-11-15."
     }
   ]
 }

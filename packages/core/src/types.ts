@@ -1,4 +1,6 @@
 // Domain types for AstroHealth. Terms follow GLOSSARY.md; see docs/technical/09-implementation-plan.md §4.
+// Medical data follows the coded interface in medical.ts (docs/technical/10, ADR 0011).
+import type { Mapping, ResultValue, Terminology } from "./medical.ts";
 
 /** Where a value comes from (ADR 0003). COMPOSITE is a property of an astronaut, not of a value (ADR 0009). */
 export const DATA_LABELS = ["REAL", "SIMULATED", "REFERENCE"] as const;
@@ -44,8 +46,10 @@ export type SampleContext =
 
 export interface Anchor {
   astronautId: string;
+  /** A measure ID from catalog/measures.yaml after normalizeAnchors; the source name before. */
   measure: string;
   value: number;
+  /** A UCUM code after normalizeAnchors; the source file's spelling before. */
   unit: string;
   /** For example "preflight-erect", "preflight-supine", "inflight". */
   condition: string;
@@ -120,6 +124,8 @@ export interface CatalogCondition {
   followUpDays: number;
   /** A record finding that schedules a reassessment under this pathway (plan §5.3 step 6). */
   surveillance?: SurveillanceRule | undefined;
+  /** SNOMED CT and ICD-10-CM codes with their equivalence (docs/technical/10 §5.4). */
+  codes: Mapping[];
   sourceIds: SourceId[];
 }
 
@@ -150,6 +156,7 @@ export interface Question {
 }
 
 export interface ResultRule {
+  /** A measure the test returns. */
   field: string;
   op: "lt" | "gt" | "eq";
   value: number | boolean | string;
@@ -158,10 +165,11 @@ export interface ResultRule {
 
 /** One field of a structured finding that the operator enters (AstroHealth does not read images). */
 export interface FormField {
+  /** A measure the test returns. */
   field: string;
   label: string;
   kind: "boolean" | "select";
-  /** For kind select: the allowed values and their labels. */
+  /** For kind select: the allowed values and their labels, from the measure registry. */
   options?: { value: number; label: string }[] | undefined;
 }
 
@@ -170,6 +178,8 @@ export interface TestSpec {
   name: string;
   equipmentId: string;
   consumable: boolean;
+  /** The measures the test records (catalog/measures.yaml). */
+  returns: string[];
   rules: ResultRule[];
   /** Operator checklist, shown before the test. */
   checklist?: string[] | undefined;
@@ -178,7 +188,7 @@ export interface TestSpec {
   sourceIds?: SourceId[] | undefined;
 }
 
-export interface Catalog {
+export interface Catalog extends Terminology {
   conditions: CatalogCondition[];
   questions: Question[];
   tests: TestSpec[];
@@ -198,20 +208,78 @@ export type LogStepType =
   | "escalate"
   | "rejected";
 
-/** One line of the event log JSONL (Q18). */
-export interface LogLine {
+/** Why a surveillance event opened (trigger line). */
+export interface SurveillanceTriggerData {
+  conditionId: string;
+  recordEntry: string;
+  dueDay: number;
+  early: boolean;
+  daysEarly: number;
+  sourceId: SourceId;
+}
+
+/** FHIR R4 Condition.verificationStatus values the app may write (docs/technical/10 rule 8). */
+export type VerificationStatus = "differential" | "provisional";
+
+/** The data of each event log step type (docs/technical/10 §4.7). */
+export interface LogData {
+  trigger: {
+    trigger: TriggerKind;
+    findings: string[];
+    surveillance?: SurveillanceTriggerData | undefined;
+  };
+  question: { id: string; wording?: string | undefined; rationale?: string | undefined };
+  answer: { id: string; text: string; findings: string[] };
+  test: { id: string; rationale?: string | undefined };
+  result: { id: string; values: ResultValue[]; findings: string[] };
+  diagnosis: {
+    unranked: boolean;
+    diagnoses: {
+      name: string;
+      conditionId?: string | undefined;
+      catalogued: boolean;
+      confidence: number;
+      verificationStatus: VerificationStatus;
+    }[];
+  };
+  action: { id: string; text?: string | undefined; rationale?: string | undefined };
+  followUp: { action: string; until: number };
+  close: { outcome: "resolved"; cleared: string[] };
+  escalate: { reason: string; action?: string | undefined; text?: string | undefined };
+  rejected: { reasons: string[]; proposal?: unknown };
+}
+
+interface LogLineBase {
   id: string;
   timestamp: string;
   missionDay: MissionDay;
   eventId: string;
-  stepType: LogStepType;
   label: DataLabel;
   conditionId?: string | "uncatalogued";
   stepId?: string;
   llm?: { provider: "anthropic" | "ollama" | "none"; model?: string };
   ruleVersion: string;
   sourceId?: SourceId;
-  data: Record<string, unknown>;
+}
+
+/** One line of the event log JSONL (Q18): a typed `data` for each step type. */
+export type LogLine = {
+  [K in LogStepType]: LogLineBase & { stepType: K; data: LogData[K] };
+}[LogStepType];
+
+/** A log line of one step type. */
+export type LogLineOf<K extends LogStepType> = Extract<LogLine, { stepType: K }>;
+
+export function isStep<K extends LogStepType>(line: LogLine, stepType: K): line is LogLineOf<K> {
+  return line.stepType === stepType;
+}
+
+/** The data of a log line when it has this step type, else undefined. */
+export function dataOf<K extends LogStepType>(
+  line: LogLine | undefined,
+  stepType: K,
+): LogData[K] | undefined {
+  return line?.stepType === stepType ? (line.data as LogData[K]) : undefined;
 }
 
 export function isCatalogued(ref: DiagnosisRef): ref is { conditionId: string } {

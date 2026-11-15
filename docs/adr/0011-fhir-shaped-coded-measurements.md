@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: accepted
 ---
 
 # FHIR-shaped, coded measurements with explicit mappings

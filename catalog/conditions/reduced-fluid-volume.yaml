@@ -3,6 +3,15 @@ name: "Reduced circulating fluid volume"
 hazard: gravity
 hrpRisk: "Cardiovascular adaptations (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - { system: snomed, code: "34095006", display: Dehydration, equivalence: inexact }
+  - {
+      system: icd10cm,
+      code: "E86.9",
+      display: "Volume depletion, unspecified",
+      equivalence: inexact,
+    }
 supports:
   [
     f-low-fluid-intake,

@@ -1,36 +1,35 @@
 import { useEffect, useRef } from "react";
-import type { LogLine, SessionView } from "@astrohealth/core";
+import { formatValue, type Catalog, type LogLine, type SessionView } from "@astrohealth/core";
 import { Label } from "./Source.tsx";
 
-function summary(line: LogLine): string {
-  const d = line.data;
+function summary(line: LogLine, catalog: Catalog): string {
   switch (line.stepType) {
     case "trigger":
-      return `${String(d.trigger)} trigger: ${(d.findings as string[]).join(", ")}`;
+      return `${line.data.trigger} trigger: ${line.data.findings.join(", ")}`;
     case "question":
-      return `asked ${String(d.id)}`;
+      return `asked ${line.data.id}`;
     case "answer":
-      return `“${String(d.text)}” → ${(d.findings as string[]).join(", ") || "no finding"}`;
+      return `“${line.data.text}” → ${line.data.findings.join(", ") || "no finding"}`;
     case "test":
-      return `requested ${String(d.id)}`;
+      return `requested ${line.data.id}`;
     case "result":
-      return `${JSON.stringify(d.values)} → ${(d.findings as string[]).join(", ") || "no finding"}`;
+      return `${line.data.values.map((v) => formatValue(catalog, v)).join("; ")} → ${
+        line.data.findings.join(", ") || "no finding"
+      }`;
     case "diagnosis":
-      return (d.diagnoses as { name: string; catalogued: boolean }[])
-        .map((x) => `${x.name}${x.catalogued ? "" : " (UNCATALOGUED)"}`)
+      return line.data.diagnoses
+        .map((x) => `${x.name}${x.catalogued ? "" : " (UNCATALOGUED)"} [${x.verificationStatus}]`)
         .join(" · ");
     case "action":
-      return String(d.text ?? d.id);
+      return line.data.text ?? line.data.id;
     case "followUp":
-      return `follow-up until day ${Number(d.until).toFixed(1)}`;
+      return `follow-up until day ${line.data.until.toFixed(1)}`;
     case "close":
-      return `resolved: ${(d.cleared as string[]).join(", ")} back in band`;
+      return `resolved: ${line.data.cleared.join(", ")} back in band`;
     case "escalate":
-      return `escalated: ${String(d.reason)}`;
+      return `escalated: ${line.data.reason}`;
     case "rejected":
-      return `guardrail rejected the proposal: ${(d.reasons as string[]).join("; ")}`;
-    default:
-      return JSON.stringify(d);
+      return `guardrail rejected the proposal: ${line.data.reasons.join("; ")}`;
   }
 }
 
@@ -61,7 +60,7 @@ export function EventLog({ view }: { view: SessionView }) {
                   <span className="step">{l.stepType}</span>
                 </td>
                 <td>
-                  {summary(l)}
+                  {summary(l, view.catalog)}
                   {(l.conditionId ?? l.llm) && (
                     <div className="muted small">
                       {l.conditionId ?? ""}

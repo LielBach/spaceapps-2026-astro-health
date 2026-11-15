@@ -1,18 +1,25 @@
 import { useState } from "react";
-import type { EventView, SessionView, TestSpec } from "@astrohealth/core";
+import {
+  formatValue,
+  isStep,
+  type EventView,
+  type MeasuredValue,
+  type SessionView,
+  type TestSpec,
+} from "@astrohealth/core";
 import { day, post } from "../api.ts";
 import { Scan } from "./Record.tsx";
 import { Src } from "./Source.tsx";
 
-type Values = Record<string, number | string | boolean>;
+/** Test values keyed by measure ID (catalog/measures.yaml). */
+type Values = Record<string, MeasuredValue>;
 
 /** Why the event opened, in plain words (Demo 1 step 3). */
 function TriggerSummary({ event }: { event: EventView }) {
-  const data = event.log[0]?.data ?? {};
-  const findings = (data.findings as string[] | undefined) ?? [];
-  const surveillance = data.surveillance as
-    | { dueDay: number; early: boolean; daysEarly: number; sourceId: string }
-    | undefined;
+  const first = event.log[0];
+  const trigger = first && isStep(first, "trigger") ? first.data : undefined;
+  const findings = trigger?.findings ?? [];
+  const surveillance = trigger?.surveillance;
   if (event.trigger === "surveillance" && surveillance) {
     return (
       <p className="trigger">
@@ -123,12 +130,16 @@ export function CheckIn({ view, event }: { view: SessionView; event: EventView |
   const next = event.pending;
   const { catalog } = view;
   const answered = event.log.filter((l) => l.stepType === "answer" || l.stepType === "result");
-  const lastStep = event.log.findLast((l) => ["question", "test", "action"].includes(l.stepType));
-  const rationale =
-    typeof lastStep?.data.rationale === "string" ? lastStep.data.rationale : undefined;
+  const lastStep = event.log.findLast(
+    (l) => l.stepType === "question" || l.stepType === "test" || l.stepType === "action",
+  );
+  const rationale = lastStep && "rationale" in lastStep.data ? lastStep.data.rationale : undefined;
   const spec = (id: string) => catalog.tests.find((t) => t.id === id);
   // An approved escalating action closes the event with the action's text (Demo 1 step 8).
-  const escalation = event.log.findLast((l) => l.stepType === "escalate" && l.data.text);
+  const escalation = event.log
+    .filter((l) => isStep(l, "escalate"))
+    .findLast((l) => l.data.text !== undefined);
+  const last = event.log.at(-1);
   return (
     <section className="panel checkin">
       <h2>
@@ -247,8 +258,8 @@ export function CheckIn({ view, event }: { view: SessionView; event: EventView |
       )}
       {event.phase === "closed" && escalation && (
         <div className="report">
-          <p className="report-title">Urgent finding — {String(escalation.data.reason)}</p>
-          <p>{String(escalation.data.text)}</p>
+          <p className="report-title">Urgent finding — {escalation.data.reason}</p>
+          <p>{escalation.data.text}</p>
           <p className="muted small">
             Suspected, not confirmed. The crew medical officer decides; ground review when the link
             allows ({view.scenario.mission.commDelayMinutes} min one way). AstroHealth does not
@@ -259,7 +270,7 @@ export function CheckIn({ view, event }: { view: SessionView; event: EventView |
       {event.phase === "closed" && !escalation && (
         <p className={`status outcome-${event.outcome}`}>
           Event {event.outcome}:{" "}
-          {String(event.log.at(-1)?.data.reason ?? "follow-up data back in band")}
+          {last && isStep(last, "escalate") ? last.data.reason : "follow-up data back in band"}
         </p>
       )}
       {answered.length > 0 && (
@@ -267,9 +278,13 @@ export function CheckIn({ view, event }: { view: SessionView; event: EventView |
           {answered.map((l) => (
             <li key={l.id}>
               <span className="muted">{l.stepId}</span>{" "}
-              {l.stepType === "answer" ? `“${String(l.data.text)}”` : JSON.stringify(l.data.values)}
-              {(l.data.findings as string[]).length > 0 && (
-                <span className="findings"> → {(l.data.findings as string[]).join(", ")}</span>
+              {isStep(l, "answer")
+                ? `“${l.data.text}”`
+                : isStep(l, "result")
+                  ? l.data.values.map((v) => formatValue(catalog, v)).join("; ")
+                  : ""}
+              {(isStep(l, "answer") || isStep(l, "result")) && l.data.findings.length > 0 && (
+                <span className="findings"> → {l.data.findings.join(", ")}</span>
               )}
             </li>
           ))}

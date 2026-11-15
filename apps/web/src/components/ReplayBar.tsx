@@ -68,6 +68,14 @@ export function ReplayBar({ view }: { view: SessionView }) {
         />
         Autopilot
       </label>
+      <a
+        className="export"
+        href="/api/fhir/export"
+        download
+        title="FHIR R4 Bundle of this run: coded observations, suspected conditions, tasks and provenance"
+      >
+        Export FHIR
+      </a>
       <span className="provider">
         Reasoner:{" "}
         {view.provider === "none" ? "no-LLM fallback" : `${view.provider} ${view.model ?? ""}`}

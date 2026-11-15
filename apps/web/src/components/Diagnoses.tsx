@@ -1,5 +1,12 @@
 import type { EventView, SessionView } from "@astrohealth/core";
+import { Codes } from "./Codes.tsx";
 import { Label, Src } from "./Source.tsx";
+
+/** FHIR R4 Condition.verificationStatus in words (docs/technical/10 rule 8). */
+const STATUS_WORDS = {
+  provisional: "provisional – for crew medical officer confirmation",
+  differential: "differential",
+} as const;
 
 export function Diagnoses({ view, event }: { view: SessionView; event: EventView | undefined }) {
   const shown = event?.diagnoses.filter((d) => d.visible) ?? [];
@@ -30,6 +37,9 @@ export function Diagnoses({ view, event }: { view: SessionView; event: EventView
               <div className="dx-head">
                 <strong>{d.name}</strong>
                 {!d.catalogued && <Label kind="UNCATALOGUED" />}
+                <span className={`status-chip ${d.verificationStatus}`}>
+                  {STATUS_WORDS[d.verificationStatus]}
+                </span>
                 {!event?.unranked && (
                   <span className="confidence">{Math.round(d.confidence * 100)}%</span>
                 )}
@@ -48,6 +58,8 @@ export function Diagnoses({ view, event }: { view: SessionView; event: EventView
                   {condition.sourceIds.map((s) => (
                     <Src key={s} id={s} />
                   ))}
+                  <br />
+                  Codes: <Codes mappings={condition.codes} />
                 </div>
               )}
               {!d.catalogued && (

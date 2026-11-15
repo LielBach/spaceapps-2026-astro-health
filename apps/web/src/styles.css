@@ -293,6 +293,7 @@ button:hover {
 }
 .dx-head {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   align-items: center;
 }
@@ -513,4 +514,47 @@ footer {
     grid-template-areas: "main" "check" "dx" "log";
     padding: 14px 16px;
   }
+}
+
+/* Standard codes (docs/technical/10 §4.9) */
+.codes {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  vertical-align: middle;
+}
+.code {
+  font-size: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.code:hover {
+  color: var(--text);
+}
+.code.unmatched {
+  border-style: dashed;
+}
+.status-chip {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.status-chip.provisional {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+.replay-bar .export {
+  font-size: 12px;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
 }

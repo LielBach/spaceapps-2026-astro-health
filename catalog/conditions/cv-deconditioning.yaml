@@ -3,6 +3,14 @@ name: "Cardiovascular deconditioning"
 hazard: gravity
 hrpRisk: "Cardiovascular adaptations (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - {
+      system: snomed,
+      equivalence: unmatched,
+      note: "No concept was found. The HRP risk is the primary reference.",
+    }
+  - { system: icd10cm, equivalence: unmatched, note: "R53.81 Other malaise is not an equivalent." }
 supports:
   [
     f-exercise-hr-up,

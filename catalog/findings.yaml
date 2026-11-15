@@ -1,0 +1,281 @@
+# Finding registry (docs/technical/10 §4.2, ADR 0011). Every finding the catalog, the detection
+# engine or a scenario uses must be here. SNOMED CT codes (international edition) were checked
+# with $lookup on tx.fhir.org on 2026-11-15.
+# polarity absent: the finding asserts that the mapped concept is absent (SNOMED CT 2667000 Absent).
+# A baseline deviation has no clinical code: its meaning is the measure plus the detection rule.
+findings:
+  # ---------- Passive signals: deviations from the personal baseline ----------
+  - id: f-sleeping-hr-up
+    display: Sleeping heart rate above the personal band
+    mappings: &deviation
+      - {
+          system: snomed,
+          equivalence: unmatched,
+          note: "A deviation from the personal baseline (detection rule).",
+        }
+  - {
+      id: f-resting-hr-up,
+      display: Resting heart rate above the personal band,
+      mappings: *deviation,
+    }
+  - { id: f-hrv-down, display: Sleeping HRV below the personal band, mappings: *deviation }
+  - {
+      id: f-skin-temp-up,
+      display: Sleeping skin temperature above the personal band,
+      mappings: *deviation,
+    }
+  - {
+      id: f-rr-up,
+      display: Sleeping respiratory rate above the personal band,
+      mappings: *deviation,
+    }
+  - {
+      id: f-exercise-hr-up,
+      display: Heart rate at the standard workload above the personal band,
+      mappings: *deviation,
+    }
+  - { id: f-max-workload-down, display: Max workload below the personal band, mappings: *deviation }
+  - {
+      id: f-resting-hr-in-band,
+      display: Resting heart rate inside the personal band,
+      mappings: *deviation,
+    }
+  - id: f-resting-hr-critical
+    display: Resting heart rate above the critical threshold
+    mappings:
+      - system: snomed
+        code: "3424008"
+        display: Tachycardia
+        equivalence: wider
+        note: "The critical threshold is a subset of tachycardia."
+
+  # ---------- Medical record ----------
+  - id: f-prior-ijv-flow-abnormal
+    display: Earlier IJV flow grade 3 or 4 on file
+    mappings:
+      - {
+          system: snomed,
+          equivalence: unmatched,
+          note: "A prior imaging result; no SNOMED CT concept for an IJV flow grade.",
+        }
+  - id: f-clotting-history
+    display: Earlier blood clot or known clotting disorder
+    mappings:
+      - {
+          system: snomed,
+          equivalence: unmatched,
+          note: "No history concept was checked yet (verify).",
+        }
+
+  # ---------- Answers: symptoms ----------
+  - {
+      id: f-chest-pain,
+      display: Chest pain,
+      mappings:
+        [{ system: snomed, code: "29857009", display: Chest pain, equivalence: equivalent }],
+    }
+  - {
+      id: f-syncope,
+      display: Fainting or near-fainting,
+      mappings: [{ system: snomed, code: "271594007", display: Syncope, equivalence: equivalent }],
+    }
+  - {
+      id: f-dyspnea,
+      display: New or sudden shortness of breath,
+      mappings: [{ system: snomed, code: "267036007", display: Dyspnea, equivalence: equivalent }],
+    }
+  - {
+      id: f-palpitations,
+      display: Palpitations,
+      mappings:
+        [{ system: snomed, code: "80313002", display: Palpitations, equivalence: equivalent }],
+    }
+  - {
+      id: f-dizziness,
+      display: Dizziness or light-headedness,
+      mappings:
+        [{ system: snomed, code: "404640003", display: Dizziness, equivalence: equivalent }],
+    }
+  - {
+      id: f-fever,
+      display: Fever,
+      mappings: [{ system: snomed, code: "386661006", display: Fever, equivalence: equivalent }],
+    }
+  - id: f-no-fever
+    display: No fever
+    polarity: absent
+    mappings: [{ system: snomed, code: "386661006", display: Fever, equivalence: equivalent }]
+  - {
+      id: f-fatigue,
+      display: More fatigue than usual,
+      mappings: [{ system: snomed, code: "84229001", display: Fatigue, equivalence: equivalent }],
+    }
+  - {
+      id: f-nausea,
+      display: Nausea or vomiting,
+      mappings: [{ system: snomed, code: "422587007", display: Nausea, equivalence: narrower }],
+    }
+  - {
+      id: f-flank-pain,
+      display: Side or back pain or pain when urinating,
+      mappings: [{ system: snomed, code: "247355005", display: Flank pain, equivalence: narrower }],
+    }
+  - id: f-headache-vision
+    display: New severe headache or vision change
+    mappings:
+      - {
+          system: snomed,
+          code: "25064002",
+          display: Headache,
+          equivalence: inexact,
+          note: "The finding also covers a vision change.",
+        }
+  - id: f-low-mood
+    display: Low, anxious or irritable most days
+    mappings: [{ system: snomed, code: "366979004", display: Depressed mood, equivalence: inexact }]
+  - id: f-poor-sleep
+    display: Poor sleep
+    mappings:
+      [{ system: snomed, code: "301345002", display: Difficulty sleeping, equivalence: inexact }]
+  - id: f-respiratory-symptoms
+    display: Cough, sore throat or other respiratory symptoms
+    mappings:
+      - {
+          system: snomed,
+          equivalence: unmatched,
+          note: "A group of symptoms; each needs its own concept (verify).",
+        }
+  - id: f-neck-swelling
+    display: Neck swelling, neck pain or facial swelling
+    mappings:
+      - { system: snomed, equivalence: unmatched, note: "No concept was checked yet (verify)." }
+
+  # ---------- Answers: context ----------
+  - id: f-low-fluid-intake
+    display: Fluid intake lower than usual
+    mappings: &context
+      - {
+          system: snomed,
+          equivalence: unmatched,
+          note: "Context from the astronaut's answer, not a clinical finding.",
+        }
+  - { id: f-missed-exercise, display: Missed or shortened exercise sessions, mappings: *context }
+  - { id: f-equipment-change, display: Exercise device settings changed, mappings: *context }
+  - { id: f-med-change, display: Medication change or new exposure, mappings: *context }
+
+  # ---------- Active tests ----------
+  - id: f-resting-hr-high
+    display: Resting heart rate above 90 bpm
+    mappings:
+      - {
+          system: snomed,
+          code: "3424008",
+          display: Tachycardia,
+          equivalence: inexact,
+          note: "The test threshold (illustrative) is below the usual tachycardia threshold.",
+        }
+  - id: f-spo2-low
+    display: Low SpO2
+    mappings: [{ system: snomed, code: "389087006", display: Hypoxemia, equivalence: inexact }]
+  - id: f-spo2-normal
+    display: SpO2 normal
+    polarity: absent
+    mappings: [{ system: snomed, code: "389087006", display: Hypoxemia, equivalence: inexact }]
+  - id: f-bp-low
+    display: Low blood pressure
+    mappings:
+      [{ system: snomed, code: "45007003", display: Low blood pressure, equivalence: equivalent }]
+  - id: f-bp-normal
+    display: Blood pressure not low
+    polarity: absent
+    mappings:
+      [{ system: snomed, code: "45007003", display: Low blood pressure, equivalence: equivalent }]
+  - id: f-ecg-arrhythmia
+    display: Arrhythmia on the ECG
+    mappings:
+      [{ system: snomed, code: "698247007", display: Cardiac arrhythmia, equivalence: equivalent }]
+  - id: f-ecg-normal
+    display: No arrhythmia on the ECG
+    polarity: absent
+    mappings:
+      [{ system: snomed, code: "698247007", display: Cardiac arrhythmia, equivalence: equivalent }]
+  - id: f-exercise-hr-up-confirmed
+    display: Standardized exercise test confirms a higher heart rate
+    mappings: *deviation
+  - id: f-body-mass-down
+    display: Body mass down more than 1.5 kg
+    mappings: [{ system: snomed, code: "89362005", display: Weight loss, equivalence: equivalent }]
+  - id: f-urine-dark
+    display: Dark urine
+    mappings:
+      [{ system: snomed, code: "39575007", display: Urine looks dark, equivalence: equivalent }]
+  - id: f-sodium-high
+    display: Sodium above 145 mmol/L
+    mappings:
+      [{ system: snomed, code: "39355002", display: Hypernatremia, equivalence: equivalent }]
+  - id: f-bun-high
+    display: Urea nitrogen above 25 mg/dL
+    mappings: [{ system: snomed, code: "445009001", display: Azotemia, equivalence: inexact }]
+  - id: f-hematocrit-high
+    display: Hematocrit above 50 %
+    mappings:
+      - { system: snomed, equivalence: unmatched, note: "No concept was checked yet (verify)." }
+  - id: f-hematocrit-low
+    display: Hematocrit below 38 %
+    mappings:
+      - { system: snomed, equivalence: unmatched, note: "No concept was checked yet (verify)." }
+  - id: f-hematocrit-normal
+    display: Hematocrit in range
+    mappings:
+      - { system: snomed, equivalence: unmatched, note: "A normal result; no concept needed." }
+  - id: f-hydronephrosis
+    display: Hydronephrosis
+    mappings:
+      [{ system: snomed, code: "43064006", display: Hydronephrosis, equivalence: equivalent }]
+  - id: f-ijv-thrombus
+    display: IJV thrombus seen
+    mappings:
+      - { system: snomed, code: "111293003", display: Venous thrombosis, equivalence: wider }
+  - id: f-ijv-no-thrombus
+    display: No IJV thrombus seen
+    polarity: absent
+    mappings:
+      - {
+          system: snomed,
+          code: "111293003",
+          display: Venous thrombosis,
+          equivalence: inexact,
+          note: "Absent in the left IJV only.",
+        }
+  - id: f-ijv-flow-abnormal
+    display: IJV flow grade 3 or 4, or no flow
+    mappings:
+      - {
+          system: snomed,
+          equivalence: unmatched,
+          note: "No SNOMED CT concept for an IJV flow grade.",
+        }
+  - id: f-ijv-noncompressible
+    display: IJV not compressible
+    mappings:
+      - { system: snomed, equivalence: unmatched, note: "No concept was checked yet (verify)." }
+  - id: f-vision-change
+    display: Vision change on the tablet test
+    mappings:
+      [{ system: snomed, code: "63102001", display: Visual disturbance, equivalence: wider }]
+  - id: f-cognition-slow
+    display: Reaction time more than 15 % slower
+    mappings:
+      - { system: snomed, equivalence: unmatched, note: "No concept was checked yet (verify)." }
+  - id: f-co2-high
+    display: Cabin CO2 above the limit
+    mappings:
+      - {
+          system: snomed,
+          equivalence: unmatched,
+          note: "An environment reading, not a crew finding.",
+        }
+  - id: f-radiation-dose-high
+    display: Recent absorbed dose above the alert limit
+    mappings:
+      - { system: snomed, equivalence: unmatched, note: "A dosimeter reading, not a crew finding." }

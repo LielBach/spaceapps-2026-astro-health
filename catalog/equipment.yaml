@@ -1,4 +1,6 @@
-# Onboard devices and their tests. Result rules: field, op (lt|gt|eq), value → findings.
+# Onboard devices and their tests. returns: the measures a test records (catalog/measures.yaml).
+# Result rules: field (a returned measure), op (lt|gt|eq), value → findings.
+# Form fields are returned measures; a select takes its options from the measure.
 equipment:
   - id: wearable
     name: "Wearable monitor (HR, HRV, respiration, skin temperature, SpO2, activity)"
@@ -7,15 +9,17 @@ equipment:
       - {
           id: t-repeat-rest-hr,
           name: "Repeat resting heart rate",
+          returns: [resting-hr],
           rules:
             [
-              { field: hr, op: gt, value: 90, finding: f-resting-hr-high },
-              { field: hr, op: lt, value: 90, finding: f-resting-hr-in-band },
+              { field: resting-hr, op: gt, value: 90, finding: f-resting-hr-high },
+              { field: resting-hr, op: lt, value: 90, finding: f-resting-hr-in-band },
             ],
         }
       - {
           id: t-spo2,
           name: "SpO2 at rest",
+          returns: [spo2],
           rules:
             [
               { field: spo2, op: lt, value: 92, finding: f-spo2-low },
@@ -29,10 +33,11 @@ equipment:
       - {
           id: t-bp,
           name: "Blood pressure",
+          returns: [systolic-bp, diastolic-bp],
           rules:
             [
-              { field: sbp, op: lt, value: 95, finding: f-bp-low },
-              { field: sbp, op: gt, value: 95, finding: f-bp-normal },
+              { field: systolic-bp, op: lt, value: 95, finding: f-bp-low },
+              { field: systolic-bp, op: gt, value: 95, finding: f-bp-normal },
             ],
         }
   - id: thermometer
@@ -42,10 +47,11 @@ equipment:
       - {
           id: t-temp,
           name: "Body temperature",
+          returns: [body-temperature],
           rules:
             [
-              { field: celsius, op: gt, value: 37.9, finding: f-fever },
-              { field: celsius, op: lt, value: 37.5, finding: f-no-fever },
+              { field: body-temperature, op: gt, value: 37.9, finding: f-fever },
+              { field: body-temperature, op: lt, value: 37.5, finding: f-no-fever },
             ],
         }
   - id: ecg
@@ -55,10 +61,11 @@ equipment:
       - {
           id: t-ecg,
           name: "ECG",
+          returns: [ecg-rhythm, ecg-heart-rate, ecg-arrhythmia],
           rules:
             [
-              { field: arrhythmia, op: eq, value: true, finding: f-ecg-arrhythmia },
-              { field: arrhythmia, op: eq, value: false, finding: f-ecg-normal },
+              { field: ecg-arrhythmia, op: eq, value: true, finding: f-ecg-arrhythmia },
+              { field: ecg-arrhythmia, op: eq, value: false, finding: f-ecg-normal },
             ],
         }
   - id: cycle-ergometer
@@ -68,7 +75,16 @@ equipment:
       - {
           id: t-std-exercise-test,
           name: "Standardized submaximal exercise test",
-          rules: [{ field: hr, op: gt, value: 135, finding: f-exercise-hr-up-confirmed }],
+          returns: [exercise-workload, standard-exercise-hr],
+          rules:
+            [
+              {
+                field: standard-exercise-hr,
+                op: gt,
+                value: 135,
+                finding: f-exercise-hr-up-confirmed,
+              },
+            ],
         }
   - id: mass-device
     name: "Body mass measurement device (SLAMMD on the ISS)"
@@ -77,8 +93,9 @@ equipment:
       - {
           id: t-body-mass,
           name: "Body mass",
+          returns: [body-mass-change],
           sourceIds: [nasa-iss-slammd],
-          rules: [{ field: changeKg, op: lt, value: -1.5, finding: f-body-mass-down }],
+          rules: [{ field: body-mass-change, op: lt, value: -1.5, finding: f-body-mass-down }],
         }
   - id: urine-chart
     name: "Urine color chart"
@@ -87,7 +104,8 @@ equipment:
       - {
           id: t-urine-color,
           name: "Urine color",
-          rules: [{ field: scale, op: gt, value: 5, finding: f-urine-dark }],
+          returns: [urine-color],
+          rules: [{ field: urine-color, op: gt, value: 5, finding: f-urine-dark }],
         }
   - id: istat
     name: "Handheld blood analyzer (i-STAT, in the ISS vascular contingency kit)"
@@ -96,14 +114,15 @@ equipment:
       - {
           id: t-istat-chem8,
           name: "Fingerstick chemistry and hematocrit cartridge",
+          returns: [sodium-blood, urea-nitrogen-blood, creatinine-blood, hematocrit-blood],
           sourceIds: [nasa-vte-sp-2025],
           rules:
             [
-              { field: sodium, op: gt, value: 145, finding: f-sodium-high },
-              { field: bun, op: gt, value: 25, finding: f-bun-high },
-              { field: hematocrit, op: gt, value: 50, finding: f-hematocrit-high },
-              { field: hematocrit, op: lt, value: 38, finding: f-hematocrit-low },
-              { field: hematocrit, op: gt, value: 38, finding: f-hematocrit-normal },
+              { field: sodium-blood, op: gt, value: 145, finding: f-sodium-high },
+              { field: urea-nitrogen-blood, op: gt, value: 25, finding: f-bun-high },
+              { field: hematocrit-blood, op: gt, value: 50, finding: f-hematocrit-high },
+              { field: hematocrit-blood, op: lt, value: 38, finding: f-hematocrit-low },
+              { field: hematocrit-blood, op: gt, value: 38, finding: f-hematocrit-normal },
             ],
         }
   - id: ultrasound
@@ -113,11 +132,13 @@ equipment:
       - {
           id: t-ultrasound-renal,
           name: "Kidney ultrasound (structured finding)",
-          rules: [{ field: hydronephrosis, op: eq, value: true, finding: f-hydronephrosis }],
+          returns: [kidney-hydronephrosis],
+          rules: [{ field: kidney-hydronephrosis, op: eq, value: true, finding: f-hydronephrosis }],
         }
       # Flow grades 1–4 from Marshall-Goebel 2019, Figure 3A. The checklist is a draft (verify).
       - id: t-ultrasound-ijv
         name: "Internal jugular vein ultrasound (structured finding)"
+        returns: [ijv-flow-detected, ijv-flow-grade, ijv-compressible, ijv-thrombus]
         sourceIds: [marshall-goebel-2019, catalog-draft]
         checklist:
           - "Trained crew member operates; remote guidance from the ground if the link allows."
@@ -128,23 +149,16 @@ equipment:
           - "Look for echogenic material in the vein. Save the images."
           - "Repeat on the right IJV. Enter the structured finding for the left IJV."
         form:
-          - { field: flowDetected, label: "Doppler flow detected", kind: boolean }
-          - field: flowGrade
-            label: "Flow grade (if flow is detected)"
-            kind: select
-            options:
-              - { value: 1, label: "1 — continuous" }
-              - { value: 2, label: "2 — pulsatile" }
-              - { value: 3, label: "3 — stagnant" }
-              - { value: 4, label: "4 — retrograde" }
-          - { field: compressible, label: "Vein fully compressible", kind: boolean }
-          - { field: thrombus, label: "Thrombus seen", kind: boolean }
+          - { field: ijv-flow-detected, label: "Doppler flow detected", kind: boolean }
+          - { field: ijv-flow-grade, label: "Flow grade (if flow is detected)", kind: select }
+          - { field: ijv-compressible, label: "Vein fully compressible", kind: boolean }
+          - { field: ijv-thrombus, label: "Thrombus seen", kind: boolean }
         rules:
-          - { field: thrombus, op: eq, value: true, finding: f-ijv-thrombus }
-          - { field: flowGrade, op: gt, value: 2, finding: f-ijv-flow-abnormal }
-          - { field: flowDetected, op: eq, value: false, finding: f-ijv-flow-abnormal }
-          - { field: compressible, op: eq, value: false, finding: f-ijv-noncompressible }
-          - { field: thrombus, op: eq, value: false, finding: f-ijv-no-thrombus }
+          - { field: ijv-thrombus, op: eq, value: true, finding: f-ijv-thrombus }
+          - { field: ijv-flow-grade, op: gt, value: 2, finding: f-ijv-flow-abnormal }
+          - { field: ijv-flow-detected, op: eq, value: false, finding: f-ijv-flow-abnormal }
+          - { field: ijv-compressible, op: eq, value: false, finding: f-ijv-noncompressible }
+          - { field: ijv-thrombus, op: eq, value: false, finding: f-ijv-no-thrombus }
   - id: cognition
     name: "Tablet tests (reaction time, vision check)"
     consumable: false
@@ -152,12 +166,14 @@ equipment:
       - {
           id: t-vision-check,
           name: "Near-vision acuity and Amsler grid on the tablet",
-          rules: [{ field: changed, op: eq, value: true, finding: f-vision-change }],
+          returns: [vision-change],
+          rules: [{ field: vision-change, op: eq, value: true, finding: f-vision-change }],
         }
       - {
           id: t-reaction-time,
           name: "Psychomotor vigilance test",
-          rules: [{ field: slowedPercent, op: gt, value: 15, finding: f-cognition-slow }],
+          returns: [reaction-time-slowing],
+          rules: [{ field: reaction-time-slowing, op: gt, value: 15, finding: f-cognition-slow }],
         }
   - id: cabin-sensors
     name: "Cabin environment sensors"
@@ -166,10 +182,13 @@ equipment:
       - {
           id: t-cabin-co2,
           name: "Cabin CO2 reading",
-          rules: [{ field: ppco2mmHg, op: gt, value: 4, finding: f-co2-high }],
+          returns: [cabin-ppco2],
+          rules: [{ field: cabin-ppco2, op: gt, value: 4, finding: f-co2-high }],
         }
       - {
           id: t-dosimeter,
           name: "Personal dosimeter reading",
-          rules: [{ field: recentDoseMgy, op: gt, value: 100, finding: f-radiation-dose-high }],
+          returns: [absorbed-dose-recent],
+          rules:
+            [{ field: absorbed-dose-recent, op: gt, value: 100, finding: f-radiation-dose-high }],
         }

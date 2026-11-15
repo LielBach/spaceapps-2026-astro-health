@@ -187,7 +187,7 @@ Each task ends with tests passing and a PR (CLAUDE.md git workflow).
 14. Resolve every *(verify)* item shown in the UI (list in section 9).
 15. Full rehearsal of both demos in 3 minutes, with and without blackout, including one live branch.
 
-### M1g — Standard medical data interface (proposed)
+### M1g — Standard medical data interface
 Coded measurements, UCUM units, terminology registries and a FHIR R4 export: [10-medical-data-standards.md](10-medical-data-standards.md) §7, ADR 0011.
 
 ### M2 — Offline model
