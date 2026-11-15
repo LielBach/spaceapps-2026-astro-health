@@ -11,6 +11,9 @@
   --bad: #ff6b6b;
   --good: #4fd18b;
   --accent: #7c8cff;
+  /* One color per app, so the two apps never look like one screen. */
+  --role-astronaut: #3dd6c6;
+  --role-cmo: #c08cff;
   font-family:
     Inter,
     system-ui,
@@ -189,7 +192,7 @@ button.link {
 .layout {
   display: grid;
   grid-template-columns: 460px minmax(0, 1fr);
-  gap: 16px;
+  gap: 28px;
   padding: 14px 20px;
   align-items: start;
 }
@@ -202,6 +205,42 @@ button.link {
   flex-direction: column;
   gap: 12px;
   min-width: 0;
+}
+/* Role tags and frames: the astronaut app and the crew medical officer app are two devices. */
+.role-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.role-name {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0b0f17;
+}
+.role-where {
+  color: var(--muted);
+  font-size: 13px;
+}
+.role-astronaut .role-name {
+  background: var(--role-astronaut);
+}
+.role-cmo .role-name {
+  background: var(--role-cmo);
+}
+.console {
+  padding: 12px 16px 16px;
+  background: #0d111c;
+  border: 2px solid color-mix(in srgb, var(--role-cmo) 70%, transparent);
+  border-top-width: 6px;
+  border-radius: 16px;
+}
+.console .role-tag {
+  margin: 0 0 4px;
 }
 .clinical-head {
   display: flex;
@@ -291,10 +330,11 @@ button.link {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: min(820px, calc(100vh - 110px));
+  min-height: min(800px, calc(100vh - 150px));
   padding: 16px;
   background: #0f1522;
-  border: 2px solid #2c3954;
+  border: 2px solid color-mix(in srgb, var(--role-astronaut) 70%, transparent);
+  border-top-width: 6px;
   border-radius: 28px;
   font-size: 16px;
 }

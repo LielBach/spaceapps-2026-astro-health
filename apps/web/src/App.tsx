@@ -23,13 +23,22 @@ export function App() {
       {astronaut.composite && <p className="composite-note">{astronaut.composite.disclosure}</p>}
       <main className="layout">
         <div className="tablet-col">
+          <div className="role-tag role-astronaut">
+            <span className="role-name">Astronaut app</span>
+            <span className="role-where">on {astronaut.displayName}&apos;s tablet</span>
+          </div>
           <Tablet view={view} event={event} />
         </div>
-        <div className="clinical-col">
+        <section className="console clinical-col" aria-label="Crew medical officer app">
+          <div className="role-tag role-cmo">
+            <span className="role-name">Crew medical officer app</span>
+            <span className="role-where">medical station · review and approve</span>
+          </div>
           <header className="clinical-head">
             <span className="logo">AstroHealth</span>
             <span className="muted">{scenario.title}</span>
             <span className="astronaut">
+              <span className="small muted">Patient:</span>
               <strong>{astronaut.displayName}</strong>
               {astronaut.composite ? <Label kind="COMPOSITE" /> : <Label kind="REAL" />}
               <span className="small muted">
@@ -49,7 +58,7 @@ export function App() {
           </div>
           <MedicalRecord view={view} />
           <EventLog view={view} />
-        </div>
+        </section>
       </main>
       <footer className="muted small">
         Decision support only. Suspected diagnoses are for crew medical officer confirmation;

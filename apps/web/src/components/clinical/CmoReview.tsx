@@ -50,7 +50,7 @@ export function CmoReview({ view, event }: { view: SessionView; event: EventView
   return (
     <section className="panel cmo">
       <h2>
-        Crew medical officer
+        Review and approve
         {event && (
           <small>
             {" "}
