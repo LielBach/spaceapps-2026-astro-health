@@ -8,7 +8,7 @@
 **Version:** 1.0 | November 2026  
 **Status:** Concept demonstration; not validated medical software or an operational NASA protocol
 
-> **Core concept:** AstroHealth turns monitored physiological changes and individual medical risk into proactive assessment through the closed loop **detect → investigate → assess → act → learn**. Investigate holds verify, alert, ask and test; act holds monitor.
+> **Core concept:** ORBIVIT turns monitored physiological changes and individual medical risk into proactive assessment through the closed loop **detect → investigate → assess → act → learn**. Investigate holds verify, alert, ask and test; act holds monitor.
 
 ## How to interpret these demos
 
@@ -16,7 +16,7 @@ The health hazards and selected medical findings described below have a scientif
 
 **Sensor feasibility:** An onboard wearable can capture heart rate and, if specifically equipped and worn appropriately, continuous ECG; exercise devices can capture workout performance. Not every astronaut today wears a continuous ECG device 24 hours a day. A wearable cannot directly diagnose jugular vein thrombosis. Duplex ultrasound is the appropriate targeted imaging test when a validated clinical pathway indicates it. Medical data flows and diagnostic devices below are proposed integrations for a Mars spacecraft.
 
-**Safety rule:** If severe symptoms or unstable vital signs are present, AstroHealth bypasses the ordinary conversational workflow and activates the approved emergency response. The system supports—not replaces—qualified medical decision-making. It never autonomously prescribes anticoagulation or antiarrhythmic medication.
+**Safety rule:** If severe symptoms or unstable vital signs are present, ORBIVIT bypasses the ordinary conversational workflow and activates the approved emergency response. The system supports—not replaces—qualified medical decision-making. It never autonomously prescribes anticoagulation or antiarrhythmic medication.
 
 ---
 
@@ -30,7 +30,7 @@ The health hazards and selected medical findings described below have a scientif
 
 An astronaut on the International Space Station was found to have an **asymptomatic internal jugular vein thrombosis** during a research ultrasound roughly 50 days into the flight. It became a widely discussed example of a previously underappreciated spaceflight medical risk. Changes in venous flow during microgravity can include stasis or abnormal flow patterns. Because there may be few or no symptoms, reliance on symptom-triggered care alone is inadequate.
 
-The real case **does not establish** that heart rate, ECG, or other continuously wearable signals were abnormal before the clot formed. A later publication discussed low albumin and hormonal contraceptive exposure, but the available public information does not establish that these findings predicted the timing of thrombosis. NASA has subsequently developed spaceflight venous screening and risk-assessment guidance. The demonstration therefore models a **prospective, risk-adaptive workflow**, not a reconstruction of what AstroHealth would definitely have found in 2019.
+The real case **does not establish** that heart rate, ECG, or other continuously wearable signals were abnormal before the clot formed. A later publication discussed low albumin and hormonal contraceptive exposure, but the available public information does not establish that these findings predicted the timing of thrombosis. NASA has subsequently developed spaceflight venous screening and risk-assessment guidance. The demonstration therefore models a **prospective, risk-adaptive workflow**, not a reconstruction of what ORBIVIT would definitely have found in 2019.
 
 ## 2. Fictional astronaut and starting conditions
 
@@ -63,7 +63,7 @@ The real case **does not establish** that heart rate, ECG, or other continuously
 
 **Example check-in question** (shown inside the daily check-in, not as a push; only an urgent interrupt pushes):
 
-> “AstroHealth has identified a sustained change from your usual resting heart-rate pattern. Please complete a brief health assessment. Your record also contains a previous vascular-flow finding that may require follow-up under the mission medical protocol.”
+> “ORBIVIT has identified a sustained change from your usual resting heart-rate pattern. Please complete a brief health assessment. Your record also contains a previous vascular-flow finding that may require follow-up under the mission medical protocol.”
 
 - **System:** Provides an accessible acknowledgment mechanism and prioritizes symptoms indicating emergencies.
 - **Astronaut:** Opens the tablet or wearable interface.
@@ -111,7 +111,7 @@ The decision engine explicitly separates two clinical questions:
 
 - **System:** Provides the approved preparation and acquisition checklist for a trained crew member; integrates with the onboard ultrasound workflow if available.
 - **Test:** Targeted IJV duplex ultrasound evaluating venous patency, flow and compressibility as appropriate for the protocol.
-- **Input to AstroHealth:** the operator enters a **structured finding**: Doppler flow detected yes/no, flow grade 1–4 (Marshall-Goebel 2019, Figure 3A: continuous, pulsatile, stagnant, retrograde), compressibility, thrombus seen yes/no. AstroHealth does not interpret images.
+- **Input to ORBIVIT:** the operator enters a **structured finding**: Doppler flow detected yes/no, flow grade 1–4 (Marshall-Goebel 2019, Figure 3A: continuous, pulsatile, stagnant, retrograde), compressibility, thrombus seen yes/no. ORBIVIT does not interpret images.
 - **Images shown:** real NASA scans, labeled **REAL – ISS crew member, Marshall-Goebel 2019, CC-BY** (COMPOSITE, ADR 0009): Figure 3B (pre-flight, grade 2) as Maya's earlier scan, Figure 3C (ISS flight day 50, thrombus) as today's scan.
 - **Scripted result:** structured finding of no detectable flow and a thrombus in the left internal jugular vein.
 - **Safety:** Automated image interpretation cannot be treated as definitive without an appropriately validated workflow and qualified review.
@@ -119,7 +119,7 @@ The decision engine explicitly separates two clinical questions:
 
 ### Step 8 — Issue a clinically bounded assessment and escalation
 
-**Example AstroHealth report:**
+**Example ORBIVIT report:**
 
 > **Urgent vascular finding — suspected IJV thrombosis.** Targeted ultrasound suggests thrombus in the left internal jugular vein. The astronaut currently reports no symptoms. Initiate the mission-approved thrombosis evaluation pathway and obtain qualified review or use preauthorized autonomous procedures when Earth communication is unavailable.
 
@@ -163,7 +163,7 @@ The decision engine explicitly separates two clinical questions:
 
 Prolonged microgravity alters cardiovascular regulation and reduces the normal gravitational demands on circulation. Astronauts also experience changes in exercise capacity and physical conditioning. Some astronauts demonstrate reduced aerobic capacity despite countermeasure exercise, and orthostatic intolerance can become clinically significant during return to gravity or transition to a planetary surface.
 
-This is well suited to AstroHealth because the relevant patterns may evolve over **days to weeks**, allowing proactive assessment of declines in exercise tolerance, heart-rate response, recovery, and other physiologic measures. Exercise countermeasures and clinical follow-up already exist; the software could help determine when performance trends merit investigation or review of the countermeasure plan.
+This is well suited to ORBIVIT because the relevant patterns may evolve over **days to weeks**, allowing proactive assessment of declines in exercise tolerance, heart-rate response, recovery, and other physiologic measures. Exercise countermeasures and clinical follow-up already exist; the software could help determine when performance trends merit investigation or review of the countermeasure plan.
 
 ## 2. Fictional astronaut and baseline
 
@@ -293,7 +293,7 @@ Possible explanations include:
 
 **Suggested pitch line:**
 
-> “Before a performance decline becomes a mission-threatening limitation, AstroHealth identifies the trajectory, initiates assessment, and helps adapt the care plan.”
+> “Before a performance decline becomes a mission-threatening limitation, ORBIVIT identifies the trajectory, initiates assessment, and helps adapt the care plan.”
 
 ---
 
@@ -315,7 +315,7 @@ Possible explanations include:
 1. **Show the problem:** Spacecraft can generate physiological, environmental and medical information, but meaningful interpretation and follow-up can remain fragmented and clinically resource-intensive.
 2. **Show Demo 2 first:** Routine wearable data reveal an emerging, actionable change before clear symptoms. The system asks targeted questions, requests relevant tests, and supports preventive intervention.
 3. **Show Demo 1 second:** A rare, high-stakes risk illustrates why the system also needs prior imaging, clinical history, risk-specific protocols and targeted diagnostics. It should not imply clot detection from heart rate.
-4. **Close with the value proposition:** **“AstroHealth transforms passive monitoring into proactive, longitudinal clinical action—and builds the evidence needed for more personalized preventive medicine in future missions.”**
+4. **Close with the value proposition:** **“ORBIVIT transforms passive monitoring into proactive, longitudinal clinical action—and builds the evidence needed for more personalized preventive medicine in future missions.”**
 
 ## Reusable software components demonstrated by both cases
 
@@ -330,7 +330,7 @@ Possible explanations include:
 9. **Research layer (architecture slide only):** Controlled, privacy-preserving longitudinal data extraction with outcome labels, governance and auditability.
 10. **Offline operation:** Critical functionality available without real-time communications with Earth; synchronization and remote review when connections permit.
 
-## Minimum evaluation plan for an AstroHealth prototype
+## Minimum evaluation plan for an ORBIVIT prototype
 
 | Evaluation domain | What to assess |
 |---|---|

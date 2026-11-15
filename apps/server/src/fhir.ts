@@ -22,11 +22,11 @@ import {
   type ResultValue,
   type SessionView,
   type StandardSystem,
-} from "@astrohealth/core";
+} from "@orbivit/core";
 
 type Resource = Record<string, unknown> & { resourceType: string; id: string };
 
-const DATA_LABEL = "urn:astrohealth:data-label";
+const DATA_LABEL = "urn:orbivit:data-label";
 const OBS_CATEGORY = "http://terminology.hl7.org/CodeSystem/observation-category";
 const VER_STATUS = "http://terminology.hl7.org/CodeSystem/condition-ver-status";
 const CLINICAL_STATUS = "http://terminology.hl7.org/CodeSystem/condition-clinical";
@@ -72,7 +72,7 @@ function concept(localSystem: string, localCode: string, display: string, mappin
 
 function category(measure: MeasureDef | undefined) {
   const code = measure?.category ?? "exam";
-  const system = LOCAL_CATEGORIES.has(code) ? "urn:astrohealth:observation-category" : OBS_CATEGORY;
+  const system = LOCAL_CATEGORIES.has(code) ? "urn:orbivit:observation-category" : OBS_CATEGORY;
   return [{ coding: [{ system, code }] }];
 }
 
@@ -93,9 +93,8 @@ function value(catalog: Catalog, v: ResultValue["value"], unit: string | undefin
 
 /** ConceptMap rule cmd-1: a narrower or inexact mapping needs a comment. */
 const DEFAULT_COMMENTS: Partial<Record<Mapping["equivalence"], string>> = {
-  narrower:
-    "The target code is more specific than the AstroHealth code; use it only when confirmed.",
-  inexact: "The target code overlaps the AstroHealth code but is not the same concept.",
+  narrower: "The target code is more specific than the ORBIVIT code; use it only when confirmed.",
+  inexact: "The target code overlaps the ORBIVIT code but is not the same concept.",
 };
 
 /** One ConceptMap per local code system and standard target system, with every equivalence. */
@@ -144,11 +143,11 @@ function conceptMaps(catalog: Catalog): Resource[] {
       if (elements.length === 0) continue;
       maps.push({
         resourceType: "ConceptMap",
-        id: `astrohealth-${key}-to-${target}`,
-        url: `urn:astrohealth:conceptmap:${key}-to-${target}`,
-        name: `AstroHealth${key[0]!.toUpperCase()}${key.slice(1)}To${target.toUpperCase()}`,
+        id: `orbivit-${key}-to-${target}`,
+        url: `urn:orbivit:conceptmap:${key}-to-${target}`,
+        name: `ORBIVIT${key[0]!.toUpperCase()}${key.slice(1)}To${target.toUpperCase()}`,
         status: "draft",
-        description: `AstroHealth ${key} codes mapped to ${target} with their equivalence (docs/technical/10).`,
+        description: `ORBIVIT ${key} codes mapped to ${target} with their equivalence (docs/technical/10).`,
         group: [{ source: CODE_SYSTEMS[key], target: CODE_SYSTEMS[target], element: elements }],
       });
     }
@@ -174,7 +173,7 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
     resourceType: "Patient",
     id: view.astronaut.id,
     ...meta(composite),
-    identifier: [{ system: "urn:astrohealth:astronaut", value: view.astronaut.id }],
+    identifier: [{ system: "urn:orbivit:astronaut", value: view.astronaut.id }],
     name: [{ text: `${view.astronaut.displayName} (demo name)` }],
   });
   entries.push({
@@ -192,7 +191,7 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
     entries.push({
       resourceType: "Device",
       id: equipmentId,
-      identifier: [{ system: "urn:astrohealth:equipment", value: equipmentId }],
+      identifier: [{ system: "urn:orbivit:equipment", value: equipmentId }],
       type: { text: equipmentId },
     });
   }
@@ -268,7 +267,7 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
               referenceRange: [
                 {
                   ...(spec.direction === "up" ? { high: limit } : { low: limit }),
-                  type: { coding: [{ system: "urn:astrohealth:range-type", code: "alert-limit" }] },
+                  type: { coding: [{ system: "urn:orbivit:range-type", code: "alert-limit" }] },
                   text: `alert limit (illustrative design parameter); personal baseline ${p.baseline}`,
                 },
               ],
@@ -288,13 +287,13 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
     );
   });
 
-  const questionnaire = "urn:astrohealth:questionnaire:check-in";
+  const questionnaire = "urn:orbivit:questionnaire:check-in";
   entries.push({
     resourceType: "Questionnaire",
     id: "check-in",
     url: questionnaire,
     status: "draft",
-    title: "AstroHealth check-in questions (catalog draft)",
+    title: "ORBIVIT check-in questions (catalog draft)",
     item: catalog.questions.map((q) => {
       const codes = (q.yes ?? []).flatMap(
         (f) =>
@@ -336,7 +335,7 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
       valueCodeableConcept: {
         coding: [def?.polarity === "absent" ? SNOMED_ABSENT : SNOMED_PRESENT],
       },
-      derivedFrom: [{ identifier: { system: "urn:astrohealth:event-log", value: line.id } }],
+      derivedFrom: [{ identifier: { system: "urn:orbivit:event-log", value: line.id } }],
     });
   }
 
@@ -443,7 +442,7 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
           id: line.id,
           status: approved ? "accepted" : "requested",
           intent: "proposal",
-          instantiatesUri: `urn:astrohealth:pathway:${line.conditionId ?? "unknown"}#${line.data.id}`,
+          instantiatesUri: `urn:orbivit:pathway:${line.conditionId ?? "unknown"}#${line.data.id}`,
           description: line.data.text,
           for: patient,
           encounter,
@@ -468,7 +467,7 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
         entries.push({
           resourceType: "Provenance",
           id: `${line.id}-provenance`,
-          target: [{ identifier: { system: "urn:astrohealth:event-log", value: line.id } }],
+          target: [{ identifier: { system: "urn:orbivit:event-log", value: line.id } }],
           recorded: line.timestamp,
           activity: { coding: [{ system: DATA_OPERATION, code: "CREATE" }], text: line.stepType },
           agent: [
@@ -494,7 +493,7 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
         ? concept(CODE_SYSTEMS.condition, condition.id, condition.name, condition.codes)
         : { text: d.name };
       const evidence = d.evidenceFor.map((e) => ({
-        identifier: { system: "urn:astrohealth:event-log", value: e },
+        identifier: { system: "urn:orbivit:event-log", value: e },
       }));
       entries.push({
         resourceType: "Condition",
@@ -524,7 +523,7 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
           subject: patient,
           encounter,
           condition: { reference: ref("Condition", id) },
-          method: { text: "AstroHealth clinical reasoner (decision support, not validated)" },
+          method: { text: "ORBIVIT clinical reasoner (decision support, not validated)" },
           ...(evidence.length > 0 ? { basis: evidence } : {}),
           prediction: [{ outcome: code, probabilityDecimal: d.confidence }],
         });

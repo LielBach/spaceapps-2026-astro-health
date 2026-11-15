@@ -8,10 +8,10 @@ importers:
 
   .:
     devDependencies:
-      '@astrohealth/core':
+      '@orbivit/core':
         specifier: workspace:*
         version: link:packages/core
-      '@astrohealth/data':
+      '@orbivit/data':
         specifier: workspace:*
         version: link:packages/data
       '@eslint/js':
@@ -56,10 +56,10 @@ importers:
       '@ai-sdk/anthropic':
         specifier: 4.0.94
         version: 4.0.94(zod@3.25.76)
-      '@astrohealth/core':
+      '@orbivit/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@astrohealth/data':
+      '@orbivit/data':
         specifier: workspace:*
         version: link:../../packages/data
       ai:
@@ -74,7 +74,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@astrohealth/core':
+      '@orbivit/core':
         specifier: workspace:*
         version: link:../../packages/core
       react:
@@ -107,7 +107,7 @@ importers:
 
   packages/data:
     dependencies:
-      '@astrohealth/core':
+      '@orbivit/core':
         specifier: workspace:*
         version: link:../core
       xlsx:

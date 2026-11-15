@@ -1,6 +1,6 @@
 # 04 — Candidate directions & recommendation
 
-> **Superseded:** the team chose the AstroHealth closed loop in [06-astrohealth-concept.md](06-astrohealth-concept.md) instead of this MVP ([ADR 0001](../adr/0001-astrohealth-replaces-baseline-mvp.md)). Kept for the research and scoring.
+> **Superseded:** the team chose the ORBIVIT closed loop in [06-orbivit-concept.md](06-orbivit-concept.md) instead of this MVP ([ADR 0001](../adr/0001-orbivit-replaces-baseline-mvp.md)). Kept for the research and scoring.
 
 Space Apps judging criteria: **Impact · Creativity · Validity · Relevance · Presentation**. Scores below are 1–5 against those, plus hackathon feasibility.
 

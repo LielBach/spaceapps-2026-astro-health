@@ -1,6 +1,6 @@
 # 09 — Implementation plan
 
-How we build the AstroHealth MVP: the two demo replays in [08-clinical-demos.md](../product/08-clinical-demos.md), milestone 1 (online LLM), then milestone 2 (offline model). Every design choice here traces to an ADR in [docs/adr/](../adr/). Terms follow [GLOSSARY.md](../../GLOSSARY.md).
+How we build the ORBIVIT MVP: the two demo replays in [08-clinical-demos.md](../product/08-clinical-demos.md), milestone 1 (online LLM), then milestone 2 (offline model). Every design choice here traces to an ADR in [docs/adr/](../adr/). Terms follow [GLOSSARY.md](../../GLOSSARY.md).
 
 ## 1. Scope
 

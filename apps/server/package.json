@@ -1,5 +1,5 @@
 {
-  "name": "@astrohealth/server",
+  "name": "@orbivit/server",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "4.0.94",
-    "@astrohealth/core": "workspace:*",
-    "@astrohealth/data": "workspace:*",
+    "@orbivit/core": "workspace:*",
+    "@orbivit/data": "workspace:*",
     "ai": "7.0.159",
     "fastify": "5.4.0",
     "zod": "3.25.76"

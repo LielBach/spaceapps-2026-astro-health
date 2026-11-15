@@ -1,5 +1,5 @@
 {
-  "name": "astrohealth",
+  "name": "orbivit",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@9.15.9",
@@ -7,8 +7,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev:server": "pnpm --filter @astrohealth/server dev",
-    "dev:web": "pnpm --filter @astrohealth/web dev",
+    "dev:server": "pnpm --filter @orbivit/server dev",
+    "dev:web": "pnpm --filter @orbivit/web dev",
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck && tsc -p tsconfig.scripts.json",
     "lint": "eslint .",
@@ -23,8 +23,8 @@
     "check:terminology": "tsx scripts/check-terminology.ts"
   },
   "devDependencies": {
-    "@astrohealth/core": "workspace:*",
-    "@astrohealth/data": "workspace:*",
+    "@orbivit/core": "workspace:*",
+    "@orbivit/data": "workspace:*",
     "@eslint/js": "9.30.0",
     "@types/node": "22.15.34",
     "eslint": "9.30.0",

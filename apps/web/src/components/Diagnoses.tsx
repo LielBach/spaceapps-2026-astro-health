@@ -1,4 +1,4 @@
-import type { EventView, SessionView } from "@astrohealth/core";
+import type { EventView, SessionView } from "@orbivit/core";
 import { Codes } from "./Codes.tsx";
 import { Label, Src } from "./Source.tsx";
 

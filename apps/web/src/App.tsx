@@ -12,7 +12,7 @@ export function App() {
   if (!view)
     return (
       <main className="loading">
-        {connected ? "Loading…" : "Connecting to the AstroHealth server…"}
+        {connected ? "Loading…" : "Connecting to the ORBIVIT server…"}
       </main>
     );
   const event = view.events.find((e) => e.phase !== "closed") ?? view.events.at(-1);
@@ -21,7 +21,7 @@ export function App() {
     <SourcesContext.Provider value={view.sources}>
       <header className="top">
         <div className="brand">
-          <span className="logo">AstroHealth</span>
+          <span className="logo">ORBIVIT</span>
           <span className="muted">{scenario.title}</span>
         </div>
         <div className="astronaut">

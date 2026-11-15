@@ -1,6 +1,6 @@
 # Measure registry (docs/technical/10 §4.2, ADR 0011). One entry per measure the app uses.
 # Codes were checked on 2026-11-15: LOINC and IEEE 11073 with $lookup on tx.fhir.org (FHIR R4).
-# Equivalence reads from the AstroHealth measure to the target code (FHIR R4 ConceptMap):
+# Equivalence reads from the ORBIVIT measure to the target code (FHIR R4 ConceptMap):
 #   wider = the target means more than the measure; unmatched = no code (note says why).
 # signal / metric: the stream signal or detection metric that carries the measure.
 # aliases: measure names in data/anchors files that mean this measure.
