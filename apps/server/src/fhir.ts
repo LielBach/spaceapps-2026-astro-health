@@ -425,7 +425,16 @@ export function toFhirBundle(view: SessionView, now: Date = new Date()): Resourc
           id: line.id,
           status: done ? "completed" : "requested",
           intent: "proposal",
-          code: { text: catalog.tests.find((t) => t.id === line.data.id)?.name ?? line.data.id },
+          code: {
+            coding: [
+              {
+                system: CODE_SYSTEMS.test,
+                code: line.data.id,
+                display: catalog.tests.find((t) => t.id === line.data.id)?.name ?? line.data.id,
+              },
+            ],
+            text: catalog.tests.find((t) => t.id === line.data.id)?.name ?? line.data.id,
+          },
           for: patient,
           encounter,
           authoredOn: at(line.missionDay),

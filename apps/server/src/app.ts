@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyInstance } from "fastify";
 import { resultProblems } from "@orbivit/core";
 import { toFhirBundle } from "./fhir.ts";
-import { ReplaySession, type ReasonerSetup, type SessionPaths } from "./session.ts";
+import { ReplaySession, type Reasoners, type ReasonerSetup, type SessionPaths } from "./session.ts";
 
 const repo = (path: string) => fileURLToPath(new URL(`../../../${path}`, import.meta.url));
 
@@ -11,7 +11,7 @@ export interface AppOptions {
   /** Run the real-time replay clock. Off in tests, which drive the session directly. */
   clock?: boolean;
   /** The clinical reasoner (M1d). Without one, every step uses the no-LLM fallback. */
-  llm?: ReasonerSetup | undefined;
+  llm?: Reasoners | ReasonerSetup | undefined;
   runsDir?: string;
 }
 

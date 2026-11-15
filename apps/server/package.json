@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "typecheck": "tsc -p .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "eval": "tsx src/eval/run.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "4.0.94",
+    "@ai-sdk/openai-compatible": "3.0.82",
     "@orbivit/core": "workspace:*",
     "@orbivit/data": "workspace:*",
     "ai": "7.0.159",

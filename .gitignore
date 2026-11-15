@@ -36,3 +36,6 @@ runs/
 
 # Demo recordings (pnpm record:demos)
 recordings/
+
+# M2 evaluation results (pnpm eval:offline); the summary goes in docs/technical/12
+eval/results/

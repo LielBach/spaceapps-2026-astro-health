@@ -155,6 +155,19 @@ export function PresenterBar({ view }: { view: SessionView }) {
       <span className="provider">
         Reasoner:{" "}
         {view.provider === "none" ? "no-LLM fallback" : `${view.provider} ${view.model ?? ""}`}
+        {view.provider === "ollama" && (
+          <span
+            className="badge offline"
+            title="Runs on this computer: no link to Earth needed (ADR 0004)"
+          >
+            OFFLINE MODEL
+          </span>
+        )}
+        {view.provider === "anthropic" && (
+          <span className="badge online" title="Needs the link to Earth">
+            ONLINE
+          </span>
+        )}
       </span>
     </div>
   );

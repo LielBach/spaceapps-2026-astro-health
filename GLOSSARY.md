@@ -52,6 +52,14 @@ _Avoid_: Inventory, kit
 A suspected diagnosis outside the condition catalog, allowed only when no catalog condition explains the evidence. It may lead only to more questions, tests on the equipment list and escalation, never to a treatment.
 _Avoid_: Unknown condition, free diagnosis
 
+**Offline model**:
+An open-weight language model that runs on the spacecraft's own computer and needs no link to Earth. It takes over as the clinical reasoner during a comm blackout, inside the same guardrails as the online model (ADR 0004).
+_Avoid_: Local LLM, edge AI, on-device AI (in UI text)
+
+**No-LLM fallback**:
+The rule-based reasoner: catalog findings give an unranked list of possible causes, and tests run in a fixed order. It runs when no model is available or a model's proposal fails the guardrails twice.
+_Avoid_: Backup mode, rules mode
+
 ## Signals
 
 **Passive signal**:
