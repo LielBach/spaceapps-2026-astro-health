@@ -27,6 +27,18 @@
 | [docs/technical/05-data-sources.md](docs/technical/05-data-sources.md) | Data inventory by access tier (open now / free sign-up / on request / private), file formats, coverage gaps |
 | [docs/technical/09-implementation-plan.md](docs/technical/09-implementation-plan.md) | MVP build plan: architecture, repo layout, engines, milestones M0–M2, tests, open items |
 
+## Development
+Needs Node 22+ and pnpm 9.
+
+```bash
+pnpm install
+pnpm check        # lint, format, typecheck, tests, sources registry
+pnpm dev:server   # http://127.0.0.1:3001/health
+pnpm dev:web      # http://localhost:5173
+```
+
+Layout and plan: [docs/technical/09-implementation-plan.md](docs/technical/09-implementation-plan.md). Every number shown in the UI needs an entry in `sources.json`; `pnpm check:sources` fails on unknown IDs.
+
 ## Status
 - [x] Research & direction proposal
 - [x] Repo set up
@@ -35,6 +47,6 @@
 - [ ] Demo case (docs/product/07, 08)
 - [x] Re-check challenge Resources tab: 5 links, no datasets; real datasets they lead to added to docs/technical/05-data-sources.md
 - [x] Tech stack decision (ADR 0006)
-- [ ] Scaffold
+- [x] Scaffold (M0): pnpm workspace, CI, sources registry
 - [ ] Simulated stream with real anchors (ADR 0003)
 - [ ] MVP closed loop (see docs/product/06-astrohealth-concept.md)
