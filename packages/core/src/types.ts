@@ -147,11 +147,24 @@ export interface SurveillanceRule {
   sourceId: SourceId;
 }
 
+/** yesNo (default): Yes/No buttons. choice: one of `options`. text: an open answer in own words. */
+export type QuestionKind = "yesNo" | "choice" | "text";
+
+export interface QuestionOption {
+  label: string;
+  /** Findings that choosing this option records. */
+  findings?: string[] | undefined;
+}
+
 export interface Question {
   id: string;
   text: string;
+  kind?: QuestionKind | undefined;
   yes?: string[] | undefined;
   no?: string[] | undefined;
+  /** For kind choice: the options, shown as buttons. */
+  options?: QuestionOption[] | undefined;
+  /** Keywords in a free-text answer that record findings (any kind). */
   keywords?: Record<string, string[]> | undefined;
 }
 

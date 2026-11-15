@@ -11,6 +11,9 @@
   --bad: #ff6b6b;
   --good: #4fd18b;
   --accent: #7c8cff;
+  /* One color per app, so the two apps never look like one screen. */
+  --role-astronaut: #3dd6c6;
+  --role-cmo: #c08cff;
   font-family:
     Inter,
     system-ui,
@@ -78,18 +81,6 @@ button:hover {
   filter: brightness(1.15);
 }
 
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--line);
-}
-.brand {
-  display: flex;
-  gap: 14px;
-  align-items: baseline;
-}
 .logo {
   font-weight: 800;
   font-size: 18px;
@@ -99,6 +90,7 @@ button:hover {
   display: flex;
   gap: 10px;
   align-items: center;
+  margin-left: auto;
 }
 .composite-note {
   margin: 0;
@@ -106,24 +98,48 @@ button:hover {
   background: #2a2140;
   font-size: 12px;
 }
+.error {
+  color: var(--bad);
+  font-size: 12px;
+}
+button.link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--series);
+}
 
-.replay-bar {
+/* ---------- Presenter bar: replay controls, not part of the product ---------- */
+.presenter-bar {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   flex-wrap: wrap;
-  padding: 10px 20px;
-  background: var(--panel);
+  padding: 6px 20px;
+  background: #0e1420;
   border-bottom: 1px solid var(--line);
+  font-size: 12px;
 }
-.replay-bar label {
+.presenter-bar button,
+.presenter-bar select,
+.presenter-bar input {
+  padding: 3px 8px;
+  font-size: 12px;
+}
+.presenter-tag {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+}
+.presenter-bar label {
   display: flex;
   gap: 6px;
   align-items: center;
   color: var(--muted);
 }
 .mission-day {
-  min-width: 200px;
+  min-width: 180px;
 }
 .progress {
   height: 4px;
@@ -135,6 +151,7 @@ button:hover {
   height: 100%;
   background: var(--accent);
   border-radius: 2px;
+  transition: width 0.3s;
 }
 .waiting {
   color: var(--warn);
@@ -150,46 +167,446 @@ button:hover {
   margin-left: auto;
   color: var(--muted);
 }
+.live-branch {
+  position: relative;
+}
+.live-branch summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.live-branch form,
+.live-branch ul {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 6px 0 0;
+}
+.live-branch[open] {
+  padding: 6px 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
 
-/* Two columns; three on a wide screen (1920 px recordings), so the check-in, the suspected
-   diagnoses and the event log stay on screen during the whole replay. */
-.grid {
+/* ---------- Layout: the astronaut's tablet, then the clinical panel ---------- */
+.layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(360px, 1fr);
-  grid-template-areas:
-    "main check"
-    "main dx"
-    "log log";
-  align-items: start;
-  gap: 14px;
+  grid-template-columns: 460px minmax(0, 1fr);
+  gap: 28px;
   padding: 14px 20px;
+  align-items: start;
 }
-.main-col {
-  grid-area: main;
+.tablet-col {
+  position: sticky;
+  top: 10px;
 }
-.area-check {
-  grid-area: check;
+.clinical-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   min-width: 0;
 }
-.area-dx {
-  grid-area: dx;
-  min-width: 0;
+/* Role tags and frames: the astronaut app and the crew medical officer app are two devices. */
+.role-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
 }
-@media (min-width: 1700px) {
-  .grid {
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas:
-      "main check dx"
-      "main check log";
-    grid-template-rows: auto 1fr;
-  }
-  .log-lines {
-    max-height: 560px;
-  }
-  .checkin .scan img {
-    max-width: 300px;
+.role-name {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0b0f17;
+}
+.role-where {
+  color: var(--muted);
+  font-size: 13px;
+}
+.role-astronaut .role-name {
+  background: var(--role-astronaut);
+}
+.role-cmo .role-name {
+  background: var(--role-cmo);
+}
+.console {
+  padding: 12px 16px 16px;
+  background: #0d111c;
+  border: 2px solid color-mix(in srgb, var(--role-cmo) 70%, transparent);
+  border-top-width: 6px;
+  border-radius: 16px;
+}
+.console .role-tag {
+  margin: 0 0 4px;
+}
+.clinical-head {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.clinical-grid {
+  display: grid;
+  grid-template-columns: minmax(380px, 0.85fr) minmax(0, 1.15fr);
+  gap: 12px;
+  align-items: start;
+}
+@media (max-width: 1400px) {
+  .clinical-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 12px 16px;
+  }
+  .tablet-col {
+    position: static;
+  }
+}
+
+/* ---------- Alerts: level in words and icon, never color only ---------- */
+.alert {
+  --tone: var(--muted);
+  border: 1px solid var(--tone);
+  border-left-width: 6px;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--tone) 12%, var(--panel));
+}
+.alert-none {
+  --tone: var(--good);
+}
+.alert-info {
+  --tone: var(--series);
+}
+.alert-caution {
+  --tone: var(--warn);
+}
+.alert-warning {
+  --tone: #ff9f43;
+}
+.alert-critical {
+  --tone: var(--bad);
+}
+.alert-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.alert-icon {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--tone);
+  color: #0b0f17;
+  font-weight: 800;
+  font-size: 12px;
+}
+.alert-word {
+  color: var(--tone);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 12px;
+}
+.alert-title {
+  font-weight: 600;
+}
+.alert-body {
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+/* ---------- Tablet: one task per screen, big targets, plain words ---------- */
+.tablet {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: min(800px, calc(100vh - 150px));
+  padding: 16px;
+  background: #0f1522;
+  border: 2px solid color-mix(in srgb, var(--role-astronaut) 70%, transparent);
+  border-top-width: 6px;
+  border-radius: 28px;
+  font-size: 16px;
+}
+.tablet-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.tablet-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  animation: fade-in 0.35s ease-out;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.tablet .step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.stepper {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.stepper li {
+  flex: 1;
+  text-align: center;
+  padding: 6px 0;
+  border-radius: 6px;
+  background: var(--grid);
+  color: var(--muted);
+  font-size: 13px;
+}
+.stepper li.done {
+  background: #173d2b;
+  color: var(--good);
+}
+.stepper li.current {
+  background: #252f5c;
+  color: var(--text);
+  font-weight: 600;
+}
+.step-count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.step-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+}
+.step-question {
+  flex: 1;
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.step-text {
+  flex: 1;
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.45;
+}
+.why {
+  margin: 0;
+  padding: 8px 10px;
+  background: #161e2e;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.big-buttons {
+  display: flex;
+  gap: 12px;
+}
+button.big {
+  flex: 1;
+  min-height: 64px;
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 12px;
+}
+button.big.back {
+  flex: 0 0 110px;
+}
+button.big:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+button.danger {
+  background: var(--bad);
+  border-color: var(--bad);
+  color: #0b0f17;
+}
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+button.big.choice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  font-size: 20px;
+  min-height: 60px;
+}
+.choice .key {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--grid);
+  color: var(--muted);
+  font-size: 14px;
+}
+.text-answer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.text-answer textarea {
+  background: #1a2233;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  font: inherit;
+  font-size: 18px;
+  resize: vertical;
+}
+.scan-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.progress.thin {
+  margin: 0;
+}
+.finding-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.finding-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+}
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.segmented button {
+  flex: 1;
+  min-height: 48px;
+  font-size: 15px;
+}
+.segmented button.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0f17;
+  font-weight: 700;
+}
+.centered {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  padding: 0 16px;
+}
+.centered p {
+  margin: 0;
+}
+.centered .muted {
+  font-size: 16px;
+}
+.centered-icon {
+  font-size: 36px;
+  color: var(--accent);
+}
+.your-answers summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 14px;
+}
+.your-answers ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 14px;
+}
+.last-input {
+  margin: 0;
+  min-height: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--good);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.last-input.shown {
+  opacity: 1;
+}
+.urgent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0 -6px;
+  padding: 20px;
+  border: 2px solid var(--bad);
+  border-radius: 18px;
+  background: #3a1219;
+  animation: urgent-in 0.6s ease-out 2;
+}
+@keyframes urgent-in {
+  50% {
+    background: #6b1a26;
+  }
+}
+.urgent p {
+  margin: 0;
+}
+.urgent-word {
+  color: var(--bad);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.urgent-title {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.urgent-text {
+  font-size: 18px;
+  line-height: 1.45;
+}
+.urgent-text.small {
+  flex: 1;
+  font-size: 14px;
+  color: #f2c3c8;
+}
+.urgent button.big {
+  flex: none;
+}
+.urgent-ack {
+  font-weight: 600;
+  color: #f2c3c8;
+}
+
+/* ---------- Clinical panel ---------- */
 .charts {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -237,59 +654,46 @@ button:hover {
   border-radius: 8px;
   padding: 12px 14px;
 }
-.ask .question {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 4px 0 10px;
-}
-.buttons {
+.cmo {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
 }
-.override {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
+.cmo h2 {
+  margin: 0;
 }
-.override input {
-  flex: 1;
+.dx ol {
+  margin: 0;
+  padding-left: 18px;
 }
-.ask.action {
-  border-left: 3px solid var(--good);
-  padding-left: 10px;
+.dx li {
+  margin-bottom: 10px;
 }
-.status {
+.dx li > div {
+  margin-top: 2px;
+}
+.approve {
+  border: 1px solid #ff9f43;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.approve p {
+  margin: 0 0 6px;
+}
+.action-text {
+  font-size: 15px;
   font-weight: 600;
 }
-.outcome-resolved {
-  color: var(--good);
+.approve button.big {
+  width: 100%;
+  min-height: 52px;
+  font-size: 18px;
+  margin-bottom: 6px;
 }
-.outcome-escalated {
-  color: var(--bad);
-}
-.answers {
-  margin: 10px 0 0;
-  padding-left: 16px;
-  font-size: 12px;
-  max-height: 150px;
-  overflow: auto;
-}
-.findings {
-  color: var(--warn);
-}
-
 .disclaimer {
   margin: -4px 0 8px;
   font-size: 12px;
   color: var(--warn);
-}
-.diagnoses ol {
-  margin: 0;
-  padding-left: 18px;
-}
-.diagnoses li {
-  margin-bottom: 10px;
 }
 .dx-head {
   display: flex;
@@ -326,9 +730,20 @@ button:hover {
   color: var(--bad);
 }
 
-.log {
-  grid-area: log;
-  min-width: 0;
+.log summary {
+  cursor: pointer;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.log summary small {
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+.log[open] summary {
+  margin-bottom: 8px;
 }
 .log-lines {
   max-height: 260px;
@@ -350,7 +765,7 @@ button:hover {
 .record .scan img {
   max-width: 280px;
 }
-.step {
+.log .step {
   font-family: ui-monospace, monospace;
   font-size: 11px;
 }
@@ -425,13 +840,6 @@ footer {
   border-radius: 6px;
 }
 
-/* ---------- Demo 1: record, structured finding, scans, escalation report ---------- */
-.main-col {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-width: 0;
-}
 .record h3 {
   margin: 12px 0 6px;
   font-size: 13px;
@@ -478,44 +886,6 @@ footer {
   font-size: 11px;
   color: var(--muted);
 }
-.trigger {
-  margin: 0 0 8px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.structured .checklist {
-  margin: 0 0 6px;
-  padding-left: 18px;
-  font-size: 12px;
-}
-.structured .form {
-  display: grid;
-  gap: 6px;
-  margin: 8px 0 10px;
-}
-.structured .form label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.report {
-  border-left: 3px solid var(--bad);
-  padding-left: 10px;
-}
-.report-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--bad);
-  margin: 4px 0;
-}
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "main" "check" "dx" "log";
-    padding: 14px 16px;
-  }
-}
-
 /* Standard codes (docs/technical/10 §4.9) */
 .codes {
   display: inline-flex;
@@ -550,7 +920,7 @@ a.code:hover {
   border-color: var(--warn);
   color: var(--warn);
 }
-.replay-bar .export {
+.presenter-bar .export {
   font-size: 12px;
   padding: 4px 10px;
   border: 1px solid var(--line);

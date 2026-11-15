@@ -110,8 +110,21 @@ describe("guardrails", () => {
       actionId: "a-countermeasure-review",
     } as const;
     expect(inv.validate(base({ next }))).not.toEqual([]);
-    inv.answer("q-fatigue", "yes");
+    inv.answer("q-fatigue", "Workouts feel harder, more tired after the session");
     expect(inv.validate(base({ next }))).toEqual([]);
+  });
+
+  it("maps choice and open answers to findings", () => {
+    const inv = demo2();
+    const findings = () => inv.findings.map((f) => f.id);
+    inv.answer("q-fluid-intake", "About the same");
+    expect(findings()).not.toContain("f-low-fluid-intake");
+    inv.answer("q-fluid-intake", "Less than usual");
+    expect(findings()).toContain("f-low-fluid-intake");
+    inv.answer("q-fatigue", "Not tired, no fatigue at all");
+    expect(findings()).not.toContain("f-fatigue");
+    inv.answer("q-fatigue", "I get tired faster");
+    expect(findings()).toContain("f-fatigue");
   });
 
   it("rejects an invented condition, a missing log citation and an unknown test", () => {
@@ -137,7 +150,7 @@ describe("guardrails", () => {
   it("marks only the leading ranked diagnosis provisional, never confirmed", () => {
     const inv = demo2();
     for (const q of inv.safetyQuestions()) inv.answer(q, "no");
-    inv.answer("q-fatigue", "yes");
+    inv.answer("q-fatigue", "More tired after workouts");
     const cite = inv.log.map((l) => l.id);
     const dx = (conditionId: string, confidence: number) => ({
       ref: { conditionId },

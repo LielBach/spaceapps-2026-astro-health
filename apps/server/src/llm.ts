@@ -130,7 +130,7 @@ Rules:
 - Diagnoses must be catalog conditions (conditionId). Use an uncatalogued diagnosis (conditionId null, uncataloguedName set, noCatalogMatch true) only when no catalog condition can explain the evidence. An uncatalogued diagnosis can only lead to questions, tests or escalation.
 - Cite evidence only with event log line IDs that appear in the EVENT LOG.
 - Confidence is your probability estimate from 0 to 1. Be calibrated: passive wearable data alone is weak evidence.
-- Write question wording for the astronaut: one short, plain sentence.`;
+- Write question wording for the astronaut: one short, plain sentence. Keep the question kind: a yesNo question must be answerable with yes or no; a choice question must fit its listed options; a text question asks for an answer in the astronaut's own words.`;
 
 function catalogText(catalog: Catalog): string {
   return JSON.stringify({
@@ -144,7 +144,15 @@ function catalogText(catalog: Catalog): string {
       tests: c.tests,
       actions: c.actions,
     })),
-    questions: catalog.questions.map((q) => ({ id: q.id, text: q.text, yes: q.yes, no: q.no })),
+    questions: catalog.questions.map((q) => ({
+      id: q.id,
+      text: q.text,
+      kind: q.kind ?? "yesNo",
+      yes: q.yes,
+      no: q.no,
+      options: q.options,
+      keywords: q.keywords,
+    })),
     tests: catalog.tests.map((t) => ({
       id: t.id,
       name: t.name,

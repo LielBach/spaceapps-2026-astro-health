@@ -68,8 +68,8 @@ spikes:
 answers:
   default: "no"
   byQuestion:
-    q-fatigue: "yes — mild new fatigue after exercise"
-    q-fluid-intake: "lower than usual"
+    q-fatigue: "Mild new fatigue after exercise, harder to finish the session"
+    q-fluid-intake: "Less than usual"
 # Scripted results of active tests, keyed by test ID, then by measure ID (catalog/measures.yaml).
 testResults:
   t-repeat-rest-hr: { resting-hr: 67 }
