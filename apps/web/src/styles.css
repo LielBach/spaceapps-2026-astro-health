@@ -1004,18 +1004,14 @@ a.code:hover {
   padding: 0;
   font-size: 12px;
 }
-/* The panels a beat is about stay bright; the rest dim. */
+/* The panels a beat is about get an outline. Nothing dims: the whole app stays readable. */
 .layout[data-focus] :is(.tablet, .cmo, .charts, .log) {
-  transition:
-    opacity 0.3s,
-    box-shadow 0.3s;
-  opacity: 0.45;
+  transition: box-shadow 0.3s;
 }
 .layout[data-focus~="tablet"] .tablet,
 .layout[data-focus~="review"] .cmo,
 .layout[data-focus~="charts"] .charts,
 .layout[data-focus~="log"] .log {
-  opacity: 1;
   box-shadow: 0 0 0 2px var(--accent);
   border-radius: 8px;
 }
