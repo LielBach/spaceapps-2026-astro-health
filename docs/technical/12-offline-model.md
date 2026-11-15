@@ -2,7 +2,7 @@
 
 This doc specifies how ORBIVIT runs its clinical reasoner with no link to Earth, and how we decide whether an offline model is good enough. The decisions are in [ADR 0004](../adr/0004-offline-model-is-milestone-2.md). The research behind them is in [11-offline-medical-ai-landscape.md](11-offline-medical-ai-landscape.md). Terms follow [GLOSSARY.md](../../GLOSSARY.md).
 
-**Status:** built; model runs in progress. §6 holds the results.
+**Status:** built and measured with MedGemma 4B (§6). MedGemma 27B is not measured: its download did not finish before the pitch.
 
 ## 1. What changes
 
@@ -69,12 +69,17 @@ Machine: MacBook Pro, Apple M4 Pro, 48 GB, Ollama 0.40.16, 4-bit models, context
 | Model | main-base | main-fever | main-chest-pain | secondary (report) | Median s/call | p90 s | Event min | Model steps | Rejected | Gate |
 |---|---|---|---|---|---|---|---|---|---|---|
 | Claude `claude-opus-5-5`, online reference (effort medium) | 2/3 | 1/2 | – | – | 10.0 | 12.5 | 3.1–6.2 | 153/153 | 0 | reference |
+| **MedGemma 4B** `medgemma:4b`, offline (constrained schema) | **3/3** | 1/2 | 1/1 | – | 7.2 | 8.9 | 2.3–2.9 | 177/177 | 0 | PASS on main-base and chest pain; main-fever 1/2 (short run) |
 | rule-based fallback (floor) | 0/1 | 0/1 | 1/1 | 0/1 | – | – | 0 | – | 0 | FAIL (no ranking; never asks about fever) |
 
 Notes on the reference rows (2026-11-15):
 - **Claude, main-base:** the failed run escalated the first event to the crew medical officer instead of recommending the countermeasure review. The deviation then opened a second event (day 126), where Claude acted and the event resolved. That is safe, but it is not the demo outcome, so the run fails.
 - **Claude, main-fever:** in the failed run Claude never asked about fever, so the live answer had no effect. Asking about infection symptoms is step 4 of the demo workflow.
 - **Fallback:** it fails `main-base` only on the ranking. It lists `cv-deconditioning` as `differential` because it does not rank (ADR 0010). Its steps and its action are correct.
+- **MedGemma 4B, first run (before the constrained schema):** 0 of 15 steps by the model; all 23 proposals rejected (citations of findings that were not present; non-safety questions before the red-flag questions). With the constrained schema: 0 rejections in 6 runs.
+- **MedGemma 4B, main-base:** every run ranked `cv-deconditioning` first (provisional), did the exercise test and the ECG, took the countermeasure review, and the event resolved. It also asks for tests the demo does not need (for example the dosimeter), so an event takes about 24 calls.
+- **MedGemma 4B, main-fever:** the failed run asked about fever but took the action before the temperature test. It did the same as Claude's failed run: safe, but not the demo outcome.
+- **Network:** no request left the machine in any MedGemma run (network guard).
 - Because of the pitch deadline, the reference uses 3 + 2 runs, not the 10 + 5 of the gate.
 
 ## 7. Limits
