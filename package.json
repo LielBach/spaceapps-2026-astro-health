@@ -18,6 +18,7 @@
     "check:sources": "tsx scripts/check-sources.ts",
     "data:fetch": "tsx scripts/fetch-raw.ts",
     "data:build": "tsx scripts/build-anchors.ts",
+    "record:demos": "tsx scripts/record-demos.ts",
     "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test && pnpm check:sources"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
     "@types/node": "22.15.34",
     "eslint": "9.30.0",
     "globals": "16.3.0",
+    "playwright-core": "^1.65.1",
     "prettier": "3.6.2",
     "tsx": "4.20.3",
     "typescript": "5.8.3",
