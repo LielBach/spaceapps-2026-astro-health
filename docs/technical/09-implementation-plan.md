@@ -213,5 +213,13 @@ Each task ends with tests passing and a PR (CLAUDE.md git workflow).
 - **Deadline and team:** the hackathon date and who owns which milestone are not in the docs yet. Section 7 is ordered but not dated.
 - **Catalog:** which 10–15 conditions, and who reviews each entry.
 - **Uncatalogued threshold:** the confidence level below which uncatalogued mode is allowed (tune on the scenarios).
-- **To verify before the UI shows them:** Alex's flight (STS-40 or STS-58, Shykoff 1996); the Astroskin signal list; i-STAT and SLAMMD on the ISS; an HRP source for every threshold; the expected in-flight band per mission day for each signal.
+- **Verified in M1f:**
+  - Alex's flight: the open data does not say whether subject 1 flew STS-40 or STS-58 (three subjects each). The UI says so instead of naming one.
+  - SLAMMD on the ISS (NASA ISS Daily Summary 07/16/14) and the i-STAT in the ISS vascular contingency kit (NASA/SP-20250001074).
+  - The VTE risk score page (OCHMO) exists.
+  - The Demo 1 surveillance interval: NASA screens IJV flow at L+30 and L+60 days (NASA/SP-20250001074).
+- **Still open:**
+  - Clinical review of the condition catalog and the ultrasound checklist (`catalog-draft`).
+  - Alert bands, persistence and the baseline window are design parameters, labeled `illustrative` in the UI. No HRP source gives a per-day in-flight band for wearable signals.
+  - The Astroskin signal list is not shown in the UI, so it is not verified.
 - **Charts library:** Recharts is the default; change only if it cannot draw the bands.

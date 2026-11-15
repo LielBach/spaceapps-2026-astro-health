@@ -71,12 +71,13 @@ equipment:
           rules: [{ field: hr, op: gt, value: 135, finding: f-exercise-hr-up-confirmed }],
         }
   - id: mass-device
-    name: "Body mass measurement device (SLAMMD-type, verify)"
+    name: "Body mass measurement device (SLAMMD on the ISS)"
     consumable: false
     tests:
       - {
           id: t-body-mass,
           name: "Body mass",
+          sourceIds: [nasa-iss-slammd],
           rules: [{ field: changeKg, op: lt, value: -1.5, finding: f-body-mass-down }],
         }
   - id: urine-chart
@@ -89,12 +90,13 @@ equipment:
           rules: [{ field: scale, op: gt, value: 5, finding: f-urine-dark }],
         }
   - id: istat
-    name: "Handheld blood analyzer, i-STAT-type (verify)"
+    name: "Handheld blood analyzer (i-STAT, in the ISS vascular contingency kit)"
     consumable: true
     tests:
       - {
           id: t-istat-chem8,
           name: "Fingerstick chemistry and hematocrit cartridge",
+          sourceIds: [nasa-vte-sp-2025],
           rules:
             [
               { field: sodium, op: gt, value: 145, finding: f-sodium-high },

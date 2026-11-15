@@ -52,20 +52,30 @@ export function EventLog({ view }: { view: SessionView }) {
           <tbody>
             {lines.map((l) => (
               <tr key={l.id} id={l.id} className={`step-${l.stepType}`}>
-                <td className="muted">{l.id.split("-").at(-1)}</td>
-                <td className="muted">day {l.missionDay.toFixed(2)}</td>
+                <td className="muted nowrap">
+                  {l.id.split("-").at(-1)}
+                  <br />
+                  day {l.missionDay.toFixed(2)}
+                </td>
                 <td>
                   <span className="step">{l.stepType}</span>
                 </td>
-                <td>{summary(l)}</td>
+                <td>
+                  {summary(l)}
+                  {(l.conditionId ?? l.llm) && (
+                    <div className="muted small">
+                      {l.conditionId ?? ""}
+                      {l.conditionId && l.llm ? " · " : ""}
+                      {l.llm
+                        ? l.llm.provider === "none"
+                          ? "no LLM"
+                          : `${l.llm.provider} ${l.llm.model ?? ""}`
+                        : ""}
+                    </div>
+                  )}
+                </td>
                 <td>
                   <Label kind={l.label} />
-                </td>
-                <td className="muted small">
-                  {l.conditionId ?? ""}{" "}
-                  {l.llm
-                    ? `· ${l.llm.provider === "none" ? "no LLM" : `${l.llm.provider} ${l.llm.model ?? ""}`}`
-                    : ""}
                 </td>
               </tr>
             ))}

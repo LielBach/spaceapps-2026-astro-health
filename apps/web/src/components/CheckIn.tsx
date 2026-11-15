@@ -198,6 +198,7 @@ export function CheckIn({ view, event }: { view: SessionView; event: EventView |
           <p className="question">
             Please run:{" "}
             <strong>{catalog.tests.find((t) => t.id === next.id)?.name ?? next.id}</strong>
+            {!spec(next.id)?.form && spec(next.id)?.sourceIds?.map((s) => <Src key={s} id={s} />)}
           </p>
           {spec(next.id)?.form ? (
             <StructuredFinding

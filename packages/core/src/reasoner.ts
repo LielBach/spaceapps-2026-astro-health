@@ -22,7 +22,13 @@ export function ruleBasedProposal(inv: Investigation): Proposal {
     confidence: Math.round(scoreCondition(c, present) * 100) / 100,
     evidenceFor: evidence(c.supports),
     evidenceAgainst: evidence(c.against),
-    confirmingTest: c.tests[0],
+    // The confirming test is the first one whose result can support the condition.
+    confirmingTest:
+      c.tests.find((id) =>
+        inv.catalog.tests
+          .find((t) => t.id === id)
+          ?.rules.some((r) => c.supports.includes(r.finding)),
+      ) ?? c.tests[0],
   }));
   const allowed = inv.allowedSteps();
   const first = (kind: NextStep["kind"]) => allowed.find((s) => s.kind === kind);

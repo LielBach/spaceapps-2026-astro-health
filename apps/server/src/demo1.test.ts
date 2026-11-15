@@ -24,7 +24,7 @@ function variant(change: (yaml: string) => string): ReplaySession {
 
 describe("Demo 1 replay with the no-LLM fallback", async () => {
   const session = new ReplaySession(scenarioPaths("demo1-ijv-thrombosis", runs));
-  await play(session, 60);
+  await play(session, 75);
   const view = session.view();
   const event = view.events[0]!;
   const trigger = event.log[0]!;
@@ -32,10 +32,10 @@ describe("Demo 1 replay with the no-LLM fallback", async () => {
   it("opens one surveillance event, brought forward by the sleeping heart-rate watch", () => {
     expect(view.events).toHaveLength(1);
     expect(event.trigger).toBe("surveillance");
-    expect(event.openedAt).toBeGreaterThan(20);
-    expect(event.openedAt).toBeLessThan(28);
+    expect(event.openedAt).toBeGreaterThan(40);
+    expect(event.openedAt).toBeLessThan(47);
     expect(trigger.data.findings).toEqual(["f-prior-ijv-flow-abnormal", "f-sleeping-hr-up"]);
-    expect(trigger.data.surveillance).toMatchObject({ dueDay: 40, early: true });
+    expect(trigger.data.surveillance).toMatchObject({ dueDay: 60, early: true });
     expect(view.markers.some((m) => m.kind === "surveillance")).toBe(true);
   });
 
@@ -74,17 +74,17 @@ describe("Demo 1 branches", () => {
     const session = variant((y) =>
       y.replace(/\ndrifts:[\s\S]*?\nspikes:/, "\ndrifts: []\nspikes:"),
     );
-    await play(session, 45);
+    await play(session, 65);
     const event = session.view().events[0]!;
     expect(event.trigger).toBe("surveillance");
-    expect(event.openedAt).toBe(40);
+    expect(event.openedAt).toBe(60);
     expect(event.log[0]!.data.findings).toEqual(["f-prior-ijv-flow-abnormal"]);
   });
 
   it("escalates at once when the astronaut reports new shortness of breath", async () => {
     const session = new ReplaySession(scenarioPaths("demo1-ijv-thrombosis", runs));
     session.override("q-dyspnea", "yes");
-    await play(session, 30);
+    await play(session, 50);
     const event = session.view().events[0]!;
     expect(event.outcome).toBe("escalated");
     expect(event.log.at(-1)?.data.reason).toMatch(/red flag/);

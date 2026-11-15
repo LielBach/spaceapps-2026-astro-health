@@ -22,10 +22,12 @@ actions:
     text: "Escalate to the crew medical officer and the ground: suspected IJV thrombosis. Start the mission-approved thrombosis evaluation pathway and schedule a repeat ultrasound. Anticoagulation needs authorized medical oversight."
     escalates: true
 followUpDays: 30
-# Demo 1 step 1: a prior abnormal IJV flow finding schedules a repeat ultrasound (interval illustrative).
+# Demo 1 step 1: an abnormal IJV flow finding at the L+30 screening keeps the L+60 screening on
+# schedule (NASA/SP-20250001074: in-flight screening at L+30 and L+60 days). Bringing it forward
+# on a silent watch is AstroHealth's design (earlyOnWatch).
 surveillance:
   recordFinding: f-prior-ijv-flow-abnormal
   repeatWithinDays: 30
   earlyOnWatch: true
-  sourceId: illustrative
-sourceIds: [nasa-hrp-risks, nasa-vte-risk-score, catalog-draft]
+  sourceId: nasa-vte-sp-2025
+sourceIds: [nasa-hrp-risks, nasa-vte-risk-score, nasa-vte-sp-2025, catalog-draft]
