@@ -29,7 +29,25 @@ const Equipment = z.object({
       id: z.string(),
       name: z.string(),
       consumable: z.boolean(),
-      tests: z.array(z.object({ id: z.string(), name: z.string(), rules: z.array(Rule) })),
+      tests: z.array(
+        z.object({
+          id: z.string(),
+          name: z.string(),
+          rules: z.array(Rule),
+          checklist: z.array(z.string()).optional(),
+          form: z
+            .array(
+              z.object({
+                field: z.string(),
+                label: z.string(),
+                kind: z.enum(["boolean", "select"]),
+                options: z.array(z.object({ value: z.number(), label: z.string() })).optional(),
+              }),
+            )
+            .optional(),
+          sourceIds: z.array(z.string()).optional(),
+        }),
+      ),
     }),
   ),
 });
@@ -48,8 +66,18 @@ const Condition = z.object({
   against: z.array(z.string()),
   questions: z.array(z.string()),
   tests: z.array(z.string()),
-  actions: z.array(z.object({ id: z.string(), text: z.string() })).min(1),
+  actions: z
+    .array(z.object({ id: z.string(), text: z.string(), escalates: z.boolean().optional() }))
+    .min(1),
   followUpDays: z.number().positive(),
+  surveillance: z
+    .object({
+      recordFinding: z.string(),
+      repeatWithinDays: z.number().positive(),
+      earlyOnWatch: z.boolean(),
+      sourceId: z.string(),
+    })
+    .optional(),
   sourceIds: z.array(z.string()).min(1),
 });
 
@@ -105,6 +133,10 @@ export function validateCatalog(catalog: Catalog): string[] {
     for (const q of c.questions)
       if (!questionIds.has(q)) problems.push(`${c.id}: unknown question ${q}`);
     for (const t of c.tests) if (!testIds.has(t)) problems.push(`${c.id}: unknown test ${t}`);
+    if (c.surveillance && !c.supports.includes(c.surveillance.recordFinding))
+      problems.push(
+        `${c.id}: surveillance finding ${c.surveillance.recordFinding} is not in supports`,
+      );
   }
   for (const r of catalog.redFlags)
     if (!findings.has(r.finding)) problems.push(`red flag: unknown finding ${r.finding}`);

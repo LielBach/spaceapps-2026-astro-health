@@ -113,16 +113,36 @@ equipment:
           name: "Kidney ultrasound (structured finding)",
           rules: [{ field: hydronephrosis, op: eq, value: true, finding: f-hydronephrosis }],
         }
-      - {
-          id: t-ultrasound-ijv,
-          name: "Internal jugular vein ultrasound (structured finding)",
-          rules:
-            [
-              { field: thrombus, op: eq, value: true, finding: f-ijv-thrombus },
-              { field: flowGrade, op: gt, value: 2, finding: f-ijv-flow-abnormal },
-              { field: thrombus, op: eq, value: false, finding: f-ijv-no-thrombus },
-            ],
-        }
+      # Flow grades 1–4 from Marshall-Goebel 2019, Figure 3A. The checklist is a draft (verify).
+      - id: t-ultrasound-ijv
+        name: "Internal jugular vein ultrasound (structured finding)"
+        sourceIds: [marshall-goebel-2019, catalog-draft]
+        checklist:
+          - "Trained crew member operates; remote guidance from the ground if the link allows."
+          - "Astronaut restrained supine, head neutral. Linear probe on the left side of the neck."
+          - "Transverse view of the left IJV at mid-neck, next to the carotid artery."
+          - "Compress gently with the probe: a normal vein collapses completely."
+          - "Longitudinal view: pulsed-wave Doppler, record the flow velocity waveform."
+          - "Look for echogenic material in the vein. Save the images."
+          - "Repeat on the right IJV. Enter the structured finding for the left IJV."
+        form:
+          - { field: flowDetected, label: "Doppler flow detected", kind: boolean }
+          - field: flowGrade
+            label: "Flow grade (if flow is detected)"
+            kind: select
+            options:
+              - { value: 1, label: "1 — continuous" }
+              - { value: 2, label: "2 — pulsatile" }
+              - { value: 3, label: "3 — stagnant" }
+              - { value: 4, label: "4 — retrograde" }
+          - { field: compressible, label: "Vein fully compressible", kind: boolean }
+          - { field: thrombus, label: "Thrombus seen", kind: boolean }
+        rules:
+          - { field: thrombus, op: eq, value: true, finding: f-ijv-thrombus }
+          - { field: flowGrade, op: gt, value: 2, finding: f-ijv-flow-abnormal }
+          - { field: flowDetected, op: eq, value: false, finding: f-ijv-flow-abnormal }
+          - { field: compressible, op: eq, value: false, finding: f-ijv-noncompressible }
+          - { field: thrombus, op: eq, value: false, finding: f-ijv-no-thrombus }
   - id: cognition
     name: "Tablet tests (reaction time, vision check)"
     consumable: false

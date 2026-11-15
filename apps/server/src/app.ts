@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyInstance } from "fastify";
 import { ReplaySession, type ReasonerSetup, type SessionPaths } from "./session.ts";
@@ -142,9 +142,24 @@ export function buildApp(
     },
   );
 
-  app.post<{ Body: { eventId: string; testId: string } }>("/api/test", async (request) => {
-    await session.runTest(request.body.eventId, request.body.testId);
+  app.post<{
+    Body: { eventId: string; testId: string; values?: Record<string, number | string | boolean> };
+  }>("/api/test", async (request) => {
+    const { eventId, testId, values } = request.body;
+    await session.runTest(eventId, testId, values);
     return { ok: true };
+  });
+
+  // CC-BY reference images (data/reference/ATTRIBUTION.md). Only plain .jpg names are served.
+  app.get<{ Params: { file: string } }>("/api/reference/:file", async (request, reply) => {
+    const { file } = request.params;
+    if (!/^[a-z0-9-]+\.jpg$/.test(file)) return reply.code(404).send();
+    try {
+      const body = readFileSync(repo(`data/reference/${file}`));
+      return reply.type("image/jpeg").header("cache-control", "max-age=3600").send(body);
+    } catch {
+      return reply.code(404).send();
+    }
   });
 
   app.post<{ Body: { eventId: string } }>("/api/approve", async (request) => {

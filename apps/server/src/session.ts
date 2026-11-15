@@ -7,8 +7,10 @@ import {
   Detector,
   Investigation,
   ruleBasedProposal,
+  type Anchor,
   type Catalog,
   type DetectionOutput,
+  type MetricId,
   type LlmInfo,
   type Proposal,
   type ChartPoint,
@@ -22,10 +24,13 @@ import {
   loadScenario,
   type Intervention,
   type Scenario,
+  type ScenarioMedia,
   type Stream,
 } from "@astrohealth/data";
 
-export const RULE_VERSION = "m1c-0.1";
+export const RULE_VERSION = "m1e-0.1";
+
+const round1 = (x: number) => Math.round(x * 10) / 10;
 
 /** Proposes the next step. Returns undefined to use the no-LLM fallback. */
 export type Reasoner = (
@@ -36,6 +41,18 @@ export type Reasoner = (
 export interface ReasonerSetup {
   reasoner: Reasoner;
   info: LlmInfo;
+}
+
+/** A reassessment that a record finding schedules (plan §5.3 step 6). */
+interface Surveillance {
+  conditionId: string;
+  recordEntry: string;
+  recordDay: number;
+  finding: string;
+  dueDay: number;
+  earlyOnWatch: boolean;
+  sourceId: string;
+  openedAt: number | undefined;
 }
 
 export interface SessionPaths {
@@ -67,6 +84,8 @@ export class ReplaySession {
   private readonly events: Investigation[] = [];
   private readonly interventions: Intervention[] = [];
   private readonly cleared = new Set<string>();
+  private readonly anchors: Anchor[];
+  private readonly surveillance: Surveillance[];
   private written = new Map<string, number>();
   private busy = false;
   private readonly listeners = new Set<() => void>();
@@ -81,9 +100,21 @@ export class ReplaySession {
     this.sources = (
       JSON.parse(readFileSync(paths.sources, "utf8")) as { sources: SessionView["sources"] }
     ).sources;
-    this.stream = createStream(
-      this.scenario,
-      loadAnchors(paths.anchors, this.scenario.astronaut.anchorSources),
+    this.anchors = loadAnchors(paths.anchors, this.scenario.astronaut.anchorSources);
+    this.stream = createStream(this.scenario, this.anchors);
+    this.surveillance = this.scenario.record.flatMap((entry) =>
+      this.catalog.conditions
+        .filter((c) => c.surveillance && c.surveillance.recordFinding === entry.finding)
+        .map((c) => ({
+          conditionId: c.id,
+          recordEntry: entry.id,
+          recordDay: entry.day,
+          finding: entry.finding ?? "",
+          dueDay: entry.day + (c.surveillance?.repeatWithinDays ?? 0),
+          earlyOnWatch: c.surveillance?.earlyOnWatch ?? false,
+          sourceId: c.surveillance?.sourceId ?? "illustrative",
+          openedAt: undefined,
+        })),
     );
     const start = this.scenario.mission.replayFromDay;
     // The frozen baseline uses the 30 days before the replay starts (Q19).
@@ -144,7 +175,10 @@ export class ReplaySession {
       const newDay = Math.floor(to + 1e-9) > Math.floor(from + 1e-9);
       from = to;
       this.day = to;
-      if (newDay) this.followUp();
+      if (newDay) {
+        this.followUp();
+        await this.surveil(to);
+      }
     }
     if (this.day >= this.scenario.mission.lengthDays) this.playing = false;
     this.emit();
@@ -159,12 +193,17 @@ export class ReplaySession {
     await this.next(inv);
   }
 
-  async runTest(eventId: string, testId: string): Promise<void> {
+  /** Records a test result: the scripted one, or values the operator entered (structured finding). */
+  async runTest(
+    eventId: string,
+    testId: string,
+    values?: Record<string, number | string | boolean>,
+  ): Promise<void> {
     const inv = this.event(eventId);
     if (inv.pending?.kind !== "test" || inv.pending.id !== testId)
       throw new Error(`no pending test ${testId}`);
     inv.setTime(this.day);
-    inv.result(testId, this.scenario.testResults[testId] ?? {});
+    inv.result(testId, values ?? this.scenario.testResults[testId] ?? {});
     await this.next(inv);
   }
 
@@ -177,6 +216,8 @@ export class ReplaySession {
     this.interventions.push({ action: taken.actionId, day: this.day });
     this.cleared.clear();
     this.markers.push({ t: this.day, kind: "action", text: taken.actionId });
+    if (inv.phase === "closed")
+      this.detector.setEventOpen(this.events.some((e) => e.phase !== "closed"));
     // Follow-up runs over weeks: return to the normal replay speed.
     this.speed = Math.max(this.speed, 10);
     this.flush();
@@ -259,7 +300,91 @@ export class ReplaySession {
       scripted: { answers: this.scenario.answers, testResults: this.scenario.testResults },
       catalog: this.catalog,
       sources: this.sources,
+      record: {
+        entries: this.scenario.record.map((e) => ({
+          ...e,
+          image: e.image ? media(e.image) : undefined,
+        })),
+        labs: this.labs(),
+      },
+      surveillance: this.surveillance.map((s) => ({
+        conditionId: s.conditionId,
+        recordEntry: s.recordEntry,
+        dueDay: s.dueDay,
+        openedAt: s.openedAt,
+        sourceId: s.sourceId,
+      })),
+      charts: this.scenario.charts as MetricId[] | undefined,
+      hrBaselineSourceId: this.scenario.stream.baselines.hr?.sourceId,
+      testImages: Object.fromEntries(
+        Object.entries(this.scenario.testImages).map(([id, m]) => [id, media(m)]),
+      ),
     };
+  }
+
+  /** Real lab values of the astronaut at the scenario's timepoint, in the scenario's order. */
+  private labs(): SessionView["record"]["labs"] {
+    const spec = this.scenario.labs;
+    if (!spec) return [];
+    return spec.measures.flatMap((measure) => {
+      const a = this.anchors.find(
+        (x) =>
+          x.astronautId === this.scenario.astronaut.id &&
+          x.measure === measure &&
+          x.condition === spec.timepoint,
+      );
+      return a
+        ? [
+            {
+              measure,
+              value: a.value,
+              unit: a.unit,
+              timepoint: a.condition,
+              range: a.range,
+              label: a.label,
+              sourceId: a.sourceId,
+            },
+          ]
+        : [];
+    });
+  }
+
+  /**
+   * Surveillance trigger: opens the scheduled reassessment when it is due, or earlier when a
+   * silent watch fires after the record finding (risk-adaptive, Demo 1 step 6B).
+   */
+  private async surveil(t: number, watchFinding?: string): Promise<void> {
+    for (const s of this.surveillance) {
+      if (s.openedAt !== undefined || t < s.recordDay || this.active) continue;
+      const early = watchFinding !== undefined && s.earlyOnWatch && t < s.dueDay;
+      if (!early && t < s.dueDay) continue;
+      s.openedAt = t;
+      const findings: { id: string; origin: "signal" | "record" }[] = [
+        { id: s.finding, origin: "record" },
+      ];
+      if (early && watchFinding) findings.push({ id: watchFinding, origin: "signal" });
+      const daysEarly = round1(s.dueDay - t);
+      this.markers.push({
+        t,
+        kind: "surveillance",
+        text: early
+          ? `surveillance trigger: reassessment brought forward ${daysEarly} days (${watchFinding})`
+          : "surveillance trigger: scheduled reassessment due",
+      });
+      const inv = this.open("surveillance", t, findings, {
+        surveillance: {
+          conditionId: s.conditionId,
+          recordEntry: s.recordEntry,
+          dueDay: s.dueDay,
+          early,
+          daysEarly: early ? daysEarly : 0,
+          sourceId: s.sourceId,
+        },
+      });
+      this.speed = Math.min(this.speed, 2);
+      await this.next(inv);
+      return;
+    }
   }
 
   // ---------- Internals ----------
@@ -291,6 +416,7 @@ export class ReplaySession {
           text: `silent watch: ${out.finding}`,
           metric: out.metric,
         });
+        await this.surveil(out.t, out.finding);
         return;
       case "cleared":
         this.cleared.add(out.finding);
@@ -341,6 +467,7 @@ export class ReplaySession {
     trigger: "passive" | "urgent" | "surveillance",
     t: number,
     findings: { id: string; origin: "signal" | "record"; context?: boolean }[],
+    triggerData?: Record<string, unknown>,
   ): Investigation {
     const inv = new Investigation(this.catalog, {
       eventId: `evt-${String(this.events.length + 1).padStart(3, "0")}`,
@@ -349,6 +476,7 @@ export class ReplaySession {
       t,
       ruleVersion: RULE_VERSION,
       findings,
+      triggerData,
       now: () => this.now().toISOString(),
     });
     this.events.push(inv);
@@ -423,4 +551,13 @@ export class ReplaySession {
   private emit(): void {
     for (const listener of this.listeners) listener();
   }
+}
+
+function media(m: ScenarioMedia): SessionView["testImages"][string] {
+  return {
+    url: `/api/reference/${m.file}`,
+    caption: m.caption,
+    label: m.label,
+    sourceId: m.sourceId,
+  };
 }

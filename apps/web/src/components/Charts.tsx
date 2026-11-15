@@ -46,7 +46,7 @@ function EventLines({ view }: { view: SessionView }) {
   return (
     <>
       {view.markers
-        .filter((m) => m.kind === "open" || m.kind === "action" || m.kind === "urgent")
+        .filter((m) => ["open", "surveillance", "action", "urgent"].includes(m.kind))
         .map((m) => (
           <ReferenceLine
             key={`${m.kind}-${m.t}`}
@@ -57,7 +57,7 @@ function EventLines({ view }: { view: SessionView }) {
               value: m.kind === "action" ? "action" : "event",
               fill: "var(--muted)",
               fontSize: 10,
-              position: "top",
+              position: "insideTopLeft",
             }}
           />
         ))}
@@ -69,8 +69,13 @@ function EventLines({ view }: { view: SessionView }) {
             <ReferenceLine
               key={`close-${e.id}`}
               x={close}
-              stroke="var(--good)"
-              label={{ value: e.outcome ?? "", fill: "var(--good)", fontSize: 10, position: "top" }}
+              stroke={e.outcome === "escalated" ? "var(--bad)" : "var(--good)"}
+              label={{
+                value: e.outcome ?? "",
+                fill: e.outcome === "escalated" ? "var(--bad)" : "var(--good)",
+                fontSize: 10,
+                position: "insideBottomRight",
+              }}
             />
           );
         })}
@@ -191,13 +196,19 @@ export function HeartRateChart({ view }: { view: SessionView }) {
           Heart rate, hourly (last 14 days) <Label kind="SIMULATED" />
         </span>
         <span className="chart-value">
-          <small>
-            seeded from the real in-flight resting HR of {view.astronaut.displayName}{" "}
-            <Label kind="REAL" />
-            {view.astronaut.anchorSources.map((s) => (
-              <Src key={s} id={s} />
-            ))}
-          </small>
+          {view.hrBaselineSourceId &&
+          view.astronaut.anchorSources.includes(view.hrBaselineSourceId) ? (
+            <small>
+              seeded from the real in-flight resting HR of {view.astronaut.displayName}{" "}
+              <Label kind="REAL" />
+              <Src id={view.hrBaselineSourceId} />
+            </small>
+          ) : (
+            <small>
+              seeded from an example resting HR{" "}
+              <Src id={view.hrBaselineSourceId ?? "illustrative"} />
+            </small>
+          )}
         </span>
       </div>
       <ResponsiveContainer width="100%" height={150}>
@@ -260,7 +271,7 @@ export function HeartRateChart({ view }: { view: SessionView }) {
 export function Charts({ view }: { view: SessionView }) {
   return (
     <section className="charts">
-      {METRICS.map((m) => (
+      {METRICS.filter((m) => !view.charts || view.charts.includes(m.id)).map((m) => (
         <MetricChart key={m.id} view={view} metric={m} />
       ))}
       <HeartRateChart view={view} />

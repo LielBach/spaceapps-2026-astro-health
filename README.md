@@ -56,4 +56,4 @@ Layout and plan: [docs/technical/09-implementation-plan.md](docs/technical/09-im
 - [x] Detection and investigation engines with guardrails and the no-LLM fallback (M1b)
 - [x] Replay server, event log and web UI: Demo 2 runs end to end (M1c)
 - [x] Online clinical reasoner via the AI SDK, with guardrail retry and fallback (M1d)
-- [ ] Demo 1, IJV thrombosis (M1e)
+- [x] Demo 1, IJV thrombosis: surveillance trigger, imported record, ultrasound structured finding, CC-BY scans (M1e)

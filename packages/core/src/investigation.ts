@@ -67,6 +67,8 @@ export interface InvestigationOptions {
   findings: { id: string; origin: FindingOrigin; context?: boolean }[];
   /** Clock for log timestamps (injected so tests stay deterministic). */
   now: () => string;
+  /** Extra data for the trigger line, for example the surveillance rule that fired. */
+  triggerData?: Record<string, unknown> | undefined;
 }
 
 /** Fallback score: share of a condition's supporting findings present, minus findings against. */
@@ -116,6 +118,7 @@ export class Investigation {
     const line = this.write("trigger", {
       trigger: opts.trigger,
       findings: opts.findings.map((f) => f.id),
+      ...opts.triggerData,
     });
     for (const f of opts.findings) this.addFinding(f.id, f.origin, line.id);
   }
@@ -367,12 +370,31 @@ export class Investigation {
     this.checkRedFlags();
   }
 
-  /** The astronaut carries out the recommended action; follow-up starts. */
+  /**
+   * The crew medical officer approves the recommended action. Follow-up starts, or, for an
+   * escalating action, the event goes to the crew medical officer and the ground.
+   */
   act(): { conditionId: string; actionId: string } | undefined {
     const next = this.pending;
     if (!next || next.kind !== "action") return undefined;
     const c = this.condition(next.conditionId);
     this.actionTaken = { conditionId: next.conditionId, actionId: next.actionId };
+    const action = c?.actions.find((a) => a.id === next.actionId);
+    if (action?.escalates) {
+      this.pending = undefined;
+      this.write(
+        "escalate",
+        {
+          reason: `suspected: ${c?.name ?? next.conditionId}`,
+          action: action.id,
+          text: action.text,
+        },
+        { conditionId: next.conditionId, stepId: action.id },
+      );
+      this.phase = "closed";
+      this.outcome = "escalated";
+      return this.actionTaken;
+    }
     this.phase = "followUp";
     this.followUpUntil = this.t + (c?.followUpDays ?? 7);
     this.write(

@@ -30,6 +30,30 @@ const Spike = z.object({
   note: z.string(),
 });
 
+const Label = z.enum(["REAL", "SIMULATED", "REFERENCE"]);
+
+/** An image shown with its own credit (ADR 0009). Files live in data/reference/. */
+const Media = z.object({
+  file: z.string().regex(/^[a-z0-9-]+\.jpg$/),
+  caption: z.string(),
+  label: Label,
+  sourceId: z.string(),
+});
+
+/** An entry of the imported medical record (Demo 1 step 1). */
+const RecordEntry = z.object({
+  id: z.string(),
+  day: z.number(),
+  kind: z.enum(["imaging", "note"]),
+  title: z.string(),
+  text: z.string(),
+  label: Label,
+  sourceId: z.string(),
+  /** A finding for the investigation engine, for example a prior abnormal flow finding. */
+  finding: z.string().optional(),
+  image: Media.optional(),
+});
+
 export const ScenarioSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -66,6 +90,14 @@ export const ScenarioSchema = z.object({
   }),
   drifts: z.array(Drift),
   spikes: z.array(Spike),
+  /** Imported medical record. Entries before the replay start are on file when it starts. */
+  record: z.array(RecordEntry).default([]),
+  /** Real lab values from the astronaut's anchors, shown in the record view. */
+  labs: z.object({ timepoint: z.string(), measures: z.array(z.string()) }).optional(),
+  /** Metric charts to show; all when not set. */
+  charts: z.array(z.string()).optional(),
+  /** Images that go with a test result, keyed by test ID. */
+  testImages: z.record(z.string(), Media).default({}),
   /** Scripted answers, keyed by question ID. Unlisted questions get the default. */
   answers: z.object({ default: z.string(), byQuestion: z.record(z.string(), z.string()) }),
   /** Scripted results of active tests, keyed by test ID. */
@@ -76,6 +108,8 @@ export const ScenarioSchema = z.object({
 });
 
 export type Scenario = z.infer<typeof ScenarioSchema>;
+export type ScenarioRecordEntry = z.infer<typeof RecordEntry>;
+export type ScenarioMedia = z.infer<typeof Media>;
 
 export function loadScenario(path: string): Scenario {
   return ScenarioSchema.parse(parse(readFileSync(path, "utf8")));

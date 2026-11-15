@@ -60,3 +60,8 @@ questions:
   - { id: q-mood, text: "Have you felt low, anxious or irritable most days?", yes: [f-low-mood] }
   - { id: q-nausea, text: "Any nausea or vomiting?", yes: [f-nausea] }
   - { id: q-meds, text: "Any medication changes or new exposures?", yes: [f-med-change] }
+  - {
+      id: q-clotting-history,
+      text: "Have you had a blood clot before, or do you have a known clotting disorder?",
+      yes: [f-clotting-history],
+    }
