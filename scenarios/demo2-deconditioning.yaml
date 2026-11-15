@@ -29,7 +29,9 @@ stream:
         noiseSd: 2,
         sourceId: nlsp-178066,
       }
-    hrv: { value: 55, noiseSd: 6, sourceId: illustrative }
+    # HRV: the published in-flight group mean of 5-minute SDNN (SDNNIDX, Otsuka 2019, Table 2),
+    # not this astronaut's own value. The noise is illustrative.
+    hrv: { value: 63, noiseSd: 6, sourceId: otsuka-2019-hrv }
     respiratoryRate: { value: 14, noiseSd: 1, sourceId: illustrative }
     skinTemp: { value: 33.5, noiseSd: 0.2, sourceId: illustrative }
     spo2: { value: 98, noiseSd: 0.5, sourceId: illustrative }

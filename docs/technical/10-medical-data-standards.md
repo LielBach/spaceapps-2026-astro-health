@@ -44,7 +44,7 @@ The result: a value cannot be read without the app's source code, and nothing ca
 | Standard | Covers | Use | License |
 |---|---|---|---|
 | **LOINC**, https://loinc.org | Codes for observations: vital signs, labs, panels, imaging studies | **Map** every measure | Free, with registration. |
-| **SNOMED CT**, https://www.snomed.org | Clinical findings, disorders, qualifiers (`Present`, `Absent`) | **Map** findings and conditions | Free in member countries (for example, the US through the NLM UMLS license). Whether an open-source repo may store about 40 codes needs a check *(verify)*. |
+| **SNOMED CT**, https://www.snomed.org | Clinical findings, disorders, qualifiers (`Present`, `Absent`) | **Map** findings and conditions | Free in member countries (for example, the US through the NLM UMLS license). Storing, exchanging and displaying identifiers with their terms is permitted in all jurisdictions, also non-member countries ([SNOMED GPS guide](https://docs.snomed.org/implementation-guides/gps-implementation-guide/technical-application)). So the repo may hold its about 50 codes. The app must not use SNOMED CT hierarchies or subsumption without a license; it does not today. |
 | **ICD-10-CM**, https://www.cdc.gov/nchs/icd/icd-10-cm/ | Diagnosis classification for reporting | **Map** conditions, as a cross-reference only | Public domain (US). |
 | ICD-11 (WHO) | Current WHO classification | Reference | Better for an international crew. No ICD-11 codes are checked yet *(verify)*. |
 | **UCUM**, https://ucum.org | Machine-readable units | **Adopt** for every quantity | Free. |
@@ -75,7 +75,7 @@ These set what to measure and the limits. They do not define a data format.
 | Standard | What AstroHealth takes from it |
 |---|---|
 | NASA-STD-3001 Vol. 1 Rev. C (crew health) — already `nasa-std-3001-vol1-revc` | Medical care levels, fitness-for-duty and permissible exposure limits. Every limit shown needs its clause *(verify each clause before use)*. |
-| NASA-STD-3001 Vol. 2 (human factors, habitability, environment) | Environmental limits such as CO2 *(revision and clauses not yet checked: verify)*. |
+| NASA-STD-3001 Vol. 2 Rev. F (human factors, habitability, environment), approved 2026-07-14 — `nasa-std-3001-vol2-revf` | Environmental limits. [V2 6004]: the one-hour average ppCO2 in the habitable volume is no more than 3 mmHg. The cabin CO2 rule (`t-cabin-co2`) uses this limit. Rev F supersedes Rev E (2025-05-01). |
 | NASA HRP risks and evidence — `nasa-hrp-risks` | The hazard → risk mapping of every catalog condition. |
 | NASA OCHMO technical briefs | Plain-language summaries behind the HRP risks. |
 | NASA venous thrombosis guidance — `nasa-vte-sp-2025` | The L+30 IJV screening and the vascular contingency kit (Demo 1). |
@@ -90,7 +90,7 @@ AstroHealth is a hackathon demo. It claims compliance with none of these. The de
 |---|---|
 | IEC 60601-1-8 (alarm systems) | Alarm priorities: low, medium, high. §4.6 maps the silent watch, the check-in question and the urgent interrupt to these levels. |
 | IEC 62304 (software life cycle), ISO 14971 (risk management), IEC 62366-1 (usability) | Traceability: every rule and threshold carries a source and a rule version (already in the event log). |
-| FDA guidance on clinical decision support software (2022) | The user can see the basis of each suggestion, and the clinician decides. This matches ADR 0005 *(verify that the criteria apply before saying so in the pitch)*. |
+| FDA guidance on clinical decision support software (final, January 2026) — `fda-cds-2026` | The exclusion from the device definition needs all four criteria of FD&C Act 520(o)(1)(E). **AstroHealth does not meet Criterion 1:** it analyzes a pattern from a signal acquisition system (the continuous wearable stream). It also alerts the astronaut, not only a health care professional. So a marketed version would be device software. The pitch must not say "non-device CDS" or "FDA-exempt". It may say that the design follows Criterion 4: the crew medical officer can review the basis of each suggestion and decides (ADR 0005). |
 
 ## 3. Design rules
 
@@ -315,7 +315,7 @@ The bundle is a file: it can be saved during a comm blackout and sent later in o
 | `urea-nitrogen-bun` | 3094-0 Urea nitrogen [Mass/volume] in Serum or Plasma | mg/dL → `mg/dL` |
 | `creatinine` | 2160-0 Creatinine [Mass/volume] in Serum or Plasma | mg/dL → `mg/dL` |
 
-The i-STAT test (`t-istat-chem8`) measures whole blood. Its BUN uses 6299-2 Urea nitrogen [Mass/volume] in Blood, not 3094-0. The other i-STAT codes need the same check *(verify)*. The other analytes in the two source files are not shown. They keep their source names until the app uses them.
+The i-STAT test (`t-istat-chem8`) measures whole blood. Its codes come from the manufacturer's LOINC index (`abbott-istat-loinc`, whole blood): sodium 2947-0, BUN 6299-2 (not 3094-0), creatinine 38483-4, hematocrit 20570-8. Hematocrit stays `inexact`: the LOINC name says "by calculation", but the analyzer measures by conductometry. A fingerstick sample is capillary blood. The index has capillary codes for sodium and hematocrit only, so the app uses the whole-blood codes for all four. The other analytes in the two source files are not shown. They keep their source names until the app uses them.
 
 ### 5.3 Findings (sample; the registry covers all 54)
 
@@ -342,10 +342,10 @@ The i-STAT test (`t-istat-chem8`) measures whole blood. Its BUN uses 6299-2 Urea
 | Arrhythmia | 698247007 Cardiac arrhythmia (equivalent) | I49.9 Cardiac arrhythmia, unspecified (equivalent) |
 | Renal stone | 95570007 Kidney stone (equivalent) | N20.0 Calculus of kidney (equivalent) |
 | SANS | 423341008 Optic disc edema (narrower: one sign of SANS) | H47.10 Unspecified papilledema (inexact: SANS is not papilledema) |
-| Acute radiation | unmatched: no concept checked yet *(verify; 74221003 was not found)* | T66 Radiation sickness, unspecified (equivalent) |
-| CO2 exposure | unmatched: no concept checked yet *(verify)* | T59.7X1 Toxic effect of carbon dioxide, accidental (inexact) |
-| Sleep loss | unmatched: no concept checked yet *(verify)* | Z72.820 Sleep deprivation (equivalent) |
-| Behavioral stress | unmatched: no concept checked yet *(verify)* | F43.0 Acute stress reaction (inexact) |
+| Acute radiation | 1260191006 Acute radiation syndrome (narrower: ARS follows a high whole-body dose; the catalog entry also covers milder effects) | T66 Radiation sickness, unspecified (equivalent) |
+| CO2 exposure | 212859008 Toxic effect of carbon dioxide (inexact: the catalog entry covers symptoms below toxic levels) | T59.7X1 Toxic effect of carbon dioxide, accidental (inexact) |
+| Sleep loss | 130989002 Sleep deprivation (narrower: the catalog entry also covers circadian misalignment) | Z72.820 Sleep deprivation (narrower, same reason) |
+| Behavioral stress | 73595000 Stress (inexact: the catalog entry also covers low mood and poor sleep) | F43.0 Acute stress reaction (inexact) |
 | Infection | unmatched: too broad, the catalog entry needs a site | unmatched: same reason |
 
 `unmatched` is an honest result. A spaceflight-specific condition such as deconditioning or SANS has no exact clinical code. The UI shows the HRP risk as the primary reference for it.
@@ -367,7 +367,7 @@ This is the minimum that makes the interface standard and explicit. It does not 
 All six tasks are done. Both demo replays and every existing test stay green.
 
 1. **Registries and check.** Done: `units.yaml`, `measures.yaml`, `findings.yaml`, condition `codes:` blocks, `check:terminology` in CI, six new sources.
-2. **Core types.** Done: `medical.ts`, unit conversion at load. Changed from the plan: stream signals and metrics keep their IDs and link to measures (§4.1). `hrv-sdnn` is the measure of the `hrv` signal; its values are still illustrative.
+2. **Core types.** Done: `medical.ts`, unit conversion at load. Changed from the plan: stream signals and metrics keep their IDs and link to measures (§4.1). `hrv-sdnn` is the measure of the `hrv` signal. Its baseline is now the published in-flight SDNNIDX (§8).
 3. **Active tests.** Done: `returns`, rule and form fields bound to measures, `/api/test` validation.
 4. **Typed event log.** Done: `LogData` union, `isStep`, `dataOf`, `RULE_VERSION` `m1g-0.1`.
 5. **UI.** Done: code chips, display units, range-type words, verification status and codes on suspected diagnoses.
@@ -375,9 +375,14 @@ All six tasks are done. Both demo replays and every existing test stay green.
 
 ## 8. Open items
 
-- SNOMED CT license terms for codes stored in a public repo *(verify)*.
-- SNOMED CT codes for acute radiation syndrome, CO2 toxicity, sleep deprivation and acute stress *(verify)*.
-- The i-STAT whole-blood LOINC codes *(verify)*.
-- Published SDNN values to replace the illustrative HRV baselines *(verify)*.
-- NASA-STD-3001 Vol. 2 revision and clauses *(verify)*.
-- Whether the FDA CDS criteria apply, before the pitch says so *(verify)*.
+Resolved on 2026-11-15:
+- **SNOMED CT license:** identifier use is permitted in all jurisdictions (§2.2, `snomed-gps`).
+- **SNOMED CT codes for the four conditions:** §5.4. Each code was checked with `$lookup` (International Edition 2025-02-01). The old candidate 74221003 does not exist.
+- **i-STAT whole-blood LOINC codes:** §5.2 (`abbott-istat-loinc`).
+- **HRV baselines:** both scenarios use 63 ms. This is the in-flight SDNNIDX on quiet days (mean of 5-minute SDNN over 24 h): 62.9 ± 18.2 ms, ISS01, n = 7 (`otsuka-2019-hrv`, Table 2). The stream's HRV value is a short-window SDNN, so SDNNIDX is the matching quantity, not the 24-hour SDNN (about 170–180 ms). It is a group value, not the astronaut's own. The sleep offset and the noise stay illustrative. Both demos keep their event days.
+- **NASA-STD-3001 Vol. 2:** Rev F, [V2 6004] (§2.5). The cabin CO2 rule changed from 4 to 3 mmHg to match it.
+- **FDA CDS criteria:** they do not apply (§2.6).
+
+Still open:
+- ICD-11 codes *(verify)*.
+- Each NASA-STD-3001 Vol. 1 clause before a limit is shown *(verify each clause)*.
