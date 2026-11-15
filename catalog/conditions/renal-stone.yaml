@@ -1,0 +1,14 @@
+id: renal-stone
+name: "Renal stone"
+hazard: gravity
+hrpRisk: "Renal stone formation (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports: [f-hydronephrosis, f-flank-pain, f-nausea, f-low-fluid-intake, f-urine-dark]
+against: []
+questions: [q-flank-pain, q-nausea, q-fluid-intake]
+tests: [t-urine-color, t-ultrasound-renal]
+actions:
+  - id: a-escalate-renal
+    text: "Escalate to the crew medical officer; increase fluid intake per the approved protocol."
+followUpDays: 7
+sourceIds: [nasa-hrp-risks, catalog-draft]

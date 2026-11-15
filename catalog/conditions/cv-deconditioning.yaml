@@ -1,0 +1,22 @@
+id: cv-deconditioning
+name: "Cardiovascular deconditioning"
+hazard: gravity
+hrpRisk: "Cardiovascular adaptations (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports:
+  [
+    f-exercise-hr-up,
+    f-exercise-hr-up-confirmed,
+    f-max-workload-down,
+    f-fatigue,
+    f-missed-exercise,
+    f-resting-hr-in-band,
+  ]
+against: [f-fever, f-ecg-arrhythmia, f-hematocrit-low, f-equipment-change]
+questions: [q-fatigue, q-adherence, q-equipment, q-dizziness, q-fluid-intake]
+tests: [t-std-exercise-test, t-bp, t-ecg]
+actions:
+  - id: a-countermeasure-review
+    text: "Review the exercise countermeasure plan with the crew medical officer; confirm device settings and adherence; schedule a repeat standardized test."
+followUpDays: 21
+sourceIds: [nasa-hrp-risks, catalog-draft]

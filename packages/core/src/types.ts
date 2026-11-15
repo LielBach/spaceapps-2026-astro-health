@@ -31,7 +31,16 @@ export interface Sample {
   quality: number;
   label: DataLabel;
   sourceId: SourceId;
+  /** What the astronaut was doing: used by the context filter. */
+  context?: SampleContext;
 }
+
+export type SampleContext =
+  | "sleep"
+  | "rest"
+  | "exercise-standard"
+  | "exercise-max"
+  | "exercise-free";
 
 export interface Anchor {
   astronautId: string;
@@ -41,6 +50,8 @@ export interface Anchor {
   /** For example "preflight-erect", "preflight-supine", "inflight". */
   condition: string;
   label: Extract<DataLabel, "REAL" | "REFERENCE">;
+  /** Lab reference range, when the source gives one. */
+  range?: { min: number; max: number };
   sourceId: SourceId;
 }
 
@@ -89,27 +100,55 @@ export interface SuspectedDiagnosis {
   confirmingTest?: string;
 }
 
+export type Hazard = "radiation" | "isolation" | "distance" | "gravity" | "environment";
+
 export interface CatalogCondition {
   id: string;
   name: string;
-  hazard: "radiation" | "isolation" | "distance" | "gravity" | "environment";
+  hazard: Hazard;
+  hrpRisk: string;
   hrpRiskUrl: string;
-  findings: string[];
+  /** Findings that make this condition more likely. */
+  supports: string[];
+  /** Findings that make it less likely. */
+  against: string[];
+  /** The approved pathway: questions, tests and actions this condition allows. */
   questions: string[];
-  confirmTests: string[];
-  ruleOutTests: string[];
-  actions: string[];
+  tests: string[];
+  actions: { id: string; text: string }[];
   /** Days within which follow-up data must return to baseline, or the event escalates. */
   followUpDays: number;
   sourceIds: SourceId[];
 }
 
-export interface Equipment {
+export interface Question {
+  id: string;
+  text: string;
+  yes?: string[] | undefined;
+  no?: string[] | undefined;
+  keywords?: Record<string, string[]> | undefined;
+}
+
+export interface ResultRule {
+  field: string;
+  op: "lt" | "gt" | "eq";
+  value: number | boolean | string;
+  finding: string;
+}
+
+export interface TestSpec {
   id: string;
   name: string;
-  tests: string[];
+  equipmentId: string;
   consumable: boolean;
-  sourceId: SourceId;
+  rules: ResultRule[];
+}
+
+export interface Catalog {
+  conditions: CatalogCondition[];
+  questions: Question[];
+  tests: TestSpec[];
+  redFlags: { finding: string; text: string }[];
 }
 
 export type LogStepType =

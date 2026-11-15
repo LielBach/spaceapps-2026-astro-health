@@ -1,0 +1,6403 @@
+{
+  "sourceId": "osdr-osd-575",
+  "files": [
+    "osdr-osd-575-cmp.csv"
+  ],
+  "license": "NASA open data (U.S. Government work)",
+  "anchorCount": 509,
+  "anchors": [
+    {
+      "astronautId": "i4-C001",
+      "measure": "glucose",
+      "value": 83,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "urea-nitrogen-bun",
+      "value": 25,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "creatinine",
+      "value": 1.24,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-non-afr-american",
+      "value": 73,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-92",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-african-american",
+      "value": 85,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-92",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "sodium",
+      "value": 141,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "potassium",
+      "value": 4.6,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "chloride",
+      "value": 104,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "carbon-dioxide",
+      "value": 23,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "calcium",
+      "value": 9.7,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "protein-total",
+      "value": 7.3,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin",
+      "value": 5,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "globulin",
+      "value": 2.3,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin-globulin-ratio",
+      "value": 2.2,
+      "unit": "(calc)",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "bilirubin-total",
+      "value": 0.7,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alkaline-phosphatase",
+      "value": 51,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "ast",
+      "value": 15,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alt",
+      "value": 15,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "glucose",
+      "value": 80,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "urea-nitrogen-bun",
+      "value": 19,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "creatinine",
+      "value": 1.1,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-non-afr-american",
+      "value": 85,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-44",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-african-american",
+      "value": 98,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-44",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "sodium",
+      "value": 139,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "potassium",
+      "value": 4.2,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "chloride",
+      "value": 101,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "carbon-dioxide",
+      "value": 26,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "calcium",
+      "value": 10,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "protein-total",
+      "value": 7.7,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin",
+      "value": 5,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "globulin",
+      "value": 2.7,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.9,
+      "unit": "(calc)",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "bilirubin-total",
+      "value": 0.9,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alkaline-phosphatase",
+      "value": 46,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "ast",
+      "value": 18,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alt",
+      "value": 16,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "glucose",
+      "value": 69,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "urea-nitrogen-bun",
+      "value": 20,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "creatinine",
+      "value": 1.37,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-non-afr-american",
+      "value": 65,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-3",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-african-american",
+      "value": 75,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-3",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "bun-creatinine-ratio",
+      "value": 15,
+      "unit": "(calc)",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 22
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "sodium",
+      "value": 142,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "potassium",
+      "value": 3.9,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "chloride",
+      "value": 102,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "carbon-dioxide",
+      "value": 26,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "calcium",
+      "value": 9.6,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "protein-total",
+      "value": 7.4,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin",
+      "value": 4.9,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "globulin",
+      "value": 2.5,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin-globulin-ratio",
+      "value": 2,
+      "unit": "(calc)",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "bilirubin-total",
+      "value": 1,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alkaline-phosphatase",
+      "value": 45,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "ast",
+      "value": 15,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alt",
+      "value": 13,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "glucose",
+      "value": 90,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "urea-nitrogen-bun",
+      "value": 18,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "creatinine",
+      "value": 1.12,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-non-afr-american",
+      "value": 83,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+1",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-african-american",
+      "value": 96,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+1",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "sodium",
+      "value": 138,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "potassium",
+      "value": 4.4,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "chloride",
+      "value": 102,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "carbon-dioxide",
+      "value": 24,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "calcium",
+      "value": 9.7,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "protein-total",
+      "value": 7.5,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin",
+      "value": 4.9,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "globulin",
+      "value": 2.6,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.9,
+      "unit": "(calc)",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "bilirubin-total",
+      "value": 1.2,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alkaline-phosphatase",
+      "value": 52,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "ast",
+      "value": 16,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alt",
+      "value": 9,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "glucose",
+      "value": 84,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "urea-nitrogen-bun",
+      "value": 15,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "creatinine",
+      "value": 1.11,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-non-afr-american",
+      "value": 84,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+45",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-african-american",
+      "value": 97,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+45",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "sodium",
+      "value": 138,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "potassium",
+      "value": 4,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "chloride",
+      "value": 100,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "carbon-dioxide",
+      "value": 28,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "calcium",
+      "value": 9.6,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "protein-total",
+      "value": 7.2,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin",
+      "value": 4.9,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "globulin",
+      "value": 2.3,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin-globulin-ratio",
+      "value": 2.1,
+      "unit": "(calc)",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alkaline-phosphatase",
+      "value": 46,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "ast",
+      "value": 13,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alt",
+      "value": 11,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "glucose",
+      "value": 91,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "urea-nitrogen-bun",
+      "value": 22,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "creatinine",
+      "value": 1.25,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-non-afr-american",
+      "value": 73,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+82",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-african-american",
+      "value": 84,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+82",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "sodium",
+      "value": 140,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "potassium",
+      "value": 4.3,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "chloride",
+      "value": 101,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "carbon-dioxide",
+      "value": 27,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "calcium",
+      "value": 10.1,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "protein-total",
+      "value": 7.8,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin",
+      "value": 5.1,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "globulin",
+      "value": 2.7,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.9,
+      "unit": "(calc)",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "bilirubin-total",
+      "value": 1.2,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alkaline-phosphatase",
+      "value": 49,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "ast",
+      "value": 16,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alt",
+      "value": 15,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "glucose",
+      "value": 87,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "urea-nitrogen-bun",
+      "value": 28,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "creatinine",
+      "value": 1.29,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-non-afr-american",
+      "value": 69,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+194",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "egfr-african-american",
+      "value": 80,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+194",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "bun-creatinine-ratio",
+      "value": 22,
+      "unit": "(calc)",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 22
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "sodium",
+      "value": 137,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "potassium",
+      "value": 4.3,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "chloride",
+      "value": 102,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "carbon-dioxide",
+      "value": 23,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "calcium",
+      "value": 9.4,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "protein-total",
+      "value": 7,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin",
+      "value": 4.6,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "globulin",
+      "value": 2.4,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.9,
+      "unit": "(calc)",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "bilirubin-total",
+      "value": 0.8,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alkaline-phosphatase",
+      "value": 50,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "ast",
+      "value": 12,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C001",
+      "measure": "alt",
+      "value": 15,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "glucose",
+      "value": 69,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "urea-nitrogen-bun",
+      "value": 14,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "creatinine",
+      "value": 0.83,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.05
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-non-afr-american",
+      "value": 82,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-92",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-african-american",
+      "value": 95,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-92",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "sodium",
+      "value": 142,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "potassium",
+      "value": 3.9,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "chloride",
+      "value": 103,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "carbon-dioxide",
+      "value": 23,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "calcium",
+      "value": 10.2,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.4
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "protein-total",
+      "value": 7.9,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin",
+      "value": 4.9,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "globulin",
+      "value": 3,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "bilirubin-total",
+      "value": 0.5,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alkaline-phosphatase",
+      "value": 73,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 37,
+        "max": 153
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "ast",
+      "value": 19,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alt",
+      "value": 16,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "glucose",
+      "value": 72,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "urea-nitrogen-bun",
+      "value": 16,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "creatinine",
+      "value": 0.88,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.05
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-non-afr-american",
+      "value": 76,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-44",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-african-american",
+      "value": 88,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-44",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "sodium",
+      "value": 141,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "potassium",
+      "value": 4,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "chloride",
+      "value": 103,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "carbon-dioxide",
+      "value": 26,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "calcium",
+      "value": 9.7,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.4
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "protein-total",
+      "value": 7.6,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin",
+      "value": 4.6,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "globulin",
+      "value": 3,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.5,
+      "unit": "(calc)",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "bilirubin-total",
+      "value": 0.4,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alkaline-phosphatase",
+      "value": 78,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 37,
+        "max": 153
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "ast",
+      "value": 31,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alt",
+      "value": 24,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "glucose",
+      "value": 78,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "urea-nitrogen-bun",
+      "value": 17,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "creatinine",
+      "value": 0.96,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.05
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-non-afr-american",
+      "value": 68,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-3",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-african-american",
+      "value": 79,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-3",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "sodium",
+      "value": 143,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "potassium",
+      "value": 3.8,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "chloride",
+      "value": 106,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "carbon-dioxide",
+      "value": 24,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "calcium",
+      "value": 9.3,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.4
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "protein-total",
+      "value": 7,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin",
+      "value": 4.3,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "globulin",
+      "value": 2.7,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "bilirubin-total",
+      "value": 0.3,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alkaline-phosphatase",
+      "value": 68,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 37,
+        "max": 153
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "ast",
+      "value": 40,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alt",
+      "value": 19,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "glucose",
+      "value": 83,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "urea-nitrogen-bun",
+      "value": 20,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "creatinine",
+      "value": 0.95,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.05
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-non-afr-american",
+      "value": 69,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+1",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-african-american",
+      "value": 80,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+1",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "sodium",
+      "value": 137,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "potassium",
+      "value": 3.5,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "chloride",
+      "value": 103,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "carbon-dioxide",
+      "value": 22,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "calcium",
+      "value": 9.2,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.4
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "protein-total",
+      "value": 7.4,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin",
+      "value": 4.4,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "globulin",
+      "value": 3,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.5,
+      "unit": "(calc)",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "bilirubin-total",
+      "value": 0.4,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alkaline-phosphatase",
+      "value": 71,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 37,
+        "max": 153
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "ast",
+      "value": 23,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alt",
+      "value": 16,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "glucose",
+      "value": 44,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "urea-nitrogen-bun",
+      "value": 19,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "creatinine",
+      "value": 1.02,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.05
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-non-afr-american",
+      "value": 64,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+45",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-african-american",
+      "value": 74,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+45",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "sodium",
+      "value": 140,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "potassium",
+      "value": 4.1,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "chloride",
+      "value": 104,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "carbon-dioxide",
+      "value": 21,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "calcium",
+      "value": 9.3,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.4
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "protein-total",
+      "value": 6.8,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin",
+      "value": 4.2,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "globulin",
+      "value": 2.6,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "bilirubin-total",
+      "value": 0.5,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alkaline-phosphatase",
+      "value": 65,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 37,
+        "max": 153
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "ast",
+      "value": 17,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alt",
+      "value": 14,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "glucose",
+      "value": 77,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "urea-nitrogen-bun",
+      "value": 16,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "creatinine",
+      "value": 0.82,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.05
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-non-afr-american",
+      "value": 83,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+82",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-african-american",
+      "value": 96,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+82",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "sodium",
+      "value": 141,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "potassium",
+      "value": 3.7,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "chloride",
+      "value": 105,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "carbon-dioxide",
+      "value": 25,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "calcium",
+      "value": 9.7,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.4
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "protein-total",
+      "value": 7.3,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin",
+      "value": 4.5,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "globulin",
+      "value": 2.8,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "bilirubin-total",
+      "value": 0.5,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alkaline-phosphatase",
+      "value": 65,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 37,
+        "max": 153
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "ast",
+      "value": 21,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alt",
+      "value": 17,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "glucose",
+      "value": 84,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "urea-nitrogen-bun",
+      "value": 18,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "creatinine",
+      "value": 1.02,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.05
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-non-afr-american",
+      "value": 63,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+194",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "egfr-african-american",
+      "value": 73,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+194",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "sodium",
+      "value": 138,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "potassium",
+      "value": 4.4,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "chloride",
+      "value": 104,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "carbon-dioxide",
+      "value": 20,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "calcium",
+      "value": 9.5,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.4
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "protein-total",
+      "value": 7.3,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin",
+      "value": 4.3,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "globulin",
+      "value": 3,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.4,
+      "unit": "(calc)",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "bilirubin-total",
+      "value": 0.3,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alkaline-phosphatase",
+      "value": 66,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 37,
+        "max": 153
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "ast",
+      "value": 24,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C002",
+      "measure": "alt",
+      "value": 17,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "glucose",
+      "value": 100,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "urea-nitrogen-bun",
+      "value": 22,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "creatinine",
+      "value": 1.14,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-non-afr-american",
+      "value": 79,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-92",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-african-american",
+      "value": 92,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-92",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "sodium",
+      "value": 138,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "potassium",
+      "value": 4.2,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "chloride",
+      "value": 102,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "carbon-dioxide",
+      "value": 23,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "calcium",
+      "value": 10,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "protein-total",
+      "value": 7.4,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin",
+      "value": 4.6,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "globulin",
+      "value": 2.8,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "bilirubin-total",
+      "value": 0.7,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alkaline-phosphatase",
+      "value": 58,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "ast",
+      "value": 36,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alt",
+      "value": 37,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "glucose",
+      "value": 83,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "urea-nitrogen-bun",
+      "value": 19,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "creatinine",
+      "value": 1.08,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-non-afr-american",
+      "value": 85,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-44",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-african-american",
+      "value": 98,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-44",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "sodium",
+      "value": 140,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "potassium",
+      "value": 4.2,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "chloride",
+      "value": 103,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "carbon-dioxide",
+      "value": 24,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "calcium",
+      "value": 10.1,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "protein-total",
+      "value": 7.3,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin",
+      "value": 4.4,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "globulin",
+      "value": 2.9,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.5,
+      "unit": "(calc)",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "bilirubin-total",
+      "value": 0.7,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alkaline-phosphatase",
+      "value": 56,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "ast",
+      "value": 44,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alt",
+      "value": 35,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "glucose",
+      "value": 56,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "urea-nitrogen-bun",
+      "value": 19,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "creatinine",
+      "value": 1.13,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-non-afr-american",
+      "value": 80,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-3",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-african-american",
+      "value": 92,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-3",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "sodium",
+      "value": 141,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "potassium",
+      "value": 3.7,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "chloride",
+      "value": 103,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "carbon-dioxide",
+      "value": 24,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "calcium",
+      "value": 10.2,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "protein-total",
+      "value": 7.3,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin",
+      "value": 4.6,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "globulin",
+      "value": 2.7,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.7,
+      "unit": "(calc)",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "bilirubin-total",
+      "value": 0.5,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alkaline-phosphatase",
+      "value": 55,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "ast",
+      "value": 39,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alt",
+      "value": 37,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "glucose",
+      "value": 97,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "urea-nitrogen-bun",
+      "value": 26,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "creatinine",
+      "value": 1.15,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-non-afr-american",
+      "value": 78,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+1",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-african-american",
+      "value": 90,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+1",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "bun-creatinine-ratio",
+      "value": 23,
+      "unit": "(calc)",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 22
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "sodium",
+      "value": 140,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "potassium",
+      "value": 4,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "chloride",
+      "value": 105,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "carbon-dioxide",
+      "value": 23,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "calcium",
+      "value": 9.8,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "protein-total",
+      "value": 7.4,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin",
+      "value": 4.5,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "globulin",
+      "value": 2.9,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "bilirubin-total",
+      "value": 0.4,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alkaline-phosphatase",
+      "value": 62,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "ast",
+      "value": 48,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alt",
+      "value": 40,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "glucose",
+      "value": 43,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "urea-nitrogen-bun",
+      "value": 21,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "creatinine",
+      "value": 1.08,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-non-afr-american",
+      "value": 84,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+45",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-african-american",
+      "value": 98,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+45",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "sodium",
+      "value": 139,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "potassium",
+      "value": 5.9,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "chloride",
+      "value": 102,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "carbon-dioxide",
+      "value": 24,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "calcium",
+      "value": 9.8,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "protein-total",
+      "value": 7.3,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin",
+      "value": 4.5,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "globulin",
+      "value": 2.8,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "bilirubin-total",
+      "value": 0.7,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alkaline-phosphatase",
+      "value": 60,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "ast",
+      "value": 33,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alt",
+      "value": 32,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "glucose",
+      "value": 80,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "urea-nitrogen-bun",
+      "value": 16,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "creatinine",
+      "value": 1.11,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-non-afr-american",
+      "value": 81,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+82",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-african-american",
+      "value": 94,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+82",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "sodium",
+      "value": 140,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "potassium",
+      "value": 4.2,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "chloride",
+      "value": 103,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "carbon-dioxide",
+      "value": 24,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "calcium",
+      "value": 10,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "protein-total",
+      "value": 7.4,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin",
+      "value": 4.6,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "globulin",
+      "value": 2.8,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "bilirubin-total",
+      "value": 1,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alkaline-phosphatase",
+      "value": 54,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "ast",
+      "value": 25,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alt",
+      "value": 23,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "glucose",
+      "value": 84,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "urea-nitrogen-bun",
+      "value": 27,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "creatinine",
+      "value": 1.31,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-non-afr-american",
+      "value": 67,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+194",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "egfr-african-american",
+      "value": 77,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+194",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "bun-creatinine-ratio",
+      "value": 21,
+      "unit": "(calc)",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 22
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "sodium",
+      "value": 141,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "potassium",
+      "value": 3.8,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "chloride",
+      "value": 105,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "carbon-dioxide",
+      "value": 19,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "calcium",
+      "value": 9.8,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "protein-total",
+      "value": 7.2,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin",
+      "value": 4.3,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "globulin",
+      "value": 2.9,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.5,
+      "unit": "(calc)",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "bilirubin-total",
+      "value": 0.5,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alkaline-phosphatase",
+      "value": 57,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "ast",
+      "value": 38,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C004",
+      "measure": "alt",
+      "value": 43,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "glucose",
+      "value": 77,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "urea-nitrogen-bun",
+      "value": 17,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "creatinine",
+      "value": 1,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-non-afr-american",
+      "value": 76,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-92",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-african-american",
+      "value": 88,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-92",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "sodium",
+      "value": 139,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "potassium",
+      "value": 3.7,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "chloride",
+      "value": 102,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "carbon-dioxide",
+      "value": 20,
+      "unit": "mmol/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "calcium",
+      "value": 9.3,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "protein-total",
+      "value": 7.1,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin",
+      "value": 4.4,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "globulin",
+      "value": 2.7,
+      "unit": "g/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "bilirubin-total",
+      "value": 0.3,
+      "unit": "mg/dL",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alkaline-phosphatase",
+      "value": 33,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "ast",
+      "value": 15,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alt",
+      "value": 12,
+      "unit": "U/L",
+      "condition": "L-92",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "glucose",
+      "value": 62,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "urea-nitrogen-bun",
+      "value": 19,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "creatinine",
+      "value": 1.03,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-non-afr-american",
+      "value": 73,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-44",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-african-american",
+      "value": 85,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-44",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "sodium",
+      "value": 139,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "potassium",
+      "value": 3.5,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "chloride",
+      "value": 99,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "carbon-dioxide",
+      "value": 21,
+      "unit": "mmol/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "calcium",
+      "value": 10.3,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "protein-total",
+      "value": 8.8,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin",
+      "value": 4.9,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "globulin",
+      "value": 3.9,
+      "unit": "g/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.3,
+      "unit": "(calc)",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "bilirubin-total",
+      "value": 0.4,
+      "unit": "mg/dL",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alkaline-phosphatase",
+      "value": 41,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "ast",
+      "value": 17,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alt",
+      "value": 13,
+      "unit": "U/L",
+      "condition": "L-44",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "glucose",
+      "value": 75,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "urea-nitrogen-bun",
+      "value": 26,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "creatinine",
+      "value": 1.08,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 0.6,
+        "max": 1.35
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-non-afr-american",
+      "value": 69,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-3",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-african-american",
+      "value": 80,
+      "unit": "mL/min/1.73m2",
+      "condition": "L-3",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "bun-creatinine-ratio",
+      "value": 24,
+      "unit": "(calc)",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 22
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "sodium",
+      "value": 138,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "potassium",
+      "value": 3.3,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "chloride",
+      "value": 101,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "carbon-dioxide",
+      "value": 23,
+      "unit": "mmol/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "calcium",
+      "value": 9.5,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "protein-total",
+      "value": 6.8,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin",
+      "value": 4.2,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "globulin",
+      "value": 2.6,
+      "unit": "g/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "bilirubin-total",
+      "value": 0.2,
+      "unit": "mg/dL",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alkaline-phosphatase",
+      "value": 31,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 36,
+        "max": 130
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "ast",
+      "value": 13,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 40
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alt",
+      "value": 13,
+      "unit": "U/L",
+      "condition": "L-3",
+      "label": "REAL",
+      "range": {
+        "min": 9,
+        "max": 46
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "glucose",
+      "value": 36,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "urea-nitrogen-bun",
+      "value": 19,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "creatinine",
+      "value": 0.94,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-non-afr-american",
+      "value": 82,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+45",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-african-american",
+      "value": 95,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+45",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "sodium",
+      "value": 136,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "potassium",
+      "value": 4.4,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "chloride",
+      "value": 97,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "carbon-dioxide",
+      "value": 23,
+      "unit": "mmol/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "calcium",
+      "value": 9.6,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "protein-total",
+      "value": 7.4,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin",
+      "value": 4.5,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "globulin",
+      "value": 2.9,
+      "unit": "g/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.6,
+      "unit": "(calc)",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "bilirubin-total",
+      "value": 0.7,
+      "unit": "mg/dL",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alkaline-phosphatase",
+      "value": 51,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 31,
+        "max": 125
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "ast",
+      "value": 19,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 30
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alt",
+      "value": 17,
+      "unit": "U/L",
+      "condition": "R+45",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "glucose",
+      "value": 80,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "urea-nitrogen-bun",
+      "value": 23,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "creatinine",
+      "value": 0.89,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-non-afr-american",
+      "value": 87,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+82",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-african-american",
+      "value": 101,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+82",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "sodium",
+      "value": 138,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "potassium",
+      "value": 3.7,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "chloride",
+      "value": 102,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "carbon-dioxide",
+      "value": 23,
+      "unit": "mmol/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "calcium",
+      "value": 10,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "protein-total",
+      "value": 7.5,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin",
+      "value": 4.8,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "globulin",
+      "value": 2.7,
+      "unit": "g/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.8,
+      "unit": "(calc)",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "bilirubin-total",
+      "value": 0.5,
+      "unit": "mg/dL",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alkaline-phosphatase",
+      "value": 50,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 31,
+        "max": 125
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "ast",
+      "value": 15,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 30
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alt",
+      "value": 12,
+      "unit": "U/L",
+      "condition": "R+82",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "glucose",
+      "value": 73,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "urea-nitrogen-bun",
+      "value": 28,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "creatinine",
+      "value": 1.1,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-non-afr-american",
+      "value": 67,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+194",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-african-american",
+      "value": 78,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+194",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "bun-creatinine-ratio",
+      "value": 25,
+      "unit": "(calc)",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 22
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "sodium",
+      "value": 137,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "potassium",
+      "value": 3.8,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "chloride",
+      "value": 101,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "carbon-dioxide",
+      "value": 22,
+      "unit": "mmol/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "calcium",
+      "value": 9.6,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "protein-total",
+      "value": 7.3,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin",
+      "value": 4.4,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "globulin",
+      "value": 2.9,
+      "unit": "g/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.5,
+      "unit": "(calc)",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "bilirubin-total",
+      "value": 0.3,
+      "unit": "mg/dL",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alkaline-phosphatase",
+      "value": 43,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 31,
+        "max": 125
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "ast",
+      "value": 15,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 30
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alt",
+      "value": 10,
+      "unit": "U/L",
+      "condition": "R+194",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "glucose",
+      "value": 103,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 65,
+        "max": 99
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "urea-nitrogen-bun",
+      "value": 21,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 7,
+        "max": 25
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "creatinine",
+      "value": 0.89,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 0.5,
+        "max": 1.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-non-afr-american",
+      "value": 88,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+1",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "egfr-african-american",
+      "value": 102,
+      "unit": "mL/min/1.73m2",
+      "condition": "R+1",
+      "label": "REAL",
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "sodium",
+      "value": 137,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 135,
+        "max": 146
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "potassium",
+      "value": 3,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 3.5,
+        "max": 5.3
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "chloride",
+      "value": 103,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 98,
+        "max": 110
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "carbon-dioxide",
+      "value": 20,
+      "unit": "mmol/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 20,
+        "max": 32
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "calcium",
+      "value": 9.4,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 8.6,
+        "max": 10.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "protein-total",
+      "value": 7.1,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 6.1,
+        "max": 8.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin",
+      "value": 4.2,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 3.6,
+        "max": 5.1
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "globulin",
+      "value": 2.9,
+      "unit": "g/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 1.9,
+        "max": 3.7
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "albumin-globulin-ratio",
+      "value": 1.4,
+      "unit": "(calc)",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 1,
+        "max": 2.5
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "bilirubin-total",
+      "value": 0.3,
+      "unit": "mg/dL",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 0.2,
+        "max": 1.2
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alkaline-phosphatase",
+      "value": 41,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 31,
+        "max": 125
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "ast",
+      "value": 18,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 10,
+        "max": 30
+      },
+      "sourceId": "osdr-osd-575"
+    },
+    {
+      "astronautId": "i4-C003",
+      "measure": "alt",
+      "value": 19,
+      "unit": "U/L",
+      "condition": "R+1",
+      "label": "REAL",
+      "range": {
+        "min": 6,
+        "max": 29
+      },
+      "sourceId": "osdr-osd-575"
+    }
+  ]
+}

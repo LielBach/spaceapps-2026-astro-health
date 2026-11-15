@@ -1,0 +1,14 @@
+id: co2-exposure
+name: "Elevated cabin CO2 exposure"
+hazard: environment
+hrpRisk: "Hostile/closed environment: spacecraft atmosphere (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports: [f-co2-high, f-headache-vision, f-cognition-slow, f-rr-up]
+against: []
+questions: [q-headache-vision]
+tests: [t-cabin-co2, t-reaction-time]
+actions:
+  - id: a-co2-life-support
+    text: "Notify life support to lower cabin CO2; move to a better-ventilated area; repeat symptoms check."
+followUpDays: 2
+sourceIds: [nasa-hrp-risks, catalog-draft]

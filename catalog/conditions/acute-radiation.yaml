@@ -1,0 +1,14 @@
+id: acute-radiation
+name: "Acute radiation exposure effects"
+hazard: radiation
+hrpRisk: "Space radiation exposure (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports: [f-radiation-dose-high, f-nausea, f-fatigue]
+against: []
+questions: [q-nausea, q-fatigue]
+tests: [t-dosimeter]
+actions:
+  - id: a-escalate-radiation
+    text: "Escalate to the crew medical officer and the ground with the dosimeter reading; follow the approved radiation response."
+followUpDays: 7
+sourceIds: [nasa-hrp-risks, catalog-draft]

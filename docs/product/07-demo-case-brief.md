@@ -80,7 +80,7 @@ The numbers in the filters (such as 3 nights) are design parameters, not validat
   - OSD-569: complete blood count (WBC, RBC, hemoglobin, hematocrit, platelets, neutrophils, lymphocytes).
   - Time points: 92, 44 and 3 days before launch, and 1, 45, 82 and 194 days after return. **No in-flight samples.**
 - Shuttle STS-40 (NLSP 178066) gives one averaged pre-flight and in-flight resting value per subject (6 subjects): heart rate, BP, cardiac output, stroke volume.
-- Shuttle DSO 402 (NLSP) gives per-subject supine and standing heart rate and BP before and after flight (22 subjects). Use it only as a REFERENCE band for other astronauts.
+- Shuttle DSO 402 (NLSP) gives per-subject supine and standing heart rate and BP before and after flight (26 subjects). Use it only as a REFERENCE band for other astronauts.
 - Marshall-Goebel 2019 (JAMA Network Open, **CC-BY**) has real ISS ultrasound images of the internal jugular vein: Figure 3B (pre-flight, normal flow) and Figure 3C (flight day 50, thrombus). It gives only group counts of flow grades, not per-astronaut values.
 - **Never combine real values from two people in one astronaut.** The one exception is Demo 1's Maya, marked COMPOSITE in the UI with both sources (ADR 0009).
 - Passive signals are a **simulated stream**, seeded from published effect sizes, that fills the time between real anchors. One scripted incident starts the investigation.

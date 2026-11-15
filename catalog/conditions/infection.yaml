@@ -1,0 +1,14 @@
+id: infection
+name: "Infection"
+hazard: environment
+hrpRisk: "Immune and microbial risks (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports: [f-fever, f-skin-temp-up, f-rr-up, f-sleeping-hr-up, f-respiratory-symptoms, f-fatigue]
+against: [f-no-fever]
+questions: [q-fever, q-respiratory, q-fatigue]
+tests: [t-temp, t-spo2, t-istat-chem8]
+actions:
+  - id: a-infection-care
+    text: "Rest, fluids and symptom monitoring per the approved protocol; escalate to the crew medical officer if fever persists over 48 hours."
+followUpDays: 5
+sourceIds: [nasa-hrp-risks, catalog-draft]

@@ -1,0 +1,73 @@
+# Demo 2 — cardiovascular deconditioning (docs/product/08-clinical-demos.md).
+# Alex = subject 1 of NLSP 178066 (REAL resting values). Everything in the stream is SIMULATED.
+id: demo2-deconditioning
+title: "Demo 2 — Early intervention for cardiovascular deconditioning"
+seed: 2026
+astronaut:
+  id: nlsp178066-s1
+  displayName: Alex
+  anchorSources: [nlsp-178066]
+mission:
+  name: Mars transit
+  lengthDays: 150
+  replayFromDay: 90
+  commDelayMinutes: 20
+stream:
+  sampleEveryHours: 1
+  sleepHours: [22, 6]
+  exercise:
+    standardSessionHour: 10
+    standardWorkloadWatts: 100
+    maxTestEveryDays: 7
+    maxTestBaselineWatts: 200
+  baselines:
+    hr:
+      { value: { anchor: { measure: hr, condition: inflight } }, noiseSd: 2, sourceId: nlsp-178066 }
+    hrv: { value: 55, noiseSd: 6, sourceId: illustrative }
+    respiratoryRate: { value: 14, noiseSd: 1, sourceId: illustrative }
+    skinTemp: { value: 33.5, noiseSd: 0.2, sourceId: illustrative }
+    spo2: { value: 98, noiseSd: 0.5, sourceId: illustrative }
+  sleepHrDrop: 8
+  # 66 bpm × 1.9 ≈ 125 bpm at the standard workload (08 doc, illustrative).
+  exerciseHrRatio: 1.9
+drifts:
+  - signal: exerciseHr
+    context: exercise-standard
+    fromDay: 100
+    toDay: 118
+    delta: 18
+    reversedBy: { action: a-countermeasure-review, overDays: 14 }
+  - signal: exerciseWorkload
+    context: exercise-max
+    fromDay: 100
+    toDay: 118
+    delta: -36
+    reversedBy: { action: a-countermeasure-review, overDays: 14 }
+spikes:
+  - signal: hr
+    day: 95.5
+    hours: 2
+    delta: 45
+    context: exercise-free
+    note: "Extra unscheduled workout (benign)"
+  - signal: hr
+    day: 97.6
+    hours: 1
+    delta: 22
+    context: rest
+    note: "Excitement during a docking-style event (benign)"
+answers:
+  default: "no"
+  byQuestion:
+    q-fatigue: "yes — mild new fatigue after exercise"
+    q-fluid-intake: "lower than usual"
+testResults:
+  t-repeat-rest-hr: { hr: 67 }
+  t-bp: { sbp: 118, dbp: 72 }
+  t-spo2: { spo2: 98 }
+  t-temp: { celsius: 36.7 }
+  t-ecg: { rhythm: "sinus rhythm", rate: 68, arrhythmia: false }
+  t-std-exercise-test: { workloadWatts: 100, hr: 144 }
+  t-body-mass: { changeKg: -0.4 }
+  t-urine-color: { scale: 3 }
+  t-istat-chem8: { sodium: 140, bun: 17, creatinine: 0.9, hematocrit: 44 }

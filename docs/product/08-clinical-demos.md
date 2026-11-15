@@ -273,7 +273,7 @@ Possible explanations include:
 ### Step 9 — Prepare for gravity transition
 
 - **System:** Summarizes the astronaut's cardiovascular response to microgravity and flags unresolved functional or hemodynamic concerns for the mission medical team before Mars landing or other gravitational transition.
-- **REFERENCE band:** post-flight supine and standing HR and BP of 22 real Shuttle astronauts (DSO 402, NLSP), shown as the range that astronauts usually reach after flight, never as Alex's values.
+- **REFERENCE band:** post-flight supine and standing HR and BP of 26 real Shuttle astronauts (DSO 402, NLSP), shown as the range that astronauts usually reach after flight, never as Alex's values.
 - **Possible goal:** Better-planned pre-landing countermeasures and targeted evaluation of astronauts who may have impaired functional tolerance.
 - **Caution:** The demo does **not** prove that wearable changes predict individual syncope or orthostatic intolerance; this would require validated longitudinal outcome models.
 

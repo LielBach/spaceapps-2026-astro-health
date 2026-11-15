@@ -1,0 +1,153 @@
+# Onboard devices and their tests. Result rules: field, op (lt|gt|eq), value → findings.
+equipment:
+  - id: wearable
+    name: "Wearable monitor (HR, HRV, respiration, skin temperature, SpO2, activity)"
+    consumable: false
+    tests:
+      - {
+          id: t-repeat-rest-hr,
+          name: "Repeat resting heart rate",
+          rules:
+            [
+              { field: hr, op: gt, value: 90, finding: f-resting-hr-high },
+              { field: hr, op: lt, value: 90, finding: f-resting-hr-in-band },
+            ],
+        }
+      - {
+          id: t-spo2,
+          name: "SpO2 at rest",
+          rules:
+            [
+              { field: spo2, op: lt, value: 92, finding: f-spo2-low },
+              { field: spo2, op: gt, value: 94, finding: f-spo2-normal },
+            ],
+        }
+  - id: bp-cuff
+    name: "Blood pressure cuff"
+    consumable: false
+    tests:
+      - {
+          id: t-bp,
+          name: "Blood pressure",
+          rules:
+            [
+              { field: sbp, op: lt, value: 95, finding: f-bp-low },
+              { field: sbp, op: gt, value: 95, finding: f-bp-normal },
+            ],
+        }
+  - id: thermometer
+    name: "Thermometer"
+    consumable: false
+    tests:
+      - {
+          id: t-temp,
+          name: "Body temperature",
+          rules:
+            [
+              { field: celsius, op: gt, value: 37.9, finding: f-fever },
+              { field: celsius, op: lt, value: 37.5, finding: f-no-fever },
+            ],
+        }
+  - id: ecg
+    name: "12-lead ECG"
+    consumable: false
+    tests:
+      - {
+          id: t-ecg,
+          name: "ECG",
+          rules:
+            [
+              { field: arrhythmia, op: eq, value: true, finding: f-ecg-arrhythmia },
+              { field: arrhythmia, op: eq, value: false, finding: f-ecg-normal },
+            ],
+        }
+  - id: cycle-ergometer
+    name: "Cycle ergometer"
+    consumable: false
+    tests:
+      - {
+          id: t-std-exercise-test,
+          name: "Standardized submaximal exercise test",
+          rules: [{ field: hr, op: gt, value: 135, finding: f-exercise-hr-up-confirmed }],
+        }
+  - id: mass-device
+    name: "Body mass measurement device (SLAMMD-type, verify)"
+    consumable: false
+    tests:
+      - {
+          id: t-body-mass,
+          name: "Body mass",
+          rules: [{ field: changeKg, op: lt, value: -1.5, finding: f-body-mass-down }],
+        }
+  - id: urine-chart
+    name: "Urine color chart"
+    consumable: false
+    tests:
+      - {
+          id: t-urine-color,
+          name: "Urine color",
+          rules: [{ field: scale, op: gt, value: 5, finding: f-urine-dark }],
+        }
+  - id: istat
+    name: "Handheld blood analyzer, i-STAT-type (verify)"
+    consumable: true
+    tests:
+      - {
+          id: t-istat-chem8,
+          name: "Fingerstick chemistry and hematocrit cartridge",
+          rules:
+            [
+              { field: sodium, op: gt, value: 145, finding: f-sodium-high },
+              { field: bun, op: gt, value: 25, finding: f-bun-high },
+              { field: hematocrit, op: gt, value: 50, finding: f-hematocrit-high },
+              { field: hematocrit, op: lt, value: 38, finding: f-hematocrit-low },
+              { field: hematocrit, op: gt, value: 38, finding: f-hematocrit-normal },
+            ],
+        }
+  - id: ultrasound
+    name: "Ultrasound with operator checklist"
+    consumable: false
+    tests:
+      - {
+          id: t-ultrasound-renal,
+          name: "Kidney ultrasound (structured finding)",
+          rules: [{ field: hydronephrosis, op: eq, value: true, finding: f-hydronephrosis }],
+        }
+      - {
+          id: t-ultrasound-ijv,
+          name: "Internal jugular vein ultrasound (structured finding)",
+          rules:
+            [
+              { field: thrombus, op: eq, value: true, finding: f-ijv-thrombus },
+              { field: flowGrade, op: gt, value: 2, finding: f-ijv-flow-abnormal },
+              { field: thrombus, op: eq, value: false, finding: f-ijv-no-thrombus },
+            ],
+        }
+  - id: cognition
+    name: "Tablet tests (reaction time, vision check)"
+    consumable: false
+    tests:
+      - {
+          id: t-vision-check,
+          name: "Near-vision acuity and Amsler grid on the tablet",
+          rules: [{ field: changed, op: eq, value: true, finding: f-vision-change }],
+        }
+      - {
+          id: t-reaction-time,
+          name: "Psychomotor vigilance test",
+          rules: [{ field: slowedPercent, op: gt, value: 15, finding: f-cognition-slow }],
+        }
+  - id: cabin-sensors
+    name: "Cabin environment sensors"
+    consumable: false
+    tests:
+      - {
+          id: t-cabin-co2,
+          name: "Cabin CO2 reading",
+          rules: [{ field: ppco2mmHg, op: gt, value: 4, finding: f-co2-high }],
+        }
+      - {
+          id: t-dosimeter,
+          name: "Personal dosimeter reading",
+          rules: [{ field: recentDoseMgy, op: gt, value: 100, finding: f-radiation-dose-high }],
+        }

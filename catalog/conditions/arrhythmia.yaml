@@ -1,0 +1,14 @@
+id: arrhythmia
+name: "Cardiac arrhythmia"
+hazard: gravity
+hrpRisk: "Cardiovascular adaptations (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports: [f-palpitations, f-ecg-arrhythmia, f-dizziness, f-sleeping-hr-up]
+against: [f-ecg-normal]
+questions: [q-palpitations, q-dizziness, q-syncope, q-chest-pain]
+tests: [t-ecg, t-bp, t-repeat-rest-hr]
+actions:
+  - id: a-escalate-arrhythmia
+    text: "Escalate to the crew medical officer with the ECG; no antiarrhythmic medication without authorized oversight."
+followUpDays: 7
+sourceIds: [nasa-hrp-risks, catalog-draft]

@@ -1,0 +1,14 @@
+id: behavioral-stress
+name: "Behavioral health strain"
+hazard: isolation
+hrpRisk: "Adverse cognitive or behavioral conditions (HRP)"
+hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+supports: [f-low-mood, f-poor-sleep, f-hrv-down, f-cognition-slow]
+against: []
+questions: [q-mood, q-sleep]
+tests: [t-reaction-time]
+actions:
+  - id: a-behavioral-support
+    text: "Offer the approved behavioral support resources and schedule a private conference with the ground."
+followUpDays: 14
+sourceIds: [nasa-hrp-risks, catalog-draft]

@@ -1,0 +1,62 @@
+# Each answer maps to findings. "yes"/"no" answers; free text maps by keyword in the engine.
+questions:
+  - { id: q-chest-pain, text: "Any chest pain or pressure?", yes: [f-chest-pain] }
+  - { id: q-syncope, text: "Have you fainted or nearly fainted?", yes: [f-syncope] }
+  - { id: q-dyspnea, text: "Any new or sudden shortness of breath?", yes: [f-dyspnea] }
+  - {
+      id: q-palpitations,
+      text: "Any palpitations or a racing or irregular heartbeat?",
+      yes: [f-palpitations],
+    }
+  - {
+      id: q-dizziness,
+      text: "Any dizziness or light-headedness, including during transitions?",
+      yes: [f-dizziness],
+    }
+  - {
+      id: q-fever,
+      text: "Any fever, chills or feeling feverish?",
+      yes: [f-fever],
+      no: [f-no-fever],
+    }
+  - {
+      id: q-fatigue,
+      text: "More fatigue than usual, or trouble finishing workouts?",
+      yes: [f-fatigue],
+    }
+  - {
+      id: q-fluid-intake,
+      text: "Has your fluid intake been lower than usual?",
+      yes: [f-low-fluid-intake],
+      keywords: { lower: [f-low-fluid-intake] },
+    }
+  - { id: q-sleep, text: "Have you slept poorly or less than usual?", yes: [f-poor-sleep] }
+  - {
+      id: q-adherence,
+      text: "Have you missed or shortened exercise sessions?",
+      yes: [f-missed-exercise],
+    }
+  - { id: q-equipment, text: "Have exercise device settings changed?", yes: [f-equipment-change] }
+  - {
+      id: q-neck,
+      text: "Any neck swelling, neck pain, or facial swelling?",
+      yes: [f-neck-swelling],
+    }
+  - {
+      id: q-headache-vision,
+      text: "Any new severe headache or change in vision?",
+      yes: [f-headache-vision],
+    }
+  - {
+      id: q-flank-pain,
+      text: "Any pain in your side or back, or pain when urinating?",
+      yes: [f-flank-pain],
+    }
+  - {
+      id: q-respiratory,
+      text: "Any cough, sore throat or other respiratory symptoms?",
+      yes: [f-respiratory-symptoms],
+    }
+  - { id: q-mood, text: "Have you felt low, anxious or irritable most days?", yes: [f-low-mood] }
+  - { id: q-nausea, text: "Any nausea or vomiting?", yes: [f-nausea] }
+  - { id: q-meds, text: "Any medication changes or new exposures?", yes: [f-med-change] }

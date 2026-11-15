@@ -1,0 +1,7 @@
+# Any of these stops the investigation and escalates at once (urgent interrupt).
+redFlags:
+  - { finding: f-chest-pain, text: "Chest pain" }
+  - { finding: f-syncope, text: "Fainting or near-fainting" }
+  - { finding: f-dyspnea, text: "New or sudden shortness of breath" }
+  - { finding: f-spo2-low, text: "Low SpO2" }
+  - { finding: f-headache-vision, text: "New severe headache or vision change" }
