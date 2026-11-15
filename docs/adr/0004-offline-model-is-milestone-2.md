@@ -4,7 +4,7 @@ Milestone 1 uses an online LLM to choose the next step, and the approved pathway
 
 ## Model choice and success criteria
 
-The demo machine is a MacBook with an Apple M4 Pro and 48 GB of memory, so models up to about 30B parameters (4-bit) fit. We pick the model by running the same scripted cases on each candidate (first: gpt-oss-20b and Qwen3 14B; check the Ollama library for newer models), not by choosing in advance. Tool calling matters more than medical tuning, because the model only chooses approved pathway steps.
+The demo machine is a MacBook with an Apple M4 Pro and 48 GB of memory, so models up to about 30B parameters (4-bit) fit. We pick the model by running the same scripted cases on each candidate (first: gpt-oss-20b, Qwen3 14B and MedGemma 27B; check the Ollama library for newer models), not by choosing in advance. Tool calling matters more than medical tuning, because the model only chooses approved pathway steps. MedGemma 27B is the medically tuned candidate (`medgemma:27b`, 17 GB at 4-bit). The Ollama library does not tag it with tool support (checked 2026-11-15), so it can take part only through structured JSON output (a JSON schema in place of tool calls). The harness decides whether it qualifies. Background: [11-offline-medical-ai-landscape.md](../technical/11-offline-medical-ai-landscape.md).
 
 Milestone 2 succeeds when, on the scripted cases:
 1. The model calls zero steps outside the approved pathway.

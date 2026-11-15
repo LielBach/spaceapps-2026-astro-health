@@ -213,7 +213,8 @@ Coded measurements, UCUM units, terminology registries and a FHIR R4 export: [10
 - Question kinds: yesNo, choice (options with findings) and text (keywords; a keyword right after "no", "not", "without" or "never" does not count).
 
 ### M2 — Offline model
-16. Install Ollama on the MacBook; pull candidates (gpt-oss-20b, Qwen3 14B; check the library for newer ones).
+Background on how NASA and tech companies run medical AI offline, and candidate models: [11-offline-medical-ai-landscape.md](11-offline-medical-ai-landscape.md).
+16. Install Ollama on the MacBook; pull candidates (gpt-oss-20b, Qwen3 14B, MedGemma 27B; check the library for newer ones).
 17. Evaluation harness: run each scripted case and its live branches N times per model; measure the five criteria in ADR 0004 (zero guardrail failures that reach the UI, agreement with milestone 1 on next step and top diagnosis, latency per step, works with the network off).
 18. Choose the model, set `LLM_PROVIDER=ollama` as the blackout behavior, add an "offline model" badge in the UI.
 
