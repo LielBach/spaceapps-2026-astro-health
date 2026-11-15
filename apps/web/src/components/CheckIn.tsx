@@ -18,6 +18,9 @@ export function CheckIn({ view, event }: { view: SessionView; event: EventView |
   const next = event.pending;
   const { catalog } = view;
   const answered = event.log.filter((l) => l.stepType === "answer" || l.stepType === "result");
+  const lastStep = event.log.findLast((l) => ["question", "test", "action"].includes(l.stepType));
+  const rationale =
+    typeof lastStep?.data.rationale === "string" ? lastStep.data.rationale : undefined;
   return (
     <section className="panel checkin">
       <h2>
@@ -26,6 +29,12 @@ export function CheckIn({ view, event }: { view: SessionView; event: EventView |
           {event.id} · opened {day(event.openedAt)}
         </small>
       </h2>
+      {view.reasoning && <p className="reasoning">Reasoner is choosing the next step…</p>}
+      {rationale && event.phase === "investigating" && next && (
+        <p className="rationale">
+          <span className="muted">Why this step:</span> {rationale}
+        </p>
+      )}
       {event.phase === "investigating" && next?.kind === "question" && (
         <div className="ask">
           <p className="question">

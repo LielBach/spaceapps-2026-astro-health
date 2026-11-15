@@ -37,6 +37,8 @@ pnpm dev:server   # http://127.0.0.1:3001/health
 pnpm dev:web      # http://localhost:5173
 ```
 
+For Claude as the clinical reasoner, copy `.env.example` to `.env` and set `ANTHROPIC_API_KEY`. Without a key, the server uses the no-LLM fallback (fixed order, unranked list).
+
 Open http://localhost:5173, pick a demo, and press Play. **Autopilot** gives the scripted answers, test results and approval by itself (for recordings). **Comm blackout** forces the no-LLM fallback. Type a different answer in the check-in to run a live branch. Each run writes its event log to `runs/<run-id>.jsonl`.
 
 Layout and plan: [docs/technical/09-implementation-plan.md](docs/technical/09-implementation-plan.md). Every number shown in the UI needs an entry in `sources.json`; `pnpm check:sources` fails on unknown IDs.
@@ -53,5 +55,5 @@ Layout and plan: [docs/technical/09-implementation-plan.md](docs/technical/09-im
 - [x] Simulated stream with real anchors (ADR 0003)
 - [x] Detection and investigation engines with guardrails and the no-LLM fallback (M1b)
 - [x] Replay server, event log and web UI: Demo 2 runs end to end (M1c)
-- [ ] Online clinical reasoner via the AI SDK (M1d)
+- [x] Online clinical reasoner via the AI SDK, with guardrail retry and fallback (M1d)
 - [ ] Demo 1, IJV thrombosis (M1e)

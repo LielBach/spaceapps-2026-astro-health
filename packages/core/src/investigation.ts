@@ -42,6 +42,8 @@ export interface Proposal {
   noCatalogMatch?: boolean | undefined;
   /** The no-LLM fallback shows possible causes without confidences. */
   unranked?: boolean | undefined;
+  /** Why the reasoner chose this step, for the crew medical officer. */
+  rationale?: string | undefined;
 }
 
 export interface ShownDiagnosis extends ProposedDiagnosis {
@@ -203,7 +205,8 @@ export class Investigation {
     if (!allowed.some((s) => same(s, proposal.next))) {
       reasons.push(`next step ${JSON.stringify(proposal.next)} is not allowed now`);
     }
-    const logIds = new Set(this.findings.map((f) => f.logId));
+    // Any line of this event log may be cited, including answers that produced no finding.
+    const logIds = new Set(this.log.map((l) => l.id));
     const uncataloguedAllowed =
       proposal.noCatalogMatch === true || this.bestScore() < UNCATALOGUED_THRESHOLD;
     for (const d of proposal.diagnoses) {
@@ -269,14 +272,19 @@ export class Investigation {
     this.pending = proposal.next;
     this.pendingWording = proposal.wording;
     const next = proposal.next;
+    const why = proposal.rationale ? { rationale: proposal.rationale } : {};
     if (next.kind === "question")
-      this.write("question", { id: next.id, wording: proposal.wording }, { llm, stepId: next.id });
-    if (next.kind === "test") this.write("test", { id: next.id }, { llm, stepId: next.id });
+      this.write(
+        "question",
+        { id: next.id, wording: proposal.wording, ...why },
+        { llm, stepId: next.id },
+      );
+    if (next.kind === "test") this.write("test", { id: next.id, ...why }, { llm, stepId: next.id });
     if (next.kind === "action") {
       const action = this.condition(next.conditionId)?.actions.find((a) => a.id === next.actionId);
       this.write(
         "action",
-        { id: next.actionId, text: action?.text },
+        { id: next.actionId, text: action?.text, ...why },
         { llm, stepId: next.actionId, conditionId: next.conditionId },
       );
     }
@@ -291,6 +299,11 @@ export class Investigation {
       this.escalate("uncatalogued diagnosis", llm);
     }
     return [];
+  }
+
+  /** Logs a reasoner failure (for example a timeout) without changing the investigation. */
+  reject(reasons: string[], llm: LlmInfo): void {
+    this.write("rejected", { reasons }, { llm });
   }
 
   topCondition(): string | undefined {

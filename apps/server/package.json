@@ -9,8 +9,11 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "4.0.94",
     "@astrohealth/core": "workspace:*",
     "@astrohealth/data": "workspace:*",
-    "fastify": "5.4.0"
+    "ai": "7.0.159",
+    "fastify": "5.4.0",
+    "zod": "3.25.76"
   }
 }

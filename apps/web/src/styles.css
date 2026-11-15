@@ -376,3 +376,15 @@ tr:target td {
 footer {
   padding: 10px 20px 20px;
 }
+.reasoning {
+  color: var(--accent);
+  font-weight: 600;
+  animation: pulse 1.4s infinite;
+}
+.rationale {
+  font-size: 12px;
+  margin: 0 0 8px;
+  padding: 6px 8px;
+  background: #161e2e;
+  border-radius: 6px;
+}
