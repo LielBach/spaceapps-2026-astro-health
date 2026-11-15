@@ -943,3 +943,90 @@ a.code:hover {
   color: var(--text);
   text-decoration: none;
 }
+
+/* ---------- Presenter mode: story bar and highlighted panels ---------- */
+.presenter-bar button.present {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+.story-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 10px 20px 12px;
+  background: #0e1420;
+  border-bottom: 1px solid var(--accent);
+}
+.story-steps {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.story-steps .dot {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  background: transparent;
+  cursor: pointer;
+}
+.story-steps .dot.done {
+  background: var(--muted);
+}
+.story-steps .dot.current {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.story-count {
+  margin-left: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.story-main {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+.story-text h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+.story-text ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.story-nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0;
+}
+.story-nav button {
+  padding: 8px 16px;
+  font-size: 15px;
+}
+.story-nav button.primary {
+  min-width: 120px;
+}
+.story-nav button.link {
+  padding: 0;
+  font-size: 12px;
+}
+/* The panels a beat is about get an outline. Nothing dims: the whole app stays readable. */
+.layout[data-focus] :is(.tablet, .cmo, .charts, .log) {
+  transition: box-shadow 0.3s;
+}
+.layout[data-focus~="tablet"] .tablet,
+.layout[data-focus~="review"] .cmo,
+.layout[data-focus~="charts"] .charts,
+.layout[data-focus~="log"] .log {
+  box-shadow: 0 0 0 2px var(--accent);
+  border-radius: 8px;
+}

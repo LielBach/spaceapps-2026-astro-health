@@ -29,6 +29,7 @@ import {
   type Intervention,
   type Scenario,
   type ScenarioMedia,
+  type StoryMoveSpec,
   type Stream,
 } from "@orbivit/data";
 
@@ -90,6 +91,8 @@ export class ReplaySession {
   blackout = false;
   autopilot = false;
   readonly overrides: Record<string, string> = {};
+  /** Presenter mode: index of the story beat on screen, or undefined when it is off. */
+  storyBeat: number | undefined;
   private readonly stream: Stream;
   private readonly detector: Detector;
   private readonly runFile: string;
@@ -274,6 +277,48 @@ export class ReplaySession {
     );
   }
 
+  /**
+   * Presenter mode: runs the moves of each beat after the current one, up to `beat`.
+   * Going back needs a fresh session (the caller reloads the scenario and calls this again).
+   */
+  async goToBeat(beat: number): Promise<void> {
+    const beats = this.scenario.story;
+    if (beats.length === 0) throw new Error(`scenario ${this.scenario.id} has no story`);
+    const target = Math.max(0, Math.min(beat, beats.length - 1));
+    if (this.storyBeat !== undefined && target < this.storyBeat)
+      throw new Error("going back needs a fresh session");
+    this.playing = false;
+    this.autopilot = false;
+    for (let i = (this.storyBeat ?? -1) + 1; i <= target; i++) {
+      for (const move of beats[i]?.do ?? []) await this.move(move);
+      this.storyBeat = i;
+    }
+    this.emit();
+  }
+
+  private async move(move: StoryMoveSpec): Promise<void> {
+    const end = this.scenario.mission.lengthDays;
+    if ("advanceTo" in move) {
+      await this.advance(move.advanceTo - this.day);
+    } else if ("advanceUntil" in move) {
+      if (move.advanceUntil === "event") {
+        await this.advance(end - this.day);
+      } else {
+        // Day by day, so the follow-up closes the event on the day it would in the replay.
+        while (this.active && !this.waiting && this.day < end) await this.advance(1);
+      }
+    } else if ("stepUntil" in move) {
+      for (let i = 0; i < 200; i++) {
+        const pending = this.active?.pending;
+        if (!pending || pending.kind === move.stepUntil) break;
+        await this.autoStep();
+      }
+    } else {
+      const inv = this.active;
+      if (inv?.pending?.kind === "action") this.approve(inv.eventId);
+    }
+  }
+
   set(options: {
     playing?: boolean;
     speed?: number;
@@ -347,6 +392,10 @@ export class ReplaySession {
       })),
       charts: this.scenario.charts as MetricId[] | undefined,
       hrBaselineSourceId: this.scenario.stream.baselines.hr?.sourceId,
+      story: {
+        beats: this.scenario.story.map((b) => ({ title: b.title, say: b.say, focus: b.focus })),
+        current: this.storyBeat,
+      },
       testImages: Object.fromEntries(
         Object.entries(this.scenario.testImages).map(([id, m]) => [id, media(m)]),
       ),

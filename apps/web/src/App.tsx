@@ -3,6 +3,7 @@ import { Charts } from "./components/Charts.tsx";
 import { CmoReview } from "./components/clinical/CmoReview.tsx";
 import { EventLog } from "./components/EventLog.tsx";
 import { PresenterBar } from "./components/PresenterBar.tsx";
+import { StoryBar } from "./components/StoryBar.tsx";
 import { MedicalRecord } from "./components/Record.tsx";
 import { Label, SourcesContext, Src } from "./components/Source.tsx";
 import { Tablet } from "./components/tablet/Tablet.tsx";
@@ -17,11 +18,13 @@ export function App() {
     );
   const event = view.events.find((e) => e.phase !== "closed") ?? view.events.at(-1);
   const { astronaut, scenario } = view;
+  const presenting = view.story.current !== undefined;
+  const focus = presenting ? (view.story.beats[view.story.current ?? 0]?.focus ?? []) : [];
   return (
     <SourcesContext.Provider value={view.sources}>
-      <PresenterBar view={view} />
+      {presenting ? <StoryBar view={view} /> : <PresenterBar view={view} />}
       {astronaut.composite && <p className="composite-note">{astronaut.composite.disclosure}</p>}
-      <main className="layout">
+      <main className="layout" data-focus={focus.length > 0 ? focus.join(" ") : undefined}>
         <div className="tablet-col">
           <div className="role-tag role-astronaut">
             <span className="role-name">Astronaut app</span>

@@ -82,3 +82,65 @@ testResults:
   t-urine-color: { urine-color: 3 }
   t-istat-chem8:
     { sodium-blood: 140, urea-nitrogen-blood: 17, creatinine-blood: 0.9, hematocrit-blood: 44 }
+# Presenter mode: the storyline of the main demo (docs/product/08-clinical-demos.md, "Storyline").
+# Next runs the moves of a beat; Back replays from a fresh session. Talking points stay short.
+story:
+  - title: "Meet Alex: day 90 of a Mars transit"
+    say:
+      - "Alex is a real Shuttle astronaut: subject 1 of NASA study NLSP 178066. Resting heart rate and BP are REAL."
+      - "Alex feels healthy. A wearable and the exercise device record data with no action from Alex."
+      - "The long-mission stream is SIMULATED from published effect sizes. Each value is labeled."
+    focus: []
+  - title: "A benign spike is ignored"
+    say:
+      - "An extra workout on day 95 and an exciting event on day 97 raise heart rate."
+      - "ORBIVIT ignores both: the workout is explained by context, and the second is one short spike."
+      - "No alert reaches Alex. ORBIVIT does not overreact."
+    focus: [charts]
+    do: [{ advanceTo: 98 }]
+  - title: "A slow trend that Alex does not feel"
+    say:
+      - "Heart rate at the same standard workload climbs session by session."
+      - "The weekly maximum workload falls."
+      - "The personal baseline comes from Alex's REAL in-flight heart rate."
+      - "On day 111 the first signal deviates. ORBIVIT starts a silent watch and does not contact Alex yet."
+    focus: [charts]
+    do: [{ advanceTo: 117 }]
+  - title: "A meaningful deviation from Alex's baseline"
+    say:
+      - "The deviation persists, and two signals agree: higher exercise heart rate, lower performance."
+      - "ORBIVIT opens an event by itself. It is a check-in, not an alarm: the trend took weeks."
+    focus: [charts, review]
+    do: [{ advanceUntil: event }]
+  - title: "Targeted questions"
+    say:
+      - "Red flags first: chest pain, fainting, breathlessness. All no."
+      - "Then context: Alex reports mild new fatigue and less fluid than usual."
+    focus: [tablet]
+    do: [{ stepUntil: test }]
+  - title: "Cardiovascular and functional tests"
+    say:
+      - "The standardized exercise test confirms a higher heart rate at the same workload."
+      - "BP and ECG check for other causes: normal sinus rhythm, no arrhythmia."
+      - "ORBIVIT ranks suspected deconditioning first and weighs other causes, such as space anemia."
+      - "Suspected only: the crew medical officer confirms."
+    focus: [tablet, review]
+    do: [{ stepUntil: action }]
+  - title: "An approved, personalized plan"
+    say:
+      - "ORBIVIT recommends a review of the exercise countermeasure program, from an approved pathway."
+      - "The crew medical officer approves. ORBIVIT never prescribes medication or doses."
+    focus: [review, tablet]
+    do: [{ approve: true }]
+  - title: "Monitoring the response"
+    say:
+      - "Exercise heart rate and performance return toward baseline over the next weeks."
+      - "ORBIVIT closes the event. If the data had not recovered, it would escalate."
+    focus: [charts, log]
+    do: [{ advanceUntil: closed }]
+  - title: "Ready for Mars landing, and ready for emergencies"
+    say:
+      - "Found early, the decline is fixed weeks before landing, when Alex must function in gravity."
+      - "The same loop handles urgent events, such as arrhythmias: red-flag questions, ECG, immediate escalation."
+      - "Decision support only: every number links to its source."
+    focus: []
