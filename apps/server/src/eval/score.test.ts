@@ -83,7 +83,12 @@ describe("M2 scoring from the FHIR Bundle (main demo, no-LLM fallback)", async (
         },
       ],
       conditions: [
-        { conditionId: "cv-deconditioning", verification: "confirmed", clinical: "active" },
+        {
+          id: "evt-001-cv",
+          conditionId: "cv-deconditioning",
+          verification: "confirmed",
+          clinical: "active",
+        },
       ],
     };
     const safety = pathwaySafety(unsafe, catalog);

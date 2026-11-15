@@ -75,6 +75,7 @@ export function offlineReasoner(config: LlmConfig, onCall?: ReasonerOptions["onC
       : {},
     timeoutMs: config.timeoutMs,
     contextTokens: config.contextTokens,
+    constrained: true,
     onCall,
   });
   return { reasoner, info };
@@ -162,6 +163,26 @@ export const ProposalSchema = z.object({
     .describe("True only if no catalog condition can explain the evidence."),
 });
 export type ProposalOutput = z.infer<typeof ProposalSchema>;
+
+/**
+ * The same proposal with size limits, for small offline models: without them, a 4B model lists every
+ * catalog condition and runs out of output tokens. Ollama enforces the limits in its JSON grammar.
+ */
+export const CompactProposalSchema = ProposalSchema.extend({
+  rationale: z.string().max(400).describe("One or two short sentences: why this step now."),
+  diagnoses: z
+    .array(
+      ProposalSchema.shape.diagnoses.element.extend({
+        evidenceFor: z.array(z.string()).max(4).describe("Event log line IDs that support it."),
+        evidenceAgainst: z
+          .array(z.string())
+          .max(4)
+          .describe("Event log line IDs that argue against it."),
+      }),
+    )
+    .max(3)
+    .describe("At most three suspected diagnoses, most likely first."),
+});
 
 export function toProposal(out: ProposalOutput): Proposal {
   const next: NextStep =
@@ -321,6 +342,74 @@ export interface ReasonerOptions {
   /** The model's context length: warn when a prompt comes near it (Ollama truncates silently). */
   contextTokens?: number | undefined;
   onCall?: ((stats: CallStats) => void) | undefined;
+  /** Small offline models: a compact schema whose ID fields allow only the IDs valid now. */
+  constrained?: boolean | undefined;
+}
+
+const oneOf = (ids: string[]) =>
+  ids.length > 0 ? z.enum([...new Set(ids)] as [string, ...string[]]) : z.string();
+
+/**
+ * The compact schema with every ID field limited to the IDs that are valid now: the allowed next
+ * steps, the catalog conditions, the equipment list and the event log lines. Ollama turns the enums
+ * into its output grammar, so a small model can only write valid IDs. The guardrails still run.
+ */
+export function constrainedSchema(inv: Investigation) {
+  const allowed = inv.allowedSteps();
+  const stepIds = allowed.flatMap((s) =>
+    s.kind === "question" || s.kind === "test" ? [s.id] : [],
+  );
+  const actions = allowed.flatMap((s) => (s.kind === "action" ? [s] : []));
+  const kinds = [...new Set(allowed.map((s) => s.kind))] as [
+    NextStep["kind"],
+    ...NextStep["kind"][],
+  ];
+  const evidence = oneOf(inv.log.map((l) => l.id));
+  return CompactProposalSchema.extend({
+    diagnoses: z
+      .array(
+        z.object({
+          conditionId: oneOf(inv.catalog.conditions.map((c) => c.id))
+            .nullable()
+            .describe("Catalog condition ID, or null for an uncatalogued diagnosis."),
+          uncataloguedName: z
+            .string()
+            .max(80)
+            .nullable()
+            .describe("Only when conditionId is null."),
+          confidence: z.number().describe("0 to 1."),
+          evidenceFor: z.array(evidence).max(4).describe("Event log line IDs that support it."),
+          evidenceAgainst: z.array(evidence).max(4).describe("Event log line IDs against it."),
+          confirmingTest: oneOf(inv.catalog.tests.map((t) => t.id)).nullable(),
+        }),
+      )
+      .max(3)
+      .describe("At most three suspected diagnoses, most likely first."),
+    next: z.object({
+      kind: z.enum(kinds),
+      id: oneOf(stepIds).nullable().describe("Question or test ID for kind question or test."),
+      conditionId: oneOf(actions.map((a) => a.conditionId)).nullable(),
+      actionId: oneOf(actions.map((a) => a.actionId)).nullable(),
+      reason: z.string().max(120).nullable().describe("Reason for kind escalate."),
+    }),
+  });
+}
+
+/**
+ * A model may cite a finding ID where a log line ID is expected; map it to the log line that
+ * recorded the finding. The guardrail still checks that every cited line exists.
+ */
+export function citeLogLines(proposal: Proposal, inv: Investigation): Proposal {
+  const lineOf = new Map(inv.findings.map((f) => [f.id, f.logId]));
+  const cite = (ids: string[]) => [...new Set(ids.map((id) => lineOf.get(id) ?? id))];
+  return {
+    ...proposal,
+    diagnoses: proposal.diagnoses.map((d) => ({
+      ...d,
+      evidenceFor: cite(d.evidenceFor),
+      evidenceAgainst: cite(d.evidenceAgainst),
+    })),
+  };
 }
 
 export function createLlmReasoner(
@@ -342,7 +431,11 @@ export function createLlmReasoner(
       const { output, usage } = await generateText({
         model,
         ...buildPrompt(inv, ctx.retryReasons),
-        output: Output.object({ schema: ProposalSchema }),
+        output: Output.object({
+          schema: (options.constrained
+            ? constrainedSchema(inv)
+            : ProposalSchema) as typeof ProposalSchema,
+        }),
         providerOptions: (options.providerOptions ?? {}) as never,
         maxOutputTokens: 16000,
         ...(options.timeoutMs ? { abortSignal: AbortSignal.timeout(options.timeoutMs) } : {}),
@@ -360,7 +453,7 @@ export function createLlmReasoner(
         console.warn(
           `[reasoner] prompt uses ${usage.inputTokens} of ${options.contextTokens} context tokens`,
         );
-      return { proposal: toProposal(output), llm: info };
+      return { proposal: citeLogLines(toProposal(output), inv), llm: info };
     } catch (error) {
       call(false);
       // Output that does not parse or fit the schema gets the guardrail retry (session.ts).

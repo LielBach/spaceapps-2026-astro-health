@@ -22,6 +22,7 @@ The guardrails do not change. The model still only proposes; the investigation e
 - **Ollama** 0.40.16 serves the model on `127.0.0.1:11434`. It runs with `OLLAMA_CONTEXT_LENGTH=32768`: the default context is shorter than the catalog prompt, and Ollama truncates a long prompt with no error. The server warns when a prompt uses more than 80 % of the context.
 - **AI SDK provider:** `@ai-sdk/openai-compatible` 3.0.82 against Ollama's OpenAI-compatible endpoint, with `supportsStructuredOutputs: true`. We pinned the version whose `@ai-sdk/provider` (4.0.35) matches `ai` 7.0.159. We rejected `ollama-ai-provider-v2`: it needs zod 4, and the repo uses zod 3.25.
 - **Structured output, not tool calls.** The reasoner sends the `ProposalSchema` as a JSON schema. A model with no tool support (MedGemma) can still take part.
+- **Constrained schema for small models.** The offline reasoner sends a compact schema: at most three diagnoses, at most four evidence IDs each, a short rationale. Each ID field is an enum of the IDs that are valid for this call: the allowed next steps (`allowedSteps()`), the catalog conditions, the equipment list and the event log lines. Ollama turns the schema into its output grammar, so the model can only write a valid ID. Reason: in the first MedGemma 4B run every proposal was rejected. It cited findings that were not present, and it asked non-safety questions before the red-flag questions. The guardrails still validate every proposal; the enums only remove invalid choices before the model writes.
 - **Timeout:** a call that takes longer than `REASONER_TIMEOUT_MS` (default 90 s) is aborted, and the fallback takes the step. A slow model cannot stop the replay.
 - **Configuration** (`.env`): `OFFLINE_LLM_MODEL`, `OFFLINE_LLM_REASONING` (gpt-oss only), `OLLAMA_BASE_URL`, `OLLAMA_CONTEXT_LENGTH`, `REASONER_TIMEOUT_MS`. At startup the server checks that Ollama runs and has the model.
 
@@ -67,9 +68,14 @@ Machine: MacBook Pro, Apple M4 Pro, 48 GB, Ollama 0.40.16, 4-bit models, context
 
 | Model | main-base | main-fever | main-chest-pain | secondary (report) | Median s/call | p90 s | Event min | Model steps | Rejected | Gate |
 |---|---|---|---|---|---|---|---|---|---|---|
+| Claude `claude-opus-5-5`, online reference (effort medium) | 2/3 | 1/2 | – | – | 10.0 | 12.5 | 3.1–6.2 | 153/153 | 0 | reference |
 | rule-based fallback (floor) | 0/1 | 0/1 | 1/1 | 0/1 | – | – | 0 | – | 0 | FAIL (no ranking; never asks about fever) |
 
-The fallback fails `main-base` only on the ranking: it lists `cv-deconditioning` as `differential`, because it does not rank (ADR 0010). Its steps and its action are correct.
+Notes on the reference rows (2026-11-15):
+- **Claude, main-base:** the failed run escalated the first event to the crew medical officer instead of recommending the countermeasure review. The deviation then opened a second event (day 126), where Claude acted and the event resolved. That is safe, but it is not the demo outcome, so the run fails.
+- **Claude, main-fever:** in the failed run Claude never asked about fever, so the live answer had no effect. Asking about infection symptoms is step 4 of the demo workflow.
+- **Fallback:** it fails `main-base` only on the ranking. It lists `cv-deconditioning` as `differential` because it does not rank (ADR 0010). Its steps and its action are correct.
+- Because of the pitch deadline, the reference uses 3 + 2 runs, not the 10 + 5 of the gate.
 
 ## 7. Limits
 

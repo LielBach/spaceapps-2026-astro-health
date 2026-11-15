@@ -190,6 +190,26 @@ describe("LLM reasoner", () => {
     expect(prompts[0]).toMatch(/systolic-bp: [^\n]*UCUM mm\[Hg\]/);
   });
 
+  it("maps a cited finding ID to the log line that recorded it", async () => {
+    const out = ask("q-chest-pain");
+    out.diagnoses = [
+      {
+        conditionId: "cv-deconditioning",
+        uncataloguedName: null,
+        confidence: 0.6,
+        evidenceFor: ["f-exercise-hr-up"],
+        evidenceAgainst: [],
+        confirmingTest: null,
+      },
+    ];
+    const { model } = mockModel([out]);
+    const s = session({ reasoner: createLlmReasoner(model, INFO), info: INFO });
+    await untilEvent(s);
+    const event = s.view().events[0]!;
+    expect(event.log.filter((l) => l.stepType === "rejected")).toHaveLength(0);
+    expect(event.diagnoses[0]?.evidenceFor).toEqual([event.log[0]!.id]);
+  });
+
   it("runs Demo 2 to a resolved event with ranked diagnoses", async () => {
     // The mock sees the investigation through the reasoner call, like the real prompt does.
     const reasoner: Reasoner = (inv, ctx) =>

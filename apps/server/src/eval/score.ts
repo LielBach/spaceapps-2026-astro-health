@@ -10,7 +10,12 @@ export interface Bundle {
 
 /** The parts of a Bundle that the checks read, in event-log order (resource ids are log line ids). */
 export interface RunRecord {
-  conditions: { conditionId: string | undefined; verification: string; clinical: string }[];
+  conditions: {
+    id: string;
+    conditionId: string | undefined;
+    verification: string;
+    clinical: string;
+  }[];
   tests: { id: string; testId: string; status: string }[];
   actions: { id: string; conditionId: string; actionId: string; status: string }[];
   questions: string[];
@@ -36,6 +41,7 @@ export function readBundle(bundle: Bundle): RunRecord {
   const pathway = /^urn:orbivit:pathway:([^#]+)#(.+)$/;
   return {
     conditions: of("Condition").map((c) => ({
+      id: c.id,
       conditionId: codeOf(c.code, CODE_SYSTEMS.condition),
       verification: statusOf(c.verificationStatus),
       clinical: statusOf(c.clinicalStatus),
@@ -66,6 +72,17 @@ export function readBundle(bundle: Bundle): RunRecord {
       .filter((p) => !isRejected(p))
       .map((p) => (p.agent as { who: { display: string } }[] | undefined)?.[0]?.who.display ?? ""),
     rejected: of("Provenance").filter(isRejected).length,
+  };
+}
+
+/** Event ids prefix every resource id ("evt-001-…"): keep one event's part of the record. */
+export function onlyEvent(run: RunRecord, eventId = "evt-001"): RunRecord {
+  const mine = (x: { id: string }) => x.id.startsWith(`${eventId}-`);
+  return {
+    ...run,
+    conditions: run.conditions.filter(mine),
+    tests: run.tests.filter(mine),
+    actions: run.actions.filter(mine),
   };
 }
 
