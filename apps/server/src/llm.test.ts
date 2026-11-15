@@ -101,6 +101,31 @@ describe("LLM reasoner", () => {
     expect(question?.data.rationale).toBe("Rule out red flags first.");
   });
 
+  it("sends the medical-standard rules and the coded catalog to every provider", async () => {
+    const { model, prompts } = mockModel([ask("q-chest-pain")]);
+    const s = session({ reasoner: createLlmReasoner(model, INFO), info: INFO });
+    await untilEvent(s);
+    const prompt = prompts[0]!;
+    // Rules: source hierarchy, suspected-only diagnoses, coded measures with UCUM units.
+    for (const rule of [
+      "NASA-STD-3001 Volume 1",
+      "only the crew medical officer confirms or refutes",
+      "Never call a diagnosis confirmed",
+      "UCUM unit",
+      "An Earth lab-reference range does not define normal in microgravity",
+      "Every test needs a clinical indication",
+    ])
+      expect(prompt).toContain(rule);
+    // Catalog: condition codes with equivalence, SNOMED CT findings, LOINC measures with units.
+    expect(prompt).toContain('\\"code\\":\\"I82.C1\\"');
+    expect(prompt).toContain('\\"equivalence\\":\\"unmatched\\"');
+    expect(prompt).toMatch(/\\"findings\\":\[\{\\"id\\":\\"f-/);
+    expect(prompt).toContain('\\"system\\":\\"loinc\\"');
+    expect(prompt).toContain('\\"unit\\":\\"/min\\"');
+    // Event log lines keep their data label.
+    expect(prompt).toMatch(/\\"label\\":\\"(REAL|SIMULATED|REFERENCE)\\"/);
+  });
+
   it("retries once with the guardrail reasons after a rejected proposal", async () => {
     const { model, prompts } = mockModel([ask("q-fatigue"), ask("q-syncope")]);
     const s = session({ reasoner: createLlmReasoner(model, INFO), info: INFO });
