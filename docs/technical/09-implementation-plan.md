@@ -141,16 +141,32 @@ In order (Q16, ADR 0007):
 
 ## 6. UI
 
+Since M1h the screen has two sides. The astronaut uses the tablet under stress and with little time, so it shows one task at a time in plain words. The clinical detail is on a separate panel for the crew medical officer and the judges.
+
 | Screen area | Shows |
 |---|---|
-| Replay bar | Play, pause, speed, mission day, comm blackout switch, demo picker |
-| Astronaut header | Name, REAL / COMPOSITE badge with sources |
+| Presenter bar | Demo picker, play, pause, restart, speed, mission day, comm blackout, autopilot, live branch (answer override), reasoner. Not part of the product |
+| Tablet (astronaut) | Status line, one alert, and one screen: all clear, check-in ready (why now + Start), question, measurement, guided scan, thinking, handed to the crew medical officer, follow-up, escalation, resolved |
+| Tablet question | Phase stepper (Questions → Measure → Review), question N, one of three answer forms by question kind: Yes/No buttons, one big button per option, or a text box. "Why we ask" shows the reasoner rationale |
+| Tablet guided scan | One checklist step per screen with Back and Next, then the structured finding as big buttons, then Save |
+| Tablet escalation | Full red screen: "Contact your crew medical officer now", the plain reason, "suspected, not confirmed", I understand |
+| Clinical alert strip | The same alert levels, worded for the crew medical officer; the silent watch shows only here |
+| Crew medical officer card | Suspected diagnoses with confidence in words and % (cut-offs illustrative), evidence in plain words with links to log lines, confirming test, HRP risk; the one recommended action with Approve; today's scan |
 | Timeline charts | Passive signals with the frozen baseline, expected band and REFERENCE band; event markers |
-| Check-in panel | Questions with one-tap answers; active test requests and results |
-| Suspected diagnoses | Ranked list with confidence, evidence for and against (links to log lines), confirming test; "Suspected – for crew medical officer confirmation"; UNCATALOGUED label when it applies |
-| Event log | Every step, with data label, catalog condition or UNCATALOGUED, LLM provider, rejected proposals, source link |
-| Answer override | During the replay, the presenter can change any scripted answer (the live branch) |
+| Audit log | Every step, with data label, catalog condition or UNCATALOGUED, LLM provider, rejected proposals; collapsed by default |
 | Every number | Hover → source link from `sources.json`, or *(verify)* |
+
+Alert levels (one per side, written in words, never color only):
+
+| Level | Tablet | Clinical panel |
+|---|---|---|
+| critical | Escalation screen (urgent interrupt, red flag, escalating action, failed follow-up) | Escalated, with the reason and the action text |
+| warning | — | An action waits for approval |
+| caution | Check-in ready or in progress | Event open |
+| info | Handed to the crew medical officer; follow-up | Follow-up; silent watch |
+| none | All clear; resolved | No open event; resolved |
+
+The pure state functions (`apps/web/src/flow.ts`) pick the tablet screen and both alerts; they are unit-tested.
 
 Demo 1 adds: an imported-record view (real Inspiration4 labs), the ultrasound checklist, the structured-finding form, and the CC-BY scans with their credit.
 
@@ -189,6 +205,11 @@ Each task ends with tests passing and a PR (CLAUDE.md git workflow).
 
 ### M1g — Standard medical data interface
 Coded measurements, UCUM units, terminology registries and a FHIR R4 export: [10-medical-data-standards.md](10-medical-data-standards.md) §7, ADR 0011.
+
+### M1h — Crew UX
+- Split the screen into the astronaut tablet (wizard, one task per screen) and the clinical panel; move replay controls to a presenter bar.
+- Alert levels on both sides; escalation screen on the tablet.
+- Question kinds: yesNo, choice (options with findings) and text (keywords; a keyword right after "no", "not", "without" or "never" does not count).
 
 ### M2 — Offline model
 16. Install Ollama on the MacBook; pull candidates (gpt-oss-20b, Qwen3 14B; check the library for newer ones).

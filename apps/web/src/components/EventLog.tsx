@@ -42,10 +42,10 @@ export function EventLog({ view }: { view: SessionView }) {
     if (box) box.scrollTop = box.scrollHeight;
   }, [lines.length]);
   return (
-    <section className="panel log">
-      <h2>
-        Event log <small>runs/{view.runId}.jsonl</small>
-      </h2>
+    <details className="panel log">
+      <summary>
+        Audit log ({lines.length} lines) <small>runs/{view.runId}.jsonl</small>
+      </summary>
       <div className="log-lines">
         <table>
           <tbody>
@@ -82,6 +82,6 @@ export function EventLog({ view }: { view: SessionView }) {
         </table>
         <div ref={end} />
       </div>
-    </section>
+    </details>
   );
 }

@@ -2,14 +2,15 @@
 // Needs the server (pnpm dev:server) and the web app (pnpm dev:web) running, and once:
 //   npx playwright-core install ffmpeg
 // Usage: pnpm record:demos [demo ids] [--blackout] [--override q-dyspnea=yes]
-// At 1920×1080 the page uses its three-column layout: the check-in, the suspected diagnoses and
-// the event log stay on screen for the whole run. The record view is shown before the replay.
+// At 1920×1080 the astronaut tablet, the crew medical officer card and the charts stay on screen for
+// the whole run. Demo 1 shows its imported record before the replay.
 import { mkdirSync, renameSync } from "node:fs";
 import { join } from "node:path";
 import { chromium, type Page } from "playwright-core";
 
-const API = "http://127.0.0.1:3001/api";
-const WEB = "http://localhost:5173";
+// API_PORT and WEB_PORT match the server-alt and web-alt launch configs of a second checkout.
+const API = `http://127.0.0.1:${process.env.API_PORT ?? "3001"}/api`;
+const WEB = `http://localhost:${process.env.WEB_PORT ?? "5173"}`;
 const OUT = join(process.cwd(), "recordings");
 const SIZE = { width: 1920, height: 1080 };
 /** Mission days per minute before an event opens (Q20: 1–30). The server slows to 2 at the event. */
@@ -74,7 +75,7 @@ async function record(
   });
   const page = await context.newPage();
   await page.goto(WEB);
-  await page.getByText("Imported record").or(page.getByText("Daily check-in")).first().waitFor();
+  await page.locator("[data-screen]").waitFor();
   await wait(4000);
   // Demo 1 starts from the imported record: show it before the replay runs.
   if (await page.getByText("Imported record").count()) await tour(page);
