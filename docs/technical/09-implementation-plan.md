@@ -141,7 +141,7 @@ In order (Q16, ADR 0007):
 
 ## 6. UI
 
-Since M1g the screen has two sides. The astronaut uses the tablet under stress and with little time, so it shows one task at a time in plain words. The clinical detail is on a separate panel for the crew medical officer and the judges.
+Since M1h the screen has two sides. The astronaut uses the tablet under stress and with little time, so it shows one task at a time in plain words. The clinical detail is on a separate panel for the crew medical officer and the judges.
 
 | Screen area | Shows |
 |---|---|
@@ -203,10 +203,13 @@ Each task ends with tests passing and a PR (CLAUDE.md git workflow).
 14. Resolve every *(verify)* item shown in the UI (list in section 9).
 15. Full rehearsal of both demos in 3 minutes, with and without blackout, including one live branch.
 
-### M1g — Crew UX
-16. Split the screen into the astronaut tablet (wizard, one task per screen) and the clinical panel; move replay controls to a presenter bar.
-17. Alert levels on both sides; escalation screen on the tablet.
-18. Question kinds: yesNo, choice (options with findings) and text (keywords; a keyword right after "no", "not", "without" or "never" does not count).
+### M1g — Standard medical data interface
+Coded measurements, UCUM units, terminology registries and a FHIR R4 export: [10-medical-data-standards.md](10-medical-data-standards.md) §7, ADR 0011.
+
+### M1h — Crew UX
+- Split the screen into the astronaut tablet (wizard, one task per screen) and the clinical panel; move replay controls to a presenter bar.
+- Alert levels on both sides; escalation screen on the tablet.
+- Question kinds: yesNo, choice (options with findings) and text (keywords; a keyword right after "no", "not", "without" or "never" does not count).
 
 ### M2 — Offline model
 16. Install Ollama on the MacBook; pull candidates (gpt-oss-20b, Qwen3 14B; check the library for newer ones).

@@ -1,13 +1,18 @@
 // Investigation engine (plan §5.4, ADR 0005, ADR 0010). Pure and deterministic: it owns safety.
 // A reasoner (LLM or rule-based) proposes; this engine checks every proposal against guardrails.
+import { measureDef, toResultValues, type MeasuredValue } from "./medical.ts";
 import type {
   Catalog,
   CatalogCondition,
   DiagnosisRef,
   EventOutcome,
+  LogData,
   LogLine,
+  LogLineOf,
   LogStepType,
+  SurveillanceTriggerData,
   TriggerKind,
+  VerificationStatus,
 } from "./types.ts";
 
 export type FindingOrigin = "signal" | "answer" | "test" | "record";
@@ -62,6 +67,11 @@ export interface ShownDiagnosis extends ProposedDiagnosis {
   name: string;
   /** False until the minimum-evidence rule passes (ADR 0005). */
   visible: boolean;
+  /**
+   * FHIR R4 Condition.verificationStatus: `provisional` for the top visible catalogued diagnosis
+   * of a ranked list, `differential` for every other one. Only the crew medical officer confirms.
+   */
+  verificationStatus: VerificationStatus;
 }
 
 export type LlmInfo = NonNullable<LogLine["llm"]>;
@@ -78,8 +88,8 @@ export interface InvestigationOptions {
   findings: { id: string; origin: FindingOrigin; context?: boolean }[];
   /** Clock for log timestamps (injected so tests stay deterministic). */
   now: () => string;
-  /** Extra data for the trigger line, for example the surveillance rule that fired. */
-  triggerData?: Record<string, unknown> | undefined;
+  /** Extra data for the trigger line: the surveillance rule that fired. */
+  triggerData?: { surveillance: SurveillanceTriggerData } | undefined;
 }
 
 /** Fallback score: share of a condition's supporting findings present, minus findings against. */
@@ -252,7 +262,7 @@ export class Investigation {
       return reasons;
     }
     this.unranked = proposal.unranked === true;
-    this.diagnoses = proposal.diagnoses.map((d) => {
+    const shownDiagnoses = proposal.diagnoses.map((d) => {
       const catalogued = "conditionId" in d.ref;
       const name =
         "conditionId" in d.ref
@@ -264,6 +274,13 @@ export class Investigation {
           : d.evidenceFor.length >= 2;
       return { ...d, catalogued, name, visible };
     });
+    // Rule 8 (docs/technical/10): only the leading catalogued diagnosis of a ranked list is
+    // provisional; the app never writes confirmed or refuted.
+    const lead = this.unranked ? undefined : shownDiagnoses.find((d) => d.visible && d.catalogued);
+    this.diagnoses = shownDiagnoses.map((d) => ({
+      ...d,
+      verificationStatus: d === lead ? "provisional" : "differential",
+    }));
     const shown = JSON.stringify(
       this.diagnoses
         .filter((d) => d.visible)
@@ -278,7 +295,13 @@ export class Investigation {
           unranked: this.unranked,
           diagnoses: this.diagnoses
             .filter((d) => d.visible)
-            .map((d) => ({ name: d.name, catalogued: d.catalogued, confidence: d.confidence })),
+            .map((d) => ({
+              name: d.name,
+              ...("conditionId" in d.ref ? { conditionId: d.ref.conditionId } : {}),
+              catalogued: d.catalogued,
+              confidence: d.confidence,
+              verificationStatus: d.verificationStatus,
+            })),
         },
         { llm, conditionId: this.topCondition() ?? "uncatalogued" },
       );
@@ -354,13 +377,19 @@ export class Investigation {
     this.checkRedFlags();
   }
 
+  /**
+   * Records a test result. `values` are keyed by measure ID; each must be a measure the test
+   * returns, with the measure's value type. The log stores them with their UCUM units.
+   */
   result(
     testId: string,
-    values: Record<string, number | string | boolean>,
+    values: Record<string, MeasuredValue>,
     label: LogLine["label"] = "SIMULATED",
   ): void {
     const spec = this.catalog.tests.find((t) => t.id === testId);
     if (!spec) throw new Error(`unknown test ${testId}`);
+    const problems = resultProblems(this.catalog, spec.id, spec.returns, values);
+    if (problems.length > 0) throw new Error(problems.join("; "));
     const found = spec.rules
       .filter((r) => {
         const v = values[r.field];
@@ -376,7 +405,7 @@ export class Investigation {
     this.tested.push(testId);
     const line = this.write(
       "result",
-      { id: testId, values, findings: found },
+      { id: testId, values: toResultValues(this.catalog, values), findings: found },
       { stepId: testId, label },
     );
     for (const f of found) this.addFinding(f, "test", line.id);
@@ -453,12 +482,12 @@ export class Investigation {
     this.findings.push({ id, origin, logId, t: this.t });
   }
 
-  private write(
-    stepType: LogStepType,
-    data: Record<string, unknown>,
+  private write<K extends LogStepType>(
+    stepType: K,
+    data: LogData[K],
     extra: Partial<Pick<LogLine, "llm" | "stepId" | "conditionId" | "label">> = {},
-  ): LogLine {
-    const line: LogLine = {
+  ): LogLineOf<K> {
+    const line = {
       id: `${this.eventId}-${String(++this.seq).padStart(3, "0")}`,
       timestamp: this.opts.now(),
       missionDay: Math.round(this.t * 1000) / 1000,
@@ -470,8 +499,38 @@ export class Investigation {
       ...(extra.llm ? { llm: extra.llm } : {}),
       ...(extra.stepId ? { stepId: extra.stepId } : {}),
       ...(extra.conditionId ? { conditionId: extra.conditionId } : {}),
-    };
+    } as LogLineOf<K>;
     this.log.push(line);
     return line;
   }
+}
+
+/** Problems with test values: unknown measures, or a value of the wrong type. */
+export function resultProblems(
+  catalog: Catalog,
+  testId: string,
+  returns: string[],
+  values: Record<string, MeasuredValue>,
+): string[] {
+  const problems: string[] = [];
+  for (const [measure, value] of Object.entries(values)) {
+    if (!returns.includes(measure)) {
+      problems.push(`${testId} does not return ${measure} (returns: ${returns.join(", ")})`);
+      continue;
+    }
+    const def = measureDef(catalog, measure);
+    if (def?.valueType === "panel") {
+      problems.push(`${testId}: ${measure} is a panel; give its components instead`);
+      continue;
+    }
+    const expected =
+      def?.valueType === "quantity"
+        ? "number"
+        : def?.valueType === "boolean"
+          ? "boolean"
+          : "string";
+    if (typeof value !== expected)
+      problems.push(`${testId}: ${measure} must be a ${expected}, got ${JSON.stringify(value)}`);
+  }
+  return problems;
 }

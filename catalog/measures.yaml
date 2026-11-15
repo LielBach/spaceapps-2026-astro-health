@@ -1,0 +1,575 @@
+# Measure registry (docs/technical/10 §4.2, ADR 0011). One entry per measure the app uses.
+# Codes were checked on 2026-11-15: LOINC and IEEE 11073 with $lookup on tx.fhir.org (FHIR R4).
+# Equivalence reads from the AstroHealth measure to the target code (FHIR R4 ConceptMap):
+#   wider = the target means more than the measure; unmatched = no code (note says why).
+# signal / metric: the stream signal or detection metric that carries the measure.
+# aliases: measure names in data/anchors files that mean this measure.
+measures:
+  # ---------- Wearable stream ----------
+  - id: heart-rate
+    display: Heart rate
+    category: vital-signs
+    valueType: quantity
+    unit: "/min"
+    displayUnit: bpm
+    signal: hr
+    aliases: [hr]
+    mappings:
+      - { system: loinc, code: "8867-4", display: "Heart rate", equivalence: equivalent }
+  - id: hrv-sdnn
+    display: Heart-rate variability (SDNN)
+    category: vital-signs
+    valueType: quantity
+    unit: ms
+    signal: hrv
+    definition: "Standard deviation of normal-to-normal R-R intervals (SDNN) from the wearable."
+    mappings:
+      - system: loinc
+        code: "80404-7"
+        display: "R-R interval.standard deviation (Heart rate variability)"
+        equivalence: equivalent
+  - id: respiratory-rate
+    display: Respiratory rate
+    category: vital-signs
+    valueType: quantity
+    unit: "/min"
+    displayUnit: breaths/min
+    signal: respiratoryRate
+    mappings:
+      - { system: loinc, code: "9279-1", display: "Respiratory rate", equivalence: equivalent }
+      - { system: mdc, code: "151562", display: "MDC_RESP_RATE", equivalence: equivalent }
+  - id: skin-temperature
+    display: Skin temperature
+    category: vital-signs
+    valueType: quantity
+    unit: Cel
+    signal: skinTemp
+    mappings:
+      - { system: loinc, code: "39106-0", display: "Temperature of Skin", equivalence: equivalent }
+  - id: spo2
+    display: SpO2
+    category: vital-signs
+    valueType: quantity
+    unit: "%"
+    signal: spo2
+    mappings:
+      - system: loinc
+        code: "59408-5"
+        display: "Oxygen saturation in Arterial blood by Pulse oximetry"
+        equivalence: equivalent
+      # The FHIR R4 oxygen saturation profile requires 2708-6.
+      - {
+          system: loinc,
+          code: "2708-6",
+          display: "Oxygen saturation in Arterial blood",
+          equivalence: wider,
+        }
+      - { system: mdc, code: "150456", display: "MDC_PULS_OXIM_SAT_O2", equivalence: equivalent }
+  - id: activity-index
+    display: Activity index
+    category: activity
+    valueType: quantity
+    unit: "1"
+    signal: activity
+    definition: "Movement from the wearable accelerometer, from 0 (still) to 1."
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "A device-specific movement index; no standard code."
+  - id: exercise-hr
+    display: Exercise heart rate
+    category: vital-signs
+    valueType: quantity
+    unit: "/min"
+    displayUnit: bpm
+    signal: exerciseHr
+    definition: "Heart rate that the exercise device records during a scheduled session."
+    mappings:
+      - { system: loinc, code: "8867-4", display: "Heart rate", equivalence: wider }
+  - id: exercise-workload
+    display: Exercise workload
+    category: activity
+    valueType: quantity
+    unit: W
+    signal: exerciseWorkload
+    definition: "Workload that the exercise device records during a scheduled session."
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "No LOINC code was found for cycle ergometer workload."
+
+  # ---------- Detection metrics (derived from the stream) ----------
+  - id: sleeping-hr
+    display: Sleeping heart rate (nightly mean)
+    category: vital-signs
+    valueType: quantity
+    unit: "/min"
+    displayUnit: bpm
+    metric: sleepingHr
+    definition: "Mean heart rate over the sleep windows of one night; sleep confirmed by the activity sensor."
+    mappings:
+      - system: loinc
+        code: "8867-4"
+        display: "Heart rate"
+        equivalence: wider
+        note: "No pre-coordinated sleeping heart rate code was found."
+  - id: resting-hr-daily
+    display: Resting heart rate (daily mean)
+    category: vital-signs
+    valueType: quantity
+    unit: "/min"
+    displayUnit: bpm
+    metric: restingHr
+    definition: "Mean heart rate over the rest windows of one mission day."
+    mappings:
+      - { system: loinc, code: "40443-4", display: "Heart rate --resting", equivalence: wider }
+      # The FHIR R4 heart rate profile requires 8867-4 on every heart rate observation.
+      - { system: loinc, code: "8867-4", display: "Heart rate", equivalence: wider }
+  - id: sleep-hrv-sdnn
+    display: Sleeping HRV (SDNN, nightly mean)
+    category: vital-signs
+    valueType: quantity
+    unit: ms
+    metric: sleepHrv
+    definition: "Mean SDNN over the sleep windows of one night."
+    mappings:
+      - system: loinc
+        code: "80404-7"
+        display: "R-R interval.standard deviation (Heart rate variability)"
+        equivalence: wider
+  - id: sleeping-skin-temperature
+    display: Sleeping skin temperature (nightly mean)
+    category: vital-signs
+    valueType: quantity
+    unit: Cel
+    metric: sleepSkinTemp
+    definition: "Mean skin temperature over the sleep windows of one night."
+    mappings:
+      - { system: loinc, code: "39106-0", display: "Temperature of Skin", equivalence: wider }
+  - id: sleeping-respiratory-rate
+    display: Sleeping respiratory rate (nightly mean)
+    category: vital-signs
+    valueType: quantity
+    unit: "/min"
+    displayUnit: breaths/min
+    metric: sleepRespiratoryRate
+    definition: "Mean respiratory rate over the sleep windows of one night."
+    mappings:
+      - { system: loinc, code: "9279-1", display: "Respiratory rate", equivalence: wider }
+  - id: standard-exercise-hr
+    display: Heart rate at the standard exercise workload
+    category: vital-signs
+    valueType: quantity
+    unit: "/min"
+    displayUnit: bpm
+    metric: standardExerciseHr
+    definition: "Heart rate at the standard workload in a scheduled exercise session or test."
+    mappings:
+      - { system: loinc, code: "8867-4", display: "Heart rate", equivalence: wider }
+  - id: max-workload
+    display: Max workload test
+    category: activity
+    valueType: quantity
+    unit: W
+    metric: maxWorkload
+    definition: "Peak workload in the weekly max test on the exercise device."
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "No LOINC code was found for peak cycle ergometer workload."
+
+  # ---------- Active tests ----------
+  - id: resting-hr
+    display: Resting heart rate
+    category: vital-signs
+    valueType: quantity
+    unit: "/min"
+    displayUnit: bpm
+    mappings:
+      - { system: loinc, code: "40443-4", display: "Heart rate --resting", equivalence: equivalent }
+      # The FHIR R4 heart rate profile requires 8867-4 on every heart rate observation.
+      - { system: loinc, code: "8867-4", display: "Heart rate", equivalence: wider }
+  # The FHIR R4 blood pressure profile requires one panel observation with both components.
+  - id: blood-pressure
+    display: Blood pressure
+    category: vital-signs
+    valueType: panel
+    components: [systolic-bp, diastolic-bp]
+    mappings:
+      - {
+          system: loinc,
+          code: "85354-9",
+          display: "Blood pressure panel with all children optional",
+          equivalence: equivalent,
+        }
+  - id: systolic-bp
+    display: Systolic BP
+    category: vital-signs
+    valueType: quantity
+    unit: "mm[Hg]"
+    aliases: [sbp]
+    mappings:
+      - {
+          system: loinc,
+          code: "8480-6",
+          display: "Systolic blood pressure",
+          equivalence: equivalent,
+        }
+      - {
+          system: mdc,
+          code: "150021",
+          display: "MDC_PRESS_BLD_NONINV_SYS",
+          equivalence: equivalent,
+        }
+  - id: diastolic-bp
+    display: Diastolic BP
+    category: vital-signs
+    valueType: quantity
+    unit: "mm[Hg]"
+    aliases: [dbp]
+    mappings:
+      - {
+          system: loinc,
+          code: "8462-4",
+          display: "Diastolic blood pressure",
+          equivalence: equivalent,
+        }
+      - {
+          system: mdc,
+          code: "150022",
+          display: "MDC_PRESS_BLD_NONINV_DIA",
+          equivalence: equivalent,
+        }
+  - id: mean-bp
+    display: Mean arterial pressure
+    category: vital-signs
+    valueType: quantity
+    unit: "mm[Hg]"
+    aliases: [map]
+    mappings:
+      - { system: loinc, code: "8478-0", display: "Mean blood pressure", equivalence: equivalent }
+      - {
+          system: mdc,
+          code: "150023",
+          display: "MDC_PRESS_BLD_NONINV_MEAN",
+          equivalence: equivalent,
+        }
+  - id: body-temperature
+    display: Body temperature
+    category: vital-signs
+    valueType: quantity
+    unit: Cel
+    mappings:
+      - { system: loinc, code: "8310-5", display: "Body temperature", equivalence: equivalent }
+      - { system: mdc, code: "150364", display: "MDC_TEMP_BODY", equivalence: equivalent }
+  - id: body-mass
+    display: Body mass
+    category: vital-signs
+    valueType: quantity
+    unit: kg
+    mappings:
+      - { system: loinc, code: "29463-7", display: "Body weight", equivalence: equivalent }
+      - { system: mdc, code: "188736", display: "MDC_MASS_BODY_ACTUAL", equivalence: equivalent }
+  - id: body-mass-change
+    display: Body mass change
+    category: vital-signs
+    valueType: quantity
+    unit: kg
+    definition: "Body mass now minus the last body mass on file."
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "Derived from two body mass values (LOINC 29463-7)."
+  - id: ecg-rhythm
+    display: ECG rhythm
+    category: procedure
+    valueType: string
+    mappings:
+      - { system: loinc, code: "8884-9", display: "Heart rate rhythm", equivalence: equivalent }
+  - id: ecg-heart-rate
+    display: ECG heart rate
+    category: procedure
+    valueType: quantity
+    unit: "/min"
+    displayUnit: bpm
+    mappings:
+      - { system: loinc, code: "8867-4", display: "Heart rate", equivalence: wider }
+  - id: ecg-arrhythmia
+    display: Arrhythmia on the ECG
+    category: procedure
+    valueType: boolean
+    mappings:
+      - system: loinc
+        code: "8601-7"
+        display: "EKG impression"
+        equivalence: inexact
+        note: "The app records only whether the reader saw an arrhythmia."
+  - id: urine-color
+    display: Urine color chart score
+    category: exam
+    valueType: quantity
+    unit: "{score}"
+    mappings:
+      - system: loinc
+        code: "5778-6"
+        display: "Color of Urine"
+        equivalence: inexact
+        note: "The app records a number on a color chart; LOINC 5778-6 records the color itself."
+  - id: sodium-blood
+    display: Sodium (whole blood)
+    category: laboratory
+    valueType: quantity
+    unit: mmol/L
+    mappings:
+      - {
+          system: loinc,
+          code: "2947-0",
+          display: "Sodium [Moles/volume] in Blood",
+          equivalence: equivalent,
+        }
+  - id: urea-nitrogen-blood
+    display: Urea nitrogen (whole blood)
+    category: laboratory
+    valueType: quantity
+    unit: mg/dL
+    mappings:
+      - system: loinc
+        code: "6299-2"
+        display: "Urea nitrogen [Mass/volume] in Blood"
+        equivalence: equivalent
+  - id: creatinine-blood
+    display: Creatinine (whole blood)
+    category: laboratory
+    valueType: quantity
+    unit: mg/dL
+    mappings:
+      - system: loinc
+        code: "38483-4"
+        display: "Creatinine [Mass/volume] in Blood"
+        equivalence: equivalent
+  - id: hematocrit-blood
+    display: Hematocrit (whole blood)
+    category: laboratory
+    valueType: quantity
+    unit: "%"
+    mappings:
+      - system: loinc
+        code: "20570-8"
+        display: "Hematocrit [Volume Fraction] of Blood by calculation"
+        equivalence: inexact
+        note: "The manufacturer's LOINC index assigns this code (Abbott APOC-25002407-1, 03/25), but the analyzer measures hematocrit by conductometry, not by calculation. LOINC has no conductometry code."
+  - id: kidney-hydronephrosis
+    display: Hydronephrosis seen
+    category: imaging
+    valueType: boolean
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "A structured ultrasound finding. Its clinical concept is on f-hydronephrosis (SNOMED CT 43064006)."
+  - id: ijv-flow-detected
+    display: IJV Doppler flow detected
+    category: imaging
+    valueType: boolean
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "A result of the LOINC 44175-8 study (US.doppler Neck vessels); no LOINC code for the result."
+  - id: ijv-flow-grade
+    display: IJV flow grade
+    category: imaging
+    valueType: quantity
+    unit: "{grade}"
+    definition: "Left IJV flow grade 1–4 from the pulsed-wave Doppler waveform (Marshall-Goebel 2019, Figure 3A)."
+    options:
+      - { value: 1, label: "1 (continuous)" }
+      - { value: 2, label: "2 (pulsatile)" }
+      - { value: 3, label: "3 (stagnant)" }
+      - { value: 4, label: "4 (retrograde)" }
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "The Marshall-Goebel 2019 flow grade scale has no LOINC code."
+  - id: ijv-compressible
+    display: IJV fully compressible
+    category: imaging
+    valueType: boolean
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "A result of the LOINC 44175-8 study (US.doppler Neck vessels); no LOINC code for the result."
+  - id: ijv-thrombus
+    display: IJV thrombus seen
+    category: imaging
+    valueType: boolean
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "A structured ultrasound finding. Its clinical concept is on f-ijv-thrombus."
+  - id: vision-change
+    display: Vision change on the tablet test
+    category: exam
+    valueType: boolean
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "Near-vision acuity and Amsler grid compared with the pre-flight result; no single code."
+  - id: reaction-time-slowing
+    display: Reaction time slowing
+    category: exam
+    valueType: quantity
+    unit: "%"
+    definition: "Psychomotor vigilance test: mean reaction time now vs the pre-flight baseline, in percent."
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "No LOINC code was found for this comparison."
+  - id: cabin-ppco2
+    display: Cabin CO2 partial pressure
+    category: environment
+    valueType: quantity
+    unit: "mm[Hg]"
+    definition: "One-hour average ppCO2 in the habitable volume: the quantity that NASA-STD-3001 Vol. 2 [V2 6004] limits."
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "A cabin measurement, not a crew observation."
+  - id: absorbed-dose-recent
+    display: Recent absorbed dose (personal dosimeter)
+    category: environment
+    valueType: quantity
+    unit: mGy
+    definition: "Absorbed dose D (ICRP 103) that the personal dosimeter recorded since the last reading. It is not an effective dose (Sv)."
+    mappings:
+      - system: loinc
+        equivalence: unmatched
+        note: "LOINC 77304-4 Radiation dose [Energy/mass] is a therapy dose, not crew dosimetry."
+
+  # ---------- Real anchors: NLSP 178066 ----------
+  - id: cardiac-output
+    display: Cardiac output
+    category: vital-signs
+    valueType: quantity
+    unit: L/min
+    mappings:
+      - {
+          system: loinc,
+          code: "8741-1",
+          display: "Left ventricular Cardiac output",
+          equivalence: equivalent,
+        }
+  - id: stroke-volume
+    display: Stroke volume
+    category: vital-signs
+    valueType: quantity
+    unit: mL
+    mappings:
+      - {
+          system: loinc,
+          code: "20562-5",
+          display: "Left ventricular Stroke volume",
+          equivalence: equivalent,
+        }
+
+  # ---------- Real anchors: Inspiration4 labs (OSD-575, OSD-569) ----------
+  - id: albumin
+    display: Albumin
+    category: laboratory
+    valueType: quantity
+    unit: g/dL
+    mappings:
+      - system: loinc
+        code: "1751-7"
+        display: "Albumin [Mass/volume] in Serum or Plasma"
+        equivalence: equivalent
+  - id: protein-total
+    display: Total protein
+    category: laboratory
+    valueType: quantity
+    unit: g/dL
+    mappings:
+      - system: loinc
+        code: "2885-2"
+        display: "Protein [Mass/volume] in Serum or Plasma"
+        equivalence: equivalent
+  - id: hemoglobin
+    display: Hemoglobin
+    category: laboratory
+    valueType: quantity
+    unit: g/dL
+    mappings:
+      - {
+          system: loinc,
+          code: "718-7",
+          display: "Hemoglobin [Mass/volume] in Blood",
+          equivalence: equivalent,
+        }
+  - id: hematocrit
+    display: Hematocrit
+    category: laboratory
+    valueType: quantity
+    unit: "%"
+    mappings:
+      - system: loinc
+        code: "4544-3"
+        display: "Hematocrit [Volume Fraction] of Blood by Automated count"
+        equivalence: equivalent
+  - id: platelet-count
+    display: Platelets
+    category: laboratory
+    valueType: quantity
+    unit: "10*3/uL"
+    mappings:
+      - system: loinc
+        code: "777-3"
+        display: "Platelets [#/volume] in Blood by Automated count"
+        equivalence: equivalent
+  - id: white-blood-cell-count
+    display: White blood cells
+    category: laboratory
+    valueType: quantity
+    unit: "10*3/uL"
+    mappings:
+      - system: loinc
+        code: "6690-2"
+        display: "Leukocytes [#/volume] in Blood by Automated count"
+        equivalence: equivalent
+  - id: sodium
+    display: Sodium
+    category: laboratory
+    valueType: quantity
+    unit: mmol/L
+    mappings:
+      - system: loinc
+        code: "2951-2"
+        display: "Sodium [Moles/volume] in Serum or Plasma"
+        equivalence: equivalent
+  - id: potassium
+    display: Potassium
+    category: laboratory
+    valueType: quantity
+    unit: mmol/L
+    mappings:
+      - system: loinc
+        code: "2823-3"
+        display: "Potassium [Moles/volume] in Serum or Plasma"
+        equivalence: equivalent
+  - id: urea-nitrogen-bun
+    display: Urea nitrogen (BUN)
+    category: laboratory
+    valueType: quantity
+    unit: mg/dL
+    mappings:
+      - system: loinc
+        code: "3094-0"
+        display: "Urea nitrogen [Mass/volume] in Serum or Plasma"
+        equivalence: equivalent
+  - id: creatinine
+    display: Creatinine
+    category: laboratory
+    valueType: quantity
+    unit: mg/dL
+    mappings:
+      - system: loinc
+        code: "2160-0"
+        display: "Creatinine [Mass/volume] in Serum or Plasma"
+        equivalence: equivalent

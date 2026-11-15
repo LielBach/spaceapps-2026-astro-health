@@ -12,6 +12,8 @@ mission:
   lengthDays: 150
   replayFromDay: 90
   commDelayMinutes: 20
+  # Fictional launch time (SIMULATED): only the FHIR export uses it, for ISO 8601 timestamps.
+  epoch: "2035-01-01T00:00:00Z"
 stream:
   sampleEveryHours: 1
   sleepHours: [22, 6]
@@ -22,8 +24,14 @@ stream:
     maxTestBaselineWatts: 200
   baselines:
     hr:
-      { value: { anchor: { measure: hr, condition: inflight } }, noiseSd: 2, sourceId: nlsp-178066 }
-    hrv: { value: 55, noiseSd: 6, sourceId: illustrative }
+      {
+        value: { anchor: { measure: heart-rate, condition: inflight } },
+        noiseSd: 2,
+        sourceId: nlsp-178066,
+      }
+    # HRV: the published in-flight group mean of 5-minute SDNN (SDNNIDX, Otsuka 2019, Table 2),
+    # not this astronaut's own value. The noise is illustrative.
+    hrv: { value: 63, noiseSd: 6, sourceId: otsuka-2019-hrv }
     respiratoryRate: { value: 14, noiseSd: 1, sourceId: illustrative }
     skinTemp: { value: 33.5, noiseSd: 0.2, sourceId: illustrative }
     spo2: { value: 98, noiseSd: 0.5, sourceId: illustrative }
@@ -61,13 +69,15 @@ answers:
   byQuestion:
     q-fatigue: "Mild new fatigue after exercise, harder to finish the session"
     q-fluid-intake: "Less than usual"
+# Scripted results of active tests, keyed by test ID, then by measure ID (catalog/measures.yaml).
 testResults:
-  t-repeat-rest-hr: { hr: 67 }
-  t-bp: { sbp: 118, dbp: 72 }
+  t-repeat-rest-hr: { resting-hr: 67 }
+  t-bp: { systolic-bp: 118, diastolic-bp: 72 }
   t-spo2: { spo2: 98 }
-  t-temp: { celsius: 36.7 }
-  t-ecg: { rhythm: "sinus rhythm", rate: 68, arrhythmia: false }
-  t-std-exercise-test: { workloadWatts: 100, hr: 144 }
-  t-body-mass: { changeKg: -0.4 }
-  t-urine-color: { scale: 3 }
-  t-istat-chem8: { sodium: 140, bun: 17, creatinine: 0.9, hematocrit: 44 }
+  t-temp: { body-temperature: 36.7 }
+  t-ecg: { ecg-rhythm: "sinus rhythm", ecg-heart-rate: 68, ecg-arrhythmia: false }
+  t-std-exercise-test: { exercise-workload: 100, standard-exercise-hr: 144 }
+  t-body-mass: { body-mass-change: -0.4 }
+  t-urine-color: { urine-color: 3 }
+  t-istat-chem8:
+    { sodium-blood: 140, urea-nitrogen-blood: 17, creatinine-blood: 0.9, hematocrit-blood: 44 }

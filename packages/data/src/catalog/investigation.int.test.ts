@@ -147,6 +147,25 @@ describe("guardrails", () => {
     expect(reasons.join("\n")).toMatch(/t-mri is not on the equipment list/);
   });
 
+  it("marks only the leading ranked diagnosis provisional, never confirmed", () => {
+    const inv = demo2();
+    for (const q of inv.safetyQuestions()) inv.answer(q, "no");
+    inv.answer("q-fatigue", "More tired after workouts");
+    const cite = inv.log.map((l) => l.id);
+    const dx = (conditionId: string, confidence: number) => ({
+      ref: { conditionId },
+      confidence,
+      evidenceFor: cite.slice(0, 2),
+      evidenceAgainst: [],
+    });
+    const next = { kind: "question", id: "q-adherence" } as const;
+    expect(inv.apply(base({ diagnoses: [dx("cv-deconditioning", 0.6)], next }), NONE)).toEqual([]);
+    expect(inv.diagnoses.map((d) => d.verificationStatus)).toEqual(["provisional"]);
+    // The no-LLM fallback list is unranked: every entry stays differential.
+    expect(inv.apply(ruleBasedProposal(inv), NONE)).toEqual([]);
+    expect(inv.diagnoses.every((d) => d.verificationStatus === "differential")).toBe(true);
+  });
+
   it("accepts a citation of an answer that produced no finding", () => {
     const inv = demo2();
     inv.answer("q-chest-pain", "no");

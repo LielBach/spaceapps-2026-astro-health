@@ -1,15 +1,21 @@
 import type { EventView, SessionView } from "@astrohealth/core";
 import { day, post } from "../../api.ts";
-import { cmoAlert, confidenceWord, plainList } from "../../flow.ts";
+import { cmoAlert, confidenceWord, findingsOf, plainList, rationaleOf } from "../../flow.ts";
 import { AlertBanner } from "../AlertBanner.tsx";
+import { Codes } from "../Codes.tsx";
 import { Scan } from "../Record.tsx";
 import { Label, Src } from "../Source.tsx";
+
+/** FHIR R4 Condition.verificationStatus in words (docs/technical/10 rule 8). */
+const STATUS_WORDS = {
+  provisional: "provisional – for crew medical officer confirmation",
+  differential: "differential",
+} as const;
 
 /** Findings that the cited log lines carry, so evidence reads in words, not IDs. */
 function evidenceWords(event: EventView, logIds: string[], supports: string[] | undefined): string {
   const ids = logIds.flatMap((id) => {
-    const line = event.log.find((l) => l.id === id);
-    return (line?.data.findings as string[] | undefined) ?? [];
+    return findingsOf(event.log.find((l) => l.id === id));
   });
   const relevant = supports ? ids.filter((f) => supports.includes(f)) : ids;
   return plainList([...new Set(relevant.length > 0 ? relevant : ids)]);
@@ -43,7 +49,7 @@ export function CmoReview({ view, event }: { view: SessionView; event: EventView
       ? condition(next.conditionId)?.actions.find((a) => a.id === next.actionId)
       : undefined;
   const lastStep = event?.log.findLast((l) => ["question", "test", "action"].includes(l.stepType));
-  const rationale = typeof lastStep?.data.rationale === "string" ? lastStep.data.rationale : "";
+  const rationale = rationaleOf(lastStep) ?? "";
   const scans =
     event?.log.filter((l) => l.stepType === "result" && l.stepId && view.testImages[l.stepId]) ??
     [];
@@ -87,6 +93,9 @@ export function CmoReview({ view, event }: { view: SessionView; event: EventView
                   <div className="dx-head">
                     <strong>{d.name}</strong>
                     {!d.catalogued && <Label kind="UNCATALOGUED" />}
+                    <span className={`status-chip ${d.verificationStatus}`}>
+                      {STATUS_WORDS[d.verificationStatus]}
+                    </span>
                     {!event.unranked && (
                       <span className="confidence">
                         {confidenceWord(d.confidence)} · {Math.round(d.confidence * 100)}%
@@ -125,6 +134,8 @@ export function CmoReview({ view, event }: { view: SessionView; event: EventView
                           view.catalog.tests.find((t) => t.id === d.confirmingTest)?.name ??
                           d.confirmingTest
                         }`}
+                      <br />
+                      Codes: <Codes mappings={c.codes} />
                     </div>
                   )}
                   {!d.catalogued && (

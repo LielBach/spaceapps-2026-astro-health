@@ -17,6 +17,8 @@ mission:
   lengthDays: 75
   replayFromDay: 33
   commDelayMinutes: 20
+  # Fictional launch time (SIMULATED): only the FHIR export uses it, for ISO 8601 timestamps.
+  epoch: "2035-01-01T00:00:00Z"
 stream:
   sampleEveryHours: 1
   sleepHours: [22, 6]
@@ -28,7 +30,9 @@ stream:
   # No open per-astronaut HR exists for Maya: the resting HR is an example value (08 doc).
   baselines:
     hr: { value: 70, noiseSd: 2, sourceId: illustrative }
-    hrv: { value: 60, noiseSd: 6, sourceId: illustrative }
+    # HRV: the published in-flight group mean of 5-minute SDNN (SDNNIDX, Otsuka 2019, Table 2),
+    # not this astronaut's own value. The noise is illustrative.
+    hrv: { value: 63, noiseSd: 6, sourceId: otsuka-2019-hrv }
     respiratoryRate: { value: 14, noiseSd: 1, sourceId: illustrative }
     skinTemp: { value: 33.4, noiseSd: 0.2, sourceId: illustrative }
     spo2: { value: 98, noiseSd: 0.5, sourceId: illustrative }
@@ -93,13 +97,15 @@ testImages:
 answers:
   default: "no"
   byQuestion: {}
+# Scripted results of active tests, keyed by test ID, then by measure ID (catalog/measures.yaml).
 testResults:
-  t-repeat-rest-hr: { hr: 74 }
-  t-bp: { sbp: 116, dbp: 74 }
+  t-repeat-rest-hr: { resting-hr: 74 }
+  t-bp: { systolic-bp: 116, diastolic-bp: 74 }
   t-spo2: { spo2: 98 }
-  t-temp: { celsius: 36.8 }
-  t-ecg: { rhythm: "sinus rhythm", rate: 76, arrhythmia: false }
-  t-ultrasound-ijv: { flowDetected: false, compressible: false, thrombus: true }
-  t-body-mass: { changeKg: -0.3 }
-  t-urine-color: { scale: 3 }
-  t-istat-chem8: { sodium: 139, bun: 18, creatinine: 0.9, hematocrit: 41 }
+  t-temp: { body-temperature: 36.8 }
+  t-ecg: { ecg-rhythm: "sinus rhythm", ecg-heart-rate: 76, ecg-arrhythmia: false }
+  t-ultrasound-ijv: { ijv-flow-detected: false, ijv-compressible: false, ijv-thrombus: true }
+  t-body-mass: { body-mass-change: -0.3 }
+  t-urine-color: { urine-color: 3 }
+  t-istat-chem8:
+    { sodium-blood: 139, urea-nitrogen-blood: 18, creatinine-blood: 0.9, hematocrit-blood: 41 }

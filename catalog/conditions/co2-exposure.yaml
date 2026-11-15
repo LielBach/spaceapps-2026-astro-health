@@ -3,6 +3,21 @@ name: "Elevated cabin CO2 exposure"
 hazard: environment
 hrpRisk: "Hostile/closed environment: spacecraft atmosphere (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - {
+      system: snomed,
+      code: "212859008",
+      display: "Toxic effect of carbon dioxide",
+      equivalence: inexact,
+      note: "The catalog entry covers symptoms at elevated cabin CO2, below toxic levels.",
+    }
+  - {
+      system: icd10cm,
+      code: "T59.7X1",
+      display: "Toxic effect of carbon dioxide, accidental (unintentional)",
+      equivalence: inexact,
+    }
 supports: [f-co2-high, f-headache-vision, f-cognition-slow, f-rr-up]
 against: []
 questions: [q-headache-vision]

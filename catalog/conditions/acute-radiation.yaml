@@ -3,6 +3,21 @@ name: "Acute radiation exposure effects"
 hazard: radiation
 hrpRisk: "Space radiation exposure (HRP)"
 hrpRiskUrl: "https://www.nasa.gov/hrp/risks/"
+# Clinical codes (docs/technical/10 §5.4). Checked on tx.fhir.org and NLM Clinical Tables, 2026-11-15.
+codes:
+  - {
+      system: snomed,
+      code: "1260191006",
+      display: "Acute radiation syndrome",
+      equivalence: narrower,
+      note: "ARS is the clinical syndrome after a high whole-body dose. The catalog entry also covers milder effects of an acute exposure.",
+    }
+  - {
+      system: icd10cm,
+      code: "T66",
+      display: "Radiation sickness, unspecified",
+      equivalence: equivalent,
+    }
 supports: [f-radiation-dose-high, f-nausea, f-fatigue]
 against: []
 questions: [q-nausea, q-fatigue]

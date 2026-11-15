@@ -10,29 +10,16 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { MetricId, SessionView } from "@astrohealth/core";
+import { displayUnit, type MetricId, type SessionView } from "@astrohealth/core";
+import { MeasureCodes } from "./Codes.tsx";
 import { Label, Src } from "./Source.tsx";
 
-const METRICS: { id: MetricId; title: string; unit: string; note: string }[] = [
-  {
-    id: "standardExerciseHr",
-    title: "Heart rate at the standard exercise workload",
-    unit: "bpm",
-    note: "exercise device record at a matched workload",
-  },
-  { id: "maxWorkload", title: "Max workload test", unit: "W", note: "weekly exercise device test" },
-  {
-    id: "restingHr",
-    title: "Resting heart rate (daily mean)",
-    unit: "bpm",
-    note: "wearable, rest windows",
-  },
-  {
-    id: "sleepingHr",
-    title: "Sleeping heart rate (nightly mean)",
-    unit: "bpm",
-    note: "wearable, sleep windows",
-  },
+/** Charted metrics, in display order. Names, units and codes come from catalog/measures.yaml. */
+const METRICS: { id: MetricId; note: string }[] = [
+  { id: "standardExerciseHr", note: "exercise device record at a matched workload" },
+  { id: "maxWorkload", note: "weekly exercise device test" },
+  { id: "restingHr", note: "wearable, rest windows" },
+  { id: "sleepingHr", note: "wearable, sleep windows" },
 ];
 
 const COLORS = {
@@ -98,25 +85,30 @@ export function MetricChart({
 }) {
   const data = view.points.filter((p) => p.metric === metric.id);
   const last = data.at(-1);
+  const measure = view.catalog.measures.find((m) => m.metric === metric.id);
+  const title = measure?.display ?? metric.id;
+  const unit = displayUnit(view.catalog, measure);
   const { replayFromDay, lengthDays } = view.scenario.mission;
   return (
     <div className="chart">
       <div className="chart-head">
         <span>
-          {metric.title} <Label kind="SIMULATED" />
+          {title} <Label kind="SIMULATED" />
         </span>
         <span className="chart-value">
-          {last ? `${last.value} ${metric.unit}` : "—"}
-          {last && (
+          {last ? `${last.value} ${unit}` : "—"}
+          {last && last.baseline !== null && (
             <small>
               {" "}
-              baseline {last.baseline}, band limit {last.limit}
+              personal baseline {last.baseline}, alert limit {last.limit}
               <Src id="illustrative" />
             </small>
           )}
         </span>
       </div>
-      <div className="chart-note">{metric.note}</div>
+      <div className="chart-note">
+        {metric.note} <MeasureCodes measure={measure} compact />
+      </div>
       <ResponsiveContainer width="100%" height={150}>
         <ComposedChart data={data} margin={{ top: 14, right: 12, bottom: 0, left: -10 }}>
           <CartesianGrid stroke="var(--grid)" vertical={false} />
@@ -142,13 +134,13 @@ export function MetricChart({
           />
           <YAxis domain={["auto", "auto"]} tick={{ fontSize: 10 }} />
           <Tooltip
-            formatter={(v: unknown, name: unknown) => [`${String(v)} ${metric.unit}`, String(name)]}
+            formatter={(v: unknown, name: unknown) => [`${String(v)} ${unit}`, String(name)]}
             labelFormatter={(t: unknown) => `Day ${Number(t).toFixed(1)}`}
             contentStyle={{ background: "var(--panel)", border: "1px solid var(--line)" }}
           />
           <Line
             dataKey="baseline"
-            name="frozen baseline"
+            name="personal baseline"
             stroke={COLORS.baseline}
             dot={false}
             type="stepAfter"
@@ -156,7 +148,7 @@ export function MetricChart({
           />
           <Line
             dataKey="limit"
-            name="band limit"
+            name="alert limit (illustrative)"
             stroke={COLORS.limit}
             strokeDasharray="5 4"
             dot={false}
@@ -165,7 +157,7 @@ export function MetricChart({
           />
           <Line
             dataKey="value"
-            name={metric.title}
+            name={title}
             stroke={COLORS.value}
             isAnimationActive={false}
             dot={(props: {
@@ -193,13 +185,15 @@ export function MetricChart({
 /** Raw hourly heart rate, with the benign spikes the context filter ignored. */
 export function HeartRateChart({ view }: { view: SessionView }) {
   const from = view.day - 14;
+  const measure = view.catalog.measures.find((m) => m.signal === "hr");
   const data = view.hr.filter((s) => s.t >= from);
   const ignored = view.markers.filter((m) => m.kind === "ignored" && m.t >= from);
   return (
     <div className="chart">
       <div className="chart-head">
         <span>
-          Heart rate, hourly (last 14 days) <Label kind="SIMULATED" />
+          {measure?.display ?? "Heart rate"}, hourly (last 14 days) <Label kind="SIMULATED" />{" "}
+          <MeasureCodes measure={measure} compact />
         </span>
         <span className="chart-value">
           {view.hrBaselineSourceId &&

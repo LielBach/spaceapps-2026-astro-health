@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { EventView, SessionView, TestSpec } from "@astrohealth/core";
 import { post } from "../../api.ts";
-import { PHASES, testInstruction, wizardProgress } from "../../flow.ts";
+import { PHASES, rationaleOf, testInstruction, wizardProgress } from "../../flow.ts";
 import { Src } from "../Source.tsx";
 
 type Values = Record<string, number | string | boolean>;
@@ -84,7 +84,7 @@ export function QuestionStep({ view, event }: { view: SessionView; event: EventV
   });
   if (!id) return null;
   const text = event.pendingWording ?? question?.text;
-  const rationale = event.log.findLast((l) => l.stepType === "question")?.data.rationale;
+  const rationale = rationaleOf(event.log.findLast((l) => l.stepType === "question"));
   return (
     <div className="step">
       <Stepper event={event} />

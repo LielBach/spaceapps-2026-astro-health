@@ -4,6 +4,8 @@ import { appendFileSync, mkdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   DEFAULT_DETECTION,
+  dataOf,
+  type SurveillanceTriggerData,
   Detector,
   Investigation,
   ruleBasedProposal,
@@ -22,13 +24,15 @@ import {
   loadAnchors,
   loadCatalog,
   loadScenario,
+  normalizeAnchors,
+  scenarioProblems,
   type Intervention,
   type Scenario,
   type ScenarioMedia,
   type Stream,
 } from "@astrohealth/data";
 
-export const RULE_VERSION = "m1e-0.1";
+export const RULE_VERSION = "m1g-0.1";
 
 const round1 = (x: number) => Math.round(x * 10) / 10;
 
@@ -100,7 +104,13 @@ export class ReplaySession {
     this.sources = (
       JSON.parse(readFileSync(paths.sources, "utf8")) as { sources: SessionView["sources"] }
     ).sources;
-    this.anchors = loadAnchors(paths.anchors, this.scenario.astronaut.anchorSources);
+    this.anchors = normalizeAnchors(
+      loadAnchors(paths.anchors, this.scenario.astronaut.anchorSources),
+      this.catalog,
+    );
+    const problems = scenarioProblems(this.scenario, this.catalog);
+    if (problems.length > 0)
+      throw new Error(`scenario ${this.scenario.id}:\n${problems.join("\n")}`);
     this.stream = createStream(this.scenario, this.anchors);
     this.surveillance = this.scenario.record.flatMap((entry) =>
       this.catalog.conditions
@@ -285,7 +295,7 @@ export class ReplaySession {
       markers: this.markers,
       events: this.events.map((e) => ({
         id: e.eventId,
-        trigger: e.log[0]?.data.trigger as string,
+        trigger: dataOf(e.log[0], "trigger")?.trigger ?? "passive",
         phase: e.phase,
         outcome: e.outcome,
         openedAt: e.log[0]?.missionDay ?? 0,
@@ -467,7 +477,7 @@ export class ReplaySession {
     trigger: "passive" | "urgent" | "surveillance",
     t: number,
     findings: { id: string; origin: "signal" | "record"; context?: boolean }[],
-    triggerData?: Record<string, unknown>,
+    triggerData?: { surveillance: SurveillanceTriggerData },
   ): Investigation {
     const inv = new Investigation(this.catalog, {
       eventId: `evt-${String(this.events.length + 1).padStart(3, "0")}`,

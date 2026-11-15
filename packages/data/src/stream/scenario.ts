@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { parse } from "yaml";
 import { z } from "zod";
-import { PASSIVE_SIGNALS } from "@astrohealth/core";
+import { PASSIVE_SIGNALS, measureDef, resultProblems, type Catalog } from "@astrohealth/core";
 
 const Signal = z.enum(PASSIVE_SIGNALS);
 
@@ -69,6 +69,8 @@ export const ScenarioSchema = z.object({
     lengthDays: z.number().positive(),
     replayFromDay: z.number(),
     commDelayMinutes: z.number().nonnegative(),
+    /** Launch time (ISO 8601 UTC) for the FHIR export. A demo epoch is fictional (SIMULATED). */
+    epoch: z.string().datetime().optional(),
   }),
   stream: z.object({
     sampleEveryHours: z.number().positive(),
@@ -113,4 +115,22 @@ export type ScenarioMedia = z.infer<typeof Media>;
 
 export function loadScenario(path: string): Scenario {
   return ScenarioSchema.parse(parse(readFileSync(path, "utf8")));
+}
+
+/** Scenario references that the catalog must know: scripted results, labs and charts. */
+export function scenarioProblems(scenario: Scenario, catalog: Catalog): string[] {
+  const problems: string[] = [];
+  for (const [testId, values] of Object.entries(scenario.testResults)) {
+    const spec = catalog.tests.find((t) => t.id === testId);
+    if (!spec) problems.push(`testResults: unknown test ${testId}`);
+    else problems.push(...resultProblems(catalog, testId, spec.returns, values));
+  }
+  for (const m of scenario.labs?.measures ?? [])
+    if (!measureDef(catalog, m)) problems.push(`labs: unknown measure ${m}`);
+  for (const c of scenario.charts ?? [])
+    if (!catalog.measures.some((m) => m.metric === c)) problems.push(`charts: unknown metric ${c}`);
+  for (const e of scenario.record)
+    if (e.finding && !catalog.findings.some((f) => f.id === e.finding))
+      problems.push(`record ${e.id}: unknown finding ${e.finding}`);
+  return problems;
 }

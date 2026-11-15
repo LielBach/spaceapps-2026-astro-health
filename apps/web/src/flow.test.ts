@@ -29,7 +29,7 @@ function line(
     ruleVersion: "test",
     data,
     ...extra,
-  };
+  } as LogLine;
 }
 
 function event(over: Partial<EventView> = {}): EventView {

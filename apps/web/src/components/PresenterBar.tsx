@@ -134,6 +134,14 @@ export function PresenterBar({ view }: { view: SessionView }) {
         Autopilot
       </label>
       <LiveBranch view={view} />
+      <a
+        className="export"
+        href="/api/fhir/export"
+        download
+        title="FHIR R4 Bundle of this run: coded observations, suspected conditions, tasks and provenance"
+      >
+        Export FHIR
+      </a>
       <span className="provider">
         Reasoner:{" "}
         {view.provider === "none" ? "no-LLM fallback" : `${view.provider} ${view.model ?? ""}`}

@@ -102,6 +102,18 @@ _Avoid_: Medical record, EHR, history
 A measured value from a real astronaut in an open dataset, such as an Inspiration4 lab result. It sets a personal baseline or appears as a lab draw in the replay.
 _Avoid_: Ground truth, real data (without saying which values)
 
+**Measure**:
+A kind of thing that is measured, such as sleeping heart rate or serum albumin, with one fixed meaning and unit.
+_Avoid_: Signal (for labs), metric (outside detection), parameter
+
+**Measurement**:
+One value of a measure for one astronaut at one mission time, with its unit, source and data label.
+_Avoid_: Reading, vital, data point
+
+**Local code**:
+An AstroHealth code for a measure, finding or condition that has no exact standard code. It always states the nearest standard code and how close that code is.
+_Avoid_: Custom code, internal ID
+
 **Composite astronaut**:
 A demo astronaut whose real values come from two different real people. Only Demo 1 has one (ADR 0009), and the UI marks it COMPOSITE with both sources.
 _Avoid_: Real astronaut, synthetic astronaut

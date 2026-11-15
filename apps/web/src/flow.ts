@@ -1,6 +1,27 @@
-// Pure UI state for the crew tablet and the clinical panel (M1g). No React here, so it is unit-tested.
+// Pure UI state for the crew tablet and the clinical panel (M1h). No React here, so it is unit-tested.
 // The astronaut sees one task at a time, in plain words; the clinical panel keeps IDs and citations.
-import type { Catalog, EventView, LogLine, SessionView } from "@astrohealth/core";
+import {
+  dataOf,
+  type Catalog,
+  type EventView,
+  type LogLine,
+  type SessionView,
+} from "@astrohealth/core";
+
+/** The findings an answer, result or trigger line carries; none for other step types. */
+export function findingsOf(line: LogLine | undefined): string[] {
+  return (
+    dataOf(line, "answer")?.findings ??
+    dataOf(line, "result")?.findings ??
+    dataOf(line, "trigger")?.findings ??
+    []
+  );
+}
+
+/** The reasoner's rationale for a question, test or action line. */
+export function rationaleOf(line: LogLine | undefined): string | undefined {
+  return line && "rationale" in line.data ? line.data.rationale : undefined;
+}
 
 export type CrewScreen =
   | "home"
@@ -108,12 +129,15 @@ export function cmoAlert(view: SessionView, event: EventView | undefined): Alert
     return { level: "none", word: "All clear", title: "No open event" };
   }
   if (event.phase === "closed") {
-    const line = event.log.findLast((l) => l.stepType === "escalate");
+    const data = dataOf(
+      event.log.findLast((l) => l.stepType === "escalate"),
+      "escalate",
+    );
     return {
       level: "critical",
       word: "Critical",
-      title: `Escalated: ${String(line?.data.reason ?? "crew medical officer review")}`,
-      body: typeof line?.data.text === "string" ? line.data.text : undefined,
+      title: `Escalated: ${data?.reason ?? "crew medical officer review"}`,
+      body: data?.text,
     };
   }
   if (event.phase === "followUp")
@@ -223,13 +247,9 @@ export function triggerText(event: EventView): {
   dueDay?: number | undefined;
   sourceId?: string | undefined;
 } {
-  const data = event.log[0]?.data ?? {};
-  const findings = ((data.findings as string[] | undefined) ?? []).filter(
-    (f) => f !== "f-resting-hr-in-band",
-  );
-  const surveillance = data.surveillance as
-    | { dueDay: number; early: boolean; sourceId: string }
-    | undefined;
+  const trigger = dataOf(event.log[0], "trigger");
+  const findings = (trigger?.findings ?? []).filter((f) => f !== "f-resting-hr-in-band");
+  const surveillance = trigger?.surveillance;
   if (event.trigger === "surveillance" && surveillance) {
     return {
       text: `Your record has an earlier neck-vein finding that needs a check under the mission medical protocol.${
@@ -258,7 +278,7 @@ const CONDITIONS: Record<string, string> = {
 /** Why the event escalated, in plain words for the astronaut. */
 export function plainEscalation(event: EventView): string {
   const line = event.log.findLast((l) => l.stepType === "escalate");
-  const reason = String(line?.data.reason ?? "");
+  const reason = dataOf(line, "escalate")?.reason ?? "";
   if (reason.startsWith("red flag:"))
     return `You reported: ${reason.slice("red flag:".length).trim().toLowerCase()}.`;
   if (reason.startsWith("urgent interrupt:"))
@@ -298,10 +318,11 @@ export function testInstruction(catalog: Catalog, testId: string): string {
 
 /** One past answer or result, in plain words. */
 export function plainStep(catalog: Catalog, line: LogLine): { label: string; value: string } {
-  const findings = (line.data.findings as string[] | undefined) ?? [];
-  if (line.stepType === "answer") {
+  const findings = findingsOf(line);
+  const answer = dataOf(line, "answer");
+  if (answer) {
     const q = catalog.questions.find((x) => x.id === line.stepId);
-    return { label: q?.text ?? String(line.stepId), value: String(line.data.text) };
+    return { label: q?.text ?? String(line.stepId), value: answer.text };
   }
   const name = catalog.tests.find((t) => t.id === line.stepId)?.name ?? String(line.stepId);
   return {
